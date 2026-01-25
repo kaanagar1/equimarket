@@ -32,6 +32,7 @@ app.use('/api/blogs', require('./routes/blogs'));
 app.use('/api/support', require('./routes/support'));
 app.use('/api/upload', require('./routes/upload'));
 app.use('/api/reviews', require('./routes/reviews'));
+app.use('/api/notifications', require('./routes/notifications'));
 
 // Ana sayfa
 app.get('/', (req, res) => {

@@ -54,9 +54,9 @@ router.use(protect); // Bundan sonraki tüm route'lar için auth gerekli
 router.get('/user/my-listings', getMyListings);
 router.post('/:id/favorite', toggleFavorite);
 
-// Seller routes
-router.post('/', isSeller, horseValidation, createHorse);
-router.put('/:id', isSeller, updateHorse);
-router.delete('/:id', isSeller, deleteHorse);
+// User routes (herkes ilan verebilir)
+router.post('/', horseValidation, createHorse);
+router.put('/:id', updateHorse);
+router.delete('/:id', deleteHorse);
 
 module.exports = router;
