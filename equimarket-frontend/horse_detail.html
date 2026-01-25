@@ -1,0 +1,2289 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thunder Bay - EquiMarket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --racing-green: #1a3d2e;
+            --racing-green-light: #2d5a47;
+            --gold: #c9a55c;
+            --gold-light: #e8d5a8;
+            --cream: #faf8f3;
+            --charcoal: #2a2a2a;
+            --warm-gray: #6b6b6b;
+            --light-gray: #f5f4f0;
+            --white: #ffffff;
+            --success: #4a7c59;
+            --info: #3b82f6;
+            --warning: #f59e0b;
+            --shadow-soft: 0 4px 20px rgba(26, 61, 46, 0.08);
+            --shadow-medium: 0 8px 40px rgba(26, 61, 46, 0.12);
+            --shadow-strong: 0 20px 60px rgba(26, 61, 46, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(26, 61, 46, 0.08);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--racing-green);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--gold);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--racing-green);
+        }
+
+        .logo-text span {
+            color: var(--gold);
+        }
+
+        nav {
+            display: flex;
+            gap: 36px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--racing-green);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--charcoal);
+        }
+
+        .btn-ghost:hover {
+            background: var(--light-gray);
+        }
+
+        .btn-primary {
+            background: var(--racing-green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--racing-green-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold) 0%, #d4b06a 100%);
+            color: var(--charcoal);
+            font-weight: 700;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 165, 92, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--racing-green);
+            color: var(--racing-green);
+        }
+
+        .btn-outline:hover {
+            background: var(--racing-green);
+            color: var(--white);
+        }
+
+        .btn-lg {
+            padding: 16px 32px;
+            font-size: 16px;
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 40px 20px;
+            font-size: 14px;
+            color: var(--warm-gray);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .breadcrumb a {
+            color: var(--racing-green);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--gold);
+        }
+
+        .breadcrumb svg {
+            width: 14px;
+            height: 14px;
+            stroke: var(--warm-gray);
+            fill: none;
+        }
+
+        /* Main Layout */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px 80px;
+        }
+
+        .detail-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 40px;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        /* Horse Header */
+        .horse-header {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .horse-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .horse-name {
+            font-size: 42px;
+            color: var(--charcoal);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .verified-badge {
+            background: var(--success);
+            color: var(--white);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .verified-badge svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+        }
+
+        .horse-breed {
+            font-size: 18px;
+            color: var(--warm-gray);
+        }
+
+        .horse-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .action-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            border: 1px solid var(--light-gray);
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--warm-gray);
+        }
+
+        .action-btn:hover {
+            border-color: var(--racing-green);
+            color: var(--racing-green);
+        }
+
+        .action-btn.active {
+            background: #fee2e2;
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .action-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .action-btn.active svg {
+            fill: currentColor;
+        }
+
+        /* Quick Info */
+        .quick-info {
+            display: flex;
+            gap: 32px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-gray);
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--light-gray);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--racing-green);
+        }
+
+        .info-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .info-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: var(--warm-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        /* Photo Gallery */
+        .photo-gallery {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .main-photo {
+            width: 100%;
+            height: 480px;
+            background: linear-gradient(135deg, #e8e6e1 0%, #d4d2cd 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-photo .placeholder-icon {
+            width: 120px;
+            height: 120px;
+            opacity: 0.2;
+        }
+
+        .main-photo .placeholder-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--charcoal);
+        }
+
+        .photo-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .photo-badge svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+        }
+
+        .photo-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .photo-nav:hover {
+            background: var(--white);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .photo-nav svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--charcoal);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .photo-nav.prev { left: 20px; }
+        .photo-nav.next { right: 20px; }
+
+        .thumbnail-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+        }
+
+        .thumbnail {
+            height: 80px;
+            background: linear-gradient(135deg, #e8e6e1 0%, #d4d2cd 100%);
+            border-radius: 10px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumbnail:hover {
+            border-color: var(--gold);
+        }
+
+        .thumbnail.active {
+            border-color: var(--racing-green);
+        }
+
+        .thumbnail svg {
+            width: 24px;
+            height: 24px;
+            fill: rgba(0,0,0,0.15);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .section-title {
+            font-size: 24px;
+            color: var(--charcoal);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title svg {
+            width: 28px;
+            height: 28px;
+            fill: none;
+            stroke: var(--gold);
+            stroke-width: 1.5;
+        }
+
+        /* Pedigree Tree */
+        .pedigree-tree {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .pedigree-column {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            min-width: 180px;
+        }
+
+        .pedigree-column-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--warm-gray);
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .pedigree-box {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            border-left: 4px solid var(--racing-green);
+            transition: all 0.3s ease;
+        }
+
+        .pedigree-box:hover {
+            background: var(--white);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .pedigree-box.male {
+            border-left-color: var(--info);
+        }
+
+        .pedigree-box.female {
+            border-left-color: #ec4899;
+        }
+
+        .pedigree-name {
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 4px;
+        }
+
+        .pedigree-meta {
+            font-size: 12px;
+            color: var(--warm-gray);
+        }
+
+        .pedigree-more {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-width: 140px;
+        }
+
+        .btn-pedigree-more {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 20px 16px;
+            background: linear-gradient(135deg, var(--racing-green-light) 0%, var(--racing-green) 100%);
+            color: var(--white);
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(26, 61, 46, 0.2);
+        }
+
+        .btn-pedigree-more:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 16px rgba(26, 61, 46, 0.3);
+        }
+
+        .btn-pedigree-more svg {
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Racing History */
+        .race-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .race-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .race-table th {
+            text-align: left;
+            padding: 16px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--warm-gray);
+            background: var(--light-gray);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .race-table th:first-child {
+            border-radius: 8px 0 0 0;
+        }
+
+        .race-table th:last-child {
+            border-radius: 0 8px 0 0;
+        }
+
+        .race-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--light-gray);
+            font-size: 14px;
+        }
+
+        .race-table tbody tr:hover {
+            background: var(--light-gray);
+        }
+
+        .position-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .position-1 {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #78350f;
+        }
+
+        .position-2 {
+            background: linear-gradient(135deg, #d1d5db, #9ca3af);
+            color: #374151;
+        }
+
+        .position-3 {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            color: white;
+        }
+
+        .race-prize {
+            font-weight: 600;
+            color: var(--success);
+        }
+
+        /* Attributes Grid */
+        .attributes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .attribute-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: var(--light-gray);
+            border-radius: 12px;
+        }
+
+        .attribute-label {
+            color: var(--warm-gray);
+            font-size: 14px;
+        }
+
+        .attribute-value {
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        /* Description */
+        .description-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--charcoal);
+        }
+
+        .description-text p {
+            margin-bottom: 16px;
+        }
+
+        .description-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        /* Price Card */
+        .price-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: var(--shadow-medium);
+            border: 2px solid var(--gold);
+        }
+
+        .price-label {
+            font-size: 14px;
+            color: var(--warm-gray);
+            margin-bottom: 8px;
+        }
+
+        .price-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 8px;
+        }
+
+        .price-note {
+            font-size: 13px;
+            color: var(--warm-gray);
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .price-cta {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .price-cta .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Seller Card */
+        .seller-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .seller-header {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .seller-avatar {
+            width: 64px;
+            height: 64px;
+            background: var(--light-gray);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--warm-gray);
+        }
+
+        .seller-avatar svg {
+            width: 32px;
+            height: 32px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.5;
+        }
+
+        .seller-info {
+            flex: 1;
+        }
+
+        .seller-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 4px;
+        }
+
+        .seller-location {
+            font-size: 14px;
+            color: var(--warm-gray);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .seller-location svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: currentColor;
+        }
+
+        .seller-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+            padding: 16px 0;
+            border-top: 1px solid var(--light-gray);
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .seller-stat {
+            text-align: center;
+        }
+
+        .seller-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--charcoal);
+        }
+
+        .seller-stat-label {
+            font-size: 11px;
+            color: var(--warm-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .seller-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .seller-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            background: var(--light-gray);
+            border-radius: 6px;
+            font-size: 12px;
+            color: var(--charcoal);
+        }
+
+        .seller-badge svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: var(--success);
+            stroke-width: 2;
+        }
+
+        .seller-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .seller-actions .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Safety Card */
+        .safety-card {
+            background: var(--light-gray);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .safety-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .safety-title svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: var(--success);
+            stroke-width: 2;
+        }
+
+        .safety-list {
+            list-style: none;
+        }
+
+        .safety-list li {
+            font-size: 13px;
+            color: var(--warm-gray);
+            padding: 8px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .safety-list li svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: var(--success);
+            stroke-width: 2;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Similar Horses */
+        .similar-section {
+            margin-top: 60px;
+        }
+
+        .similar-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .similar-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .similar-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .similar-card-image {
+            height: 160px;
+            background: linear-gradient(135deg, #e8e6e1 0%, #d4d2cd 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .similar-card-image svg {
+            width: 48px;
+            height: 48px;
+            fill: rgba(0,0,0,0.1);
+        }
+
+        .similar-card-content {
+            padding: 20px;
+        }
+
+        .similar-card-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 4px;
+        }
+
+        .similar-card-breed {
+            font-size: 13px;
+            color: var(--warm-gray);
+            margin-bottom: 12px;
+        }
+
+        .similar-card-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--warm-gray);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: var(--white);
+            padding: 60px 40px 30px;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand {
+            max-width: 280px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .footer-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--racing-green);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-logo-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--gold);
+        }
+
+        .footer-logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .footer-logo-text span {
+            color: var(--gold);
+        }
+
+        .footer-description {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+        }
+
+        .footer-column h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .detail-layout {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+            .safety-card {
+                grid-column: span 2;
+            }
+            .similar-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-inner {
+                padding: 15px 20px;
+            }
+            nav {
+                display: none;
+            }
+            .breadcrumb {
+                padding: 90px 20px 15px;
+            }
+            .container {
+                padding: 0 20px 60px;
+            }
+            .horse-name {
+                font-size: 32px;
+            }
+            .quick-info {
+                gap: 20px;
+            }
+            .main-photo {
+                height: 300px;
+            }
+            .thumbnail-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .pedigree-tree {
+                flex-direction: column;
+            }
+            .attributes-grid {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                grid-template-columns: 1fr;
+            }
+            .safety-card {
+                grid-column: span 1;
+            }
+            .similar-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay - sayfa yüklenene kadar gösterilir -->
+    <div id="pageLoading" style="position:fixed;top:0;left:0;right:0;bottom:0;background:var(--cream);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;">
+        <div style="width:60px;height:60px;border:3px solid var(--light-gray);border-top-color:var(--racing-green);border-radius:50%;animation:spin 1s linear infinite;"></div>
+        <p style="margin-top:20px;color:var(--warm-gray);">Yükleniyor...</p>
+        <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <a href="homepage_v2.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7"/>
+                    </svg>
+                </div>
+                <div class="logo-text">Equi<span>Market</span></div>
+            </a>
+            <nav>
+                <a href="homepage_v2.html">Ana Sayfa</a>
+                <a href="ilanlar.html">İlanlar</a>
+                <a href="about.html">Hakkımızda</a>
+                <a href="contact.html">İletişim</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login_register.html" class="btn btn-ghost">Giriş Yap</a>
+                <a href="login_register.html" class="btn btn-primary">Kayıt Ol</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="homepage_v2.html">Ana Sayfa</a>
+        <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <a href="#">Atlar</a>
+        <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <a href="#">İngiliz</a>
+        <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Thunder Bay</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="detail-layout">
+            <!-- Left Column -->
+            <div class="main-content">
+                <!-- Horse Header -->
+                <div class="horse-header">
+                    <div class="horse-title-row">
+                        <div>
+                            <h1 class="horse-name">
+                                Thunder Bay
+                                <span class="verified-badge">
+                                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                                    Doğrulanmış
+                                </span>
+                            </h1>
+                            <p class="horse-breed">İngiliz (Thoroughbred) · Yarış Atı</p>
+                        </div>
+                        <div class="horse-actions">
+                            <button class="action-btn" id="btn-favorite" title="Favorilere Ekle" onclick="toggleFavorite()">
+                                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                            </button>
+                            <button class="action-btn" title="Paylaş" onclick="shareHorse()">
+                                <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                            </button>
+                            <button class="action-btn" title="Yazdır" onclick="window.print()">
+                                <svg viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="quick-info">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                            </div>
+                            <div class="info-text">
+                                <span class="info-label">Yaş</span>
+                                <span class="info-value">3 Yaş (2022)</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+                            </div>
+                            <div class="info-text">
+                                <span class="info-label">Cinsiyet</span>
+                                <span class="info-value">Erkek (Aygır)</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                            </div>
+                            <div class="info-text">
+                                <span class="info-label">Renk</span>
+                                <span class="info-value">Doru</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </div>
+                            <div class="info-text">
+                                <span class="info-label">Konum</span>
+                                <span class="info-value">İstanbul, Veliefendi</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo Gallery -->
+                <div class="photo-gallery">
+                    <div class="main-photo">
+                        <div class="placeholder-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7"/>
+                            </svg>
+                        </div>
+                        <span class="photo-badge">
+                            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                            1 / 8
+                        </span>
+                        <button class="photo-nav prev">
+                            <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <button class="photo-nav next">
+                            <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+                        </button>
+                    </div>
+                    <div class="thumbnail-grid">
+                        <div class="thumbnail active">
+                            <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                        </div>
+                        <div class="thumbnail">
+                            <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                        </div>
+                        <div class="thumbnail">
+                            <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                        </div>
+                        <div class="thumbnail">
+                            <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                        </div>
+                        <div class="thumbnail">
+                            <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                        </div>
+                        <div class="thumbnail">
+                            <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pedigree Section -->
+                <div class="content-section">
+                    <h2 class="section-title">
+                        <svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M7 7v0M17 7v0M7 17v0M17 17v0"/></svg>
+                        Soy Ağacı
+                    </h2>
+                    <div class="pedigree-tree">
+                        <div class="pedigree-column">
+                            <div class="pedigree-column-title">At</div>
+                            <div class="pedigree-box">
+                                <div class="pedigree-name">Thunder Bay</div>
+                                <div class="pedigree-meta">2022 · Doru · Erkek</div>
+                            </div>
+                        </div>
+                        <div class="pedigree-column">
+                            <div class="pedigree-column-title">Ebeveynler</div>
+                            <div class="pedigree-box male">
+                                <div class="pedigree-name">Lightning Strike</div>
+                                <div class="pedigree-meta">2016 · Kır · Erkek</div>
+                            </div>
+                            <div class="pedigree-box female">
+                                <div class="pedigree-name">Storm Queen</div>
+                                <div class="pedigree-meta">2015 · Doru · Dişi</div>
+                            </div>
+                        </div>
+                        <div class="pedigree-column">
+                            <div class="pedigree-column-title">Büyük Ebeveynler</div>
+                            <div class="pedigree-box male">
+                                <div class="pedigree-name">Thunder King</div>
+                                <div class="pedigree-meta">2010 · Kır</div>
+                            </div>
+                            <div class="pedigree-box female">
+                                <div class="pedigree-name">Fast Lady</div>
+                                <div class="pedigree-meta">2012 · Doru</div>
+                            </div>
+                            <div class="pedigree-box male">
+                                <div class="pedigree-name">Royal Star</div>
+                                <div class="pedigree-meta">2009 · Yağız</div>
+                            </div>
+                            <div class="pedigree-box female">
+                                <div class="pedigree-name">Diamond Rose</div>
+                                <div class="pedigree-meta">2011 · Al</div>
+                            </div>
+                        </div>
+                        <div class="pedigree-column pedigree-more">
+                            <div class="pedigree-column-title" style="visibility: hidden;">.</div>
+                            <a href="#" class="btn-pedigree-more">
+                                <svg viewBox="0 0 24 24" style="width: 20px; height: 20px;"><path d="M9 18l6-6-6-6"/></svg>
+                                <span>Daha fazlası için</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Racing History -->
+                <div class="content-section">
+                    <h2 class="section-title">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+                        Yarış Geçmişi
+                    </h2>
+                    <div class="race-table-wrapper">
+                        <table class="race-table">
+                            <thead>
+                                <tr>
+                                    <th>Tarih</th>
+                                    <th>Hipodrom</th>
+                                    <th>Yarış</th>
+                                    <th>Mesafe</th>
+                                    <th>Derece</th>
+                                    <th>Jokey</th>
+                                    <th>İkramiye</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>15.12.2025</td>
+                                    <td>Veliefendi</td>
+                                    <td>Kış Koşusu</td>
+                                    <td>1600m</td>
+                                    <td><span class="position-badge position-1">1</span></td>
+                                    <td>Ahmet Çelik</td>
+                                    <td class="race-prize">₺125,000</td>
+                                </tr>
+                                <tr>
+                                    <td>28.11.2025</td>
+                                    <td>Veliefendi</td>
+                                    <td>3 Yaş Tay Koşusu</td>
+                                    <td>1400m</td>
+                                    <td><span class="position-badge position-2">2</span></td>
+                                    <td>Ahmet Çelik</td>
+                                    <td class="race-prize">₺45,000</td>
+                                </tr>
+                                <tr>
+                                    <td>10.11.2025</td>
+                                    <td>Veliefendi</td>
+                                    <td>Sonbahar Koşusu</td>
+                                    <td>1600m</td>
+                                    <td><span class="position-badge position-1">1</span></td>
+                                    <td>Ahmet Çelik</td>
+                                    <td class="race-prize">₺85,000</td>
+                                </tr>
+                                <tr>
+                                    <td>22.10.2025</td>
+                                    <td>Bursa</td>
+                                    <td>Cumhuriyet Koşusu</td>
+                                    <td>1800m</td>
+                                    <td><span class="position-badge position-3">3</span></td>
+                                    <td>Mehmet Kaya</td>
+                                    <td class="race-prize">₺30,000</td>
+                                </tr>
+                                <tr>
+                                    <td>05.10.2025</td>
+                                    <td>Veliefendi</td>
+                                    <td>Ekim Koşusu</td>
+                                    <td>1400m</td>
+                                    <td><span class="position-badge position-1">1</span></td>
+                                    <td>Ahmet Çelik</td>
+                                    <td class="race-prize">₺75,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Detailed Attributes -->
+                <div class="content-section">
+                    <h2 class="section-title">
+                        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+                        Detaylı Bilgiler
+                    </h2>
+                    <div class="attributes-grid">
+                        <div class="attribute-item">
+                            <span class="attribute-label">Doğum Tarihi</span>
+                            <span class="attribute-value">15 Mart 2022</span>
+                        </div>
+                        <div class="attribute-item">
+                            <span class="attribute-label">Doğum Yeri</span>
+                            <span class="attribute-value">İstanbul, Türkiye</span>
+                        </div>
+                        <div class="attribute-item">
+                            <span class="attribute-label">Yükseklik</span>
+                            <span class="attribute-value">165 cm</span>
+                        </div>
+                        <div class="attribute-item">
+                            <span class="attribute-label">Ağırlık</span>
+                            <span class="attribute-value">480 kg</span>
+                        </div>
+                        <div class="attribute-item">
+                            <span class="attribute-label">TJK Bağlantısı</span>
+                            <span class="attribute-value"><a href="#" style="color: var(--racing-green);">Profili Görüntüle</a></span>
+                        </div>
+                        <div class="attribute-item">
+                            <span class="attribute-label">Toplam Yarış</span>
+                            <span class="attribute-value">8 Yarış</span>
+                        </div>
+                        <div class="attribute-item">
+                            <span class="attribute-label">Birincilik</span>
+                            <span class="attribute-value">4 Birincilik</span>
+                        </div>
+                        <div class="attribute-item">
+                            <span class="attribute-label">Toplam Kazanç</span>
+                            <span class="attribute-value">₺485,000</span>
+                        </div>
+                        <div class="attribute-item">
+                            <span class="attribute-label">Son Sağlık Kontrolü</span>
+                            <span class="attribute-value">10 Aralık 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="content-section">
+                    <h2 class="section-title">
+                        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                        Satıcı Açıklaması
+                    </h2>
+                    <div class="description-text">
+                        <p>Thunder Bay, olağanüstü yarış performansı ve güçlü soy geçmişiyle dikkat çeken üstün yetenekli bir İngiliz safkan yarış atıdır. 2022 yılında İstanbul'da doğan bu muhteşem aygır, Lightning Strike ve Storm Queen'in birleşiminden gelen seçkin genetik özellikleri taşımaktadır.</p>
+                        <p>Eğitim sürecinde gösterdiği hızlı öğrenme kapasitesi ve yarışlardaki istikrarlı performansıyla antrenörlerinin övgüsünü kazanmıştır. Özellikle 1600 metre mesafedeki yarışlarda sergilediği patlayıcı finish gücü, onu kategorisinin en dikkat çekici atlarından biri haline getirmiştir.</p>
+                        <p>Sağlık durumu mükemmel olup, tüm aşıları ve veteriner kontrolleri günceldir. Detaylı sağlık raporları ve yarış kayıtları talep üzerine paylaşılabilir. Ciddi alıcıların yerinde görüntüleme için randevu alması tavsiye edilir.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Sidebar -->
+            <aside class="sidebar">
+                <!-- Price Card -->
+                <div class="price-card">
+                    <div class="price-label">Satış Fiyatı</div>
+                    <div class="price-value" id="horse-price">₺2,850,000</div>
+                    <div class="price-note">KDV dahil · Pazarlık payı mevcut</div>
+                    <div class="price-cta">
+                        <button class="btn btn-gold btn-lg" id="btn-message" onclick="startConversation()">
+                            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                            Mesaj Gönder
+                        </button>
+                        <button class="btn btn-outline" id="btn-phone" onclick="showPhone()">
+                            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                            Telefon Göster
+                        </button>
+                        <button class="btn btn-primary" id="btn-offer" onclick="makeOffer()">
+                            <svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                            Teklif Ver
+                        </button>
+                        <a href="#" class="btn btn-outline" id="btn-edit" style="display:none;">
+                            <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            İlanı Düzenle
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Seller Card -->
+                <div class="seller-card" id="sellerCard">
+                    <div class="seller-header">
+                        <a href="#" class="seller-avatar" id="sellerAvatarLink">
+                            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        </a>
+                        <div class="seller-info">
+                            <a href="#" id="sellerNameLink" style="text-decoration: none; color: inherit;">
+                                <h3 class="seller-name" id="sellerName">Satıcı</h3>
+                            </a>
+                            <p class="seller-location" id="sellerLocation">
+                                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Türkiye</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="seller-stats">
+                        <div class="seller-stat">
+                            <div class="seller-stat-value" id="sellerListings">0</div>
+                            <div class="seller-stat-label">Aktif İlan</div>
+                        </div>
+                        <div class="seller-stat">
+                            <div class="seller-stat-value" id="sellerSales">0</div>
+                            <div class="seller-stat-label">Satış</div>
+                        </div>
+                        <div class="seller-stat">
+                            <div class="seller-stat-value" id="sellerRating">-</div>
+                            <div class="seller-stat-label">Puan</div>
+                        </div>
+                    </div>
+                    <div class="seller-badges" id="sellerBadges">
+                        <!-- Badges will be added dynamically -->
+                    </div>
+                    <div class="seller-actions">
+                        <a href="#" class="btn btn-outline" id="viewProfileBtn">Profili Görüntüle</a>
+                        <a href="#" class="btn btn-ghost" id="otherListingsBtn">Diğer İlanları</a>
+                    </div>
+                </div>
+
+                <!-- Safety Card -->
+                <div class="safety-card">
+                    <h4 class="safety-title">
+                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        Güvenli Alışveriş İpuçları
+                    </h4>
+                    <ul class="safety-list">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Atı satın almadan önce mutlaka yerinde görün
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Veteriner kontrolü yaptırmadan ödeme yapmayın
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Atın belgelerini ve geçmişini doğrulayın
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Ödemeyi güvenli yöntemlerle yapın
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Şüpheli durumları bize bildirin
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Similar Horses -->
+        <div class="similar-section">
+            <h2 class="section-title" style="margin-bottom: 32px;">
+                <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                Benzer İlanlar
+            </h2>
+            <div class="similar-grid">
+                <div class="similar-card">
+                    <div class="similar-card-image">
+                        <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                    </div>
+                    <div class="similar-card-content">
+                        <h3 class="similar-card-name">Golden Dawn</h3>
+                        <p class="similar-card-breed">İngiliz (Thoroughbred)</p>
+                        <div class="similar-card-meta">
+                            <span>3 Yaş</span>
+                            <span>·</span>
+                            <span>Erkek</span>
+                            <span>·</span>
+                            <span>Doru</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="similar-card">
+                    <div class="similar-card-image">
+                        <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                    </div>
+                    <div class="similar-card-content">
+                        <h3 class="similar-card-name">Swift Runner</h3>
+                        <p class="similar-card-breed">İngiliz (Thoroughbred)</p>
+                        <div class="similar-card-meta">
+                            <span>4 Yaş</span>
+                            <span>·</span>
+                            <span>Erkek</span>
+                            <span>·</span>
+                            <span>Kır</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="similar-card">
+                    <div class="similar-card-image">
+                        <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                    </div>
+                    <div class="similar-card-content">
+                        <h3 class="similar-card-name">Midnight Star</h3>
+                        <p class="similar-card-breed">İngiliz (Thoroughbred)</p>
+                        <div class="similar-card-meta">
+                            <span>3 Yaş</span>
+                            <span>·</span>
+                            <span>Dişi</span>
+                            <span>·</span>
+                            <span>Yağız</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="similar-card">
+                    <div class="similar-card-image">
+                        <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                    </div>
+                    <div class="similar-card-content">
+                        <h3 class="similar-card-name">Royal Champion</h3>
+                        <p class="similar-card-breed">İngiliz (Thoroughbred)</p>
+                        <div class="similar-card-meta">
+                            <span>3 Yaş</span>
+                            <span>·</span>
+                            <span>Erkek</span>
+                            <span>·</span>
+                            <span>Al</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7"/>
+                            </svg>
+                        </div>
+                        <div class="footer-logo-text">Equi<span>Market</span></div>
+                    </div>
+                    <p class="footer-description">Türkiye'nin ilk ve en güvenilir dijital yarış atı pazaryeri.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="ilanlar.html">Atları İncele</a></li>
+                        <li><a href="about.html">Nasıl Çalışır</a></li>
+                        <li><a href="pricing.html">Fiyatlandırma</a></li>
+                        <li><a href="faq.html">SSS</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Şirket</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Hakkımızda</a></li>
+                        <li><a href="coming_soon.html">Kariyer</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Yasal</h4>
+                    <ul class="footer-links">
+                        <li><a href="terms.html">Kullanım Koşulları</a></li>
+                        <li><a href="privacy.html">Gizlilik Politikası</a></li>
+                        <li><a href="kvkk.html">KVKK</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 EquiMarket. Tüm hakları saklıdır.</span>
+                <span>Türkiye'nin Yarış Atı Pazaryeri</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Favorite button toggle
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            if (btn.title === 'Favorilere Ekle') {
+                btn.addEventListener('click', () => {
+                    btn.classList.toggle('active');
+                });
+            }
+        });
+
+        // Thumbnail click
+        document.querySelectorAll('.thumbnail').forEach(thumb => {
+            thumb.addEventListener('click', () => {
+                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                thumb.classList.add('active');
+            });
+        });
+    </script>
+
+    <!-- API Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/horses.js"></script>
+    <script>
+        // Giriş kontrolü - giriş yapmamış kullanıcı bu sayfaya erişemez
+        if (!localStorage.getItem('equimarket_token')) {
+            window.location.href = 'login_register.html';
+        }
+
+        // URL'den ilan ID'sini al (query string veya hash'ten)
+        function getHorseId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let id = urlParams.get('id');
+            
+            if (!id && window.location.hash) {
+                const hash = window.location.hash.substring(1);
+                if (hash.startsWith('id=')) {
+                    id = hash.substring(3);
+                } else {
+                    id = hash;
+                }
+            }
+            
+            return id;
+        }
+        
+        const horseId = getHorseId();
+
+        // Sayfa yüklenirken içeriği gizle
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Giriş kontrolü (çift kontrol)
+            if (!localStorage.getItem('equimarket_token')) {
+                window.location.href = 'login_register.html';
+                return;
+            }
+
+            // Auth header güncelle
+            updateHeaderAuth();
+
+            // ID yoksa ana sayfaya yönlendir
+            if (!horseId) {
+                window.location.href = 'ilanlar.html';
+                return;
+            }
+
+            // Sayfayı loading moduna al
+            showLoading();
+
+            // İlan detayını yükle
+            await loadHorseDetail();
+        });
+
+        function showLoading() {
+            // Loading overlay zaten gösteriliyor
+        }
+
+        function hideLoading() {
+            // Loading overlay'i kaldır
+            const loadingOverlay = document.getElementById('pageLoading');
+            if (loadingOverlay) {
+                loadingOverlay.style.display = 'none';
+            }
+            const container = document.querySelector('.container');
+            if (container) {
+                container.style.opacity = '1';
+            }
+        }
+
+        // Header auth güncelle
+        function updateHeaderAuth() {
+            const authButtons = document.querySelector('.auth-buttons');
+            if (!authButtons) return;
+
+            const token = localStorage.getItem('equimarket_token');
+            const userData = localStorage.getItem('equimarket_user');
+
+            if (token && userData) {
+                const user = JSON.parse(userData);
+                const initials = user.name ? user.name.substring(0, 2).toUpperCase() : 'KA';
+                const firstName = user.name ? user.name.split(' ')[0] : 'Kullanıcı';
+
+                authButtons.innerHTML = `
+                    <a href="dashboard.html" class="btn btn-ghost" style="display:flex;align-items:center;gap:10px;">
+                        <span style="width:36px;height:36px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--charcoal);">
+                            ${initials}
+                        </span>
+                        ${firstName}
+                    </a>
+                    <a href="#" onclick="logout(); return false;" class="btn btn-outline">Çıkış</a>
+                `;
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('equimarket_token');
+            localStorage.removeItem('equimarket_user');
+            window.location.href = 'homepage_v2.html';
+        }
+
+        // İlan detayını yükle
+        async function loadHorseDetail() {
+            try {
+                const result = await api.get('/horses/' + horseId);
+
+                if (result.success && result.data) {
+                    const horse = result.data;
+                    updatePageWithHorseData(horse);
+                    hideLoading();
+                } else {
+                    showError('İlan bulunamadı');
+                }
+            } catch (error) {
+                console.error('LoadHorseDetail Error:', error);
+                showError('İlan yüklenirken bir hata oluştu');
+            }
+        }
+
+        function showError(message) {
+            hideLoading();
+            const container = document.querySelector('.container');
+            if (container) {
+                container.innerHTML = `
+                    <div style="text-align:center;padding:100px 20px;">
+                        <svg viewBox="0 0 24 24" style="width:64px;height:64px;margin-bottom:20px;fill:none;stroke:var(--warm-gray);stroke-width:1.5;">
+                            <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>
+                        </svg>
+                        <h2 style="color:var(--charcoal);margin-bottom:10px;">${message}</h2>
+                        <p style="color:var(--warm-gray);margin-bottom:20px;">İstediğiniz ilan bulunamadı veya kaldırılmış olabilir.</p>
+                        <a href="ilanlar.html" class="btn btn-gold" style="margin-top: 20px;">İlanlara Dön</a>
+                    </div>
+                `;
+            }
+        }
+
+        // Sayfa içeriğini güncelle
+        function updatePageWithHorseData(horse) {
+            // Sayfa başlığı
+            document.title = `${horse.name} - EquiMarket`;
+
+            // Breadcrumb
+            const breadcrumbName = document.querySelector('.breadcrumb span:last-child');
+            if (breadcrumbName) breadcrumbName.textContent = horse.name;
+
+            // At adı
+            const horseName = document.querySelector('.horse-name');
+            if (horseName) {
+                const verifiedBadge = horse.seller?.sellerInfo?.isVerifiedSeller ? `
+                    <span class="verified-badge">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        Doğrulanmış
+                    </span>
+                ` : '';
+                horseName.innerHTML = `${horse.name} ${verifiedBadge}`;
+            }
+
+            // Irk
+            const breedNames = { ingiliz: 'İngiliz', arap: 'Arap' };
+            const horseBreed = document.querySelector('.horse-breed');
+            if (horseBreed) {
+                horseBreed.textContent = `${breedNames[horse.breed] || horse.breed} · Yarış Atı`;
+            }
+
+            // Yaş
+            const age = horse.age || (horse.birthDate ? new Date().getFullYear() - new Date(horse.birthDate).getFullYear() : '?');
+            const birthYear = horse.birthDate ? new Date(horse.birthDate).getFullYear() : '';
+            const ageValue = document.querySelector('.info-item:nth-child(1) .info-value');
+            if (ageValue) ageValue.textContent = `${age} Yaş (${birthYear})`;
+
+            // Cinsiyet
+            const genderNames = { erkek: 'Erkek (Aygır)', disi: 'Dişi (Kısrak)', igdis: 'İğdiş' };
+            const genderValue = document.querySelector('.info-item:nth-child(2) .info-value');
+            if (genderValue) genderValue.textContent = genderNames[horse.gender] || horse.gender;
+
+            // Renk
+            const colorNames = { doru: 'Doru', kir: 'Kır', yagiz: 'Yağız', al: 'Al', diger: 'Diğer' };
+            const colorValue = document.querySelector('.info-item:nth-child(3) .info-value');
+            if (colorValue) colorValue.textContent = colorNames[horse.color] || horse.color;
+
+            // Konum
+            const locationValue = document.querySelector('.info-item:nth-child(4) .info-value');
+            if (locationValue) locationValue.textContent = horse.location?.city || 'Türkiye';
+
+            // Fiyat
+            const priceFormatted = new Intl.NumberFormat('tr-TR').format(horse.price);
+            const priceElement = document.querySelector('.price-amount');
+            if (priceElement) priceElement.textContent = `₺${priceFormatted}`;
+
+            // Açıklama
+            const descriptionElement = document.querySelector('.story-text p');
+            if (descriptionElement) descriptionElement.textContent = horse.description;
+
+            // Detaylı bilgiler
+            updateDetailedInfo(horse);
+
+            // Satıcı bilgileri
+            updateSellerInfo(horse.seller);
+        }
+
+        // Detaylı bilgileri güncelle
+        function updateDetailedInfo(horse) {
+            const attributeItems = document.querySelectorAll('.attribute-item');
+            
+            // Boy
+            if (attributeItems[0]) {
+                attributeItems[0].querySelector('.attribute-value').textContent = horse.height ? `${horse.height} cm` : '-';
+            }
+            // Ağırlık
+            if (attributeItems[1]) {
+                attributeItems[1].querySelector('.attribute-value').textContent = horse.weight ? `${horse.weight} kg` : '-';
+            }
+        }
+
+        // Satıcı bilgilerini güncelle
+        function updateSellerInfo(seller) {
+            if (!seller) return;
+
+            const sellerId = seller._id;
+            const profileUrl = `seller_profile.html?id=${sellerId}`;
+
+            // Sahiplik kontrolü - Düzenle butonunu göster
+            const currentUser = api.getUser();
+            if (currentUser && (currentUser._id === sellerId || currentUser.role === 'admin')) {
+                const editBtn = document.getElementById('btn-edit');
+                if (editBtn) {
+                    editBtn.style.display = 'flex';
+                    editBtn.href = `edit_listing.html?id=${currentHorse._id}`;
+                }
+                // Kendi ilanıysa mesaj/teklif butonlarını gizle
+                document.getElementById('btn-message').style.display = 'none';
+                document.getElementById('btn-offer').style.display = 'none';
+            }
+
+            // Satıcı adı ve linki
+            const sellerNameEl = document.getElementById('sellerName');
+            const sellerNameLink = document.getElementById('sellerNameLink');
+            const sellerAvatarLink = document.getElementById('sellerAvatarLink');
+            
+            if (sellerNameEl) sellerNameEl.textContent = seller.name || 'Satıcı';
+            if (sellerNameLink) sellerNameLink.href = profileUrl;
+            if (sellerAvatarLink) {
+                sellerAvatarLink.href = profileUrl;
+                if (seller.avatar) {
+                    sellerAvatarLink.innerHTML = `<img src="${seller.avatar}" alt="${seller.name}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">`;
+                } else {
+                    sellerAvatarLink.innerHTML = `<span style="font-weight:700;font-size:18px;color:var(--white);">${seller.name ? seller.name.substring(0,2).toUpperCase() : '?'}</span>`;
+                }
+            }
+
+            // Konum
+            const sellerLocationEl = document.getElementById('sellerLocation');
+            if (sellerLocationEl && seller.location?.city) {
+                sellerLocationEl.innerHTML = `
+                    <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span>${seller.location.district ? seller.location.district + ', ' : ''}${seller.location.city}</span>
+                `;
+            }
+
+            // İstatistikler
+            const sellerListingsEl = document.getElementById('sellerListings');
+            const sellerSalesEl = document.getElementById('sellerSales');
+            const sellerRatingEl = document.getElementById('sellerRating');
+            
+            // İlan sayısını API'den çek
+            loadSellerStats(sellerId);
+
+            if (sellerSalesEl) sellerSalesEl.textContent = seller.sellerInfo?.totalSales || 0;
+            if (sellerRatingEl) sellerRatingEl.textContent = seller.sellerInfo?.rating ? seller.sellerInfo.rating.toFixed(1) : '-';
+
+            // Rozetler
+            const badgesEl = document.getElementById('sellerBadges');
+            if (badgesEl) {
+                let badgesHtml = '';
+                
+                if (seller.sellerInfo?.isVerifiedSeller) {
+                    badgesHtml += `
+                        <span class="seller-badge">
+                            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            Doğrulanmış
+                        </span>
+                    `;
+                }
+                
+                if (seller.subscription?.plan === 'premium') {
+                    badgesHtml += `
+                        <span class="seller-badge">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+                            Premium Satıcı
+                        </span>
+                    `;
+                }
+
+                badgesEl.innerHTML = badgesHtml || '<span style="color: var(--warm-gray); font-size: 13px;">Henüz rozet yok</span>';
+            }
+
+            // Buton linkleri
+            const viewProfileBtn = document.getElementById('viewProfileBtn');
+            const otherListingsBtn = document.getElementById('otherListingsBtn');
+            
+            if (viewProfileBtn) viewProfileBtn.href = profileUrl;
+            if (otherListingsBtn) otherListingsBtn.href = `ilanlar.html?seller=${sellerId}`;
+        }
+
+        // Satıcı istatistiklerini yükle
+        async function loadSellerStats(sellerId) {
+            try {
+                const result = await api.get(`/horses?seller=${sellerId}&status=active&limit=1`);
+                if (result.success) {
+                    const sellerListingsEl = document.getElementById('sellerListings');
+                    if (sellerListingsEl) sellerListingsEl.textContent = result.total || result.count || 0;
+                }
+            } catch (e) {
+                console.error('Seller stats error:', e);
+            }
+        }
+
+        // Hata göster
+        function showError(message) {
+            const mainContent = document.querySelector('.main-content');
+            if (mainContent) {
+                mainContent.innerHTML = `
+                    <div style="text-align: center; padding: 60px;">
+                        <svg viewBox="0 0 24 24" style="width: 64px; height: 64px; fill: none; stroke: var(--warm-gray); stroke-width: 1; margin-bottom: 16px;">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 8v4M12 16h.01"/>
+                        </svg>
+                        <div style="font-size: 18px; color: var(--charcoal); margin-bottom: 8px;">${message}</div>
+                        <a href="ilanlar.html" class="btn btn-gold" style="margin-top: 20px;">İlanlara Dön</a>
+                    </div>
+                `;
+            }
+        }
+
+        // Global değişkenler (sayfa yüklendiğinde set edilecek)
+        let currentHorse = null;
+
+        // Satıcıya mesaj gönder
+        function startConversation() {
+            if (!localStorage.getItem('equimarket_token')) {
+                showToast('Mesaj göndermek için giriş yapmalısınız', 'error');
+                setTimeout(() => {
+                    window.location.href = 'login_register.html';
+                }, 1500);
+                return;
+            }
+
+            // Mesajlaşma sayfasına yönlendir (horse ve seller bilgisiyle)
+            const params = new URLSearchParams();
+            params.set('horse', horseId);
+            if (currentHorse?.seller?._id) {
+                params.set('seller', currentHorse.seller._id);
+            }
+            
+            window.location.href = `messaging.html?${params.toString()}`;
+        }
+
+        // Telefon göster
+        function showPhone() {
+            if (!localStorage.getItem('equimarket_token')) {
+                showToast('Telefon numarasını görmek için giriş yapmalısınız', 'error');
+                setTimeout(() => {
+                    window.location.href = 'login_register.html';
+                }, 1500);
+                return;
+            }
+
+            const phone = currentHorse?.seller?.phone;
+            if (phone) {
+                const btn = document.getElementById('btn-phone');
+                btn.innerHTML = `
+                    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                    ${phone}
+                `;
+                btn.onclick = () => window.location.href = `tel:${phone}`;
+            } else {
+                showToast('Telefon numarası mevcut değil', 'error');
+            }
+        }
+
+        // Teklif ver
+        function makeOffer() {
+            if (!localStorage.getItem('equimarket_token')) {
+                showToast('Teklif vermek için giriş yapmalısınız', 'error');
+                setTimeout(() => {
+                    window.location.href = 'login_register.html';
+                }, 1500);
+                return;
+            }
+
+            const currentPrice = currentHorse?.price || 0;
+            const offerAmount = prompt(`Teklif tutarınızı girin (Mevcut fiyat: ₺${currentPrice.toLocaleString('tr-TR')}):`);
+            
+            if (offerAmount && !isNaN(offerAmount)) {
+                showToast('Teklifiniz gönderildi! Satıcı size dönüş yapacak.');
+                // Gerçek implementasyonda: MessageService.sendMessage(..., 'offer', offerAmount)
+            }
+        }
+
+        // Toast mesajı
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                background: ${type === 'success' ? 'var(--racing-green)' : 'var(--error)'};
+                color: white;
+                padding: 16px 24px;
+                border-radius: 12px;
+                box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+                z-index: 10000;
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // updatePageWithHorseData'yı güncelle - currentHorse'u kaydet
+        const originalUpdatePage = updatePageWithHorseData;
+        updatePageWithHorseData = function(horse) {
+            currentHorse = horse;
+            originalUpdatePage(horse);
+            
+            // Fiyatı da güncelle
+            const priceElement = document.getElementById('horse-price');
+            if (priceElement && horse.price) {
+                priceElement.textContent = '₺' + horse.price.toLocaleString('tr-TR');
+            }
+
+            // Favori durumunu güncelle
+            updateFavoriteButton();
+        };
+
+        // Favorileri localStorage'dan al
+        function getFavorites() {
+            const userData = localStorage.getItem('equimarket_user');
+            if (!userData) return [];
+            const user = JSON.parse(userData);
+            return user.favorites || [];
+        }
+
+        // Favori butonunu güncelle
+        function updateFavoriteButton() {
+            const btn = document.getElementById('btn-favorite');
+            if (!btn || !horseId) return;
+
+            const isFav = getFavorites().includes(horseId);
+            if (isFav) {
+                btn.classList.add('active');
+                btn.title = 'Favorilerden Çıkar';
+                btn.style.background = '#dc2626';
+                btn.style.borderColor = '#dc2626';
+                btn.style.color = 'white';
+            } else {
+                btn.classList.remove('active');
+                btn.title = 'Favorilere Ekle';
+                btn.style.background = 'white';
+                btn.style.borderColor = '#e5e5e5';
+                btn.style.color = '#374151';
+            }
+        }
+
+        // Favori ekle/çıkar
+        function toggleFavorite() {
+            if (!localStorage.getItem('equimarket_token')) {
+                showToast('Favorilere eklemek için giriş yapmalısınız', 'error');
+                return;
+            }
+
+            const favorites = getFavorites();
+            const isCurrentlyFavorite = favorites.includes(horseId);
+
+            const userData = JSON.parse(localStorage.getItem('equimarket_user'));
+            
+            if (isCurrentlyFavorite) {
+                // Favorilerden çıkar
+                userData.favorites = favorites.filter(id => id !== horseId);
+                localStorage.setItem('equimarket_user', JSON.stringify(userData));
+                updateFavoriteButton();
+                showToast('Favorilerden çıkarıldı');
+            } else {
+                // Favorilere ekle
+                userData.favorites = [...favorites, horseId];
+                localStorage.setItem('equimarket_user', JSON.stringify(userData));
+                updateFavoriteButton();
+                showToast('Favorilere eklendi â¤ï¸');
+            }
+        }
+
+        // Paylaş
+        function shareHorse() {
+            const url = window.location.href;
+            const title = currentHorse?.name || 'EquiMarket İlanı';
+
+            if (navigator.share) {
+                navigator.share({ title, url });
+            } else {
+                navigator.clipboard.writeText(url).then(() => {
+                    showToast('Link kopyalandı!');
+                });
+            }
+        }
+    </script>
+    <!-- Feedback Popup -->
+    <script src="js/feedback-popup.js"></script>
+</body>
+</html>

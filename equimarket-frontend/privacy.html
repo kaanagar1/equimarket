@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="EquiMarket gizlilik politikası ve kişisel veri koruma.">
+    <meta name="keywords" content="at satışı, yarış atı, safkan at, at ilanları, equimarket">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Gizlilik Politikası - EquiMarket">
+    <meta property="og:description" content="EquiMarket gizlilik politikası ve kişisel veri koruma.">
+    <meta property="og:site_name" content="EquiMarket">
+    <meta property="og:locale" content="tr_TR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gizlilik Politikası - EquiMarket">
+    <meta name="twitter:description" content="EquiMarket gizlilik politikası ve kişisel veri koruma.">
+    <title>Gizlilik Politikası - EquiMarket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --racing-green: #1a3d2e;
+            --racing-green-light: #2d5a47;
+            --gold: #c9a55c;
+            --gold-light: #e8d5a8;
+            --cream: #faf8f3;
+            --charcoal: #2a2a2a;
+            --warm-gray: #6b6b6b;
+            --light-gray: #f5f4f0;
+            --white: #ffffff;
+            --shadow-soft: 0 4px 20px rgba(26, 61, 46, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(26, 61, 46, 0.08);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--racing-green);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg { width: 24px; height: 24px; fill: var(--gold); }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--racing-green);
+        }
+
+        .logo-text span { color: var(--gold); }
+
+        .nav-menu { display: flex; gap: 32px; list-style: none; }
+        .nav-menu a { text-decoration: none; color: var(--charcoal); font-weight: 500; font-size: 15px; transition: color 0.3s ease; }
+        .nav-menu a:hover { color: var(--gold); }
+
+        .header-actions { display: flex; gap: 12px; }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn-ghost { background: transparent; color: var(--charcoal); }
+        .btn-ghost:hover { background: var(--light-gray); }
+        .btn-primary { background: var(--racing-green); color: var(--white); }
+        .btn-primary:hover { background: var(--racing-green-light); }
+
+        .hero {
+            padding: 140px 40px 60px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%);
+        }
+
+        .hero h1 { font-size: 48px; color: var(--charcoal); margin-bottom: 16px; }
+        .hero p { font-size: 18px; color: var(--warm-gray); }
+
+        .last-updated {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 16px;
+            background: var(--light-gray);
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--warm-gray);
+        }
+
+        .content-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 40px 100px;
+        }
+
+        .legal-content {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 48px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .legal-content h2 {
+            font-size: 28px;
+            color: var(--racing-green);
+            margin: 40px 0 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .legal-content h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+
+        .legal-content h3 { font-size: 20px; color: var(--charcoal); margin: 28px 0 12px; }
+        .legal-content p { margin-bottom: 16px; color: var(--charcoal); }
+        .legal-content ul, .legal-content ol { margin: 16px 0 16px 24px; }
+        .legal-content li { margin-bottom: 8px; color: var(--charcoal); }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(201, 165, 92, 0.1), rgba(26, 61, 46, 0.05));
+            border-left: 4px solid var(--gold);
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+            margin: 24px 0;
+        }
+
+        .highlight-box p { margin: 0; font-weight: 500; }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+        }
+
+        .data-table th, .data-table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .data-table th {
+            background: var(--light-gray);
+            font-weight: 600;
+            color: var(--racing-green);
+        }
+
+        .data-table tr:hover {
+            background: rgba(201, 165, 92, 0.05);
+        }
+
+        footer {
+            background: var(--racing-green);
+            color: var(--white);
+            padding: 60px 40px 30px;
+        }
+
+        .footer-container { max-width: 1200px; margin: 0 auto; }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand p { color: rgba(255,255,255,0.7); margin-top: 16px; font-size: 14px; line-height: 1.6; }
+
+        .footer-column h4 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--gold); }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer-bottom-links { display: flex; gap: 24px; }
+        .footer-bottom-links a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.3s; }
+        .footer-bottom-links a:hover { color: var(--gold); }
+
+        @media (max-width: 768px) {
+            .header-inner { padding: 16px 20px; }
+            .nav-menu { display: none; }
+            .hero { padding: 120px 20px 40px; }
+            .hero h1 { font-size: 32px; }
+            .content-section { padding: 40px 20px 60px; }
+            .legal-content { padding: 24px; }
+            .data-table { font-size: 14px; }
+            .data-table th, .data-table td { padding: 12px 8px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="homepage_v2.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/>
+                    </svg>
+                </div>
+                <div class="logo-text">Equi<span>Market</span></div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="ilanlar.html">Atları İncele</a></li>
+                <li><a href="about.html">Hakkımızda</a></li>
+                <li><a href="pricing.html">Fiyatlandırma</a></li>
+                <li><a href="faq.html">SSS</a></li>
+                <li><a href="contact.html">İletişim</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="login_register.html" class="btn btn-ghost">Giriş Yap</a>
+                <a href="login_register.html" class="btn btn-primary">Kayıt Ol</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Gizlilik Politikası</h1>
+        <p>Verilerinizi nasıl topladığımızı, kullandığımızı ve koruduğumuzu açıklıyoruz</p>
+        <span class="last-updated">Son güncelleme: 20 Ocak 2026</span>
+    </section>
+
+    <section class="content-section">
+        <div class="legal-content">
+            <h2>1. Giriş</h2>
+            <p>EquiMarket Teknoloji A.Ş. ("EquiMarket", "biz", "bize" veya "bizim") olarak, gizliliğinize saygı duyuyor ve kişisel verilerinizi korumayı taahhüt ediyoruz. Bu Gizlilik Politikası, platformumuzu kullandığınızda kişisel verilerinizi nasıl topladığımızı, kullandığımızı ve koruduğumuzu açıklar.</p>
+            
+            <div class="highlight-box">
+                <p>Gizliliğiniz bizim için önemlidir. Verilerinizi yalnızca size daha iyi hizmet sunmak için kullanır ve asla üçüncü taraflarla satmayız.</p>
+            </div>
+
+            <h2>2. Topladığımız Veriler</h2>
+            <h3>2.1 Sizin Sağladığınız Bilgiler</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Veri Kategorisi</th>
+                        <th>Örnekler</th>
+                        <th>Amaç</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Kimlik Bilgileri</td>
+                        <td>Ad, soyad, TC kimlik no</td>
+                        <td>Hesap doğrulama, güvenlik</td>
+                    </tr>
+                    <tr>
+                        <td>İletişim Bilgileri</td>
+                        <td>E-posta, telefon, adres</td>
+                        <td>İletişim, bildirimler</td>
+                    </tr>
+                    <tr>
+                        <td>Hesap Bilgileri</td>
+                        <td>Kullanıcı adı, şifre</td>
+                        <td>Giriş ve güvenlik</td>
+                    </tr>
+                    <tr>
+                        <td>İlan Bilgileri</td>
+                        <td>At bilgileri, fotoğraflar</td>
+                        <td>İlan yayınlama</td>
+                    </tr>
+                    <tr>
+                        <td>Ödeme Bilgileri</td>
+                        <td>Fatura adresi</td>
+                        <td>Faturalandırma</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>2.2 Otomatik Olarak Toplanan Bilgiler</h3>
+            <ul>
+                <li><strong>Cihaz Bilgileri:</strong> IP adresi, tarayıcı türü, işletim sistemi</li>
+                <li><strong>Kullanım Verileri:</strong> Ziyaret edilen sayfalar, tıklamalar, arama sorguları</li>
+                <li><strong>Konum Bilgileri:</strong> Yaklaşık coğrafi konum (IP bazlı)</li>
+                <li><strong>Çerezler:</strong> Oturum ve tercih çerezleri</li>
+            </ul>
+
+            <h2>3. Verilerin Kullanım Amaçları</h2>
+            <p>Kişisel verilerinizi aşağıdaki amaçlarla kullanırız:</p>
+            <ul>
+                <li>Hesabınızı oluşturmak ve yönetmek</li>
+                <li>Hizmetlerimizi sunmak ve iyileştirmek</li>
+                <li>Sizinle iletişim kurmak</li>
+                <li>Güvenliği sağlamak ve dolandırıcılığı önlemek</li>
+                <li>Yasal yükümlülüklerimizi yerine getirmek</li>
+                <li>Pazarlama iletişimleri göndermek (izninizle)</li>
+            </ul>
+
+            <h2>4. Veri Paylaşımı</h2>
+            <h3>4.1 Kiminle Paylaşıyoruz</h3>
+            <p>Verilerinizi şu taraflarla paylaşabiliriz:</p>
+            <ul>
+                <li><strong>Diğer Kullanıcılar:</strong> İlan bilgileriniz (ad, telefon vb.) ilanlarda görünür</li>
+                <li><strong>Hizmet Sağlayıcılar:</strong> Hosting, e-posta, analitik hizmetleri</li>
+                <li><strong>Yasal Otoriteler:</strong> Yasal zorunluluk durumlarında</li>
+            </ul>
+
+            <h3>4.2 Paylaşmadıklarımız</h3>
+            <div class="highlight-box">
+                <p>Kişisel verilerinizi hiçbir koşulda üçüncü taraflara satmayız veya pazarlama amacıyla kiralamayız.</p>
+            </div>
+
+            <h2>5. Veri Güvenliği</h2>
+            <p>Verilerinizi korumak için aşağıdaki önlemleri alıyoruz:</p>
+            <ul>
+                <li>SSL/TLS şifreleme ile güvenli veri iletimi</li>
+                <li>Şifrelerin hash algoritmaları ile saklanması</li>
+                <li>Düzenli güvenlik denetimleri</li>
+                <li>Erişim kontrolü ve yetkilendirme</li>
+                <li>Güvenlik duvarları ve saldırı tespit sistemleri</li>
+            </ul>
+
+            <h2>6. Haklarınız</h2>
+            <p>KVKK kapsamında aşağıdaki haklara sahipsiniz:</p>
+            <ul>
+                <li>Verilerinizin işlenip işlenmediğini öğrenme</li>
+                <li>İşlenen verilere erişim talep etme</li>
+                <li>Verilerin düzeltilmesini isteme</li>
+                <li>Verilerin silinmesini talep etme</li>
+                <li>İşlemenin kısıtlanmasını isteme</li>
+                <li>Veri taşınabilirliği hakkı</li>
+                <li>İşlemeye itiraz etme hakkı</li>
+            </ul>
+
+            <h2>7. Veri Saklama Süreleri</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Veri Türü</th>
+                        <th>Saklama Süresi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hesap Bilgileri</td>
+                        <td>Hesap aktif olduğu sürece + 5 yıl</td>
+                    </tr>
+                    <tr>
+                        <td>İlan Verileri</td>
+                        <td>İlan silindikten sonra 2 yıl</td>
+                    </tr>
+                    <tr>
+                        <td>Mesajlaşma Kayıtları</td>
+                        <td>3 yıl</td>
+                    </tr>
+                    <tr>
+                        <td>Log Kayıtları</td>
+                        <td>2 yıl</td>
+                    </tr>
+                    <tr>
+                        <td>Fatura Bilgileri</td>
+                        <td>10 yıl (yasal zorunluluk)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>8. Çerezler</h2>
+            <p>Çerez kullanımı hakkında detaylı bilgi için <a href="cookies.html" style="color: var(--gold);">Çerez Politikamızı</a> inceleyebilirsiniz.</p>
+
+            <h2>9. Çocukların Gizliliği</h2>
+            <p>Platformumuz 18 yaş altı kullanıcılara yönelik değildir. Bilerek 18 yaş altı kişilerden veri toplamıyoruz. Böyle bir durumun farkına varırsak, ilgili verileri derhal sileriz.</p>
+
+            <h2>10. Politika Değişiklikleri</h2>
+            <p>Bu Gizlilik Politikasını zaman zaman güncelleyebiliriz. Önemli değişiklikler yapıldığında, platformumuzda veya e-posta yoluyla bildirimde bulunacağız.</p>
+
+            <h2>11. İletişim</h2>
+            <p>Gizlilik ile ilgili sorularınız için:</p>
+            <ul>
+                <li><strong>Veri Sorumlusu:</strong> EquiMarket Teknoloji A.Ş.</li>
+                <li><strong>E-posta:</strong> gizlilik@equimarket.com.tr</li>
+                <li><strong>Adres:</strong> Levent, İstanbul, Türkiye</li>
+                <li><strong>KVKK Başvuru:</strong> kvkk@equimarket.com.tr</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="homepage_v2.html" class="logo" style="margin-bottom: 8px;">
+                        <div class="logo-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/>
+                            </svg>
+                        </div>
+                        <div class="logo-text">Equi<span>Market</span></div>
+                    </a>
+                    <p>Türkiye'nin en güvenilir yarış atı pazaryeri.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="ilanlar.html">İlanları Keşfet</a></li>
+                        <li><a href="create_listing.html">İlan Ver</a></li>
+                        <li><a href="pricing.html">Fiyatlandırma</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Şirket</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Hakkımızda</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Destek</h4>
+                    <ul class="footer-links">
+                        <li><a href="faq.html">Yardım Merkezi</a></li>
+                        <li><a href="seller_guide.html">Satıcı Rehberi</a></li>
+                        <li><a href="report.html">Şikayet Bildir</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 EquiMarket. Tüm hakları saklıdır.</p>
+                <div class="footer-bottom-links">
+                    <a href="terms.html">Kullanım Koşulları</a>
+                    <a href="privacy.html">Gizlilik Politikası</a>
+                    <a href="cookies.html">Çerez Politikası</a>
+                    <a href="kvkk.html">KVKK</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const authButtons = document.querySelector('.header-actions');
+            if (!authButtons) return;
+            const token = localStorage.getItem('equimarket_token');
+            const userData = localStorage.getItem('equimarket_user');
+            if (token && userData) {
+                const user = JSON.parse(userData);
+                const dashboardUrl = user.role === 'seller' ? 'dashboard.html' : 'dashboard.html';
+                const initials = user.name ? user.name.substring(0, 2).toUpperCase() : 'KA';
+                const firstName = user.name ? user.name.split(' ')[0] : 'Kullanıcı';
+                authButtons.innerHTML = `
+                    <a href="${dashboardUrl}" class="btn btn-ghost" style="display:flex;align-items:center;gap:10px;">
+                        <span style="width:36px;height:36px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--charcoal);">${initials}</span>
+                        ${firstName}
+                    </a>
+                    <a href="#" onclick="logout(); return false;" class="btn btn-primary">Çıkış</a>
+                `;
+            }
+        });
+        function logout() {
+            localStorage.removeItem('equimarket_token');
+            localStorage.removeItem('equimarket_user');
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>

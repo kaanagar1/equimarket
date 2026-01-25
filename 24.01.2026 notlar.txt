@@ -1,0 +1,17 @@
+Anasayfada karşımıza çıkan ilk ekranda at kartları boşa dönüyor. Tıklayınca hiçbir şey olmuyor. Oraya öne çıkarılan atlar gelsin. Tıklayınca atlara gitsin.
+
+Sayfanın biraz aşağısındaki öne çıkarılan atlarda fiyat gizleniyor/fiyatı görme için giriş yapın yazıyor. Ancak kartın üstüne tıklanıldığında ve at sayfasına gidildiğinde fiyat ve tüm bilgiler gözüküyor.
+
+Sitede belirli bir süre kaldıktan sonra kullanıcının karşısına çıkan ve doldurulması sonucunda kullanıcıya 1 hediye ilan veren değerlendirme ekranı saniyelik ekrana çıkıyor ve hiçbir şey basamadan kayboluyor. 
+
+Profilime girdiğimde ismimin yanında şöyle bir simge çıkıyor. Muhtemelen bozuk karakter, onu da düzelt. Kaan ðŸ‘‹
+
+Mesajlaşma sistemi hala gerçek değil. Yani bir ilandaki mesaj gönder yazısına veya dashboarddaki mesajlara tıkladığımda beni backendi olmayan bir sayfaya yönlendiriyor.
+
+Yine bu messaging sayfasına girdiğimde sol taraftaki menüde bulunan teklifler alanı da boş dönüyor. Sanırım bir teklifler sayfası yaratmamız gerekecek veya kullanıcı teklifleri nerede görüyorsa oraya yönlendirmemiz.
+
+Anasayfada bulunan 250+ aktif ilan, 150+ doğrulanmış satıcı 500+ başarılı satış datalarını gerçek verilerle ilişkilendirebilir miyiz? 
+
+Bir ilana girdiğimde saniyelik olarak benim girmediğim (siteyi ilk yaptığımızda çıkan ve backendi olmayan, yani senin eklediğin) ilanı görüyorum. Sonrasında benim girdiğim yani canlı veri ekrana geliyor. Bunun sebebi ne?
+
+Yine Hakkımızda sayfasında 500+ aktif ilan ile başlayan bazı veriler var. Yapabiliyorsak onları da gerçek verilerle ilişkilendirelim.

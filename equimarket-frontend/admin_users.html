@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcı Yönetimi - EquiMarket Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--racing-green:#1a3d2e;--gold:#c9a55c;--charcoal:#2a2a2a;--warm-gray:#6b6b6b;--light-gray:#f5f4f0;--white:#fff;--success:#4a7c59;--error:#dc2626;--info:#3b82f6;--shadow-soft:0 4px 20px rgba(26,61,46,.08)}
+        *{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;background:var(--charcoal);color:var(--white)}h1,h2,h3{font-family:'Playfair Display',serif}
+        .layout{display:flex;min-height:100vh}.sidebar{background:#1a1a1a;width:260px;padding:24px 16px;position:fixed;top:0;bottom:0;left:0;border-right:1px solid rgba(255,255,255,.1)}
+        .sidebar-logo{display:flex;align-items:center;gap:12px;margin-bottom:32px;text-decoration:none;color:var(--white);font-size:20px;font-weight:700}
+        .logo-badge{background:var(--error);font-size:10px;padding:2px 6px;border-radius:4px;margin-left:8px}
+        .nav-section-title{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.4);padding:0 12px;margin:16px 0 8px}
+        .nav-link{display:flex;align-items:center;gap:12px;padding:12px;color:rgba(255,255,255,.6);text-decoration:none;border-radius:8px;margin-bottom:4px;font-size:14px}
+        .nav-link:hover{background:rgba(255,255,255,.05);color:var(--white)}.nav-link.active{background:var(--gold);color:var(--charcoal)}
+        .nav-link svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
+        .main{flex:1;margin-left:260px;padding:32px;background:var(--light-gray);min-height:100vh}
+        .page-header{margin-bottom:24px}.page-header h1{font-size:28px;color:var(--charcoal)}.page-header p{color:var(--warm-gray)}
+        .filters{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+        .search-input,.filter-select{padding:12px 16px;border:2px solid var(--light-gray);border-radius:10px;font-size:14px;background:var(--white)}
+        .search-input{flex:1;min-width:200px}.search-input:focus,.filter-select:focus{outline:none;border-color:var(--gold)}
+        .card{background:var(--white);border-radius:16px;box-shadow:var(--shadow-soft);overflow:hidden}
+        .table{width:100%;border-collapse:collapse}.table th,.table td{padding:16px 20px;text-align:left}
+        .table th{background:var(--light-gray);font-size:11px;text-transform:uppercase;color:var(--warm-gray)}.table td{border-bottom:1px solid var(--light-gray)}
+        .user-cell{display:flex;align-items:center;gap:12px}.user-avatar{width:40px;height:40px;border-radius:10px;background:var(--racing-green);color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:600}
+        .badge{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;text-transform:uppercase}
+        .badge-admin{background:rgba(220,38,38,.1);color:var(--error)}.badge-seller{background:rgba(201,165,92,.1);color:#9a7b3a}.badge-buyer{background:rgba(59,130,246,.1);color:var(--info)}
+        .badge-active{background:rgba(74,124,89,.1);color:var(--success)}.badge-inactive{background:rgba(220,38,38,.1);color:var(--error)}
+        .action-btn{width:34px;height:34px;border:none;background:var(--light-gray);border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;margin-right:4px;color:var(--warm-gray)}
+        .action-btn:hover{background:var(--racing-green);color:var(--white)}.action-btn.danger:hover{background:var(--error)}
+        .action-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}
+        .pagination{display:flex;justify-content:space-between;padding:20px;border-top:1px solid var(--light-gray)}.pagination-info{color:var(--warm-gray)}
+        .page-btn{padding:8px 14px;border:1px solid var(--light-gray);background:var(--white);border-radius:8px;cursor:pointer;margin-left:4px}
+        .page-btn.active{background:var(--racing-green);color:var(--white);border-color:var(--racing-green)}.page-btn:disabled{opacity:.5}
+        .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;align-items:center;justify-content:center}
+        .modal-overlay.active{display:flex}.modal{background:var(--white);border-radius:20px;padding:32px;max-width:500px;width:100%}
+        .modal h3{font-size:22px;margin-bottom:24px;color:var(--charcoal)}
+        .form-group{margin-bottom:20px}.form-label{display:block;font-size:14px;font-weight:600;margin-bottom:8px;color:var(--charcoal)}
+        .form-input,.form-select{width:100%;padding:12px;border:2px solid var(--light-gray);border-radius:10px;font-size:14px}
+        .form-checkbox{display:flex;align-items:center;gap:10px}.form-checkbox input{width:18px;height:18px}
+        .modal-actions{display:flex;gap:12px;margin-top:24px}
+        .btn{flex:1;padding:12px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;border:none}
+        .btn-primary{background:var(--racing-green);color:var(--white)}.btn-secondary{background:var(--light-gray);color:var(--charcoal)}
+        @media(max-width:768px){.sidebar{display:none}.main{margin-left:0}}
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <a href="admin.html" class="sidebar-logo">EquiMarket<span class="logo-badge">ADMIN</span></a>
+            <div class="nav-section-title">Genel</div>
+            <a href="admin.html" class="nav-link"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
+            <div class="nav-section-title">Yönetim</div>
+            <a href="admin_users.html" class="nav-link active"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Kullanıcılar</a>
+            <a href="admin_listings.html" class="nav-link"><svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>İlanlar</a>
+            <a href="admin_blog.html" class="nav-link"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Blog</a>
+            <div class="nav-section-title">Diğer</div>
+            <a href="homepage_v2.html" class="nav-link"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Siteye Git</a>
+        </aside>
+        <main class="main">
+            <div class="page-header"><h1>Kullanıcı Yönetimi</h1><p>Tüm kullanıcıları görüntüle ve yönet</p></div>
+            <div class="filters">
+                <input type="text" class="search-input" id="search" placeholder="İsim veya e-posta ara...">
+                <select class="filter-select" id="roleFilter"><option value="">Tüm Roller</option><option value="admin">Admin</option><option value="seller">Satıcı</option><option value="buyer">Alıcı</option></select>
+                <select class="filter-select" id="statusFilter"><option value="">Tüm Durumlar</option><option value="active">Aktif</option><option value="inactive">Pasif</option></select>
+            </div>
+            <div class="card">
+                <table class="table"><thead><tr><th>Kullanıcı</th><th>Rol</th><th>Durum</th><th>Kayıt</th><th>İşlem</th></tr></thead><tbody id="usersTable"><tr><td colspan="5" style="text-align:center;padding:40px">Yükleniyor...</td></tr></tbody></table>
+                <div class="pagination"><span class="pagination-info" id="pageInfo">0 kullanıcı</span><div id="pageButtons"></div></div>
+            </div>
+        </main>
+    </div>
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <h3>Kullanıcı Düzenle</h3>
+            <form id="editForm">
+                <input type="hidden" id="editId">
+                <div class="form-group"><label class="form-label">İsim</label><input type="text" class="form-input" id="editName" readonly></div>
+                <div class="form-group"><label class="form-label">E-posta</label><input type="email" class="form-input" id="editEmail" readonly></div>
+                <div class="form-group"><label class="form-label">Rol</label><select class="form-select" id="editRole"><option value="buyer">Alıcı</option><option value="seller">Satıcı</option><option value="admin">Admin</option></select></div>
+                <div class="form-group"><label class="form-checkbox"><input type="checkbox" id="editActive"><span>Hesap Aktif</span></label></div>
+                <div class="form-group"><label class="form-checkbox"><input type="checkbox" id="editVerified"><span>Doğrulanmış Satıcı</span></label></div>
+                <div class="modal-actions"><button type="button" class="btn btn-secondary" onclick="closeModal()">İptal</button><button type="submit" class="btn btn-primary">Kaydet</button></div>
+            </form>
+        </div>
+    </div>
+    <script src="js/api.js"></script>
+    <script>
+        let page=1,total=1;
+        document.addEventListener('DOMContentLoaded',()=>{
+            const u=api.getUser();if(!u||u.role!=='admin'){alert('Yetki yok');window.location.href='homepage_v2.html';return;}
+            loadUsers();
+            document.getElementById('search').addEventListener('input',debounce(()=>{page=1;loadUsers();},300));
+            document.getElementById('roleFilter').addEventListener('change',()=>{page=1;loadUsers();});
+            document.getElementById('statusFilter').addEventListener('change',()=>{page=1;loadUsers();});
+            document.getElementById('editForm').addEventListener('submit',saveUser);
+        });
+        async function loadUsers(){
+            let url='/admin/users?page='+page+'&limit=15';
+            const s=document.getElementById('search').value;if(s)url+='&search='+encodeURIComponent(s);
+            const r=document.getElementById('roleFilter').value;if(r)url+='&role='+r;
+            const st=document.getElementById('statusFilter').value;if(st)url+='&status='+st;
+            try{
+                const res=await api.get(url);
+                if(res.success){total=res.totalPages;renderUsers(res.data);renderPages(res.total,res.currentPage,res.totalPages);}
+            }catch(e){console.error(e);}
+        }
+        function renderUsers(users){
+            const tb=document.getElementById('usersTable');
+            if(!users.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px">Kullanıcı bulunamadı</td></tr>';return;}
+            tb.innerHTML=users.map(u=>`<tr><td><div class="user-cell"><div class="user-avatar">${u.name.substring(0,2).toUpperCase()}</div><div><strong>${u.name}</strong><br><small style="color:var(--warm-gray)">${u.email}</small></div></div></td><td><span class="badge badge-${u.role}">${{admin:'Admin',seller:'Satıcı',buyer:'Alıcı'}[u.role]}</span></td><td><span class="badge badge-${u.isActive?'active':'inactive'}">${u.isActive?'Aktif':'Pasif'}</span></td><td>${new Date(u.createdAt).toLocaleDateString('tr-TR')}</td><td><button class="action-btn" onclick="editUser('${u._id}')"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>${u.role!=='admin'?`<button class="action-btn danger" onclick="deleteUser('${u._id}','${u.name}')"><svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></button>`:''}</td></tr>`).join('');
+        }
+        function renderPages(t,c,p){
+            document.getElementById('pageInfo').textContent=t+' kullanıcı';
+            let html='<button class="page-btn" onclick="goPage('+(c-1)+')"'+(c<=1?' disabled':'')+'>←</button>';
+            for(let i=1;i<=p;i++)if(i===1||i===p||(i>=c-1&&i<=c+1))html+='<button class="page-btn'+(i===c?' active':'')+'" onclick="goPage('+i+')">'+i+'</button>';
+            html+='<button class="page-btn" onclick="goPage('+(c+1)+')"'+(c>=p?' disabled':'')+'>→</button>';
+            document.getElementById('pageButtons').innerHTML=html;
+        }
+        function goPage(p){if(p<1||p>total)return;page=p;loadUsers();}
+        async function editUser(id){
+            try{const r=await api.get('/admin/users/'+id);if(r.success){const u=r.data.user;document.getElementById('editId').value=u._id;document.getElementById('editName').value=u.name;document.getElementById('editEmail').value=u.email;document.getElementById('editRole').value=u.role;document.getElementById('editActive').checked=u.isActive;document.getElementById('editVerified').checked=u.sellerInfo?.isVerifiedSeller||false;document.getElementById('editModal').classList.add('active');}}catch(e){alert('Hata');}
+        }
+        async function saveUser(e){
+            e.preventDefault();
+            const id=document.getElementById('editId').value;
+            const data={role:document.getElementById('editRole').value,isActive:document.getElementById('editActive').checked,sellerInfo:{isVerifiedSeller:document.getElementById('editVerified').checked}};
+            try{const r=await api.put('/admin/users/'+id,data);if(r.success){alert('Güncellendi');closeModal();loadUsers();}}catch(e){alert('Hata');}
+        }
+        async function deleteUser(id,name){if(!confirm('"'+name+'" silinsin mi?'))return;try{await api.delete('/admin/users/'+id);alert('Silindi');loadUsers();}catch(e){alert('Hata');}}
+        function closeModal(){document.getElementById('editModal').classList.remove('active');}
+        function debounce(fn,ms){let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms);};}
+    </script>
+</body>
+</html>

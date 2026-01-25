@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doğrulama Süreci - EquiMarket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --racing-green: #1a3d2e;
+            --racing-green-light: #2d5a47;
+            --gold: #c9a55c;
+            --gold-light: #e8d5a8;
+            --cream: #faf8f3;
+            --charcoal: #2a2a2a;
+            --warm-gray: #6b6b6b;
+            --light-gray: #f5f4f0;
+            --white: #ffffff;
+            --success: #059669;
+            --shadow-soft: 0 4px 20px rgba(26, 61, 46, 0.08);
+            --shadow-medium: 0 8px 40px rgba(26, 61, 46, 0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal); line-height: 1.7; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-height: 1.3; }
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(26,61,46,0.08); }
+        .header-inner { max-width: 1200px; margin: 0 auto; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-icon { width: 44px; height: 44px; background: var(--racing-green); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        .logo-icon svg { width: 24px; height: 24px; fill: var(--gold); }
+        .logo-text { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--racing-green); }
+        .logo-text span { color: var(--gold); }
+        .nav-menu { display: flex; gap: 32px; list-style: none; }
+        .nav-menu a { text-decoration: none; color: var(--charcoal); font-weight: 500; font-size: 15px; transition: color 0.3s; }
+        .nav-menu a:hover { color: var(--gold); }
+        .header-actions { display: flex; gap: 12px; }
+        .btn { padding: 12px 24px; border-radius: 10px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: none; }
+        .btn-ghost { background: transparent; color: var(--charcoal); }
+        .btn-ghost:hover { background: var(--light-gray); }
+        .btn-primary { background: var(--racing-green); color: var(--white); }
+        .btn-primary:hover { background: var(--racing-green-light); }
+        .btn-gold { background: linear-gradient(135deg, var(--gold), #d4b06a); color: var(--charcoal); font-weight: 700; }
+
+        .hero { padding: 140px 40px 80px; text-align: center; background: linear-gradient(180deg, var(--white), var(--cream)); position: relative; }
+        .hero-content { max-width: 700px; margin: 0 auto; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--success); color: var(--white); padding: 10px 20px; border-radius: 30px; font-size: 13px; font-weight: 600; margin-bottom: 24px; }
+        .hero-badge svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.5; }
+        .hero h1 { font-size: 48px; color: var(--charcoal); margin-bottom: 20px; }
+        .hero p { font-size: 18px; color: var(--warm-gray); }
+
+        .benefits-section { max-width: 1200px; margin: 0 auto; padding: 80px 40px; }
+        .benefits-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .benefit-card { background: var(--white); border-radius: 16px; padding: 28px; text-align: center; box-shadow: var(--shadow-soft); transition: all 0.3s; }
+        .benefit-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-medium); }
+        .benefit-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--gold), var(--gold-light)); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+        .benefit-icon svg { width: 28px; height: 28px; stroke: var(--charcoal); fill: none; stroke-width: 1.5; }
+        .benefit-card h3 { font-size: 18px; color: var(--charcoal); margin-bottom: 8px; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+        .benefit-card p { font-size: 14px; color: var(--warm-gray); }
+
+        .process-section { background: var(--white); padding: 100px 40px; }
+        .process-container { max-width: 900px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-badge { display: inline-block; background: var(--racing-green); color: var(--gold); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+        .section-header h2 { font-size: 36px; color: var(--charcoal); }
+
+        .process-steps { position: relative; }
+        .process-steps::before { content: ''; position: absolute; left: 32px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--gold), var(--gold-light)); }
+        .process-step { display: flex; gap: 32px; margin-bottom: 48px; position: relative; }
+        .process-step:last-child { margin-bottom: 0; }
+        .step-marker { width: 64px; height: 64px; background: var(--white); border: 3px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--gold); flex-shrink: 0; z-index: 1; }
+        .step-content { background: var(--cream); border-radius: 16px; padding: 28px; flex: 1; }
+        .step-content h3 { font-size: 22px; color: var(--charcoal); margin-bottom: 12px; }
+        .step-content p { color: var(--warm-gray); margin-bottom: 16px; }
+        .step-docs { display: flex; flex-wrap: wrap; gap: 8px; }
+        .doc-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--white); padding: 8px 12px; border-radius: 8px; font-size: 13px; color: var(--charcoal); }
+        .doc-tag svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; }
+
+        .timeline-section { max-width: 800px; margin: 0 auto; padding: 100px 40px; }
+        .timeline-card { background: var(--white); border-radius: 20px; padding: 40px; box-shadow: var(--shadow-soft); text-align: center; }
+        .timeline-card h2 { font-size: 28px; color: var(--charcoal); margin-bottom: 16px; }
+        .timeline-card p { color: var(--warm-gray); margin-bottom: 32px; }
+        .timeline-items { display: flex; justify-content: space-between; gap: 24px; }
+        .timeline-item { flex: 1; text-align: center; }
+        .timeline-time { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
+        .timeline-label { font-size: 14px; color: var(--warm-gray); }
+
+        .cta-section { background: linear-gradient(165deg, var(--racing-green), #0f2a1f); padding: 80px 40px; text-align: center; }
+        .cta-section h2 { font-size: 36px; color: var(--white); margin-bottom: 16px; }
+        .cta-section p { color: rgba(255,255,255,0.7); margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+        footer { background: var(--racing-green); color: var(--white); padding: 60px 40px 30px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+        .footer-brand p { color: rgba(255,255,255,0.7); margin-top: 16px; font-size: 14px; }
+        .footer-column h4 { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: var(--gold); }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--gold); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 14px; color: rgba(255,255,255,0.5); }
+        .footer-bottom-links { display: flex; gap: 24px; }
+        .footer-bottom-links a { color: rgba(255,255,255,0.5); text-decoration: none; }
+        .footer-bottom-links a:hover { color: var(--gold); }
+
+        @media (max-width: 992px) {
+            .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+            .timeline-items { flex-direction: column; gap: 16px; }
+        }
+        @media (max-width: 768px) {
+            .header-inner { padding: 16px 20px; }
+            .nav-menu { display: none; }
+            .hero { padding: 120px 20px 60px; }
+            .hero h1 { font-size: 32px; }
+            .benefits-section { padding: 60px 20px; }
+            .benefits-grid { grid-template-columns: 1fr; }
+            .process-section { padding: 60px 20px; }
+            .process-steps::before { left: 24px; }
+            .step-marker { width: 48px; height: 48px; font-size: 18px; }
+            .process-step { gap: 20px; }
+            .timeline-section { padding: 60px 20px; }
+            .cta-section { padding: 60px 20px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="homepage_v2.html" class="logo">
+                <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg></div>
+                <div class="logo-text">Equi<span>Market</span></div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="ilanlar.html">Atları İncele</a></li>
+                <li><a href="about.html">Hakkımızda</a></li>
+                <li><a href="pricing.html">Fiyatlandırma</a></li>
+                <li><a href="faq.html">SSS</a></li>
+                <li><a href="contact.html">İletişim</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="login_register.html" class="btn btn-ghost">Giriş Yap</a>
+                <a href="login_register.html" class="btn btn-primary">Kayıt Ol</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-badge"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Güvenilir Platform</span>
+            <h1>Doğrulama Süreci</h1>
+            <p>Doğrulanmış satıcı rozeti kazanarak güvenilirliğinizi artırın ve daha hızlı satış yapın.</p>
+        </div>
+    </section>
+
+    <section class="benefits-section">
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                <h3>Güven Artışı</h3>
+                <p>Alıcılar doğrulanmış satıcıları tercih eder</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+                <h3>Hızlı Satış</h3>
+                <p>%40 daha hızlı satış yapma imkanı</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+                <h3>Öne Çıkma</h3>
+                <p>Arama sonuçlarında üst sıralarda görünme</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4-4-4 4M12 16V8"/></svg></div>
+                <h3>Daha Fazla Tıklanma</h3>
+                <p>İlanlarınız 2 kat daha fazla görüntülenir</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="process-section">
+        <div class="process-container">
+            <div class="section-header">
+                <span class="section-badge">Adım Adım</span>
+                <h2>Doğrulama Nasıl Yapılır?</h2>
+            </div>
+
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-marker">1</div>
+                    <div class="step-content">
+                        <h3>Hesabınızı Oluşturun</h3>
+                        <p>Henüz hesabınız yoksa satıcı olarak kayıt olun. E-posta adresinizi doğrulayın.</p>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-marker">2</div>
+                    <div class="step-content">
+                        <h3>Belgeleri Yükleyin</h3>
+                        <p>Doğrulama için gerekli belgeleri sisteme yükleyin. Belgeler güvenli şekilde saklanır.</p>
+                        <div class="step-docs">
+                            <span class="doc-tag"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg> Kimlik Fotokopisi</span>
+                            <span class="doc-tag"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg> İkametgah</span>
+                            <span class="doc-tag"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg> Vergi Levhası (Opsiyonel)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-marker">3</div>
+                    <div class="step-content">
+                        <h3>Telefon Doğrulama</h3>
+                        <p>Cep telefonunuza gönderilen SMS kodunu girerek numaranızı doğrulayın.</p>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-marker">4</div>
+                    <div class="step-content">
+                        <h3>İnceleme & Onay</h3>
+                        <p>Ekibimiz belgelerinizi inceler ve 24-48 saat içinde hesabınızı doğrular. Doğrulama tamamlandığında profilinizde rozet görünecektir.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="timeline-section">
+        <div class="timeline-card">
+            <h2>Ne Kadar Sürer?</h2>
+            <p>Doğrulama süreci hızlı ve basittir</p>
+            <div class="timeline-items">
+                <div class="timeline-item">
+                    <div class="timeline-time">5 dk</div>
+                    <div class="timeline-label">Belge yükleme</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">1 dk</div>
+                    <div class="timeline-label">SMS doğrulama</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">24-48 saat</div>
+                    <div class="timeline-label">İnceleme süreci</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Doğrulanmış Satıcı Olmaya Hazır mısınız?</h2>
+        <p>Hemen başvurun ve güvenilir satıcı rozetini kazanın.</p>
+        <a href="login_register.html" class="btn btn-gold">Doğrulama Başvurusu Yap</a>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="homepage_v2.html" class="logo" style="margin-bottom: 8px;">
+                        <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg></div>
+                        <div class="logo-text">Equi<span>Market</span></div>
+                    </a>
+                    <p>Türkiye'nin en güvenilir yarış atı pazaryeri.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="ilanlar.html">İlanları Keşfet</a></li>
+                        <li><a href="create_listing.html">İlan Ver</a></li>
+                        <li><a href="pricing.html">Fiyatlandırma</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Şirket</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Hakkımızda</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Destek</h4>
+                    <ul class="footer-links">
+                        <li><a href="faq.html">Yardım Merkezi</a></li>
+                        <li><a href="seller_guide.html">Satıcı Rehberi</a></li>
+                        <li><a href="report.html">Şikayet Bildir</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 EquiMarket. Tüm hakları saklıdır.</p>
+                <div class="footer-bottom-links">
+                    <a href="terms.html">Kullanım Koşulları</a>
+                    <a href="privacy.html">Gizlilik Politikası</a>
+                    <a href="cookies.html">Çerez Politikası</a>
+                    <a href="kvkk.html">KVKK</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const authButtons = document.querySelector('.header-actions');
+            if (!authButtons) return;
+            const token = localStorage.getItem('equimarket_token');
+            const userData = localStorage.getItem('equimarket_user');
+            if (token && userData) {
+                const user = JSON.parse(userData);
+                const dashboardUrl = user.role === 'seller' ? 'dashboard.html' : 'dashboard.html';
+                const initials = user.name ? user.name.substring(0, 2).toUpperCase() : 'KA';
+                const firstName = user.name ? user.name.split(' ')[0] : 'Kullanıcı';
+                authButtons.innerHTML = `
+                    <a href="${dashboardUrl}" class="btn btn-ghost" style="display:flex;align-items:center;gap:10px;">
+                        <span style="width:36px;height:36px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--charcoal);">${initials}</span>
+                        ${firstName}
+                    </a>
+                    <a href="#" onclick="logout(); return false;" class="btn btn-primary">Çıkış</a>
+                `;
+            }
+        });
+        function logout() { localStorage.removeItem('equimarket_token'); localStorage.removeItem('equimarket_user'); window.location.reload(); }
+    </script>
+</body>
+</html>

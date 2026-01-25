@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şikayet Bildir - EquiMarket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --racing-green: #1a3d2e;
+            --racing-green-light: #2d5a47;
+            --gold: #c9a55c;
+            --gold-light: #e8d5a8;
+            --cream: #faf8f3;
+            --charcoal: #2a2a2a;
+            --warm-gray: #6b6b6b;
+            --light-gray: #f5f4f0;
+            --white: #ffffff;
+            --error: #dc2626;
+            --shadow-soft: 0 4px 20px rgba(26, 61, 46, 0.08);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal); line-height: 1.7; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-height: 1.3; }
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(26,61,46,0.08); }
+        .header-inner { max-width: 1200px; margin: 0 auto; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-icon { width: 44px; height: 44px; background: var(--racing-green); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        .logo-icon svg { width: 24px; height: 24px; fill: var(--gold); }
+        .logo-text { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--racing-green); }
+        .logo-text span { color: var(--gold); }
+        .nav-menu { display: flex; gap: 32px; list-style: none; }
+        .nav-menu a { text-decoration: none; color: var(--charcoal); font-weight: 500; font-size: 15px; transition: color 0.3s; }
+        .nav-menu a:hover { color: var(--gold); }
+        .header-actions { display: flex; gap: 12px; }
+        .btn { padding: 12px 24px; border-radius: 10px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: none; }
+        .btn-ghost { background: transparent; color: var(--charcoal); }
+        .btn-ghost:hover { background: var(--light-gray); }
+        .btn-primary { background: var(--racing-green); color: var(--white); }
+        .btn-primary:hover { background: var(--racing-green-light); }
+
+        .hero { padding: 140px 40px 60px; text-align: center; background: linear-gradient(180deg, var(--white), var(--cream)); }
+        .hero h1 { font-size: 48px; color: var(--charcoal); margin-bottom: 16px; }
+        .hero p { font-size: 18px; color: var(--warm-gray); max-width: 600px; margin: 0 auto; }
+
+        .main-content { max-width: 1100px; margin: 0 auto; padding: 60px 40px 100px; display: grid; grid-template-columns: 1fr 380px; gap: 60px; }
+
+        .form-section { background: var(--white); border-radius: 20px; padding: 40px; box-shadow: var(--shadow-soft); }
+        .form-title { font-size: 24px; color: var(--charcoal); margin-bottom: 8px; }
+        .form-subtitle { color: var(--warm-gray); margin-bottom: 32px; }
+
+        .form-group { margin-bottom: 24px; }
+        .form-label { display: block; font-weight: 600; color: var(--charcoal); margin-bottom: 8px; font-size: 14px; }
+        .form-label .required { color: var(--error); }
+        .form-input, .form-select, .form-textarea { width: 100%; padding: 14px 16px; border: 2px solid var(--light-gray); border-radius: 10px; font-family: inherit; font-size: 15px; color: var(--charcoal); transition: all 0.3s; background: var(--white); }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--racing-green); box-shadow: 0 0 0 4px rgba(26,61,46,0.1); }
+        .form-textarea { resize: vertical; min-height: 150px; }
+        .form-hint { font-size: 13px; color: var(--warm-gray); margin-top: 6px; }
+
+        .report-types { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
+        .report-type { padding: 16px; border: 2px solid var(--light-gray); border-radius: 12px; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .report-type:hover { border-color: var(--gold); }
+        .report-type.active { border-color: var(--racing-green); background: rgba(26,61,46,0.05); }
+        .report-type input { display: none; }
+        .report-type-icon { width: 40px; height: 40px; background: var(--light-gray); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; }
+        .report-type-icon svg { width: 20px; height: 20px; stroke: var(--charcoal); fill: none; stroke-width: 1.5; }
+        .report-type.active .report-type-icon { background: var(--gold); }
+        .report-type.active .report-type-icon svg { stroke: var(--charcoal); }
+        .report-type-label { font-weight: 600; font-size: 14px; color: var(--charcoal); }
+
+        .file-upload { border: 2px dashed var(--light-gray); border-radius: 12px; padding: 32px; text-align: center; cursor: pointer; transition: all 0.3s; }
+        .file-upload:hover { border-color: var(--gold); background: rgba(201,165,92,0.05); }
+        .file-upload-icon { width: 48px; height: 48px; background: var(--light-gray); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
+        .file-upload-icon svg { width: 24px; height: 24px; stroke: var(--warm-gray); fill: none; }
+        .file-upload-text { font-weight: 600; color: var(--charcoal); margin-bottom: 4px; }
+        .file-upload-hint { font-size: 13px; color: var(--warm-gray); }
+        .file-upload input { display: none; }
+
+        .submit-btn { width: 100%; padding: 16px; font-size: 16px; margin-top: 16px; }
+
+        .sidebar { position: sticky; top: 120px; }
+        .info-card { background: var(--white); border-radius: 16px; padding: 28px; box-shadow: var(--shadow-soft); margin-bottom: 24px; }
+        .info-card h3 { font-size: 18px; color: var(--charcoal); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .info-card h3 svg { width: 22px; height: 22px; stroke: var(--gold); fill: none; }
+        .info-card p { font-size: 14px; color: var(--warm-gray); margin-bottom: 12px; }
+        .info-card ul { list-style: none; }
+        .info-card li { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 14px; color: var(--charcoal); }
+        .info-card li svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; flex-shrink: 0; margin-top: 3px; }
+
+        .contact-card { background: linear-gradient(135deg, var(--racing-green), var(--racing-green-light)); border-radius: 16px; padding: 28px; color: var(--white); }
+        .contact-card h3 { font-size: 18px; margin-bottom: 12px; color: var(--white); }
+        .contact-card p { font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 20px; }
+        .contact-link { display: flex; align-items: center; gap: 10px; color: var(--gold); text-decoration: none; font-weight: 600; font-size: 14px; margin-bottom: 10px; }
+        .contact-link svg { width: 18px; height: 18px; stroke: currentColor; fill: none; }
+
+        footer { background: var(--racing-green); color: var(--white); padding: 60px 40px 30px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+        .footer-brand p { color: rgba(255,255,255,0.7); margin-top: 16px; font-size: 14px; }
+        .footer-column h4 { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: var(--gold); }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--gold); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 14px; color: rgba(255,255,255,0.5); }
+        .footer-bottom-links { display: flex; gap: 24px; }
+        .footer-bottom-links a { color: rgba(255,255,255,0.5); text-decoration: none; }
+        .footer-bottom-links a:hover { color: var(--gold); }
+
+        @media (max-width: 992px) { .main-content { grid-template-columns: 1fr; } .sidebar { position: static; } }
+        @media (max-width: 768px) {
+            .header-inner { padding: 16px 20px; }
+            .nav-menu { display: none; }
+            .hero { padding: 120px 20px 40px; }
+            .hero h1 { font-size: 32px; }
+            .main-content { padding: 40px 20px 60px; }
+            .form-section { padding: 24px; }
+            .report-types { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="homepage_v2.html" class="logo">
+                <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg></div>
+                <div class="logo-text">Equi<span>Market</span></div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="ilanlar.html">Atları İncele</a></li>
+                <li><a href="about.html">Hakkımızda</a></li>
+                <li><a href="pricing.html">Fiyatlandırma</a></li>
+                <li><a href="faq.html">SSS</a></li>
+                <li><a href="contact.html">İletişim</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="login_register.html" class="btn btn-ghost">Giriş Yap</a>
+                <a href="login_register.html" class="btn btn-primary">Kayıt Ol</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Şikayet Bildir</h1>
+        <p>Platform kurallarını ihlal eden içerikleri veya şüpheli davranışları bize bildirin</p>
+    </section>
+
+    <section class="main-content">
+        <div class="form-section">
+            <h2 class="form-title">Şikayet Formu</h2>
+            <p class="form-subtitle">Lütfen bildirmek istediğiniz durumu detaylı şekilde açıklayın</p>
+
+            <form id="reportForm">
+                <div class="form-group">
+                    <label class="form-label">Şikayet Türü <span class="required">*</span></label>
+                    <div class="report-types">
+                        <label class="report-type">
+                            <input type="radio" name="reportType" value="fake_listing" required>
+                            <div class="report-type-icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg></div>
+                            <span class="report-type-label">Sahte İlan</span>
+                        </label>
+                        <label class="report-type">
+                            <input type="radio" name="reportType" value="fraud">
+                            <div class="report-type-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg></div>
+                            <span class="report-type-label">Dolandırıcılık</span>
+                        </label>
+                        <label class="report-type">
+                            <input type="radio" name="reportType" value="wrong_info">
+                            <div class="report-type-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+                            <span class="report-type-label">Yanlış Bilgi</span>
+                        </label>
+                        <label class="report-type">
+                            <input type="radio" name="reportType" value="inappropriate">
+                            <div class="report-type-icon"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/></svg></div>
+                            <span class="report-type-label">Uygunsuz İçerik</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="listingUrl">İlan Linki veya ID</label>
+                    <input type="text" id="listingUrl" class="form-input" placeholder="https://equimarket.com.tr/ilan/123 veya ilan numarası">
+                    <p class="form-hint">Şikayetiniz bir ilanla ilgiliyse lütfen linki veya ID'yi paylaşın</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="description">Açıklama <span class="required">*</span></label>
+                    <textarea id="description" class="form-textarea" placeholder="Lütfen şikayetinizi detaylı şekilde açıklayın..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Kanıt Dosyaları</label>
+                    <label class="file-upload">
+                        <div class="file-upload-icon"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+                        <div class="file-upload-text">Dosya yüklemek için tıklayın</div>
+                        <div class="file-upload-hint">PNG, JPG, PDF - Maks. 10MB</div>
+                        <input type="file" multiple accept=".png,.jpg,.jpeg,.pdf">
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">E-posta Adresiniz <span class="required">*</span></label>
+                    <input type="email" id="email" class="form-input" placeholder="ornek@email.com" required>
+                    <p class="form-hint">Şikayetinizin durumu hakkında sizi bilgilendireceğiz</p>
+                </div>
+
+                <button type="submit" class="btn btn-primary submit-btn">Şikayeti Gönder</button>
+            </form>
+        </div>
+
+        <div class="sidebar">
+            <div class="info-card">
+                <h3><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> Neleri Bildirebilirsiniz?</h3>
+                <ul>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Sahte veya yanıltıcı ilanlar</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Dolandırıcılık girişimleri</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Yanlış at bilgileri</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Uygunsuz mesajlar</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Sahte profiller</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Telif hakkı ihlalleri</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Süreç Nasıl İşler?</h3>
+                <p>1. Şikayetinizi alır ve 24 saat içinde inceleriz</p>
+                <p>2. Gerekirse sizden ek bilgi talep ederiz</p>
+                <p>3. İhlal tespit edilirse gerekli aksiyonları alırız</p>
+                <p>4. Sonuç hakkında sizi e-posta ile bilgilendiririz</p>
+            </div>
+
+            <div class="contact-card">
+                <h3>Acil Durumlar İçin</h3>
+                <p>Dolandırıcılık mağduru olduğunuzu düşünüyorsanız hemen bize ulaşın</p>
+                <a href="tel:08501234567" class="contact-link"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg> 0850 123 45 67</a>
+                <a href="mailto:guvenlik@equimarket.com.tr" class="contact-link"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> guvenlik@equimarket.com.tr</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="homepage_v2.html" class="logo" style="margin-bottom: 8px;">
+                        <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg></div>
+                        <div class="logo-text">Equi<span>Market</span></div>
+                    </a>
+                    <p>Türkiye'nin en güvenilir yarış atı pazaryeri.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="ilanlar.html">İlanları Keşfet</a></li>
+                        <li><a href="create_listing.html">İlan Ver</a></li>
+                        <li><a href="pricing.html">Fiyatlandırma</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Şirket</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Hakkımızda</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Destek</h4>
+                    <ul class="footer-links">
+                        <li><a href="faq.html">Yardım Merkezi</a></li>
+                        <li><a href="seller_guide.html">Satıcı Rehberi</a></li>
+                        <li><a href="report.html">Şikayet Bildir</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 EquiMarket. Tüm hakları saklıdır.</p>
+                <div class="footer-bottom-links">
+                    <a href="terms.html">Kullanım Koşulları</a>
+                    <a href="privacy.html">Gizlilik Politikası</a>
+                    <a href="cookies.html">Çerez Politikası</a>
+                    <a href="kvkk.html">KVKK</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script>
+        // Report type selection
+        document.querySelectorAll('.report-type').forEach(type => {
+            type.addEventListener('click', () => {
+                document.querySelectorAll('.report-type').forEach(t => t.classList.remove('active'));
+                type.classList.add('active');
+            });
+        });
+
+        // Form submit
+        document.getElementById('reportForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            const reportType = document.querySelector('input[name="reportType"]:checked');
+            if (!reportType) {
+                showToast('Lütfen şikayet türü seçin', 'error');
+                return;
+            }
+
+            const data = {
+                type: 'listing', // default type
+                reason: reportType.value,
+                targetId: document.getElementById('listingUrl').value.trim() || null,
+                description: document.getElementById('description').value.trim(),
+                contactEmail: document.getElementById('email').value.trim()
+            };
+
+            if (!data.description) {
+                showToast('Lütfen açıklama yazın', 'error');
+                return;
+            }
+
+            if (!data.contactEmail) {
+                showToast('Lütfen e-posta adresinizi girin', 'error');
+                return;
+            }
+
+            submitBtn.textContent = 'Gönderiliyor...';
+            submitBtn.disabled = true;
+
+            try {
+                const result = await api.post('/support/report', data);
+                
+                if (result.success) {
+                    showToast('Şikayetiniz başarıyla gönderildi!', 'success');
+                    this.reset();
+                    document.querySelectorAll('.report-type').forEach(t => t.classList.remove('active'));
+                } else {
+                    showToast(result.message || 'Bir hata oluştu', 'error');
+                }
+            } catch (error) {
+                showToast('Bağlantı hatası', 'error');
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Auth
+        document.addEventListener('DOMContentLoaded', function() {
+            const authButtons = document.querySelector('.header-actions');
+            if (!authButtons) return;
+            const token = localStorage.getItem('equimarket_token');
+            const userData = localStorage.getItem('equimarket_user');
+            if (token && userData) {
+                const user = JSON.parse(userData);
+                const initials = user.name ? user.name.substring(0, 2).toUpperCase() : 'KA';
+                const firstName = user.name ? user.name.split(' ')[0] : 'Kullanıcı';
+                authButtons.innerHTML = `
+                    <a href="dashboard.html" class="btn btn-ghost" style="display:flex;align-items:center;gap:10px;">
+                        <span style="width:36px;height:36px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--charcoal);">${initials}</span>
+                        ${firstName}
+                    </a>
+                    <a href="#" onclick="logout(); return false;" class="btn btn-primary">Çıkış</a>
+                `;
+                // E-posta alanını doldur
+                document.getElementById('email').value = user.email || '';
+            }
+        });
+
+        function logout() { 
+            localStorage.removeItem('equimarket_token'); 
+            localStorage.removeItem('equimarket_user'); 
+            window.location.reload(); 
+        }
+
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            toast.style.cssText = `position:fixed;bottom:24px;right:24px;background:${type==='success'?'#1a3d2e':'#dc2626'};color:white;padding:16px 24px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.2);z-index:10000;`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+    </script>
+</body>
+</html>

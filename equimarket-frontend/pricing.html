@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="EquiMarket üyelik paketleri ve fiyatları. Ücretsiz başlayın.">
+    <meta name="keywords" content="at satışı, yarış atı, safkan at, at ilanları, equimarket, türkiye at pazarı">
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Fiyatlandırma - EquiMarket">
+    <meta property="og:description" content="EquiMarket üyelik paketleri ve fiyatları. Ücretsiz başlayın.">
+    <meta property="og:url" content="https://equimarket.com.tr/fiyatlandirma">
+    <meta property="og:site_name" content="EquiMarket">
+    <meta property="og:locale" content="tr_TR">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Fiyatlandırma - EquiMarket">
+    <meta name="twitter:description" content="EquiMarket üyelik paketleri ve fiyatları. Ücretsiz başlayın.">
+    <link rel="canonical" href="https://equimarket.com.tr/fiyatlandirma">
+    <title>Fiyatlandırma - EquiMarket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --racing-green: #1a3d2e;
+            --racing-green-light: #2d5a47;
+            --gold: #c9a55c;
+            --gold-light: #e8d5a8;
+            --cream: #faf8f3;
+            --charcoal: #2a2a2a;
+            --warm-gray: #6b6b6b;
+            --light-gray: #f5f4f0;
+            --white: #ffffff;
+            --shadow-soft: 0 4px 20px rgba(26, 61, 46, 0.08);
+            --shadow-medium: 0 8px 40px rgba(26, 61, 46, 0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal); line-height: 1.6; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; line-height: 1.2; }
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(26,61,46,0.08); }
+        .header-inner { max-width: 1200px; margin: 0 auto; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-icon { width: 44px; height: 44px; background: var(--racing-green); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        .logo-icon svg { width: 24px; height: 24px; fill: var(--gold); }
+        .logo-text { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--racing-green); }
+        .logo-text span { color: var(--gold); }
+        .nav-menu { display: flex; gap: 32px; list-style: none; }
+        .nav-menu a { text-decoration: none; color: var(--charcoal); font-weight: 500; font-size: 15px; transition: color 0.3s; }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--gold); }
+        .header-actions { display: flex; gap: 12px; }
+        .btn { padding: 12px 24px; border-radius: 10px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: none; }
+        .btn-ghost { background: transparent; color: var(--charcoal); }
+        .btn-ghost:hover { background: var(--light-gray); }
+        .btn-primary { background: var(--racing-green); color: var(--white); }
+        .btn-primary:hover { background: var(--racing-green-light); }
+        .btn-gold { background: linear-gradient(135deg, var(--gold), #d4b06a); color: var(--charcoal); font-weight: 700; }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,165,92,0.4); }
+        .btn-outline { background: transparent; border: 2px solid var(--racing-green); color: var(--racing-green); }
+        .btn-outline:hover { background: var(--racing-green); color: var(--white); }
+
+        .hero { padding: 140px 40px 80px; text-align: center; background: linear-gradient(180deg, var(--white), var(--cream)); position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(201,165,92,0.08) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(26,61,46,0.06) 0%, transparent 50%); }
+        .hero-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--racing-green); color: var(--gold); padding: 10px 20px; border-radius: 30px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+        .hero h1 { font-size: 52px; color: var(--charcoal); margin-bottom: 20px; }
+        .hero p { font-size: 20px; color: var(--warm-gray); line-height: 1.7; }
+
+        .pricing-section { max-width: 1200px; margin: 0 auto; padding: 0 40px 100px; }
+        .pricing-toggle { display: flex; justify-content: center; margin-bottom: 60px; background: var(--light-gray); padding: 6px; border-radius: 12px; width: fit-content; margin-left: auto; margin-right: auto; }
+        .toggle-btn { padding: 12px 32px; border: none; background: transparent; font-weight: 600; font-size: 15px; cursor: pointer; border-radius: 8px; transition: all 0.3s; color: var(--warm-gray); }
+        .toggle-btn.active { background: var(--white); color: var(--racing-green); box-shadow: var(--shadow-soft); }
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        .pricing-card { background: var(--white); border-radius: 24px; padding: 40px; box-shadow: var(--shadow-soft); transition: all 0.3s; position: relative; overflow: hidden; }
+        .pricing-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-medium); }
+        .pricing-card.featured { border: 2px solid var(--gold); }
+        .pricing-card.featured::before { content: 'En Popüler'; position: absolute; top: 20px; right: -35px; background: var(--gold); color: var(--charcoal); padding: 6px 40px; font-size: 12px; font-weight: 700; transform: rotate(45deg); }
+        .plan-name { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: var(--warm-gray); margin-bottom: 8px; }
+        .plan-title { font-size: 28px; color: var(--charcoal); margin-bottom: 16px; }
+        .plan-price { display: flex; align-items: baseline; gap: 4px; margin-bottom: 8px; }
+        .price-amount { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; color: var(--racing-green); }
+        .price-currency { font-size: 24px; color: var(--racing-green); }
+        .price-period { font-size: 16px; color: var(--warm-gray); }
+        .plan-description { color: var(--warm-gray); margin-bottom: 32px; font-size: 15px; }
+        .plan-features { list-style: none; margin-bottom: 32px; }
+        .plan-features li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--light-gray); }
+        .plan-features li:last-child { border-bottom: none; }
+        .plan-features svg { width: 20px; height: 20px; fill: none; stroke: var(--gold); stroke-width: 2.5; flex-shrink: 0; margin-top: 2px; }
+        .plan-features .unavailable { color: var(--warm-gray); opacity: 0.5; }
+        .plan-features .unavailable svg { stroke: var(--warm-gray); }
+        .plan-cta { width: 100%; padding: 16px; font-size: 16px; }
+
+        .features-section { background: var(--racing-green); padding: 100px 40px; margin-top: 60px; }
+        .features-container { max-width: 1200px; margin: 0 auto; }
+        .features-header { text-align: center; margin-bottom: 60px; }
+        .features-header h2 { font-size: 40px; color: var(--white); margin-bottom: 16px; }
+        .features-header p { color: rgba(255,255,255,0.7); font-size: 18px; }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+        .feature-item { text-align: center; padding: 32px 20px; }
+        .feature-icon { width: 64px; height: 64px; background: rgba(201,165,92,0.15); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+        .feature-icon svg { width: 32px; height: 32px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+        .feature-item h4 { color: var(--white); font-size: 18px; margin-bottom: 8px; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+        .feature-item p { color: rgba(255,255,255,0.6); font-size: 14px; }
+
+        .faq-section { max-width: 800px; margin: 0 auto; padding: 100px 40px; }
+        .faq-header { text-align: center; margin-bottom: 48px; }
+        .faq-header h2 { font-size: 36px; color: var(--charcoal); margin-bottom: 12px; }
+        .faq-header p { color: var(--warm-gray); }
+        .faq-item { background: var(--white); border-radius: 16px; margin-bottom: 16px; overflow: hidden; box-shadow: var(--shadow-soft); }
+        .faq-question { padding: 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: var(--charcoal); }
+        .faq-question svg { width: 24px; height: 24px; stroke: var(--warm-gray); fill: none; stroke-width: 2; transition: transform 0.3s; }
+        .faq-item.open .faq-question svg { transform: rotate(180deg); }
+        .faq-answer { padding: 0 24px 24px; color: var(--warm-gray); display: none; }
+        .faq-item.open .faq-answer { display: block; }
+
+        footer { background: var(--racing-green); color: var(--white); padding: 60px 40px 30px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+        .footer-brand p { color: rgba(255,255,255,0.7); margin-top: 16px; font-size: 14px; }
+        .footer-column h4 { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: var(--gold); }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--gold); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 14px; color: rgba(255,255,255,0.5); }
+        .footer-bottom-links { display: flex; gap: 24px; }
+        .footer-bottom-links a { color: rgba(255,255,255,0.5); text-decoration: none; }
+        .footer-bottom-links a:hover { color: var(--gold); }
+
+        @media (max-width: 992px) {
+            .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .header-inner { padding: 16px 20px; }
+            .nav-menu { display: none; }
+            .hero { padding: 120px 20px 60px; }
+            .hero h1 { font-size: 36px; }
+            .pricing-section { padding: 0 20px 60px; }
+            .features-section { padding: 60px 20px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .faq-section { padding: 60px 20px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="homepage_v2.html" class="logo">
+                <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg></div>
+                <div class="logo-text">Equi<span>Market</span></div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="ilanlar.html">Atları İncele</a></li>
+                <li><a href="about.html">Hakkımızda</a></li>
+                <li><a href="pricing.html" class="active">Fiyatlandırma</a></li>
+                <li><a href="faq.html">SSS</a></li>
+                <li><a href="contact.html">İletişim</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="login_register.html" class="btn btn-ghost">Giriş Yap</a>
+                <a href="login_register.html" class="btn btn-primary">Kayıt Ol</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">Şeffaf Fiyatlandırma</span>
+            <h1>Her Bütçeye Uygun Planlar</h1>
+            <p>İster tek bir at satın, ister profesyonel bir çiftlik yönetin – size uygun plan mutlaka var.</p>
+        </div>
+    </section>
+
+    <section class="pricing-section">
+        <div class="pricing-toggle">
+            <button class="toggle-btn active" data-period="monthly">Aylık</button>
+            <button class="toggle-btn" data-period="yearly">Yıllık <span style="color: var(--gold); font-size: 12px; margin-left: 4px;">2 ay bedava</span></button>
+        </div>
+
+        <div class="pricing-grid">
+            <!-- Başlangıç Planı -->
+            <div class="pricing-card">
+                <div class="plan-name">Başlangıç</div>
+                <h3 class="plan-title">Bireysel</h3>
+                <div class="plan-price">
+                    <span class="price-currency">₺</span>
+                    <span class="price-amount" data-monthly="0" data-yearly="0">0</span>
+                </div>
+                <p class="price-period">Sonsuza kadar ücretsiz</p>
+                <p class="plan-description">At almak isteyenler ve ara sıra ilan verenler için ideal.</p>
+                <ul class="plan-features">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Sınırsız ilan görüntüleme</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Ayda 1 ücretsiz ilan</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Temel mesajlaşma</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Favori listesi (10 at)</li>
+                    <li class="unavailable"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg> Öne çıkan ilan</li>
+                    <li class="unavailable"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg> Doğrulanmış satıcı rozeti</li>
+                </ul>
+                <a href="login_register.html" class="btn btn-outline plan-cta">Ücretsiz Başla</a>
+            </div>
+
+            <!-- Pro Planı -->
+            <div class="pricing-card featured">
+                <div class="plan-name">En Popüler</div>
+                <h3 class="plan-title">Profesyonel</h3>
+                <div class="plan-price">
+                    <span class="price-currency">₺</span>
+                    <span class="price-amount" data-monthly="499" data-yearly="4.990">499</span>
+                </div>
+                <p class="price-period"><span class="period-text">/ ay</span></p>
+                <p class="plan-description">Düzenli at alım-satımı yapan profesyoneller için.</p>
+                <ul class="plan-features">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Sınırsız ilan</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Ayda 3 öne çıkan ilan</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Doğrulanmış satıcı rozeti</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Öncelikli mesajlaşma</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Detaylı analitik</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Sınırsız favoriler</li>
+                </ul>
+                <a href="login_register.html" class="btn btn-gold plan-cta">Şimdi Başla</a>
+            </div>
+
+            <!-- Enterprise Planı -->
+            <div class="pricing-card">
+                <div class="plan-name">Kurumsal</div>
+                <h3 class="plan-title">Çiftlik & Haralar</h3>
+                <div class="plan-price">
+                    <span class="price-currency">₺</span>
+                    <span class="price-amount" data-monthly="1.499" data-yearly="14.990">1.499</span>
+                </div>
+                <p class="price-period"><span class="period-text">/ ay</span></p>
+                <p class="plan-description">Büyük ölçekli çiftlikler ve haralar için özel çözümler.</p>
+                <ul class="plan-features">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Profesyonel'deki her şey</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Çoklu kullanıcı hesabı</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Özel profil sayfası</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> API erişimi</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Öncelikli destek</li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Özel hesap yöneticisi</li>
+                </ul>
+                <a href="contact.html" class="btn btn-primary plan-cta">Bize Ulaşın</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="features-container">
+            <div class="features-header">
+                <h2>Tüm Planlarda Dahil</h2>
+                <p>Hangi planı seçerseniz seçin, temel özelliklerimizden yararlanırsınız</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                    <h4>SSL Güvenliği</h4>
+                    <p>Tüm verileriniz şifrelenir</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+                    <h4>Güvenli Mesajlaşma</h4>
+                    <p>Platform içi iletişim</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+                    <h4>7/24 Destek</h4>
+                    <p>Her zaman yanınızdayız</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
+                    <h4>TJK Entegrasyonu</h4>
+                    <p>Resmi veri doğrulama</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="faq-header">
+            <h2>Sıkça Sorulan Sorular</h2>
+            <p>Fiyatlandırma hakkında merak ettikleriniz</p>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Planımı istediğim zaman değiştirebilir miyim? <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+            <div class="faq-answer">Evet, planınızı istediğiniz zaman yükseltebilir veya düşürebilirsiniz. Yükseltmelerde fark anında tahsil edilir, düşürmelerde ise mevcut dönem sonuna kadar mevcut planınız devam eder.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">İptal etmek istediğimde ne olur? <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+            <div class="faq-answer">İptal işlemini hesap ayarlarınızdan kolayca yapabilirsiniz. İptal ettiğinizde, mevcut fatura döneminin sonuna kadar tüm özelliklerinizi kullanmaya devam edersiniz.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Öne çıkan ilan ne demek? <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+            <div class="faq-answer">Öne çıkan ilanlar, arama sonuçlarında ve ana sayfada diğer ilanlardan önce görüntülenir. Bu sayede ilanınız daha fazla potansiyel alıcıya ulaşır.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Fatura kesiliyor mu? <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+            <div class="faq-answer">Evet, tüm ödemeler için yasal fatura kesilmektedir. Faturalarınıza hesap ayarlarınızdan erişebilirsiniz.</div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="homepage_v2.html" class="logo" style="margin-bottom: 8px;">
+                        <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg></div>
+                        <div class="logo-text">Equi<span>Market</span></div>
+                    </a>
+                    <p>Türkiye'nin en güvenilir yarış atı pazaryeri.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="ilanlar.html">İlanları Keşfet</a></li>
+                        <li><a href="create_listing.html">İlan Ver</a></li>
+                        <li><a href="pricing.html">Fiyatlandırma</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Şirket</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Hakkımızda</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Destek</h4>
+                    <ul class="footer-links">
+                        <li><a href="faq.html">Yardım Merkezi</a></li>
+                        <li><a href="seller_guide.html">Satıcı Rehberi</a></li>
+                        <li><a href="report.html">Şikayet Bildir</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 EquiMarket. Tüm hakları saklıdır.</p>
+                <div class="footer-bottom-links">
+                    <a href="terms.html">Kullanım Koşulları</a>
+                    <a href="privacy.html">Gizlilik Politikası</a>
+                    <a href="cookies.html">Çerez Politikası</a>
+                    <a href="kvkk.html">KVKK</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script>
+        // Fiyat toggle
+        document.querySelectorAll('.toggle-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const period = btn.dataset.period;
+                document.querySelectorAll('.price-amount').forEach(el => {
+                    el.textContent = el.dataset[period];
+                });
+                document.querySelectorAll('.period-text').forEach(el => {
+                    el.textContent = period === 'monthly' ? '/ ay' : '/ yıl';
+                });
+            });
+        });
+
+        // FAQ toggle
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                q.parentElement.classList.toggle('open');
+            });
+        });
+
+        // Auth
+        document.addEventListener('DOMContentLoaded', function() {
+            const authButtons = document.querySelector('.header-actions');
+            if (!authButtons) return;
+            const token = localStorage.getItem('equimarket_token');
+            const userData = localStorage.getItem('equimarket_user');
+            if (token && userData) {
+                const user = JSON.parse(userData);
+                const dashboardUrl = user.role === 'seller' ? 'dashboard.html' : 'dashboard.html';
+                const initials = user.name ? user.name.substring(0, 2).toUpperCase() : 'KA';
+                const firstName = user.name ? user.name.split(' ')[0] : 'Kullanıcı';
+                authButtons.innerHTML = `
+                    <a href="${dashboardUrl}" class="btn btn-ghost" style="display:flex;align-items:center;gap:10px;">
+                        <span style="width:36px;height:36px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--charcoal);">${initials}</span>
+                        ${firstName}
+                    </a>
+                    <a href="#" onclick="logout(); return false;" class="btn btn-primary">Çıkış</a>
+                `;
+            }
+        });
+        function logout() { localStorage.removeItem('equimarket_token'); localStorage.removeItem('equimarket_user'); window.location.reload(); }
+    </script>
+</body>
+</html>

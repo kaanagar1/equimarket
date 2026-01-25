@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Satılık yarış atları, safkan atlar. Irk, yaş, fiyat ve lokasyona göre filtreleyin.">
+    <meta name="keywords" content="at satışı, yarış atı, safkan at, at ilanları, equimarket, türkiye at pazarı">
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="At İlanları - EquiMarket">
+    <meta property="og:description" content="Satılık yarış atları, safkan atlar. Irk, yaş, fiyat ve lokasyona göre filtreleyin.">
+    <meta property="og:url" content="https://equimarket.com.tr/ilanlar">
+    <meta property="og:site_name" content="EquiMarket">
+    <meta property="og:locale" content="tr_TR">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="At İlanları - EquiMarket">
+    <meta name="twitter:description" content="Satılık yarış atları, safkan atlar. Irk, yaş, fiyat ve lokasyona göre filtreleyin.">
+    <link rel="canonical" href="https://equimarket.com.tr/ilanlar">
+    <title>Arama Sonuçları - EquiMarket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --racing-green: #1a3d2e;
+            --racing-green-light: #2d5a47;
+            --gold: #c9a55c;
+            --gold-light: #e8d5a8;
+            --cream: #faf8f3;
+            --charcoal: #2a2a2a;
+            --warm-gray: #6b6b6b;
+            --light-gray: #f5f4f0;
+            --white: #ffffff;
+            --success: #4a7c59;
+            --warning: #f59e0b;
+            --error: #dc2626;
+            --info: #3b82f6;
+            --shadow-soft: 0 4px 20px rgba(26, 61, 46, 0.08);
+            --shadow-medium: 0 8px 40px rgba(26, 61, 46, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(26, 61, 46, 0.08);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--racing-green);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--gold);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--racing-green);
+        }
+
+        .logo-text span { color: var(--gold); }
+
+        /* Header Search */
+        .header-search {
+            flex: 1;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .header-search input {
+            width: 100%;
+            padding: 14px 20px 14px 48px;
+            border: 2px solid var(--light-gray);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 15px;
+            color: var(--charcoal);
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .header-search input:focus {
+            outline: none;
+            border-color: var(--racing-green);
+            box-shadow: 0 0 0 4px rgba(26, 61, 46, 0.1);
+        }
+
+        .header-search svg {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: var(--warm-gray);
+            stroke-width: 2;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--charcoal);
+        }
+
+        .btn-ghost:hover {
+            background: var(--light-gray);
+        }
+
+        .btn-primary {
+            background: var(--racing-green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--racing-green-light);
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 32px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 40px 60px;
+        }
+
+        /* Filters Sidebar */
+        .filters-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .filters-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .filters-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .filters-title {
+            font-size: 18px;
+            color: var(--charcoal);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filters-title svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: var(--gold);
+            stroke-width: 2;
+        }
+
+        .filters-clear {
+            font-size: 13px;
+            color: var(--racing-green);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .filters-clear:hover {
+            color: var(--gold);
+        }
+
+        .filter-group {
+            margin-bottom: 24px;
+        }
+
+        .filter-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .filter-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .filter-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            color: var(--charcoal);
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236b6b6b' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 18px;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--racing-green);
+        }
+
+        /* Price Range */
+        .price-inputs {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .price-input {
+            padding: 12px 14px;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            color: var(--charcoal);
+            width: 100%;
+        }
+
+        .price-input:focus {
+            outline: none;
+            border-color: var(--racing-green);
+        }
+
+        .price-separator {
+            color: var(--warm-gray);
+            font-size: 14px;
+        }
+
+        /* Checkboxes */
+        .filter-checkboxes {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .filter-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .filter-checkbox input {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--light-gray);
+            border-radius: 4px;
+            appearance: none;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .filter-checkbox input:checked {
+            background: var(--racing-green);
+            border-color: var(--racing-green);
+        }
+
+        .filter-checkbox input:checked::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 4px;
+            height: 8px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .filter-checkbox span {
+            font-size: 14px;
+            color: var(--charcoal);
+        }
+
+        .filter-checkbox .count {
+            margin-left: auto;
+            font-size: 12px;
+            color: var(--warm-gray);
+        }
+
+        /* Apply Button */
+        .filters-apply {
+            width: 100%;
+            padding: 14px;
+            background: var(--racing-green);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 24px;
+        }
+
+        .filters-apply:hover {
+            background: var(--racing-green-light);
+        }
+
+        /* Results Area */
+        .results-area {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Results Header */
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .results-info h1 {
+            font-size: 28px;
+            color: var(--charcoal);
+            margin-bottom: 4px;
+        }
+
+        .results-count {
+            font-size: 15px;
+            color: var(--warm-gray);
+        }
+
+        .results-count strong {
+            color: var(--charcoal);
+        }
+
+        .results-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .sort-select {
+            padding: 10px 40px 10px 16px;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            color: var(--charcoal);
+            background: var(--white);
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236b6b6b' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px;
+        }
+
+        .view-toggle {
+            display: flex;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .view-btn {
+            width: 42px;
+            height: 42px;
+            border: none;
+            background: var(--white);
+            color: var(--warm-gray);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn:first-child {
+            border-right: 1px solid var(--light-gray);
+        }
+
+        .view-btn.active {
+            background: var(--racing-green);
+            color: var(--white);
+        }
+
+        .view-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .save-search-btn {
+            padding: 10px 18px;
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            background: transparent;
+            color: var(--gold);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .save-search-btn:hover {
+            background: var(--gold);
+            color: var(--charcoal);
+        }
+
+        .save-search-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        /* Active Filters */
+        .active-filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .active-filter {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background: var(--white);
+            border: 1px solid var(--light-gray);
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--charcoal);
+        }
+
+        .active-filter button {
+            width: 18px;
+            height: 18px;
+            border: none;
+            background: var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--warm-gray);
+            transition: all 0.3s ease;
+        }
+
+        .active-filter button:hover {
+            background: var(--error);
+            color: var(--white);
+        }
+
+        .active-filter button svg {
+            width: 12px;
+            height: 12px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        /* Results Grid */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .results-grid.list-view {
+            grid-template-columns: 1fr;
+        }
+
+        /* Horse Card */
+        .horse-card {
+            display: block;
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .horse-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .results-grid.list-view .horse-card {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+        }
+
+        .horse-card-image {
+            height: 200px;
+            background: linear-gradient(135deg, #e8e6e1 0%, #d4d2cd 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .results-grid.list-view .horse-card-image {
+            height: 100%;
+            min-height: 200px;
+        }
+
+        .horse-card-image svg {
+            width: 64px;
+            height: 64px;
+            fill: rgba(0,0,0,0.08);
+        }
+
+        .horse-card-badges {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .card-badge {
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .badge-featured {
+            background: var(--gold);
+            color: var(--charcoal);
+        }
+
+        .badge-new {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .badge-verified {
+            background: var(--racing-green);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .badge-verified svg {
+            width: 12px;
+            height: 12px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+        }
+
+        .horse-card-favorite {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            color: var(--warm-gray);
+            transition: all 0.3s ease;
+        }
+
+        .horse-card-favorite:hover {
+            color: var(--error);
+            transform: scale(1.1);
+        }
+
+        .horse-card-favorite.active {
+            background: #fee2e2;
+            color: var(--error);
+        }
+
+        .horse-card-favorite.active svg {
+            fill: currentColor;
+        }
+
+        .horse-card-favorite svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .horse-card-content {
+            padding: 22px;
+        }
+
+        .results-grid.list-view .horse-card-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .horse-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .horse-card-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 4px;
+        }
+
+        .horse-card-breed {
+            font-size: 13px;
+            color: var(--warm-gray);
+        }
+
+        .horse-card-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--racing-green);
+            white-space: nowrap;
+        }
+
+        .horse-card-meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--warm-gray);
+        }
+
+        .meta-item svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .horse-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 14px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .horse-card-location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--warm-gray);
+        }
+
+        .horse-card-location svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: currentColor;
+        }
+
+        .horse-card-seller {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .seller-avatar {
+            width: 28px;
+            height: 28px;
+            background: var(--gold);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--charcoal);
+        }
+
+        .seller-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 40px;
+        }
+
+        .page-btn {
+            width: 44px;
+            height: 44px;
+            border: 2px solid var(--light-gray);
+            border-radius: 12px;
+            background: var(--white);
+            color: var(--charcoal);
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover {
+            border-color: var(--racing-green);
+            color: var(--racing-green);
+        }
+
+        .page-btn.active {
+            background: var(--racing-green);
+            border-color: var(--racing-green);
+            color: var(--white);
+        }
+
+        .page-btn.nav {
+            width: auto;
+            padding: 0 16px;
+            gap: 6px;
+        }
+
+        .page-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .page-dots {
+            padding: 0 8px;
+            color: var(--warm-gray);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: var(--white);
+            padding: 40px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .results-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+                padding: 90px 20px 40px;
+            }
+            .filters-sidebar {
+                position: static;
+            }
+            .filters-card {
+                display: none;
+            }
+            .header-search {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-inner {
+                padding: 12px 20px;
+            }
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+            .results-grid.list-view .horse-card {
+                grid-template-columns: 1fr;
+            }
+            .results-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .results-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .footer-container {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <a href="homepage_v2.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7"/>
+                    </svg>
+                </div>
+                <div class="logo-text">Equi<span>Market</span></div>
+            </a>
+
+            <nav style="display:flex;gap:24px;">
+                <a href="homepage_v2.html" style="color:var(--warm-gray);text-decoration:none;font-weight:500;">Ana Sayfa</a>
+                <a href="ilanlar.html" style="color:var(--racing-green);text-decoration:none;font-weight:600;">İlanlar</a>
+                <a href="about.html" style="color:var(--warm-gray);text-decoration:none;font-weight:500;">Hakkımızda</a>
+                <a href="contact.html" style="color:var(--warm-gray);text-decoration:none;font-weight:500;">İletişim</a>
+            </nav>
+
+            <div class="auth-buttons">
+                <a href="login_register.html" class="btn btn-ghost">Giriş Yap</a>
+                <a href="login_register.html" class="btn btn-primary">Kayıt Ol</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+        <!-- Filters Sidebar -->
+        <aside class="filters-sidebar">
+            <div class="filters-card">
+                <div class="filters-header">
+                    <h3 class="filters-title">
+                        <svg viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                        Filtreler
+                    </h3>
+                    <a href="#" class="filters-clear">Temizle</a>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Irk</label>
+                    <select class="filter-select" id="filter-breed">
+                        <option value="">Tüm Irklar</option>
+                        <option value="ingiliz">İngiliz</option>
+                        <option value="arap">Arap</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Yaş Aralığı</label>
+                    <select class="filter-select" id="filter-age">
+                        <option value="">Tüm Yaşlar</option>
+                        <option value="0">0 Yaş (Tay)</option>
+                        <option value="1">1 Yaş</option>
+                        <option value="2">2 Yaş</option>
+                        <option value="3">3 Yaş</option>
+                        <option value="4">4 Yaş</option>
+                        <option value="5">5 Yaş</option>
+                        <option value="6">6+ Yaş</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Cinsiyet</label>
+                    <div class="filter-checkboxes" id="filter-gender">
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="erkek">
+                            <span>Erkek (Aygır)</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="disi">
+                            <span>Dişi (Kısrak)</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="igdis">
+                            <span>İğdiş</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Fiyat Aralığı (₺)</label>
+                    <div class="price-inputs">
+                        <input type="number" class="price-input" id="filter-price-min" placeholder="Min">
+                        <span class="price-separator">"”</span>
+                        <input type="number" class="price-input" id="filter-price-max" placeholder="Max">
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Konum</label>
+                    <select class="filter-select" id="filter-city">
+                        <option value="">Tüm Türkiye</option>
+                        <option value="adana">Adana</option>
+                        <option value="adiyaman">Adıyaman</option>
+                        <option value="afyonkarahisar">Afyonkarahisar</option>
+                        <option value="agri">Ağrı</option>
+                        <option value="aksaray">Aksaray</option>
+                        <option value="amasya">Amasya</option>
+                        <option value="ankara">Ankara</option>
+                        <option value="antalya">Antalya</option>
+                        <option value="ardahan">Ardahan</option>
+                        <option value="artvin">Artvin</option>
+                        <option value="aydin">Aydın</option>
+                        <option value="balikesir">Balıkesir</option>
+                        <option value="bartin">Bartın</option>
+                        <option value="batman">Batman</option>
+                        <option value="bayburt">Bayburt</option>
+                        <option value="bilecik">Bilecik</option>
+                        <option value="bingol">Bingöl</option>
+                        <option value="bitlis">Bitlis</option>
+                        <option value="bolu">Bolu</option>
+                        <option value="burdur">Burdur</option>
+                        <option value="bursa">Bursa</option>
+                        <option value="canakkale">Çanakkale</option>
+                        <option value="cankiri">Çankırı</option>
+                        <option value="corum">Çorum</option>
+                        <option value="denizli">Denizli</option>
+                        <option value="diyarbakir">Diyarbakır</option>
+                        <option value="duzce">Düzce</option>
+                        <option value="edirne">Edirne</option>
+                        <option value="elazig">Elazığ</option>
+                        <option value="erzincan">Erzincan</option>
+                        <option value="erzurum">Erzurum</option>
+                        <option value="eskisehir">Eskişehir</option>
+                        <option value="gaziantep">Gaziantep</option>
+                        <option value="giresun">Giresun</option>
+                        <option value="gumushane">Gümüşhane</option>
+                        <option value="hakkari">Hakkari</option>
+                        <option value="hatay">Hatay</option>
+                        <option value="igdir">Iğdır</option>
+                        <option value="isparta">Isparta</option>
+                        <option value="istanbul">İstanbul</option>
+                        <option value="izmir">İzmir</option>
+                        <option value="kahramanmaras">Kahramanmaraş</option>
+                        <option value="karabuk">Karabük</option>
+                        <option value="karaman">Karaman</option>
+                        <option value="kars">Kars</option>
+                        <option value="kastamonu">Kastamonu</option>
+                        <option value="kayseri">Kayseri</option>
+                        <option value="kilis">Kilis</option>
+                        <option value="kirikkale">Kırıkkale</option>
+                        <option value="kirklareli">Kırklareli</option>
+                        <option value="kirsehir">Kırşehir</option>
+                        <option value="kocaeli">Kocaeli</option>
+                        <option value="konya">Konya</option>
+                        <option value="kutahya">Kütahya</option>
+                        <option value="malatya">Malatya</option>
+                        <option value="manisa">Manisa</option>
+                        <option value="mardin">Mardin</option>
+                        <option value="mersin">Mersin</option>
+                        <option value="mugla">Muğla</option>
+                        <option value="mus">Muş</option>
+                        <option value="nevsehir">Nevşehir</option>
+                        <option value="nigde">Niğde</option>
+                        <option value="ordu">Ordu</option>
+                        <option value="osmaniye">Osmaniye</option>
+                        <option value="rize">Rize</option>
+                        <option value="sakarya">Sakarya</option>
+                        <option value="samsun">Samsun</option>
+                        <option value="sanliurfa">Şanlıurfa</option>
+                        <option value="siirt">Siirt</option>
+                        <option value="sinop">Sinop</option>
+                        <option value="sivas">Sivas</option>
+                        <option value="sirnak">Şırnak</option>
+                        <option value="tekirdag">Tekirdağ</option>
+                        <option value="tokat">Tokat</option>
+                        <option value="trabzon">Trabzon</option>
+                        <option value="tunceli">Tunceli</option>
+                        <option value="usak">Uşak</option>
+                        <option value="van">Van</option>
+                        <option value="yalova">Yalova</option>
+                        <option value="yozgat">Yozgat</option>
+                        <option value="zonguldak">Zonguldak</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Renk</label>
+                    <div class="filter-checkboxes" id="filter-color">
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="doru">
+                            <span>Doru</span>
+                            <span class="count" data-color="doru">0</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="kir">
+                            <span>Kır</span>
+                            <span class="count" data-color="kir">0</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="yagiz">
+                            <span>Yağız</span>
+                            <span class="count" data-color="yagiz">0</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="al">
+                            <span>Al</span>
+                            <span class="count" data-color="al">0</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Özellikler</label>
+                    <div class="filter-checkboxes" id="filter-features">
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="raceExperience">
+                            <span>Yarış deneyimli</span>
+                            <span class="count" data-feature="raceExperience">0</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="verifiedSeller">
+                            <span>Doğrulanmış satıcı</span>
+                            <span class="count" data-feature="verifiedSeller">0</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button class="filters-apply" id="btn-apply-filters">Filtreleri Uygula</button>
+            </div>
+        </aside>
+
+        <!-- Results Area -->
+        <div class="results-area">
+            <!-- Results Header -->
+            <div class="results-header">
+                <div class="results-info">
+                    <h1 id="results-title">Tüm İlanlar</h1>
+                    <p class="results-count"><strong id="results-count">0</strong> ilan bulundu</p>
+                </div>
+                <div class="results-actions">
+                    <select class="sort-select">
+                        <option>En Yeni</option>
+                        <option>Fiyat: Düşükten Yükseğe</option>
+                        <option>Fiyat: Yüksekten Düşüğe</option>
+                        <option>En Popüler</option>
+                    </select>
+                    <div class="view-toggle">
+                        <button class="view-btn active" title="Grid görünüm">
+                            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                        </button>
+                        <button class="view-btn" title="Liste görünüm">
+                            <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                        </button>
+                    </div>
+                    <button class="save-search-btn">
+                        <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+                        Aramayı Kaydet
+                    </button>
+                </div>
+            </div>
+
+            <!-- Active Filters -->
+            <div class="active-filters" id="activeFilters">
+                <!-- Aktif filtreler dinamik olarak eklenecek -->
+            </div>
+
+            <!-- Results Grid -->
+            <div class="results-grid" id="resultsGrid">
+                <!-- İlanlar API'den yüklenecek -->
+                <div style="grid-column: 1/-1; text-align: center; padding: 60px;">
+                    <div style="font-size: 18px; color: var(--warm-gray);">İlanlar yükleniyor...</div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <!-- Pagination dinamik olarak oluşturulacak -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <p class="footer-text">© 2026 EquiMarket. Tüm hakları saklıdır.</p>
+            <div class="footer-links">
+                <a href="about.html">Hakkımızda</a>
+                <a href="terms.html">Kullanım Koşulları</a>
+                <a href="privacy.html">Gizlilik</a>
+                <a href="contact.html">İletişim</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Favorite toggle
+        document.querySelectorAll('.horse-card-favorite').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                btn.classList.toggle('active');
+            });
+        });
+
+        // View toggle
+        const viewBtns = document.querySelectorAll('.view-btn');
+        const resultsGrid = document.getElementById('resultsGrid');
+        
+        viewBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                viewBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                if (btn.title === 'Liste görünüm') {
+                    resultsGrid.classList.add('list-view');
+                } else {
+                    resultsGrid.classList.remove('list-view');
+                }
+            });
+        });
+
+        // Remove active filter
+        document.querySelectorAll('.active-filter button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.parentElement.remove();
+            });
+        });
+
+        // Pagination
+        document.querySelectorAll('.page-btn:not(.nav)').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+    </script>
+
+    <!-- API Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/horses.js"></script>
+    <script>
+        // Sayfa yüklendiğinde ilanları çek
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Auth kontrolü
+            updateHeaderAuth();
+            
+            // İlanları yükle
+            await loadHorses();
+        });
+
+        // Header auth güncelle
+        function updateHeaderAuth() {
+            const authButtons = document.querySelector('.auth-buttons');
+            if (!authButtons) return;
+
+            const token = localStorage.getItem('equimarket_token');
+            const userData = localStorage.getItem('equimarket_user');
+
+            if (token && userData) {
+                const user = JSON.parse(userData);
+                const isSeller = user.role === 'seller' || user.role === 'admin';
+                const dashboardUrl = isSeller ? 'dashboard.html' : 'dashboard.html';
+                const initials = user.name ? user.name.substring(0, 2).toUpperCase() : 'KA';
+                const firstName = user.name ? user.name.split(' ')[0] : 'Kullanıcı';
+
+                authButtons.innerHTML = `
+                    <a href="${dashboardUrl}" class="btn btn-ghost" style="display:flex;align-items:center;gap:10px;">
+                        <span style="width:36px;height:36px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--charcoal);">
+                            ${initials}
+                        </span>
+                        ${firstName}
+                    </a>
+                    <a href="#" onclick="logout(); return false;" class="btn btn-outline">Çıkış</a>
+                `;
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('equimarket_token');
+            localStorage.removeItem('equimarket_user');
+            window.location.reload();
+        }
+
+        // Filtre değerlerini al
+        function getFilterValues() {
+            const filters = {};
+
+            // Irk
+            const breed = document.getElementById('filter-breed')?.value;
+            if (breed) filters.breed = breed;
+
+            // Yaş
+            const age = document.getElementById('filter-age')?.value;
+            if (age) filters.age = age;
+
+            // Cinsiyet (checkbox'lar)
+            const genderCheckboxes = document.querySelectorAll('#filter-gender input:checked');
+            if (genderCheckboxes.length > 0) {
+                filters.gender = Array.from(genderCheckboxes).map(cb => cb.value).join(',');
+            }
+
+            // Fiyat aralığı
+            const priceMin = document.getElementById('filter-price-min')?.value;
+            const priceMax = document.getElementById('filter-price-max')?.value;
+            if (priceMin) filters.minPrice = priceMin;
+            if (priceMax) filters.maxPrice = priceMax;
+
+            // Konum
+            const city = document.getElementById('filter-city')?.value;
+            if (city) filters.city = city;
+
+            // Renk (checkbox'lar)
+            const colorCheckboxes = document.querySelectorAll('#filter-color input:checked');
+            if (colorCheckboxes.length > 0) {
+                filters.color = Array.from(colorCheckboxes).map(cb => cb.value).join(',');
+            }
+
+            return filters;
+        }
+
+        // Filtreleri uygula
+        function applyFilters() {
+            const filters = getFilterValues();
+            currentPage = 1;
+            loadHorses(filters);
+
+            // Başlığı güncelle
+            const title = document.getElementById('results-title');
+            if (title) {
+                if (filters.breed) {
+                    const breedNames = { ingiliz: 'İngiliz', arap: 'Arap' };
+                    title.textContent = `${breedNames[filters.breed] || filters.breed} Yarış Atları`;
+                } else {
+                    title.textContent = 'Tüm İlanlar';
+                }
+            }
+
+            // Aktif filtreleri göster
+            renderActiveFilters(filters);
+        }
+
+        // Aktif filtreleri render et
+        function renderActiveFilters(filters) {
+            const container = document.getElementById('activeFilters');
+            if (!container) return;
+
+            const labels = {
+                breed: { label: 'Irk', values: { ingiliz: 'İngiliz', arap: 'Arap' } },
+                age: { label: 'Yaş', values: {} },
+                gender: { label: 'Cinsiyet', values: { erkek: 'Erkek', disi: 'Dişi', igdis: 'İğdiş' } },
+                color: { label: 'Renk', values: { doru: 'Doru', kir: 'Kır', yagiz: 'Yağız', al: 'Al' } },
+                city: { label: 'Konum', values: {} }
+            };
+
+            let html = '';
+
+            // Irk
+            if (filters.breed) {
+                const name = labels.breed.values[filters.breed] || filters.breed;
+                html += createActiveFilterTag('Irk', name, 'breed');
+            }
+
+            // Yaş
+            if (filters.age) {
+                html += createActiveFilterTag('Yaş', filters.age + ' Yaş', 'age');
+            }
+
+            // Cinsiyet
+            if (filters.gender) {
+                const genders = filters.gender.split(',').map(g => labels.gender.values[g] || g).join(', ');
+                html += createActiveFilterTag('Cinsiyet', genders, 'gender');
+            }
+
+            // Renk
+            if (filters.color) {
+                const colors = filters.color.split(',').map(c => labels.color.values[c] || c).join(', ');
+                html += createActiveFilterTag('Renk', colors, 'color');
+            }
+
+            // Fiyat
+            if (filters.minPrice || filters.maxPrice) {
+                const min = filters.minPrice ? '₺' + Number(filters.minPrice).toLocaleString('tr-TR') : '';
+                const max = filters.maxPrice ? '₺' + Number(filters.maxPrice).toLocaleString('tr-TR') : '';
+                const priceText = min && max ? `${min} - ${max}` : (min ? `${min}+` : `${max}'e kadar`);
+                html += createActiveFilterTag('Fiyat', priceText, 'price');
+            }
+
+            // Konum
+            if (filters.city) {
+                html += createActiveFilterTag('Konum', filters.city, 'city');
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Aktif filtre tag'i oluştur
+        function createActiveFilterTag(label, value, filterType) {
+            return `
+                <div class="active-filter">
+                    ${label}: ${value}
+                    <button onclick="removeFilter('${filterType}')">
+                        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            `;
+        }
+
+        // Tek filtreyi kaldır
+        function removeFilter(filterType) {
+            switch(filterType) {
+                case 'breed':
+                    document.getElementById('filter-breed').value = '';
+                    break;
+                case 'age':
+                    document.getElementById('filter-age').value = '';
+                    break;
+                case 'gender':
+                    document.querySelectorAll('#filter-gender input').forEach(cb => cb.checked = false);
+                    break;
+                case 'color':
+                    document.querySelectorAll('#filter-color input').forEach(cb => cb.checked = false);
+                    break;
+                case 'price':
+                    document.getElementById('filter-price-min').value = '';
+                    document.getElementById('filter-price-max').value = '';
+                    break;
+                case 'city':
+                    document.getElementById('filter-city').value = '';
+                    break;
+            }
+            applyFilters();
+        }
+
+        // Filtreleri temizle
+        function clearFilters() {
+            document.getElementById('filter-breed').value = '';
+            document.getElementById('filter-age').value = '';
+            document.getElementById('filter-price-min').value = '';
+            document.getElementById('filter-price-max').value = '';
+            document.getElementById('filter-city').value = '';
+
+            // Checkbox'ları temizle
+            document.querySelectorAll('#filter-gender input, #filter-color input, #filter-features input').forEach(cb => cb.checked = false);
+
+            // Aktif filtreleri temizle
+            document.getElementById('activeFilters').innerHTML = '';
+
+            // İlanları yeniden yükle
+            currentPage = 1;
+            loadHorses();
+            document.getElementById('results-title').textContent = 'Tüm İlanlar';
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filtre uygula butonu
+            document.getElementById('btn-apply-filters')?.addEventListener('click', applyFilters);
+
+            // Temizle linki
+            document.querySelector('.filters-clear')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                clearFilters();
+            });
+
+            // Sıralama
+            document.querySelector('.sort-select')?.addEventListener('change', function() {
+                const filters = getFilterValues();
+                const sortMap = {
+                    'En Yeni': 'newest',
+                    'Fiyat: Düşükten Yükseğe': 'price_asc',
+                    'Fiyat: Yüksekten Düşüğe': 'price_desc',
+                    'En Popüler': 'popular'
+                };
+                filters.sort = sortMap[this.value] || 'newest';
+                loadHorses(filters);
+            });
+        });
+
+        // Pagination değişkenleri
+        let currentPage = 1;
+        let totalPages = 1;
+        let allHorses = [];
+        const ITEMS_PER_PAGE = 12;
+
+        // İlanları yükle
+        async function loadHorses(filters = {}) {
+            const resultsGrid = document.getElementById('resultsGrid');
+            const resultsCount = document.getElementById('results-count');
+            
+            // Yükleniyor göster
+            resultsGrid.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 60px;">
+                    <div style="font-size: 18px; color: var(--warm-gray);">İlanlar yükleniyor...</div>
+                </div>
+            `;
+
+            try {
+                if (typeof HorseService !== 'undefined') {
+                    const result = await HorseService.getHorses(filters);
+                    
+                    if (result.success && result.data && result.data.length > 0) {
+                        allHorses = result.data;
+                        
+                        // Filtre sayılarını güncelle
+                        updateFilterCounts(allHorses);
+                        
+                        // Toplam sayı
+                        resultsCount.textContent = allHorses.length;
+                        
+                        // Pagination hesapla
+                        totalPages = Math.ceil(allHorses.length / ITEMS_PER_PAGE);
+                        
+                        // Mevcut sayfa ilanlarını göster
+                        displayCurrentPage();
+                        
+                        // Pagination'ı oluştur
+                        renderPagination();
+                        
+                    } else if (result.success && (!result.data || result.data.length === 0)) {
+                        allHorses = [];
+                        resultsCount.textContent = '0';
+                        updateFilterCounts([]);
+                        renderPagination();
+                        resultsGrid.innerHTML = `
+                            <div style="grid-column: 1/-1; text-align: center; padding: 60px;">
+                                <svg viewBox="0 0 24 24" style="width: 64px; height: 64px; fill: none; stroke: var(--warm-gray); stroke-width: 1; margin-bottom: 16px;">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <path d="m21 21-4.3-4.3"/>
+                                </svg>
+                                <div style="font-size: 18px; color: var(--charcoal); margin-bottom: 8px;">Henüz ilan bulunmuyor</div>
+                                <div style="font-size: 14px; color: var(--warm-gray);">İlk ilanı siz ekleyin!</div>
+                                <a href="create_listing.html" class="btn btn-gold" style="margin-top: 20px;">İlan Ver</a>
+                            </div>
+                        `;
+                    } else {
+                        throw new Error(result.message || 'İlanlar yüklenemedi');
+                    }
+                } else {
+                    console.log('Backend bağlantısı yok');
+                }
+            } catch (error) {
+                console.error('Load Horses Error:', error);
+                resultsGrid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 60px;">
+                        <div style="font-size: 18px; color: var(--charcoal); margin-bottom: 8px;">Bağlantı hatası</div>
+                        <div style="font-size: 14px; color: var(--warm-gray);">Lütfen backend sunucusunun çalıştığından emin olun</div>
+                        <button onclick="loadHorses()" class="btn btn-outline" style="margin-top: 20px;">Tekrar Dene</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Mevcut sayfayı göster
+        function displayCurrentPage() {
+            const resultsGrid = document.getElementById('resultsGrid');
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const pageHorses = allHorses.slice(start, end);
+            
+            resultsGrid.innerHTML = pageHorses.map(horse => createHorseCardHTML(horse)).join('');
+        }
+
+        // Filtre sayılarını güncelle
+        function updateFilterCounts(horses) {
+            // Renk sayıları
+            const colorCounts = { doru: 0, kir: 0, yagiz: 0, al: 0 };
+            horses.forEach(h => {
+                if (colorCounts.hasOwnProperty(h.color)) {
+                    colorCounts[h.color]++;
+                }
+            });
+            
+            Object.keys(colorCounts).forEach(color => {
+                const el = document.querySelector(`[data-color="${color}"]`);
+                if (el) el.textContent = colorCounts[color];
+            });
+
+            // Özellik sayıları (örnek - backend'den gelmeli)
+            const raceExpCount = horses.filter(h => h.raceExperience).length;
+            const verifiedCount = horses.filter(h => h.seller?.sellerInfo?.isVerifiedSeller).length;
+            
+            const raceEl = document.querySelector('[data-feature="raceExperience"]');
+            const verifiedEl = document.querySelector('[data-feature="verifiedSeller"]');
+            if (raceEl) raceEl.textContent = raceExpCount;
+            if (verifiedEl) verifiedEl.textContent = verifiedCount;
+        }
+
+        // Pagination render
+        function renderPagination() {
+            const container = document.getElementById('pagination');
+            if (!container || totalPages <= 1) {
+                if (container) container.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+
+            // Önceki butonu
+            html += `
+                <button class="page-btn nav" ${currentPage === 1 ? 'disabled' : ''} onclick="goToPage(${currentPage - 1})">
+                    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+                    Önceki
+                </button>
+            `;
+
+            // Sayfa numaraları
+            const maxVisible = 5;
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+            
+            if (endPage - startPage < maxVisible - 1) {
+                startPage = Math.max(1, endPage - maxVisible + 1);
+            }
+
+            if (startPage > 1) {
+                html += `<button class="page-btn" onclick="goToPage(1)">1</button>`;
+                if (startPage > 2) html += `<span class="page-dots">...</span>`;
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) html += `<span class="page-dots">...</span>`;
+                html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
+            }
+
+            // Sonraki butonu
+            html += `
+                <button class="page-btn nav" ${currentPage === totalPages ? 'disabled' : ''} onclick="goToPage(${currentPage + 1})">
+                    Sonraki
+                    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        // Sayfaya git
+        function goToPage(page) {
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            displayCurrentPage();
+            renderPagination();
+            
+            // Sayfayı yukarı scroll
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Horse card HTML oluştur
+        function createHorseCardHTML(horse) {
+            const loggedIn = !!localStorage.getItem('equimarket_token');
+            const age = horse.age || (horse.birthDate ? new Date().getFullYear() - new Date(horse.birthDate).getFullYear() : '?');
+            const genderName = { erkek: 'Erkek', disi: 'Dişi', igdis: 'İğdiş' }[horse.gender] || horse.gender;
+            const colorName = { doru: 'Doru', kir: 'Kır', yagiz: 'Yağız', al: 'Al', diger: 'Diğer' }[horse.color] || horse.color;
+            const breedName = { ingiliz: 'İngiliz', arap: 'Arap' }[horse.breed] || horse.breed;
+            const price = new Intl.NumberFormat('tr-TR').format(horse.price);
+            
+            // Giriş yapmamış kullanıcı için satıcı bilgisi gösterme
+            const sellerInitials = loggedIn ? (horse.seller?.name?.substring(0, 2).toUpperCase() || 'XX') : '?';
+            const sellerName = loggedIn ? (horse.seller?.name?.split(' ')[0] || 'Satıcı') : 'Giriş yapın';
+            
+            // Link: giriş yapmamışsa login sayfasına
+            const cardLink = loggedIn ? `horse_detail.html?id=${horse._id}` : 'login_register.html';
+
+            return `
+                <a href="${cardLink}" class="horse-card" style="text-decoration: none; color: inherit;">
+                    <div class="horse-card-image">
+                        ${horse.images && horse.images[0] ? 
+                            `<img src="${horse.images[0].url || horse.images[0]}" style="width:100%;height:100%;object-fit:cover;">` :
+                            `<svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>`
+                        }
+                        <div class="horse-card-badges">
+                            ${horse.isFeatured ? '<span class="card-badge badge-featured">Öne Çıkan</span>' : ''}
+                            ${horse.seller?.sellerInfo?.isVerifiedSeller ? `
+                                <span class="card-badge badge-verified">
+                                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                                    Doğrulanmış
+                                </span>
+                            ` : ''}
+                        </div>
+                        ${loggedIn ? `
+                            <button class="horse-card-favorite ${isFavorited(horse._id) ? 'active' : ''}" onclick="event.preventDefault(); event.stopPropagation(); toggleFavorite('${horse._id}', this);">
+                                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                            </button>
+                        ` : ''}
+                    </div>
+                    <div class="horse-card-content">
+                        <div class="horse-card-header">
+                            <div>
+                                <h3 class="horse-card-name">${horse.name}</h3>
+                                <p class="horse-card-breed">${breedName || ''}</p>
+                            </div>
+                            <span class="horse-card-price">${loggedIn ? '₺' + price : 'Giriş yapın'}</span>
+                        </div>
+                        <div class="horse-card-meta">
+                            <span class="meta-item">
+                                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                                ${age} Yaş
+                            </span>
+                            <span class="meta-item">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+                                ${genderName || '-'}
+                            </span>
+                            <span class="meta-item">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+                                ${colorName || '-'}
+                            </span>
+                        </div>
+                        <div class="horse-card-footer">
+                            <span class="horse-card-location">
+                                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                ${loggedIn ? (horse.location?.city || 'Türkiye') : '***'}
+                            </span>
+                            <div class="horse-card-seller">
+                                <div class="seller-avatar">${sellerInitials}</div>
+                                <span class="seller-name">${sellerName}</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            `;
+        }
+
+        // Favorileri localStorage'dan al
+        function getFavorites() {
+            const userData = localStorage.getItem('equimarket_user');
+            if (!userData) return [];
+            const user = JSON.parse(userData);
+            return user.favorites || [];
+        }
+
+        // İlan favorilerde mi kontrol et
+        function isFavorited(horseId) {
+            return getFavorites().includes(horseId);
+        }
+
+        // Favori ekle/çıkar
+        async function toggleFavorite(horseId, button) {
+            // Giriş kontrolü
+            if (!localStorage.getItem('equimarket_token')) {
+                showToast('Favorilere eklemek için giriş yapmalısınız', 'error');
+                return;
+            }
+
+            const favorites = getFavorites();
+            const isCurrentlyFavorite = favorites.includes(horseId);
+
+            try {
+                // API'ye istek (backend'de endpoint varsa)
+                // await api.post('/users/favorites/' + horseId);
+
+                // localStorage'ı güncelle
+                const userData = JSON.parse(localStorage.getItem('equimarket_user'));
+                
+                if (isCurrentlyFavorite) {
+                    // Favorilerden çıkar
+                    userData.favorites = favorites.filter(id => id !== horseId);
+                    button.classList.remove('active');
+                    showToast('Favorilerden çıkarıldı');
+                } else {
+                    // Favorilere ekle
+                    userData.favorites = [...favorites, horseId];
+                    button.classList.add('active');
+                    showToast('Favorilere eklendi â¤ï¸');
+                }
+
+                localStorage.setItem('equimarket_user', JSON.stringify(userData));
+
+            } catch (error) {
+                console.error('Toggle Favorite Error:', error);
+                showToast('Bir hata oluştu', 'error');
+            }
+        }
+
+        // Toast mesajı
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                background: ${type === 'success' ? 'var(--racing-green)' : '#b91c1c'};
+                color: white;
+                padding: 16px 24px;
+                border-radius: 12px;
+                box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+                font-weight: 500;
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+    </script>
+    <style>
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+    <!-- Feedback Popup -->
+    <script src="js/feedback-popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesajlar - EquiMarket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --racing-green: #1a3d2e;
+            --racing-green-light: #2d5a47;
+            --gold: #c9a55c;
+            --gold-light: #e8d5a8;
+            --cream: #faf8f3;
+            --charcoal: #2a2a2a;
+            --warm-gray: #6b6b6b;
+            --light-gray: #f5f4f0;
+            --white: #ffffff;
+            --success: #4a7c59;
+            --warning: #f59e0b;
+            --error: #dc2626;
+            --info: #3b82f6;
+            --shadow-soft: 0 4px 20px rgba(26, 61, 46, 0.08);
+            --shadow-medium: 0 8px 40px rgba(26, 61, 46, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--light-gray);
+            color: var(--charcoal);
+            line-height: 1.6;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Layout */
+        .messaging-layout {
+            display: grid;
+            grid-template-columns: 280px 360px 1fr;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--racing-green);
+            padding: 28px 20px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            margin-bottom: 40px;
+            padding: 0 8px;
+        }
+
+        .sidebar-logo-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-logo-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--gold);
+        }
+
+        .sidebar-logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .sidebar-logo-text span { color: var(--gold); }
+
+        .sidebar-nav { flex: 1; }
+
+        .nav-section { margin-bottom: 32px; }
+
+        .nav-section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255, 255, 255, 0.4);
+            padding: 0 12px;
+            margin-bottom: 12px;
+        }
+
+        .nav-menu { list-style: none; }
+
+        .nav-item { margin-bottom: 4px; }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        .nav-link.active {
+            background: rgba(201, 165, 92, 0.2);
+            color: var(--gold);
+        }
+
+        .nav-link svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: var(--gold);
+            color: var(--charcoal);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .sidebar-footer {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar-user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--gold);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--charcoal);
+            font-size: 14px;
+        }
+
+        .sidebar-user-info { flex: 1; }
+
+        .sidebar-user-name {
+            font-weight: 600;
+            color: var(--white);
+            font-size: 14px;
+        }
+
+        .sidebar-user-role {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Conversations List */
+        .conversations-panel {
+            background: var(--white);
+            border-right: 1px solid var(--light-gray);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .conversations-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .conversations-title {
+            font-size: 22px;
+            color: var(--charcoal);
+            margin-bottom: 16px;
+        }
+
+        .conversations-search {
+            position: relative;
+        }
+
+        .conversations-search input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            color: var(--charcoal);
+            transition: all 0.3s ease;
+        }
+
+        .conversations-search input:focus {
+            outline: none;
+            border-color: var(--racing-green);
+        }
+
+        .conversations-search input::placeholder {
+            color: var(--warm-gray);
+        }
+
+        .conversations-search svg {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: var(--warm-gray);
+            stroke-width: 2;
+        }
+
+        .conversations-tabs {
+            display: flex;
+            padding: 0 24px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .conv-tab {
+            padding: 14px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--warm-gray);
+            border: none;
+            background: none;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .conv-tab:hover {
+            color: var(--charcoal);
+        }
+
+        .conv-tab.active {
+            color: var(--racing-green);
+        }
+
+        .conv-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--racing-green);
+        }
+
+        .conv-tab .tab-badge {
+            background: var(--gold);
+            color: var(--charcoal);
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 8px;
+            margin-left: 6px;
+        }
+
+        .conversations-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .conversation-item {
+            display: flex;
+            gap: 14px;
+            padding: 18px 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid var(--light-gray);
+            position: relative;
+        }
+
+        .conversation-item:hover {
+            background: var(--light-gray);
+        }
+
+        .conversation-item.active {
+            background: rgba(26, 61, 46, 0.05);
+            border-left: 3px solid var(--racing-green);
+            padding-left: 21px;
+        }
+
+        .conversation-item.unread::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 24px;
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+
+        .conversation-item.unread .conv-avatar {
+            margin-left: 14px;
+        }
+
+        .conv-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--charcoal);
+            font-size: 16px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .conv-avatar.online::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 12px;
+            height: 12px;
+            background: var(--success);
+            border-radius: 50%;
+            border: 2px solid var(--white);
+        }
+
+        .conv-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .conv-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .conv-name {
+            font-weight: 600;
+            color: var(--charcoal);
+            font-size: 15px;
+        }
+
+        .conv-time {
+            font-size: 12px;
+            color: var(--warm-gray);
+        }
+
+        .conv-preview {
+            font-size: 13px;
+            color: var(--warm-gray);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 6px;
+        }
+
+        .conversation-item.unread .conv-name,
+        .conversation-item.unread .conv-preview {
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .conv-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .conv-horse {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: var(--racing-green);
+            background: rgba(26, 61, 46, 0.08);
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        .conv-horse svg {
+            width: 12px;
+            height: 12px;
+            fill: currentColor;
+        }
+
+        /* Chat Panel */
+        .chat-panel {
+            display: flex;
+            flex-direction: column;
+            background: var(--cream);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: var(--white);
+            padding: 20px 28px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .chat-user {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex: 1;
+        }
+
+        .chat-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--gold);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--charcoal);
+            font-size: 16px;
+            position: relative;
+        }
+
+        .chat-avatar.online::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 12px;
+            height: 12px;
+            background: var(--success);
+            border-radius: 50%;
+            border: 2px solid var(--white);
+        }
+
+        .chat-user-info h3 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 2px;
+        }
+
+        .chat-user-status {
+            font-size: 13px;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .chat-horse-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: var(--light-gray);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--charcoal);
+            transition: all 0.3s ease;
+        }
+
+        .chat-horse-link:hover {
+            background: var(--racing-green);
+            color: var(--white);
+        }
+
+        .chat-horse-image {
+            width: 40px;
+            height: 40px;
+            background: var(--white);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-horse-image svg {
+            width: 20px;
+            height: 20px;
+            fill: rgba(0,0,0,0.15);
+        }
+
+        .chat-horse-info {
+            font-size: 13px;
+        }
+
+        .chat-horse-name {
+            font-weight: 600;
+        }
+
+        .chat-horse-meta {
+            opacity: 0.7;
+        }
+
+        .chat-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--light-gray);
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--warm-gray);
+            transition: all 0.3s ease;
+        }
+
+        .chat-action-btn:hover {
+            border-color: var(--racing-green);
+            color: var(--racing-green);
+        }
+
+        .chat-action-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        /* Messages Area */
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .message-date {
+            text-align: center;
+            font-size: 12px;
+            color: var(--warm-gray);
+            padding: 8px 16px;
+            background: var(--white);
+            border-radius: 20px;
+            margin: 10px auto;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .message {
+            display: flex;
+            gap: 12px;
+            max-width: 70%;
+        }
+
+        .message.sent {
+            margin-left: auto;
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--gold);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--charcoal);
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .message.sent .message-avatar {
+            background: var(--racing-green);
+            color: var(--white);
+        }
+
+        .message-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .message.sent .message-content {
+            align-items: flex-end;
+        }
+
+        .message-bubble {
+            background: var(--white);
+            padding: 14px 18px;
+            border-radius: 16px;
+            border-bottom-left-radius: 4px;
+            box-shadow: var(--shadow-soft);
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--charcoal);
+        }
+
+        .message.sent .message-bubble {
+            background: var(--racing-green);
+            color: var(--white);
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: var(--warm-gray);
+            padding: 0 4px;
+        }
+
+        .message.sent .message-time {
+            text-align: right;
+        }
+
+        .message-status {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: var(--warm-gray);
+        }
+
+        .message-status svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .message-status.read svg {
+            color: var(--info);
+        }
+
+        /* Offer Message */
+        .message-offer {
+            background: var(--white);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .offer-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .offer-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gold);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--charcoal);
+        }
+
+        .offer-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .offer-title {
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .offer-amount {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--racing-green);
+            margin-bottom: 4px;
+        }
+
+        .offer-note {
+            font-size: 13px;
+            color: var(--warm-gray);
+            margin-bottom: 16px;
+        }
+
+        .offer-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .offer-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .offer-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .offer-btn.accept {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .offer-btn.accept:hover {
+            background: #3d6b4c;
+        }
+
+        .offer-btn.counter {
+            background: var(--light-gray);
+            color: var(--charcoal);
+        }
+
+        .offer-btn.counter:hover {
+            background: var(--gold);
+        }
+
+        .offer-btn.decline {
+            background: var(--white);
+            border: 1px solid var(--light-gray);
+            color: var(--warm-gray);
+        }
+
+        .offer-btn.decline:hover {
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        /* Chat Input */
+        .chat-input-area {
+            background: var(--white);
+            padding: 20px 28px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            background: var(--light-gray);
+            border-radius: 16px;
+            padding: 8px;
+        }
+
+        .chat-input-actions {
+            display: flex;
+            gap: 4px;
+            padding-bottom: 6px;
+        }
+
+        .input-action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: none;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--warm-gray);
+            transition: all 0.3s ease;
+        }
+
+        .input-action-btn:hover {
+            background: var(--white);
+            color: var(--racing-green);
+        }
+
+        .input-action-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .chat-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: 15px;
+            color: var(--charcoal);
+            resize: none;
+            min-height: 44px;
+            max-height: 120px;
+            padding: 10px 0;
+            line-height: 1.5;
+        }
+
+        .chat-input:focus {
+            outline: none;
+        }
+
+        .chat-input::placeholder {
+            color: var(--warm-gray);
+        }
+
+        .chat-send-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            border: none;
+            background: var(--racing-green);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-send-btn:hover {
+            background: var(--racing-green-light);
+            transform: scale(1.05);
+        }
+
+        .chat-send-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        /* Quick Replies */
+        .quick-replies {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .quick-reply {
+            padding: 8px 14px;
+            background: var(--white);
+            border: 1px solid var(--light-gray);
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--charcoal);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-reply:hover {
+            border-color: var(--racing-green);
+            color: var(--racing-green);
+        }
+
+        /* Empty State */
+        .empty-state {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--light-gray);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .empty-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: none;
+            stroke: var(--warm-gray);
+            stroke-width: 1.5;
+        }
+
+        .empty-title {
+            font-size: 18px;
+            color: var(--charcoal);
+            margin-bottom: 8px;
+        }
+
+        .empty-text {
+            font-size: 14px;
+            color: var(--warm-gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .messaging-layout {
+                grid-template-columns: 80px 320px 1fr;
+            }
+            .sidebar-logo-text,
+            .nav-section-title,
+            .nav-link span,
+            .sidebar-user-info {
+                display: none;
+            }
+            .sidebar { padding: 20px 10px; }
+            .sidebar-logo { justify-content: center; margin-bottom: 30px; }
+            .nav-link { justify-content: center; padding: 12px; }
+            .nav-badge { position: absolute; top: 4px; right: 4px; margin: 0; }
+            .nav-item { position: relative; }
+            .sidebar-user { padding: 8px; justify-content: center; }
+        }
+
+        @media (max-width: 900px) {
+            .messaging-layout {
+                grid-template-columns: 1fr;
+            }
+            .sidebar,
+            .conversations-panel {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="messaging-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="homepage_v2.html" class="sidebar-logo">
+                <div class="sidebar-logo-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7"/>
+                    </svg>
+                </div>
+                <div class="sidebar-logo-text">Equi<span>Market</span></div>
+            </a>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Ana Menü</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="nav-link">
+                                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+                                <span>Genel Bakış</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="create_listing.html" class="nav-link">
+                                <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                                <span>İlanlarım</span>
+                                <span class="nav-badge">12</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="messaging.html" class="nav-link active">
+                                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                                <span>Mesajlar</span>
+                                <span class="nav-badge">5</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="messaging.html" class="nav-link">
+                                <svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                                <span>Teklifler</span>
+                                <span class="nav-badge">3</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Yönetim</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="nav-link">
+                                <svg viewBox="0 0 24 24"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                                <span>Analitik</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="settings.html" class="nav-link">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                                <span>Ayarlar</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">VA</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">Veliefendi Ahırı</div>
+                        <div class="sidebar-user-role">Premium Satıcı</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Conversations Panel -->
+        <div class="conversations-panel">
+            <div class="conversations-header">
+                <h2 class="conversations-title">Mesajlar</h2>
+                <div class="conversations-search">
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    <input type="text" placeholder="Konuşma ara...">
+                </div>
+            </div>
+
+            <div class="conversations-tabs">
+                <button class="conv-tab active" onclick="filterConversations('all')">
+                    Tümü
+                    <span class="tab-badge" id="tabAllCount">0</span>
+                </button>
+                <button class="conv-tab" onclick="filterConversations('unread')">
+                    Okunmamış
+                    <span class="tab-badge" id="tabUnreadCount">0</span>
+                </button>
+                <a href="offers.html" class="conv-tab" style="text-decoration:none;">Teklifler</a>
+            </div>
+
+            <div class="conversations-list" id="conversationsList">
+                <!-- Konuşmalar API'den yüklenecek -->
+                <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.6);">
+                    Konuşmalar yükleniyor...
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Panel -->
+        <div class="chat-panel">
+            <div class="chat-header" id="chatHeader" style="display:none;">
+                <div class="chat-user">
+                    <div class="chat-avatar online" id="chatUserAvatar">--</div>
+                    <div class="chat-user-info">
+                        <h3 id="chatUserName">Kullanıcı</h3>
+                        <span class="chat-user-status">
+                            <span style="width: 8px; height: 8px; background: var(--warm-gray); border-radius: 50%; display: inline-block;"></span>
+                            <span id="chatUserStatus">Çevrimdışı</span>
+                        </span>
+                    </div>
+                </div>
+
+                <a href="#" class="chat-horse-link" id="chatHorseLink" style="display:none;">
+                    <div class="chat-horse-image">
+                        <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                    </div>
+                    <div class="chat-horse-info">
+                        <div class="chat-horse-name" id="chatHorseName">-</div>
+                        <div class="chat-horse-meta" id="chatHorseMeta">-</div>
+                    </div>
+                </a>
+
+                <div class="chat-actions">
+                    <button class="chat-action-btn" title="Ara">
+                        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                    </button>
+                    <button class="chat-action-btn" title="Daha fazla">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <!-- Mesajlar API'den yüklenecek veya konuşma seçilmesi beklenecek -->
+                <div class="empty-chat" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--warm-gray);">
+                    <svg viewBox="0 0 24 24" style="width: 64px; height: 64px; fill: none; stroke: currentColor; stroke-width: 1; margin-bottom: 16px;">
+                        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+                    </svg>
+                    <p>Bir konuşma seçin veya yeni mesaj başlatın</p>
+                </div>
+            </div>
+
+            <div class="chat-input-area" id="chatInputArea" style="display: none;">
+                <div class="chat-input-wrapper">
+                    <div class="chat-input-actions">
+                        <button class="input-action-btn" title="Dosya ekle">
+                            <svg viewBox="0 0 24 24"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>
+                        </button>
+                        <button class="input-action-btn" title="Fotoğraf">
+                            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                        </button>
+                        <button class="input-action-btn" title="Teklif gönder">
+                            <svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                        </button>
+                    </div>
+                    <textarea class="chat-input" placeholder="Mesajınızı yazın..." rows="1"></textarea>
+                    <button class="chat-send-btn">
+                        <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                    </button>
+                </div>
+                <div class="quick-replies">
+                    <button class="quick-reply">Teşekkür ederim</button>
+                    <button class="quick-reply">Evet, uygun</button>
+                    <button class="quick-reply">Detaylı bilgi alabilir miyim?</button>
+                    <button class="quick-reply">Görüşmek üzere</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/messages.js"></script>
+    <script>
+        let currentConversationId = null;
+        let currentUserId = null;
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Giriş kontrolü
+            if (!localStorage.getItem('equimarket_token')) {
+                window.location.href = 'login_register.html';
+                return;
+            }
+
+            const userData = localStorage.getItem('equimarket_user');
+            if (userData) {
+                currentUserId = JSON.parse(userData)._id;
+            }
+
+            // Sidebar kullanıcı bilgisi
+            updateSidebarUser();
+
+            // Konuşmaları yükle
+            await loadConversations();
+
+            // Mesaj gönderme
+            setupMessageInput();
+        });
+
+        function updateSidebarUser() {
+            const userData = localStorage.getItem('equimarket_user');
+            if (!userData) return;
+
+            const user = JSON.parse(userData);
+            const userName = document.querySelector('.user-name');
+            const userAvatar = document.querySelector('.user-avatar');
+
+            if (userName) userName.textContent = user.name || 'Kullanıcı';
+            if (userAvatar) userAvatar.textContent = user.name ? user.name.substring(0, 2).toUpperCase() : 'KA';
+        }
+
+        async function loadConversations() {
+            const container = document.getElementById('conversationsList');
+            if (!container) return;
+
+            try {
+                if (typeof MessageService !== 'undefined') {
+                    const result = await MessageService.getConversations();
+
+                    if (result.success && result.data && result.data.length > 0) {
+                        conversationsData = result.data;
+                        container.innerHTML = result.data.map(conv => createConversationItemHTML(conv)).join('');
+                    } else {
+                        container.innerHTML = `
+                            <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.6);">
+                                <p>Henüz mesajınız yok</p>
+                                <p style="font-size: 13px; margin-top: 8px;">İlan sayfalarından satıcılara mesaj gönderebilirsiniz</p>
+                            </div>
+                        `;
+                    }
+                }
+            } catch (error) {
+                console.error('LoadConversations Error:', error);
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.6);">
+                        Konuşmalar yüklenemedi
+                    </div>
+                `;
+            }
+        }
+
+        function createConversationItemHTML(conv) {
+            const otherUser = conv.participants?.find(p => p._id !== currentUserId) || {};
+            const initials = otherUser.name ? otherUser.name.substring(0, 2).toUpperCase() : '??';
+            const time = MessageService.formatDate(conv.lastMessage?.createdAt || conv.updatedAt);
+            const unread = conv.unreadCount > 0;
+
+            return `
+                <div class="conversation-item ${unread ? 'unread' : ''}" onclick="selectConversation('${conv._id}')">
+                    <div class="conv-avatar">${initials}</div>
+                    <div class="conv-content">
+                        <div class="conv-header">
+                            <span class="conv-name">${otherUser.name || 'Kullanıcı'}</span>
+                            <span class="conv-time">${time}</span>
+                        </div>
+                        <p class="conv-preview">${conv.lastMessage?.content || 'Henüz mesaj yok'}</p>
+                        ${conv.horse ? `
+                            <div class="conv-meta">
+                                <span class="conv-horse">
+                                    <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                                    ${conv.horse.name}
+                                </span>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        let conversationsData = [];
+
+        async function selectConversation(conversationId) {
+            currentConversationId = conversationId;
+
+            // Aktif konuşmayı işaretle
+            document.querySelectorAll('.conversation-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+                event.currentTarget.classList.remove('unread');
+            }
+
+            // Konuşma verilerini bul
+            const conv = conversationsData.find(c => c._id === conversationId);
+            if (conv) {
+                updateChatHeader(conv);
+            }
+
+            // Input alanını göster
+            document.getElementById('chatInputArea').style.display = 'block';
+
+            // Mesajları yükle
+            await loadMessages(conversationId);
+        }
+
+        function updateChatHeader(conv) {
+            const header = document.getElementById('chatHeader');
+            header.style.display = 'flex';
+
+            const otherUser = conv.participants?.find(p => p._id !== currentUserId) || {};
+            
+            document.getElementById('chatUserAvatar').textContent = otherUser.name ? otherUser.name.substring(0, 2).toUpperCase() : '??';
+            document.getElementById('chatUserName').textContent = otherUser.name || 'Kullanıcı';
+            
+            if (conv.horse) {
+                const horseLink = document.getElementById('chatHorseLink');
+                horseLink.style.display = 'flex';
+                horseLink.href = 'horse_detail.html?id=' + conv.horse._id;
+                document.getElementById('chatHorseName').textContent = conv.horse.name || 'İlan';
+                document.getElementById('chatHorseMeta').textContent = (conv.horse.age || '?') + ' Yaş · ' + (conv.horse.breed || '');
+            }
+        }
+
+        async function loadMessages(conversationId) {
+            const container = document.getElementById('chatMessages');
+            if (!container) return;
+
+            container.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--warm-gray);">Mesajlar yükleniyor...</div>';
+
+            try {
+                if (typeof MessageService !== 'undefined') {
+                    const result = await MessageService.getMessages(conversationId);
+
+                    if (result.success && result.data && result.data.length > 0) {
+                        container.innerHTML = result.data.map(msg => createMessageHTML(msg)).join('');
+                        container.scrollTop = container.scrollHeight;
+                    } else {
+                        container.innerHTML = `
+                            <div style="text-align: center; padding: 40px; color: var(--warm-gray);">
+                                Henüz mesaj yok. İlk mesajı siz gönderin!
+                            </div>
+                        `;
+                    }
+                }
+            } catch (error) {
+                console.error('LoadMessages Error:', error);
+            }
+        }
+
+        function createMessageHTML(msg) {
+            const isOwn = msg.sender?._id === currentUserId || msg.sender === currentUserId;
+            const time = new Date(msg.createdAt).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+            const initials = isOwn ? 'BN' : (msg.sender?.name?.substring(0, 2).toUpperCase() || '??');
+
+            return `
+                <div class="message ${isOwn ? 'sent' : 'received'}">
+                    <div class="message-avatar">${initials}</div>
+                    <div class="message-content">
+                        <div class="message-bubble">${msg.content}</div>
+                        <span class="message-time">${time}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function setupMessageInput() {
+            const textarea = document.querySelector('.chat-input');
+            const sendBtn = document.querySelector('.send-btn');
+
+            if (textarea) {
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+                });
+
+                textarea.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendMessage();
+                    }
+                });
+            }
+
+            if (sendBtn) {
+                sendBtn.addEventListener('click', sendMessage);
+            }
+        }
+
+        async function sendMessage() {
+            const textarea = document.querySelector('.chat-input');
+            const content = textarea.value.trim();
+
+            if (!content || !currentConversationId) return;
+
+            textarea.value = '';
+            textarea.style.height = 'auto';
+
+            try {
+                // Mesajı hemen göster (optimistic update)
+                const chatMessages = document.getElementById('chatMessages');
+                const tempMsg = `
+                    <div class="message sent">
+                        <div class="message-avatar">BN</div>
+                        <div class="message-content">
+                            <div class="message-bubble">${content}</div>
+                            <span class="message-time">Şimdi</span>
+                        </div>
+                    </div>
+                `;
+                chatMessages.insertAdjacentHTML('beforeend', tempMsg);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                // API'ye gönder (gerçek implementasyon için recipient ve horse ID gerekli)
+                // await MessageService.sendMessage(recipientId, horseId, content);
+                
+            } catch (error) {
+                console.error('SendMessage Error:', error);
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('equimarket_token');
+            localStorage.removeItem('equimarket_user');
+            window.location.href = 'homepage_v2.html';
+        }
+    </script>
+</body>
+</html>

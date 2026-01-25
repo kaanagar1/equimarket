@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profilim - EquiMarket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --racing-green: #1a3d2e;
+            --racing-green-light: #2d5a47;
+            --gold: #c9a55c;
+            --gold-light: #e8d5a8;
+            --cream: #faf8f3;
+            --charcoal: #2a2a2a;
+            --warm-gray: #6b6b6b;
+            --light-gray: #f5f4f0;
+            --white: #ffffff;
+            --success: #4a7c59;
+            --warning: #f59e0b;
+            --error: #dc2626;
+            --info: #3b82f6;
+            --shadow-soft: 0 4px 20px rgba(26, 61, 46, 0.08);
+            --shadow-medium: 0 8px 40px rgba(26, 61, 46, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--light-gray);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Dashboard Layout */
+        .dashboard-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--racing-green);
+            padding: 28px 20px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 280px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 8px;
+            margin-bottom: 32px;
+            text-decoration: none;
+        }
+
+        .sidebar-logo-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(201, 165, 92, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-logo-icon svg {
+            width: 26px;
+            height: 26px;
+            fill: none;
+            stroke: var(--gold);
+            stroke-width: 1.5;
+        }
+
+        .sidebar-logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .sidebar-logo-text span {
+            color: var(--gold);
+        }
+
+        /* Sidebar Navigation */
+        .sidebar-nav {
+            flex: 1;
+        }
+
+        .nav-section {
+            margin-bottom: 28px;
+        }
+
+        .nav-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.4);
+            padding: 0 12px;
+            margin-bottom: 12px;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 4px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 12px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+        }
+
+        .nav-link.active {
+            background: rgba(201, 165, 92, 0.2);
+            color: var(--gold);
+        }
+
+        .nav-link svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.5;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: var(--gold);
+            color: var(--racing-green);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 100px;
+        }
+
+        /* Sidebar Footer */
+        .sidebar-footer {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px;
+        }
+
+        .sidebar-user-avatar {
+            width: 44px;
+            height: 44px;
+            background: var(--gold);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--racing-green);
+        }
+
+        .sidebar-user-info {
+            flex: 1;
+        }
+
+        .sidebar-user-name {
+            font-weight: 600;
+            color: var(--white);
+            font-size: 14px;
+        }
+
+        .sidebar-user-role {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 32px;
+        }
+
+        /* Dashboard Header */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .header-title h1 {
+            font-size: 28px;
+            margin-bottom: 4px;
+        }
+
+        .header-title p {
+            color: var(--warm-gray);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        /* Mode Toggle */
+        .mode-toggle {
+            display: flex;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 4px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .mode-btn {
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--warm-gray);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mode-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .mode-btn.active {
+            background: var(--racing-green);
+            color: var(--white);
+        }
+
+        .mode-btn:not(.active):hover {
+            background: var(--light-gray);
+            color: var(--charcoal);
+        }
+
+        .notification-btn {
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: var(--white);
+            border-radius: 12px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .notification-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: var(--charcoal);
+            stroke-width: 1.5;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 8px;
+            height: 8px;
+            background: var(--error);
+            border-radius: 50%;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: var(--charcoal);
+        }
+
+        .btn-gold:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: var(--racing-green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--racing-green-light);
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.5;
+        }
+
+        .stat-icon.green { background: rgba(74, 124, 89, 0.1); color: var(--success); }
+        .stat-icon.blue { background: rgba(59, 130, 246, 0.1); color: var(--info); }
+        .stat-icon.gold { background: rgba(201, 165, 92, 0.1); color: var(--gold); }
+        .stat-icon.orange { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .stat-icon.red { background: rgba(220, 38, 38, 0.1); color: var(--error); }
+
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .stat-trend svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .stat-trend.up { color: var(--success); }
+        .stat-trend.down { color: var(--error); }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--warm-gray);
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+        }
+
+        .card-title svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: var(--gold);
+            stroke-width: 1.5;
+        }
+
+        .card-link {
+            font-size: 13px;
+            color: var(--racing-green);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .card-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Horse List Item */
+        .horse-list-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--light-gray);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .horse-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .horse-list-item:hover {
+            background: var(--light-gray);
+            margin: 0 -16px;
+            padding: 16px;
+            border-radius: 12px;
+        }
+
+        .horse-list-image {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .horse-list-image svg {
+            width: 28px;
+            height: 28px;
+            fill: none;
+            stroke: var(--warm-gray);
+            stroke-width: 1;
+        }
+
+        .horse-list-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .horse-list-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .horse-list-meta {
+            font-size: 13px;
+            color: var(--warm-gray);
+        }
+
+        .horse-list-price {
+            font-weight: 700;
+            color: var(--racing-green);
+            white-space: nowrap;
+        }
+
+        .horse-list-status {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 100px;
+            white-space: nowrap;
+        }
+
+        .status-active { background: rgba(74, 124, 89, 0.1); color: var(--success); }
+        .status-pending { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            fill: none;
+            stroke: var(--warm-gray);
+            stroke-width: 1;
+            margin-bottom: 16px;
+        }
+
+        .empty-state h4 {
+            color: var(--charcoal);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: var(--warm-gray);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* Alert Banner */
+        .alert-banner {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: linear-gradient(135deg, rgba(201, 165, 92, 0.1) 0%, rgba(201, 165, 92, 0.05) 100%);
+            border: 1px solid rgba(201, 165, 92, 0.2);
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+        }
+
+        .alert-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gold);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .alert-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: var(--charcoal);
+            stroke-width: 1.5;
+        }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert-title {
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .alert-text {
+            font-size: 14px;
+            color: var(--warm-gray);
+        }
+
+        .alert-action {
+            padding: 10px 20px;
+            background: var(--gold);
+            color: var(--charcoal);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 992px) {
+            .sidebar { width: 80px; padding: 20px 12px; }
+            .sidebar-logo-text, .nav-link span, .nav-section-title, .sidebar-user-info, .nav-badge { display: none; }
+            .sidebar-logo { justify-content: center; padding: 0; }
+            .nav-link { justify-content: center; padding: 14px; }
+            .sidebar-user { justify-content: center; }
+            .main-content { margin-left: 80px; }
+            .content-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 20px; }
+            .dashboard-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+            .header-actions { width: 100%; justify-content: space-between; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .mode-toggle { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="homepage_v2.html" class="sidebar-logo">
+                <div class="sidebar-logo-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7"/>
+                    </svg>
+                </div>
+                <div class="sidebar-logo-text">Equi<span>Market</span></div>
+            </a>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Ana Menü</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="nav-link active">
+                                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+                                <span>Genel Bakış</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="ilanlar.html" class="nav-link">
+                                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                <span>İlanları Keşfet</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="messaging.html" class="nav-link">
+                                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                                <span>Mesajlar</span>
+                                <span class="nav-badge">5</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Hesap</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="create_listing.html" class="nav-link">
+                                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                                <span>Yeni İlan</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="settings.html" class="nav-link">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                                <span>Ayarlar</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" onclick="logout(); return false;" class="nav-link">
+                                <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+                                <span>Çıkış Yap</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar" id="sidebarAvatar">KA</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name" id="sidebarName">Kullanıcı</div>
+                        <div class="sidebar-user-role">EquiMarket Üyesi</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="dashboard-header">
+                <div class="header-title">
+                    <h1 id="welcomeTitle">Merhaba</h1>
+                    <p id="welcomeSubtitle">Profilinize hoş geldiniz</p>
+                </div>
+                <div class="header-actions">
+                    <!-- Mode Toggle -->
+                    <div class="mode-toggle">
+                        <button class="mode-btn active" id="btnBuyer" onclick="switchMode('buyer')">
+                            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                            Alıcı
+                        </button>
+                        <button class="mode-btn" id="btnSeller" onclick="switchMode('seller')">
+                            <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                            Satıcı
+                        </button>
+                    </div>
+
+                    <button class="notification-btn">
+                        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+                        <span class="notification-badge"></span>
+                    </button>
+
+                    <a href="create_listing.html" class="btn btn-gold" id="headerActionBtn">
+                        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                        Yeni İlan
+                    </a>
+                </div>
+            </div>
+
+            <!-- BUYER CONTENT -->
+            <div class="content-section active" id="buyerContent">
+                <!-- Alert Banner -->
+                <div class="alert-banner">
+                    <div class="alert-icon">
+                        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+                    </div>
+                    <div class="alert-content">
+                        <div class="alert-title">Yeni ilanlar var!</div>
+                        <div class="alert-text">Aradığınız kriterlere uygun yeni ilanlar eklendi</div>
+                    </div>
+                    <button class="alert-action" onclick="window.location.href='ilanlar.html'">İlanları Gör</button>
+                </div>
+
+                <!-- Buyer Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon red">
+                                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="buyerFavorites">0</div>
+                        <div class="stat-label">Favori At</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon gold">
+                                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                            </div>
+                        </div>
+                        <div class="stat-value">0</div>
+                        <div class="stat-label">Aktif Görüşme</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon blue">
+                                <svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                            </div>
+                        </div>
+                        <div class="stat-value">0</div>
+                        <div class="stat-label">Bekleyen Teklif</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon green">
+                                <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+                            </div>
+                        </div>
+                        <div class="stat-value">0</div>
+                        <div class="stat-label">Kayıtlı Arama</div>
+                    </div>
+                </div>
+
+                <!-- Buyer Content Grid -->
+                <div class="content-grid">
+                    <!-- Favorites -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                                Favorilerim
+                            </h3>
+                            <a href="ilanlar.html" class="card-link">Tümünü Gör →</a>
+                        </div>
+                        <div id="buyerFavoritesList">
+                            <div class="empty-state">
+                                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                                <h4>Henüz favori yok</h4>
+                                <p>Beğendiğiniz atları favorilere ekleyin</p>
+                                <a href="ilanlar.html" class="btn btn-primary">Atları Keşfet</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recommended -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                Size Önerilen
+                            </h3>
+                            <a href="ilanlar.html" class="card-link">Tümünü Gör →</a>
+                        </div>
+                        <div id="buyerRecommended">
+                            <div class="empty-state">
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <h4>Henüz öneri yok</h4>
+                                <p>İlanları inceleyin, size özel öneriler oluşturalım</p>
+                                <a href="ilanlar.html" class="btn btn-primary">Atları Keşfet</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SELLER CONTENT -->
+            <div class="content-section" id="sellerContent">
+                <!-- Seller Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon green">
+                                <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                            </div>
+                            <div class="stat-trend up">
+                                <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+                                +2
+                            </div>
+                        </div>
+                        <div class="stat-value" id="sellerActiveListings">0</div>
+                        <div class="stat-label">Aktif İlan</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon blue">
+                                <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </div>
+                            <div class="stat-trend up">
+                                <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+                                +24%
+                            </div>
+                        </div>
+                        <div class="stat-value">0</div>
+                        <div class="stat-label">Bu Ay Görüntülenme</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon gold">
+                                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                            </div>
+                            <div class="stat-trend up">
+                                <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+                                +5
+                            </div>
+                        </div>
+                        <div class="stat-value">0</div>
+                        <div class="stat-label">Yeni Mesaj</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon orange">
+                                <svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                            </div>
+                        </div>
+                        <div class="stat-value">0</div>
+                        <div class="stat-label">Bekleyen Teklif</div>
+                    </div>
+                </div>
+
+                <!-- Seller Content Grid -->
+                <div class="content-grid">
+                    <!-- My Listings -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                                İlanlarım
+                            </h3>
+                            <a href="create_listing.html" class="card-link">Yeni İlan →</a>
+                        </div>
+                        <div id="sellerListings">
+                            <div class="empty-state">
+                                <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                                <h4>Henüz ilanınız yok</h4>
+                                <p>İlk ilanınızı verin ve alıcılara ulaşın</p>
+                                <a href="create_listing.html" class="btn btn-gold">İlan Ver</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Messages -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                                Son Mesajlar
+                            </h3>
+                            <a href="messaging.html" class="card-link">Tümünü Gör →</a>
+                        </div>
+                        <div id="sellerMessages">
+                            <div class="empty-state">
+                                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                                <h4>Henüz mesaj yok</h4>
+                                <p>İlan verdiğinizde alıcılar size mesaj gönderebilir</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/horses.js"></script>
+    <script>
+        let currentMode = 'buyer';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Giriş kontrolü
+            if (!localStorage.getItem('equimarket_token')) {
+                window.location.href = 'login_register.html';
+                return;
+            }
+
+            // Kullanıcı bilgilerini yükle
+            loadUserInfo();
+
+            // Son seçilen modu localStorage'dan al
+            const savedMode = localStorage.getItem('equimarket_dashboard_mode');
+            if (savedMode) {
+                switchMode(savedMode);
+            }
+
+            // Verileri yükle
+            loadBuyerData();
+            loadSellerData();
+        });
+
+        function loadUserInfo() {
+            const userData = localStorage.getItem('equimarket_user');
+            if (!userData) return;
+
+            const user = JSON.parse(userData);
+            const firstName = user.name ? user.name.split(' ')[0] : 'Kullanıcı';
+            const initials = user.name ? user.name.substring(0, 2).toUpperCase() : 'KA';
+
+            document.getElementById('welcomeTitle').textContent = `Merhaba, ${firstName}`;
+            document.getElementById('sidebarName').textContent = user.name || 'Kullanıcı';
+            document.getElementById('sidebarAvatar').textContent = initials;
+
+            // Favori sayısını güncelle
+            const favorites = user.favorites || [];
+            document.getElementById('buyerFavorites').textContent = favorites.length;
+        }
+
+        function switchMode(mode) {
+            currentMode = mode;
+            localStorage.setItem('equimarket_dashboard_mode', mode);
+
+            // Butonları güncelle
+            document.getElementById('btnBuyer').classList.toggle('active', mode === 'buyer');
+            document.getElementById('btnSeller').classList.toggle('active', mode === 'seller');
+
+            // İçerikleri göster/gizle
+            document.getElementById('buyerContent').classList.toggle('active', mode === 'buyer');
+            document.getElementById('sellerContent').classList.toggle('active', mode === 'seller');
+
+            // Header subtitle ve action butonunu güncelle
+            const subtitle = document.getElementById('welcomeSubtitle');
+            const actionBtn = document.getElementById('headerActionBtn');
+
+            if (mode === 'buyer') {
+                subtitle.textContent = 'Hayalinizdeki yarış atını bulmaya hazır mısınız?';
+                actionBtn.innerHTML = '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Atları Keşfet';
+                actionBtn.href = 'ilanlar.html';
+                actionBtn.className = 'btn btn-primary';
+            } else {
+                subtitle.textContent = 'İşte bugünkü performansınızın özeti';
+                actionBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Yeni İlan';
+                actionBtn.href = 'create_listing.html';
+                actionBtn.className = 'btn btn-gold';
+            }
+        }
+
+        async function loadBuyerData() {
+            // Favorileri yükle
+            const userData = localStorage.getItem('equimarket_user');
+            if (!userData) return;
+
+            const user = JSON.parse(userData);
+            const favorites = user.favorites || [];
+
+            if (favorites.length > 0 && typeof HorseService !== 'undefined') {
+                try {
+                    // Tüm ilanları çek ve favorileri filtrele
+                    const result = await HorseService.getHorses();
+                    if (result.success && result.data) {
+                        const favoriteHorses = result.data.filter(h => favorites.includes(h._id)).slice(0, 3);
+                        
+                        if (favoriteHorses.length > 0) {
+                            document.getElementById('buyerFavoritesList').innerHTML = favoriteHorses.map(horse => createHorseListItem(horse)).join('');
+                        }
+
+                        // Önerilen (son 3 ilan)
+                        const recommended = result.data.slice(0, 3);
+                        if (recommended.length > 0) {
+                            document.getElementById('buyerRecommended').innerHTML = recommended.map(horse => createHorseListItem(horse)).join('');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Buyer data load error:', error);
+                }
+            }
+        }
+
+        async function loadSellerData() {
+            const userData = localStorage.getItem('equimarket_user');
+            if (!userData) return;
+
+            const user = JSON.parse(userData);
+
+            if (typeof HorseService !== 'undefined') {
+                try {
+                    const result = await HorseService.getMyHorses();
+                    if (result.success && result.data && result.data.length > 0) {
+                        document.getElementById('sellerActiveListings').textContent = result.data.length;
+                        document.getElementById('sellerListings').innerHTML = result.data.slice(0, 3).map(horse => createHorseListItem(horse, true, true)).join('');
+                    }
+                } catch (error) {
+                    console.error('Seller data load error:', error);
+                }
+            }
+        }
+
+        function createHorseListItem(horse, showStatus = false, isOwner = false) {
+            const price = new Intl.NumberFormat('tr-TR').format(horse.price || 0);
+            const age = horse.age || '?';
+
+            return `
+                <div class="horse-list-item-wrapper" style="display:flex;align-items:center;gap:8px;">
+                    <a href="horse_detail.html?id=${horse._id}" class="horse-list-item" style="flex:1;">
+                        <div class="horse-list-image">
+                            <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                        </div>
+                        <div class="horse-list-info">
+                            <div class="horse-list-name">${horse.name}</div>
+                            <div class="horse-list-meta">${age} Yaş · ${horse.location?.city || 'Türkiye'}</div>
+                        </div>
+                        ${showStatus ? 
+                            `<span class="horse-list-status status-${horse.status || 'active'}">${horse.status === 'pending' ? 'Beklemede' : horse.status === 'sold' ? 'Satıldı' : 'Aktif'}</span>` :
+                            `<span class="horse-list-price">₺${price}</span>`
+                        }
+                    </a>
+                    ${isOwner ? `
+                        <a href="edit_listing.html?id=${horse._id}" class="edit-btn" title="Düzenle" style="width:36px;height:36px;border-radius:8px;background:var(--light-gray);display:flex;align-items:center;justify-content:center;color:var(--warm-gray);text-decoration:none;transition:all 0.2s;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        </a>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function logout() {
+            localStorage.removeItem('equimarket_token');
+            localStorage.removeItem('equimarket_user');
+            window.location.href = 'homepage_v2.html';
+        }
+    </script>
+
+    <!-- Feedback Popup -->
+    <script src="js/feedback-popup.js"></script>
+</body>
+</html>

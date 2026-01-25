@@ -1,0 +1,367 @@
+/* Feedback Popup Styles */
+
+.feedback-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.feedback-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.feedback-popup {
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 480px;
+    padding: 40px;
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.feedback-overlay.show .feedback-popup {
+    transform: scale(1) translateY(0);
+}
+
+.feedback-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: #f5f4f0;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.feedback-close:hover {
+    background: #e5e5e5;
+    transform: rotate(90deg);
+}
+
+.feedback-close svg {
+    width: 18px;
+    height: 18px;
+    stroke: #6b6b6b;
+    stroke-width: 2;
+    fill: none;
+}
+
+.feedback-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.feedback-icon {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, #1a3d2e 0%, #2d5a47 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.feedback-icon svg {
+    width: 36px;
+    height: 36px;
+    fill: none;
+    stroke: #c9a55c;
+    stroke-width: 1.5;
+}
+
+.feedback-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: #2a2a2a;
+    margin-bottom: 10px;
+}
+
+.feedback-header p {
+    color: #6b6b6b;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.feedback-reward {
+    background: linear-gradient(135deg, #fef9e7 0%, #fdf6e3 100%);
+    border: 2px solid #c9a55c;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.feedback-reward span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #1a3d2e;
+}
+
+.feedback-reward svg {
+    width: 20px;
+    height: 20px;
+    fill: #c9a55c;
+}
+
+/* Star Rating */
+.star-rating {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.star-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    transition: transform 0.2s ease;
+}
+
+.star-btn:hover {
+    transform: scale(1.2);
+}
+
+.star-btn svg {
+    width: 40px;
+    height: 40px;
+    fill: #e5e5e5;
+    stroke: #d4d4d4;
+    stroke-width: 1;
+    transition: all 0.2s ease;
+}
+
+.star-btn.active svg,
+.star-btn.hover svg {
+    fill: #fbbf24;
+    stroke: #f59e0b;
+}
+
+.rating-text {
+    text-align: center;
+    font-size: 14px;
+    color: #6b6b6b;
+    margin-top: -16px;
+    margin-bottom: 20px;
+    min-height: 20px;
+}
+
+/* Feedback Form */
+.feedback-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.feedback-textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 16px;
+    border: 2px solid #e5e5e5;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    resize: vertical;
+    transition: all 0.3s ease;
+}
+
+.feedback-textarea:focus {
+    outline: none;
+    border-color: #1a3d2e;
+    box-shadow: 0 0 0 4px rgba(26, 61, 46, 0.1);
+}
+
+.feedback-textarea::placeholder {
+    color: #aaa;
+}
+
+.feedback-submit {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #1a3d2e 0%, #2d5a47 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.feedback-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(26, 61, 46, 0.3);
+}
+
+.feedback-submit:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.feedback-submit svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+}
+
+.feedback-skip {
+    text-align: center;
+}
+
+.feedback-skip button {
+    background: none;
+    border: none;
+    color: #6b6b6b;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.feedback-skip button:hover {
+    color: #2a2a2a;
+}
+
+/* Success State */
+.feedback-success {
+    display: none;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.feedback-success.show {
+    display: block;
+}
+
+.feedback-success-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #4a7c59 0%, #5a9c6a 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    animation: successPop 0.5s ease;
+}
+
+@keyframes successPop {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.feedback-success-icon svg {
+    width: 40px;
+    height: 40px;
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 2.5;
+}
+
+.feedback-success h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: #2a2a2a;
+    margin-bottom: 12px;
+}
+
+.feedback-success p {
+    color: #6b6b6b;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.feedback-success .reward-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #c9a55c 0%, #e8d5a8 100%);
+    color: #1a3d2e;
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 24px;
+}
+
+.feedback-success .reward-badge svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+.feedback-success-btn {
+    width: 100%;
+    padding: 14px;
+    background: #1a3d2e;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.feedback-success-btn:hover {
+    background: #2d5a47;
+}
+
+/* Form Hidden State */
+.feedback-form-container.hidden {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .feedback-popup {
+        padding: 28px 24px;
+    }
+
+    .feedback-header h2 {
+        font-size: 22px;
+    }
+
+    .star-btn svg {
+        width: 32px;
+        height: 32px;
+    }
+}

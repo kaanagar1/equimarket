@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesap Ayarları - EquiMarket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --racing-green: #1a3d2e;
+            --racing-green-light: #2d5a47;
+            --gold: #c9a55c;
+            --gold-light: #e8d5a8;
+            --cream: #faf8f3;
+            --charcoal: #2a2a2a;
+            --warm-gray: #6b6b6b;
+            --light-gray: #f5f4f0;
+            --white: #ffffff;
+            --success: #4a7c59;
+            --warning: #f59e0b;
+            --error: #dc2626;
+            --info: #3b82f6;
+            --shadow-soft: 0 4px 20px rgba(26, 61, 46, 0.08);
+            --shadow-medium: 0 8px 40px rgba(26, 61, 46, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--light-gray);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Layout */
+        .settings-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--racing-green);
+            padding: 28px 20px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 32px 40px;
+            min-height: 100vh;
+            flex: 1;
+            background: var(--light-gray);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            margin-bottom: 40px;
+            padding: 0 8px;
+        }
+
+        .sidebar-logo-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-logo-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--gold);
+        }
+
+        .sidebar-logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .sidebar-logo-text span { color: var(--gold); }
+
+        .sidebar-nav { flex: 1; }
+
+        .nav-section { margin-bottom: 32px; }
+
+        .nav-section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255, 255, 255, 0.4);
+            padding: 0 12px;
+            margin-bottom: 12px;
+        }
+
+        .nav-menu { list-style: none; }
+
+        .nav-item { margin-bottom: 4px; }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        .nav-link.active {
+            background: rgba(201, 165, 92, 0.2);
+            color: var(--gold);
+        }
+
+        .nav-link svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: var(--gold);
+            color: var(--charcoal);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .sidebar-footer {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar-user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--gold);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--charcoal);
+            font-size: 14px;
+        }
+
+        .sidebar-user-info { flex: 1; }
+
+        .sidebar-user-name {
+            font-weight: 600;
+            color: var(--white);
+            font-size: 14px;
+        }
+
+        .sidebar-user-role {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Header */
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            color: var(--charcoal);
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            font-size: 15px;
+            color: var(--warm-gray);
+        }
+
+        /* Settings Navigation */
+        .settings-tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--white);
+            padding: 6px;
+            border-radius: 14px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .settings-tab {
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--warm-gray);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .settings-tab:hover {
+            color: var(--charcoal);
+            background: var(--light-gray);
+        }
+
+        .settings-tab.active {
+            background: var(--racing-green);
+            color: var(--white);
+        }
+
+        .settings-tab svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        /* Settings Card */
+        .settings-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 24px;
+        }
+
+        .settings-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .settings-card-title {
+            font-size: 20px;
+            color: var(--charcoal);
+            margin-bottom: 6px;
+        }
+
+        .settings-card-desc {
+            font-size: 14px;
+            color: var(--warm-gray);
+        }
+
+        /* Profile Section */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 32px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .profile-avatar {
+            position: relative;
+        }
+
+        .profile-avatar-img {
+            width: 100px;
+            height: 100px;
+            background: var(--gold);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--charcoal);
+        }
+
+        .profile-avatar-edit {
+            position: absolute;
+            bottom: -6px;
+            right: -6px;
+            width: 36px;
+            height: 36px;
+            background: var(--racing-green);
+            border-radius: 10px;
+            border: 3px solid var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .profile-avatar-edit:hover {
+            background: var(--racing-green-light);
+        }
+
+        .profile-avatar-edit svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .profile-info h3 {
+            font-size: 22px;
+            color: var(--charcoal);
+            margin-bottom: 4px;
+        }
+
+        .profile-info p {
+            font-size: 14px;
+            color: var(--warm-gray);
+            margin-bottom: 12px;
+        }
+
+        .profile-badges {
+            display: flex;
+            gap: 8px;
+        }
+
+        .profile-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .profile-badge.verified {
+            background: rgba(74, 124, 89, 0.1);
+            color: var(--success);
+        }
+
+        .profile-badge.premium {
+            background: rgba(201, 165, 92, 0.15);
+            color: #9a7b3c;
+        }
+
+        .profile-badge svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        /* Form Elements */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-row.single {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 14px 16px;
+            border: 2px solid var(--light-gray);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 15px;
+            color: var(--charcoal);
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--racing-green);
+            box-shadow: 0 0 0 4px rgba(26, 61, 46, 0.08);
+        }
+
+        .form-input:disabled {
+            background: var(--light-gray);
+            color: var(--warm-gray);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236b6b6b' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 18px;
+            padding-right: 44px;
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-hint {
+            font-size: 12px;
+            color: var(--warm-gray);
+        }
+
+        /* Toggle Switch */
+        .toggle-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .toggle-group:last-child {
+            border-bottom: none;
+        }
+
+        .toggle-info h4 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 4px;
+        }
+
+        .toggle-info p {
+            font-size: 13px;
+            color: var(--warm-gray);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 52px;
+            height: 28px;
+            flex-shrink: 0;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--light-gray);
+            border-radius: 14px;
+            transition: 0.3s;
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            height: 22px;
+            width: 22px;
+            left: 3px;
+            bottom: 3px;
+            background: var(--white);
+            border-radius: 50%;
+            transition: 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .toggle-switch input:checked + .toggle-slider {
+            background: var(--racing-green);
+        }
+
+        .toggle-switch input:checked + .toggle-slider::before {
+            transform: translateX(24px);
+        }
+
+        /* Button */
+        .btn {
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .btn-primary {
+            background: var(--racing-green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--racing-green-light);
+        }
+
+        .btn-outline {
+            background: var(--white);
+            border: 2px solid var(--light-gray);
+            color: var(--charcoal);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--racing-green);
+            color: var(--racing-green);
+        }
+
+        .btn-danger {
+            background: var(--white);
+            border: 2px solid var(--error);
+            color: var(--error);
+        }
+
+        .btn-danger:hover {
+            background: var(--error);
+            color: var(--white);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 28px;
+            padding-top: 24px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        /* Security Section */
+        .security-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .security-item:last-child {
+            border-bottom: none;
+        }
+
+        .security-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .security-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--light-gray);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--warm-gray);
+        }
+
+        .security-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .security-icon.active {
+            background: rgba(74, 124, 89, 0.1);
+            color: var(--success);
+        }
+
+        .security-details h4 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 4px;
+        }
+
+        .security-details p {
+            font-size: 13px;
+            color: var(--warm-gray);
+        }
+
+        .security-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .security-status.enabled {
+            color: var(--success);
+        }
+
+        .security-status.disabled {
+            color: var(--warm-gray);
+        }
+
+        .security-status svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        /* Billing Section */
+        .plan-card {
+            background: linear-gradient(135deg, var(--racing-green) 0%, var(--racing-green-light) 100%);
+            border-radius: 16px;
+            padding: 28px;
+            color: var(--white);
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        .plan-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--charcoal);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .plan-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .plan-price {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .plan-price span {
+            font-size: 16px;
+            font-weight: 400;
+            opacity: 0.7;
+        }
+
+        .plan-renewal {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .plan-features {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .plan-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .plan-feature svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: var(--gold);
+            stroke-width: 2;
+        }
+
+        /* Payment Methods */
+        .payment-method {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px;
+            border: 2px solid var(--light-gray);
+            border-radius: 14px;
+            margin-bottom: 12px;
+        }
+
+        .payment-method.default {
+            border-color: var(--racing-green);
+            background: rgba(26, 61, 46, 0.02);
+        }
+
+        .payment-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .payment-icon {
+            width: 48px;
+            height: 32px;
+            background: var(--light-gray);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+            color: var(--charcoal);
+        }
+
+        .payment-details h4 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 2px;
+        }
+
+        .payment-details p {
+            font-size: 12px;
+            color: var(--warm-gray);
+        }
+
+        .payment-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .payment-action-btn {
+            padding: 8px 14px;
+            border: none;
+            background: var(--light-gray);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--charcoal);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-action-btn:hover {
+            background: var(--racing-green);
+            color: var(--white);
+        }
+
+        .payment-action-btn.remove {
+            color: var(--error);
+        }
+
+        .payment-action-btn.remove:hover {
+            background: var(--error);
+            color: var(--white);
+        }
+
+        /* Danger Zone */
+        .danger-zone {
+            border: 2px solid rgba(220, 38, 38, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            background: rgba(220, 38, 38, 0.02);
+        }
+
+        .danger-zone h3 {
+            color: var(--error);
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .danger-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(220, 38, 38, 0.1);
+        }
+
+        .danger-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .danger-info h4 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 4px;
+        }
+
+        .danger-info p {
+            font-size: 13px;
+            color: var(--warm-gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .settings-layout {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 24px 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .settings-tabs {
+                overflow-x: auto;
+                gap: 2px;
+            }
+            .settings-tab {
+                padding: 10px 16px;
+                white-space: nowrap;
+            }
+            .settings-tab span {
+                display: none;
+            }
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .profile-badges {
+                justify-content: center;
+            }
+            .plan-features {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .security-item,
+            .danger-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .payment-method {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="settings-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="homepage_v2.html" class="sidebar-logo">
+                <div class="sidebar-logo-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7"/>
+                    </svg>
+                </div>
+                <div class="sidebar-logo-text">Equi<span>Market</span></div>
+            </a>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Ana Menü</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="nav-link">
+                                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+                                Genel Bakış
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="create_listing.html" class="nav-link">
+                                <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                                İlanlarım
+                                <span class="nav-badge">12</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="messaging.html" class="nav-link">
+                                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                                Mesajlar
+                                <span class="nav-badge">5</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="messaging.html" class="nav-link">
+                                <svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                                Teklifler
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Hesap</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="settings.html" class="nav-link active">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                                Ayarlar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" onclick="logout(); return false;" class="nav-link">
+                                <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+                                Çıkış Yap
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">VA</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">Veliefendi Ahırı</div>
+                        <div class="sidebar-user-role">Premium Satıcı</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Hesap Ayarları</h1>
+                <p>Hesap bilgilerinizi ve tercihlerinizi yönetin</p>
+            </div>
+
+            <!-- Settings Tabs -->
+            <div class="settings-tabs">
+                <button class="settings-tab active">
+                    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <span>Profil</span>
+                </button>
+                <button class="settings-tab">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                    <span>Güvenlik</span>
+                </button>
+                <button class="settings-tab">
+                    <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+                    <span>Bildirimler</span>
+                </button>
+                <button class="settings-tab">
+                    <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>
+                    <span>Faturalandırma</span>
+                </button>
+            </div>
+
+            <!-- Profile Section -->
+            <div class="settings-card">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <div class="profile-avatar-img" id="profileAvatarDisplay">VA</div>
+                        <input type="file" id="avatarInput" accept="image/*" style="display:none">
+                        <button class="profile-avatar-edit" onclick="document.getElementById('avatarInput').click()">
+                            <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <h3 id="profileNameDisplay">Kullanıcı</h3>
+                        <p id="profileEmailDisplay">email@example.com</p>
+                        <div class="profile-badges">
+                            <span class="profile-badge verified" id="verifiedBadge" style="display:none;">
+                                <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                Doğrulanmış
+                            </span>
+                            <span class="profile-badge premium" id="premiumBadge" style="display:none;">
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                Premium
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">İşletme / Ad Soyad</label>
+                        <input type="text" class="form-input" id="settings-name" placeholder="Adınız Soyadınız">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">E-posta</label>
+                        <input type="email" class="form-input" id="settings-email" disabled>
+                        <span class="form-hint">E-posta değiştirilemez</span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Telefon</label>
+                        <input type="tel" class="form-input" id="settings-phone" placeholder="+90 5XX XXX XX XX">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Konum</label>
+                        <select class="form-select" id="settings-city">
+                            <option value="">Şehir seçin</option>
+                            <option value="Adana">Adana</option>
+                            <option value="Adıyaman">Adıyaman</option>
+                            <option value="Afyonkarahisar">Afyonkarahisar</option>
+                            <option value="Ağrı">Ağrı</option>
+                            <option value="Aksaray">Aksaray</option>
+                            <option value="Amasya">Amasya</option>
+                            <option value="Ankara">Ankara</option>
+                            <option value="Antalya">Antalya</option>
+                            <option value="Ardahan">Ardahan</option>
+                            <option value="Artvin">Artvin</option>
+                            <option value="Aydın">Aydın</option>
+                            <option value="Balıkesir">Balıkesir</option>
+                            <option value="Bartın">Bartın</option>
+                            <option value="Batman">Batman</option>
+                            <option value="Bayburt">Bayburt</option>
+                            <option value="Bilecik">Bilecik</option>
+                            <option value="Bingöl">Bingöl</option>
+                            <option value="Bitlis">Bitlis</option>
+                            <option value="Bolu">Bolu</option>
+                            <option value="Burdur">Burdur</option>
+                            <option value="Bursa">Bursa</option>
+                            <option value="Çanakkale">Çanakkale</option>
+                            <option value="Çankırı">Çankırı</option>
+                            <option value="Çorum">Çorum</option>
+                            <option value="Denizli">Denizli</option>
+                            <option value="Diyarbakır">Diyarbakır</option>
+                            <option value="Düzce">Düzce</option>
+                            <option value="Edirne">Edirne</option>
+                            <option value="Elazığ">Elazığ</option>
+                            <option value="Erzincan">Erzincan</option>
+                            <option value="Erzurum">Erzurum</option>
+                            <option value="Eskişehir">Eskişehir</option>
+                            <option value="Gaziantep">Gaziantep</option>
+                            <option value="Giresun">Giresun</option>
+                            <option value="Gümüşhane">Gümüşhane</option>
+                            <option value="Hakkari">Hakkari</option>
+                            <option value="Hatay">Hatay</option>
+                            <option value="Iğdır">Iğdır</option>
+                            <option value="Isparta">Isparta</option>
+                            <option value="İstanbul">İstanbul</option>
+                            <option value="İzmir">İzmir</option>
+                            <option value="Kahramanmaraş">Kahramanmaraş</option>
+                            <option value="Karabük">Karabük</option>
+                            <option value="Karaman">Karaman</option>
+                            <option value="Kars">Kars</option>
+                            <option value="Kastamonu">Kastamonu</option>
+                            <option value="Kayseri">Kayseri</option>
+                            <option value="Kilis">Kilis</option>
+                            <option value="Kırıkkale">Kırıkkale</option>
+                            <option value="Kırklareli">Kırklareli</option>
+                            <option value="Kırşehir">Kırşehir</option>
+                            <option value="Kocaeli">Kocaeli</option>
+                            <option value="Konya">Konya</option>
+                            <option value="Kütahya">Kütahya</option>
+                            <option value="Malatya">Malatya</option>
+                            <option value="Manisa">Manisa</option>
+                            <option value="Mardin">Mardin</option>
+                            <option value="Mersin">Mersin</option>
+                            <option value="Muğla">Muğla</option>
+                            <option value="Muş">Muş</option>
+                            <option value="Nevşehir">Nevşehir</option>
+                            <option value="Niğde">Niğde</option>
+                            <option value="Ordu">Ordu</option>
+                            <option value="Osmaniye">Osmaniye</option>
+                            <option value="Rize">Rize</option>
+                            <option value="Sakarya">Sakarya</option>
+                            <option value="Samsun">Samsun</option>
+                            <option value="Şanlıurfa">Şanlıurfa</option>
+                            <option value="Siirt">Siirt</option>
+                            <option value="Sinop">Sinop</option>
+                            <option value="Sivas">Sivas</option>
+                            <option value="Şırnak">Şırnak</option>
+                            <option value="Tekirdağ">Tekirdağ</option>
+                            <option value="Tokat">Tokat</option>
+                            <option value="Trabzon">Trabzon</option>
+                            <option value="Tunceli">Tunceli</option>
+                            <option value="Uşak">Uşak</option>
+                            <option value="Van">Van</option>
+                            <option value="Yalova">Yalova</option>
+                            <option value="Yozgat">Yozgat</option>
+                            <option value="Zonguldak">Zonguldak</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row single">
+                    <div class="form-group">
+                        <label class="form-label">Hakkında</label>
+                        <textarea class="form-textarea" id="settings-bio" placeholder="Kendinizi veya işletmenizi tanıtın..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Website</label>
+                        <input type="url" class="form-input" id="settings-website" placeholder="https://...">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn-outline" onclick="loadUserData()">İptal</button>
+                    <button class="btn btn-primary" id="btn-save-profile">
+                        <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                        Değişiklikleri Kaydet
+                    </button>
+                </div>
+            </div>
+
+            <!-- Security Section -->
+            <div class="settings-card">
+                <div class="settings-card-header">
+                    <div>
+                        <h2 class="settings-card-title">Güvenlik</h2>
+                        <p class="settings-card-desc">Hesabınızın güvenliğini yönetin</p>
+                    </div>
+                </div>
+
+                <div class="security-item">
+                    <div class="security-info">
+                        <div class="security-icon">
+                            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                        </div>
+                        <div class="security-details">
+                            <h4>Şifre</h4>
+                            <p>Son değişiklik: 3 ay önce</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline">Şifre Değiştir</button>
+                </div>
+
+                <div class="security-item">
+                    <div class="security-info">
+                        <div class="security-icon active">
+                            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <div class="security-details">
+                            <h4>İki Faktörlü Doğrulama</h4>
+                            <p>SMS ile doğrulama aktif</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <span class="security-status enabled">
+                            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            Aktif
+                        </span>
+                        <button class="btn btn-outline">Yönet</button>
+                    </div>
+                </div>
+
+                <div class="security-item">
+                    <div class="security-info">
+                        <div class="security-icon">
+                            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                        </div>
+                        <div class="security-details">
+                            <h4>Aktif Oturumlar</h4>
+                            <p>3 cihazda oturum açık</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline">Oturumları Görüntüle</button>
+                </div>
+            </div>
+
+            <!-- Notifications Section -->
+            <div class="settings-card">
+                <div class="settings-card-header">
+                    <div>
+                        <h2 class="settings-card-title">Bildirim Tercihleri</h2>
+                        <p class="settings-card-desc">Hangi bildirimler almak istediğinizi seçin</p>
+                    </div>
+                </div>
+
+                <div class="toggle-group">
+                    <div class="toggle-info">
+                        <h4>Yeni Mesajlar</h4>
+                        <p>Birisi size mesaj gönderdiğinde bildirim alın</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-group">
+                    <div class="toggle-info">
+                        <h4>Yeni Teklifler</h4>
+                        <p>İlanlarınıza teklif geldiğinde bildirim alın</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-group">
+                    <div class="toggle-info">
+                        <h4>İlan Görüntülenme</h4>
+                        <p>İlanlarınız görüntülendiğinde günlük özet alın</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-group">
+                    <div class="toggle-info">
+                        <h4>Pazarlama E-postaları</h4>
+                        <p>Kampanya ve yeniliklerden haberdar olun</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-group">
+                    <div class="toggle-info">
+                        <h4>SMS Bildirimleri</h4>
+                        <p>Önemli güncellemeler için SMS alın</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Billing Section -->
+            <div class="settings-card">
+                <div class="settings-card-header">
+                    <div>
+                        <h2 class="settings-card-title">Faturalandırma</h2>
+                        <p class="settings-card-desc">Abonelik ve ödeme yöntemlerinizi yönetin</p>
+                    </div>
+                </div>
+
+                <div class="plan-card">
+                    <span class="plan-badge">Mevcut Plan</span>
+                    <h3 class="plan-name">Premium Satıcı</h3>
+                    <div class="plan-price">₺999 <span>/ ay</span></div>
+                    <p class="plan-renewal">Yenileme tarihi: 15 Şubat 2026</p>
+                    <div class="plan-features">
+                        <span class="plan-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Sınırsız ilan
+                        </span>
+                        <span class="plan-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Öncelikli sıralama
+                        </span>
+                        <span class="plan-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Detaylı analitik
+                        </span>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Danger Zone -->
+            <div class="danger-zone">
+                <h3>Tehlikeli Bölge</h3>
+                <div class="danger-item">
+                    <div class="danger-info">
+                        <h4>Hesabı Sil</h4>
+                        <p>Hesabınız ve tüm verileriniz kalıcı olarak silinir. Bu işlem geri alınamaz.</p>
+                    </div>
+                    <button class="btn btn-danger" onclick="deleteAccount()">Hesabı Sil</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- API Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/users.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Giriş kontrolü
+            if (!localStorage.getItem('equimarket_token')) {
+                window.location.href = 'login_register.html';
+                return;
+            }
+
+            // Kullanıcı verilerini yükle
+            loadUserData();
+
+            // Kaydet butonu
+            document.getElementById('btn-save-profile').addEventListener('click', saveProfile);
+
+            // Avatar yükleme
+            document.getElementById('avatarInput').addEventListener('change', uploadAvatar);
+        });
+
+        async function uploadAvatar(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (file.size > 2 * 1024 * 1024) {
+                showToast('Dosya çok büyük (maks. 2MB)', 'error');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('avatar', file);
+
+            try {
+                const response = await fetch(api.baseUrl + '/upload/avatar', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('equimarket_token')
+                    },
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Avatar'ı güncelle
+                    const avatarDisplay = document.getElementById('profileAvatarDisplay');
+                    const baseUrl = api.baseUrl.replace('/api', '');
+                    avatarDisplay.innerHTML = `<img src="${baseUrl}${result.data.avatar}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">`;
+                    
+                    // localStorage'ı güncelle
+                    const userData = JSON.parse(localStorage.getItem('equimarket_user'));
+                    userData.avatar = result.data.avatar;
+                    localStorage.setItem('equimarket_user', JSON.stringify(userData));
+                    
+                    showToast('Profil fotoğrafı güncellendi');
+                } else {
+                    showToast(result.message || 'Yükleme hatası', 'error');
+                }
+            } catch (error) {
+                console.error('Avatar upload error:', error);
+                showToast('Yükleme hatası', 'error');
+            }
+        }
+
+        function loadUserData() {
+            const userData = localStorage.getItem('equimarket_user');
+            if (!userData) return;
+
+            const user = JSON.parse(userData);
+
+            // Form alanlarını doldur
+            document.getElementById('settings-name').value = user.name || '';
+            document.getElementById('settings-email').value = user.email || '';
+            document.getElementById('settings-phone').value = user.phone || '';
+            document.getElementById('settings-bio').value = user.bio || '';
+            document.getElementById('settings-website').value = user.website || '';
+
+            // Profil header bilgileri
+            document.getElementById('profileNameDisplay').textContent = user.name || 'Kullanıcı';
+            document.getElementById('profileEmailDisplay').textContent = user.email || '';
+
+            // Avatar
+            const avatarDisplay = document.getElementById('profileAvatarDisplay');
+            if (user.avatar) {
+                const baseUrl = api.baseUrl.replace('/api', '');
+                const avatarUrl = user.avatar.startsWith('http') ? user.avatar : baseUrl + user.avatar;
+                avatarDisplay.innerHTML = `<img src="${avatarUrl}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">`;
+            } else {
+                avatarDisplay.textContent = user.name ? user.name.substring(0, 2).toUpperCase() : 'KA';
+            }
+
+            // Badges
+            if (user.sellerInfo?.isVerifiedSeller) {
+                document.getElementById('verifiedBadge').style.display = 'inline-flex';
+            }
+            if (user.subscription?.plan === 'premium' || user.subscription?.plan === 'pro') {
+                document.getElementById('premiumBadge').style.display = 'inline-flex';
+            }
+
+            // Şehir seçimi
+            const citySelect = document.getElementById('settings-city');
+            if (user.location?.city) {
+                citySelect.value = user.location.city;
+            }
+
+            // Sidebar'daki isim ve avatar
+            const sidebarName = document.querySelector('.user-name');
+            const sidebarAvatar = document.querySelector('.user-avatar');
+            
+            if (sidebarName) sidebarName.textContent = user.name || 'Kullanıcı';
+            if (sidebarAvatar) {
+                sidebarAvatar.textContent = user.name ? user.name.substring(0, 2).toUpperCase() : 'KA';
+            }
+        }
+
+        async function saveProfile() {
+            const btn = document.getElementById('btn-save-profile');
+            const originalHTML = btn.innerHTML;
+
+            const profileData = {
+                name: document.getElementById('settings-name').value.trim(),
+                phone: document.getElementById('settings-phone').value.trim(),
+                bio: document.getElementById('settings-bio').value.trim(),
+                website: document.getElementById('settings-website').value.trim(),
+                location: {
+                    city: document.getElementById('settings-city').value
+                }
+            };
+
+            // Validasyon
+            if (!profileData.name) {
+                showToast('Ad Soyad zorunludur', 'error');
+                return;
+            }
+
+            btn.innerHTML = 'Kaydediliyor...';
+            btn.disabled = true;
+
+            try {
+                if (typeof UserService !== 'undefined') {
+                    const result = await UserService.updateProfile(profileData);
+
+                    if (result.success) {
+                        // localStorage'ı güncelle
+                        const userData = JSON.parse(localStorage.getItem('equimarket_user'));
+                        Object.assign(userData, profileData);
+                        localStorage.setItem('equimarket_user', JSON.stringify(userData));
+
+                        showToast('Profil güncellendi!');
+                        loadUserData(); // Sayfayı yenile
+                    } else {
+                        showToast(result.message || 'Bir hata oluştu', 'error');
+                    }
+                } else {
+                    showToast('Backend bağlantısı kurulamadı', 'error');
+                }
+            } catch (error) {
+                console.error('SaveProfile Error:', error);
+                showToast('Bir hata oluştu', 'error');
+            } finally {
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                background: ${type === 'success' ? 'var(--racing-green)' : 'var(--error)'};
+                color: white;
+                padding: 16px 24px;
+                border-radius: 12px;
+                box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function logout() {
+            localStorage.removeItem('equimarket_token');
+            localStorage.removeItem('equimarket_user');
+            window.location.href = 'homepage_v2.html';
+        }
+
+        async function deleteAccount() {
+            if (!confirm('Hesabınızı silmek istediğinizden emin misiniz?\n\nBu işlem geri alınamaz ve tüm verileriniz silinecektir.')) {
+                return;
+            }
+
+            // İkinci onay
+            const confirmText = prompt('Onaylamak için "SİL" yazın:');
+            if (confirmText !== 'SİL') {
+                showToast('Hesap silme iptal edildi', 'error');
+                return;
+            }
+
+            try {
+                // Backend'de hesap silme endpoint'i varsa kullan
+                // Şimdilik sadece localStorage'ı temizle ve çıkış yap
+                localStorage.removeItem('equimarket_token');
+                localStorage.removeItem('equimarket_user');
+                
+                showToast('Hesabınız silindi');
+                setTimeout(() => {
+                    window.location.href = 'homepage_v2.html';
+                }, 1500);
+            } catch (error) {
+                showToast('Bir hata oluştu', 'error');
+            }
+        }
+    </script>
+
+    <style>
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .form-hint {
+            font-size: 12px;
+            color: var(--warm-gray);
+            margin-top: 4px;
+        }
+    </style>
+</body>
+</html>

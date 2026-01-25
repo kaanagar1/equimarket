@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="EquiMarket hakkında merak ettikleriniz. Nasıl ilan verilir, güvenli alışveriş.">
+    <meta name="keywords" content="at satışı, yarış atı, safkan at, at ilanları, equimarket, türkiye at pazarı">
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="SSS - EquiMarket">
+    <meta property="og:description" content="EquiMarket hakkında merak ettikleriniz. Nasıl ilan verilir, güvenli alışveriş.">
+    <meta property="og:url" content="https://equimarket.com.tr/sss">
+    <meta property="og:site_name" content="EquiMarket">
+    <meta property="og:locale" content="tr_TR">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SSS - EquiMarket">
+    <meta name="twitter:description" content="EquiMarket hakkında merak ettikleriniz. Nasıl ilan verilir, güvenli alışveriş.">
+    <link rel="canonical" href="https://equimarket.com.tr/sss">
+    <title>Sıkça Sorulan Sorular - EquiMarket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --racing-green: #1a3d2e;
+            --racing-green-light: #2d5a47;
+            --gold: #c9a55c;
+            --gold-light: #e8d5a8;
+            --cream: #faf8f3;
+            --charcoal: #2a2a2a;
+            --warm-gray: #6b6b6b;
+            --light-gray: #f5f4f0;
+            --white: #ffffff;
+            --success: #4a7c59;
+            --shadow-soft: 0 4px 20px rgba(26, 61, 46, 0.08);
+            --shadow-medium: 0 8px 40px rgba(26, 61, 46, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(26, 61, 46, 0.08);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--racing-green);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--gold);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--racing-green);
+        }
+
+        .logo-text span { color: var(--gold); }
+
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--gold);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--charcoal);
+        }
+
+        .btn-ghost:hover {
+            background: var(--light-gray);
+        }
+
+        .btn-primary {
+            background: var(--racing-green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--racing-green-light);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 140px 40px 60px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%);
+        }
+
+        .hero-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: var(--charcoal);
+            margin-bottom: 16px;
+        }
+
+        .hero h1 .highlight {
+            color: var(--gold);
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--warm-gray);
+            margin-bottom: 32px;
+        }
+
+        /* Search Box */
+        .search-box {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 18px 24px 18px 56px;
+            border: 2px solid var(--light-gray);
+            border-radius: 16px;
+            font-family: inherit;
+            font-size: 16px;
+            color: var(--charcoal);
+            background: var(--white);
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--racing-green);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .search-box input::placeholder {
+            color: var(--warm-gray);
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: var(--warm-gray);
+            stroke-width: 2;
+        }
+
+        /* Main Section */
+        .faq-section {
+            padding: 60px 40px 100px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Category Tabs */
+        .category-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .category-tab {
+            padding: 12px 24px;
+            border: 2px solid var(--light-gray);
+            border-radius: 30px;
+            background: var(--white);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--warm-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-tab:hover {
+            border-color: var(--racing-green);
+            color: var(--racing-green);
+        }
+
+        .category-tab.active {
+            background: var(--racing-green);
+            border-color: var(--racing-green);
+            color: var(--white);
+        }
+
+        .category-tab svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        /* FAQ List */
+        .faq-category {
+            margin-bottom: 48px;
+        }
+
+        .faq-category-title {
+            font-size: 24px;
+            color: var(--charcoal);
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .faq-category-title svg {
+            width: 28px;
+            height: 28px;
+            fill: none;
+            stroke: var(--gold);
+            stroke-width: 2;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 16px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow-soft);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: var(--shadow-medium);
+        }
+
+        .faq-question {
+            padding: 24px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: var(--light-gray);
+        }
+
+        .faq-question h3 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--charcoal);
+            flex: 1;
+            padding-right: 20px;
+        }
+
+        .faq-toggle {
+            width: 36px;
+            height: 36px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .faq-toggle svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: var(--racing-green);
+            stroke-width: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.open .faq-toggle {
+            background: var(--racing-green);
+        }
+
+        .faq-item.open .faq-toggle svg {
+            stroke: var(--white);
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 0 28px 24px;
+            font-size: 15px;
+            color: var(--warm-gray);
+            line-height: 1.8;
+        }
+
+        .faq-answer-content p {
+            margin-bottom: 12px;
+        }
+
+        .faq-answer-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-answer-content ul {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+
+        .faq-answer-content li {
+            margin-bottom: 8px;
+        }
+
+        .faq-answer-content a {
+            color: var(--racing-green);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .faq-answer-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* Contact CTA */
+        .contact-cta {
+            background: linear-gradient(135deg, var(--racing-green) 0%, var(--racing-green-light) 100%);
+            border-radius: 24px;
+            padding: 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: rgba(201, 165, 92, 0.1);
+            border-radius: 50%;
+        }
+
+        .contact-cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-cta h2 {
+            font-size: 32px;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .contact-cta p {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 28px;
+        }
+
+        .contact-cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold) 0%, #d4b06a 100%);
+            color: var(--charcoal);
+            padding: 16px 32px;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 165, 92, 0.4);
+        }
+
+        .btn-outline-white {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: var(--white);
+            padding: 14px 30px;
+        }
+
+        .btn-outline-white:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--white);
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: var(--white);
+            padding: 40px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-inner {
+                padding: 12px 20px;
+            }
+            .nav-menu {
+                display: none;
+            }
+            .hero {
+                padding: 120px 20px 40px;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+            .faq-section {
+                padding: 40px 20px 60px;
+            }
+            .category-tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 10px;
+            }
+            .category-tab {
+                white-space: nowrap;
+            }
+            .faq-question {
+                padding: 20px;
+            }
+            .faq-question h3 {
+                font-size: 15px;
+            }
+            .faq-answer-content {
+                padding: 0 20px 20px;
+            }
+            .contact-cta {
+                padding: 40px 24px;
+            }
+            .contact-cta h2 {
+                font-size: 24px;
+            }
+            .contact-cta-buttons {
+                flex-direction: column;
+            }
+            .footer-container {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <a href="homepage_v2.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7"/>
+                    </svg>
+                </div>
+                <div class="logo-text">Equi<span>Market</span></div>
+            </a>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="homepage_v2.html">Ana Sayfa</a></li>
+                    <li><a href="ilanlar.html">İlanlar</a></li>
+                    <li><a href="about.html">Hakkımızda</a></li>
+                    <li><a href="contact.html">İletişim</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="login_register.html" class="btn btn-ghost">Giriş Yap</a>
+                <a href="login_register.html" class="btn btn-primary">Kayıt Ol</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Sıkça Sorulan <span class="highlight">Sorular</span></h1>
+            <p>Aklınıza takılan her sorunun cevabını burada bulabilirsiniz. Bulamazsanız bize ulaşın!</p>
+            <div class="search-box">
+                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="text" placeholder="Soru ara...">
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <!-- Category Tabs -->
+        <div class="category-tabs">
+            <button class="category-tab active">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                Tümü
+            </button>
+            <button class="category-tab">
+                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Hesap
+            </button>
+            <button class="category-tab">
+                <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                İlanlar
+            </button>
+            <button class="category-tab">
+                <svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                Ödeme
+            </button>
+            <button class="category-tab">
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Güvenlik
+            </button>
+        </div>
+
+        <!-- Genel Sorular -->
+        <div class="faq-category">
+            <h2 class="faq-category-title">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                Genel Sorular
+            </h2>
+
+            <div class="faq-item open">
+                <div class="faq-question">
+                    <h3>EquiMarket nedir?</h3>
+                    <div class="faq-toggle">
+                        <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>EquiMarket, Türkiye'nin önde gelen yarış atı pazaryeri platformudur. Alıcıları ve satıcıları güvenli bir ortamda bir araya getirerek yarış atı ticaretini dijitalleştiriyoruz.</p>
+                        <p>Platformumuzda TJK kayıtlı atların ilanlarını bulabilir, detaylı pedigree bilgilerine ulaşabilir ve satıcılarla doğrudan iletişime geçebilirsiniz.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>EquiMarket'i kullanmak ücretsiz mi?</h3>
+                    <div class="faq-toggle">
+                        <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Evet! EquiMarket'e kayıt olmak ve ilanları incelemek tamamen ücretsizdir. Alıcılar hiçbir ücret ödemeden tüm özellikleri kullanabilir.</p>
+                        <p>Satıcılar için standart ilan paketi ücretsizdir. Daha fazla görünürlük için opsiyonel premium paketlerimiz mevcuttur:</p>
+                        <ul>
+                            <li><strong>Standart:</strong> Ücretsiz - 30 gün yayında</li>
+                            <li><strong>Öne Çıkan:</strong> ₺499 - 60 gün + ana sayfa gösterimi</li>
+                            <li><strong>Premium:</strong> ₺999 - 90 gün + öncelikli sıralama</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Hangi bölgelerde hizmet veriyorsunuz?</h3>
+                    <div class="faq-toggle">
+                        <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>EquiMarket, Türkiye'nin tüm illerinde hizmet vermektedir. İstanbul, Ankara, İzmir, Bursa, Adana başta olmak üzere tüm hipodrom bölgelerinde aktif kullanıcılarımız bulunmaktadır.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hesap Soruları -->
+        <div class="faq-category">
+            <h2 class="faq-category-title">
+                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Hesap İşlemleri
+            </h2>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Nasıl hesap oluşturabilirim?</h3>
+                    <div class="faq-toggle">
+                        <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Hesap oluşturmak çok kolay! Ana sayfadaki "Kayıt Ol" butonuna tıklayın ve aşağıdaki adımları izleyin:</p>
+                        <ul>
+                            <li>E-posta adresinizi ve güçlü bir şifre belirleyin</li>
+                            <li>Kişisel bilgilerinizi doldurun</li>
+                            <li>E-posta adresinize gelen doğrulama linkine tıklayın</li>
+                            <li>Hesabınız aktif!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Şifremi unuttum, ne yapmalıyım?</h3>
+                    <div class="faq-toggle">
+                        <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Giriş sayfasındaki "Şifremi Unuttum" linkine tıklayın. Kayıtlı e-posta adresinizi girin, size şifre sıfırlama linki göndereceğiz. Link 24 saat geçerlidir.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Satıcı hesabı nasıl açılır?</h3>
+                    <div class="faq-toggle">
+                        <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Normal hesap oluşturduktan sonra, hesap ayarlarından "Satıcı Hesabına Yükselt" seçeneğini seçin. Satıcı olmak için:</p>
+                        <ul>
+                            <li>Kimlik doğrulaması yapılması</li>
+                            <li>İletişim bilgilerinin onaylanması</li>
+                            <li>Varsa TJK lisans bilgilerinin girilmesi gerekir</li>
+                        </ul>
+                        <p>Doğrulama işlemi genellikle 24-48 saat içinde tamamlanır.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- İlan Soruları -->
+        <div class="faq-category">
+            <h2 class="faq-category-title">
+                <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                İlan İşlemleri
+            </h2>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>İlan vermek için ne gerekli?</h3>
+                    <div class="faq-toggle">
+                        <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>İlan vermek için onaylı bir satıcı hesabınız olmalıdır. İlan oluştururken aşağıdaki bilgiler gereklidir:</p>
+                        <ul>
+                            <li>Atın adı, yaşı, cinsiyeti ve ırkı</li>
+                            <li>En az 3 adet kaliteli fotoğraf</li>
+                            <li>Soy ağacı (pedigree) bilgileri</li>
+                            <li>Fiyat ve konum bilgisi</li>
+                            <li>Detaylı açıklama</li>
+                        </ul>
+                        <p>TJK kayıt numarası opsiyoneldir ancak eklemeniz güvenilirliğinizi artırır.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>İlanım ne kadar sürede yayınlanır?</h3>
+                    <div class="faq-toggle">
+                        <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>İlanlar, içerik kontrolünden geçtikten sonra yayınlanır. Bu süre genellikle 2-4 saat arasındadır. Hafta sonları bu süre biraz daha uzayabilir.</p>
+                        <p>İlanınız reddedilirse, size e-posta ile bilgi verilir ve gerekli düzenlemeleri yapmanız istenir.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>İlanımı nasıl düzenleyebilir veya silebilirim?</h3>
+                    <div class="faq-toggle">
+                        <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Satıcı panelinizden "İlanlarım" bölümüne gidin. İlgili ilanın yanındaki düzenle veya sil butonlarını kullanabilirsiniz. Düzenlenen ilanlar tekrar kontrole gönderilir.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Güvenlik Soruları -->
+        <div class="faq-category">
+            <h2 class="faq-category-title">
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Güvenlik
+            </h2>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>EquiMarket güvenli mi?</h3>
+                    <div class="faq-toggle">
+                        <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Evet! Güvenlik bizim için en önemli önceliktir:</p>
+                        <ul>
+                            <li>Tüm satıcılar kimlik doğrulamasından geçer</li>
+                            <li>SSL şifreleme ile verileriniz korunur</li>
+                            <li>İki faktörlü doğrulama (2FA) seçeneği mevcuttur</li>
+                            <li>Şüpheli aktiviteler otomatik tespit edilir</li>
+                            <li>7/24 destek ekibimiz hazır</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Dolandırıcılıktan nasıl korunurum?</h3>
+                    <div class="faq-toggle">
+                        <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Güvende kalmak için şu önerilere dikkat edin:</p>
+                        <ul>
+                            <li>Sadece doğrulanmış satıcılarla işlem yapın</li>
+                            <li>Atı mutlaka yerinde görün</li>
+                            <li>Platform dışı ödeme yapmayın</li>
+                            <li>Şüpheli durumları bize bildirin</li>
+                            <li>Veteriner kontrolü yaptırın</li>
+                        </ul>
+                        <p>Herhangi bir şüpheli durumda <a href="#"><span class="__cf_email__" data-cfemail="8de9e8fef9e8e6cde8fcf8e4e0ecffe6e8f9a3eee2e0">[email&#160;protected]</span></a> adresine yazın.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact CTA -->
+        <div class="contact-cta">
+            <div class="contact-cta-content">
+                <h2>Sorunuzu bulamadınız mı?</h2>
+                <p>Destek ekibimiz size yardımcı olmaktan mutluluk duyar</p>
+                <div class="contact-cta-buttons">
+                    <a href="contact.html" class="btn btn-gold">
+                        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        E-posta Gönder
+                    </a>
+                    <a href="contact.html" class="btn btn-outline-white">
+                        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                        Canlı Destek
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <p class="footer-text">© 2026 EquiMarket. Tüm hakları saklıdır.</p>
+            <div class="footer-links">
+                <a href="privacy.html">Gizlilik Politikası</a>
+                <a href="terms.html">Kullanım Koşulları</a>
+                <a href="contact.html">İletişim</a>
+            </div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                const isOpen = item.classList.contains('open');
+                
+                // Close all items
+                document.querySelectorAll('.faq-item').forEach(faq => {
+                    faq.classList.remove('open');
+                });
+                
+                // Open clicked item if it was closed
+                if (!isOpen) {
+                    item.classList.add('open');
+                }
+            });
+        });
+
+        // Category tabs
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+
+        // Search functionality (basic)
+        document.querySelector('.search-box input').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            document.querySelectorAll('.faq-item').forEach(item => {
+                const question = item.querySelector('h3').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer-content').textContent.toLowerCase();
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+    <!-- API Scripts -->
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const authButtons = document.querySelector('.header-actions');
+            if (!authButtons) return;
+
+            const token = localStorage.getItem('equimarket_token');
+            const userData = localStorage.getItem('equimarket_user');
+
+            if (token && userData) {
+                const user = JSON.parse(userData);
+                const isSeller = user.role === 'seller' || user.role === 'admin';
+                const dashboardUrl = isSeller ? 'dashboard.html' : 'dashboard.html';
+                const initials = user.name ? user.name.substring(0, 2).toUpperCase() : 'KA';
+                const firstName = user.name ? user.name.split(' ')[0] : 'Kullanıcı';
+
+                authButtons.innerHTML = `
+                    <a href="${dashboardUrl}" class="btn btn-ghost" style="display:flex;align-items:center;gap:10px;">
+                        <span style="width:36px;height:36px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--charcoal);">
+                            ${initials}
+                        </span>
+                        ${firstName}
+                    </a>
+                    <a href="#" onclick="logout(); return false;" class="btn btn-outline">Çıkış</a>
+                `;
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('equimarket_token');
+            localStorage.removeItem('equimarket_user');
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>

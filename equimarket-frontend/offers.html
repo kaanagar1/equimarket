@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teklifler - EquiMarket</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--racing-green:#1a3d2e;--gold:#c9a55c;--charcoal:#2a2a2a;--warm-gray:#6b6b6b;--light-gray:#f5f4f0;--white:#fff;--success:#4a7c59;--warning:#f59e0b;--error:#dc2626;--info:#3b82f6;--shadow-soft:0 4px 20px rgba(26,61,46,.08)}
+        *{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;background:var(--light-gray);color:var(--charcoal)}h1,h2,h3{font-family:'Playfair Display',serif}
+        .layout{display:flex;min-height:100vh}.sidebar{background:var(--racing-green);width:260px;padding:24px 16px;position:fixed;top:0;bottom:0;left:0}
+        .sidebar-logo{display:flex;align-items:center;gap:12px;margin-bottom:32px;text-decoration:none;color:var(--white);font-size:20px;font-weight:700}
+        .sidebar-logo span{color:var(--gold)}.nav-link{display:flex;align-items:center;gap:12px;padding:12px;color:rgba(255,255,255,.7);text-decoration:none;border-radius:8px;margin-bottom:4px}
+        .nav-link:hover,.nav-link.active{background:rgba(255,255,255,.1);color:var(--white)}.nav-link svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
+        .main{flex:1;margin-left:260px;padding:32px}.page-header{margin-bottom:32px}.page-header h1{font-size:28px;color:var(--charcoal)}.page-header p{color:var(--warm-gray)}
+        .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:32px}.stat-card{background:var(--white);border-radius:16px;padding:24px;box-shadow:var(--shadow-soft)}
+        .stat-value{font-size:32px;font-weight:700;font-family:'Playfair Display',serif}.stat-label{color:var(--warm-gray);font-size:14px;margin-top:4px}
+        .tabs{display:flex;gap:8px;margin-bottom:24px;border-bottom:1px solid rgba(0,0,0,.08);padding-bottom:16px}
+        .tab-btn{padding:10px 20px;border:none;background:transparent;font-size:14px;font-weight:600;color:var(--warm-gray);cursor:pointer;border-radius:8px}
+        .tab-btn:hover{background:var(--light-gray)}.tab-btn.active{background:var(--racing-green);color:var(--white)}
+        .offer-card{background:var(--white);border-radius:16px;padding:24px;margin-bottom:16px;box-shadow:var(--shadow-soft);display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;border-left:4px solid var(--warning)}
+        .offer-card.accepted{border-left-color:var(--success)}.offer-card.rejected{border-left-color:var(--error)}
+        .offer-horse{display:flex;align-items:center;gap:16px}.offer-horse-img{width:80px;height:80px;border-radius:12px;background:var(--light-gray);display:flex;align-items:center;justify-content:center}
+        .offer-horse-img svg{width:40px;height:40px;fill:none;stroke:var(--warm-gray);stroke-width:1.5}
+        .offer-price{font-size:24px;font-weight:700;color:var(--racing-green);font-family:'Playfair Display',serif}
+        .offer-status{padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;text-transform:uppercase}.offer-status.pending{background:rgba(245,158,11,.1);color:var(--warning)}
+        .offer-status.accepted{background:rgba(74,124,89,.1);color:var(--success)}.offer-status.rejected{background:rgba(220,38,38,.1);color:var(--error)}
+        .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;border:none;text-decoration:none}
+        .btn-accept{background:var(--success);color:var(--white)}.btn-reject{background:var(--light-gray);color:var(--charcoal)}.btn-message{background:var(--racing-green);color:var(--white)}
+        .btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}
+        .empty-state{text-align:center;padding:60px;background:var(--white);border-radius:16px}.empty-state h3{font-size:20px;margin-bottom:8px}.empty-state p{color:var(--warm-gray)}
+        @media(max-width:768px){.sidebar{display:none}.main{margin-left:0}.stats-row{grid-template-columns:1fr 1fr}.offer-card{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <a href="homepage_v2.html" class="sidebar-logo">Equi<span>Market</span></a>
+            <nav>
+                <a href="dashboard.html" class="nav-link"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Genel Bakış</a>
+                <a href="ilanlar.html" class="nav-link"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>İlanları Keşfet</a>
+                <a href="messaging.html" class="nav-link"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Mesajlar</a>
+                <a href="offers.html" class="nav-link active"><svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Teklifler</a>
+                <a href="settings.html" class="nav-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Ayarlar</a>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="page-header"><h1>Teklifler</h1><p>Gelen ve giden tekliflerinizi yönetin</p></div>
+            <div class="stats-row">
+                <div class="stat-card"><div class="stat-value" id="statPending">0</div><div class="stat-label">Bekleyen</div></div>
+                <div class="stat-card"><div class="stat-value" id="statAccepted">0</div><div class="stat-label">Kabul Edilen</div></div>
+                <div class="stat-card"><div class="stat-value" id="statRejected">0</div><div class="stat-label">Reddedilen</div></div>
+                <div class="stat-card"><div class="stat-value" id="statTotal">0</div><div class="stat-label">Toplam</div></div>
+            </div>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="filterOffers('all',this)">Tümü</button>
+                <button class="tab-btn" onclick="filterOffers('incoming',this)">Gelen</button>
+                <button class="tab-btn" onclick="filterOffers('outgoing',this)">Gönderilen</button>
+                <button class="tab-btn" onclick="filterOffers('pending',this)">Bekleyen</button>
+            </div>
+            <div id="offersList"><div class="empty-state"><h3>Yükleniyor...</h3></div></div>
+        </main>
+    </div>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        let allOffers=[],currentFilter='all',currentUserId=null;
+        document.addEventListener('DOMContentLoaded',()=>{
+            if(!localStorage.getItem('equimarket_token')){window.location.href='login_register.html';return;}
+            const u=JSON.parse(localStorage.getItem('equimarket_user')||'{}');currentUserId=u._id;
+            loadOffers();
+        });
+        async function loadOffers(){
+            try{
+                const r=await api.get('/messages/conversations');if(!r.success)return showEmpty('Hata');
+                allOffers=[];
+                for(const c of r.data){
+                    const m=await api.get('/messages/conversations/'+c._id);
+                    if(m.success){
+                        m.data.filter(x=>x.type==='offer').forEach(msg=>{
+                            allOffers.push({...msg,conversation:c,horse:c.horse,otherUser:c.participants.find(p=>p._id!==currentUserId),isIncoming:msg.sender._id!==currentUserId});
+                        });
+                    }
+                }
+                updateStats();renderOffers();
+            }catch(e){showEmpty('Hata');}
+        }
+        function updateStats(){
+            const p=allOffers.filter(o=>o.offer?.status==='pending').length;
+            const a=allOffers.filter(o=>o.offer?.status==='accepted').length;
+            const r=allOffers.filter(o=>o.offer?.status==='rejected').length;
+            document.getElementById('statPending').textContent=p;
+            document.getElementById('statAccepted').textContent=a;
+            document.getElementById('statRejected').textContent=r;
+            document.getElementById('statTotal').textContent=allOffers.length;
+        }
+        function filterOffers(f,btn){
+            currentFilter=f;document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderOffers();
+        }
+        function renderOffers(){
+            let list=allOffers;
+            if(currentFilter==='incoming')list=list.filter(o=>o.isIncoming);
+            if(currentFilter==='outgoing')list=list.filter(o=>!o.isIncoming);
+            if(currentFilter==='pending')list=list.filter(o=>o.offer?.status==='pending');
+            if(!list.length){showEmpty();return;}
+            document.getElementById('offersList').innerHTML=list.map(o=>{
+                const s=o.offer?.status||'pending';
+                const labels={pending:'Bekliyor',accepted:'Kabul Edildi',rejected:'Reddedildi'};
+                return `<div class="offer-card ${s}"><div class="offer-horse"><div class="offer-horse-img"><svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg></div><div><strong>${o.horse?.name||'İlan'}</strong><br><small>${o.otherUser?.name||''}</small></div></div><div><div class="offer-price">₺${(o.offer?.amount||0).toLocaleString('tr-TR')}</div><span class="offer-status ${s}">${labels[s]}</span></div><div>${o.isIncoming&&s==='pending'?`<button class="btn btn-accept" onclick="respond('${o._id}','accept')">Kabul</button><button class="btn btn-reject" onclick="respond('${o._id}','reject')">Reddet</button>`:`<a href="messaging.html" class="btn btn-message">Mesaja Git</a>`}</div></div>`;
+            }).join('');
+        }
+        async function respond(id,r){
+            if(!confirm(r==='accept'?'Kabul edilsin mi?':'Reddedilsin mi?'))return;
+            try{const res=await api.put('/messages/'+id+'/offer-response',{response:r});if(res.success){alert(r==='accept'?'Kabul edildi':'Reddedildi');loadOffers();}}catch(e){alert('Hata');}
+        }
+        function showEmpty(msg){document.getElementById('offersList').innerHTML=`<div class="empty-state"><h3>${msg||'Henüz teklif yok'}</h3><p>Teklifler burada görünecek</p></div>`;}
+    </script>
+</body>
+</html>

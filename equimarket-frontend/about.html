@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="EquiMarket, Türkiye'nin lider at alım satım platformudur. Güvenli ve şeffaf at ticareti.">
+    <meta name="keywords" content="at satışı, yarış atı, safkan at, at ilanları, equimarket, türkiye at pazarı">
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Hakkımızda - EquiMarket">
+    <meta property="og:description" content="EquiMarket, Türkiye'nin lider at alım satım platformudur. Güvenli ve şeffaf at ticareti.">
+    <meta property="og:url" content="https://equimarket.com.tr/hakkimizda">
+    <meta property="og:site_name" content="EquiMarket">
+    <meta property="og:locale" content="tr_TR">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hakkımızda - EquiMarket">
+    <meta name="twitter:description" content="EquiMarket, Türkiye'nin lider at alım satım platformudur. Güvenli ve şeffaf at ticareti.">
+    <link rel="canonical" href="https://equimarket.com.tr/hakkimizda">
+    <title>Hakkımızda - EquiMarket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --racing-green: #1a3d2e;
+            --racing-green-light: #2d5a47;
+            --gold: #c9a55c;
+            --gold-light: #e8d5a8;
+            --cream: #faf8f3;
+            --charcoal: #2a2a2a;
+            --warm-gray: #6b6b6b;
+            --light-gray: #f5f4f0;
+            --white: #ffffff;
+            --success: #4a7c59;
+            --shadow-soft: 0 4px 20px rgba(26, 61, 46, 0.08);
+            --shadow-medium: 0 8px 40px rgba(26, 61, 46, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(26, 61, 46, 0.08);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--racing-green);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--gold);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--racing-green);
+        }
+
+        .logo-text span { color: var(--gold); }
+
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--gold);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--charcoal);
+        }
+
+        .btn-ghost:hover {
+            background: var(--light-gray);
+        }
+
+        .btn-primary {
+            background: var(--racing-green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--racing-green-light);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 40px 100px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(201, 165, 92, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(26, 61, 46, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--racing-green);
+            color: var(--gold);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            color: var(--charcoal);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 .highlight {
+            color: var(--gold);
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--warm-gray);
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 60px 40px;
+            background: var(--racing-green);
+        }
+
+        .stats-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Mission Section */
+        .mission-section {
+            padding: 100px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 42px;
+            color: var(--charcoal);
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            font-size: 18px;
+            color: var(--warm-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .mission-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 36px;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .mission-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .mission-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: none;
+            stroke: var(--charcoal);
+            stroke-width: 2;
+        }
+
+        .mission-card h3 {
+            font-size: 22px;
+            color: var(--charcoal);
+            margin-bottom: 12px;
+        }
+
+        .mission-card p {
+            font-size: 15px;
+            color: var(--warm-gray);
+            line-height: 1.7;
+        }
+
+        /* Story Section */
+        .story-section {
+            padding: 100px 40px;
+            background: var(--white);
+        }
+
+        .story-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .story-image {
+            height: 500px;
+            background: linear-gradient(135deg, #e8e6e1 0%, #d4d2cd 100%);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(26, 61, 46, 0.1) 0%, transparent 50%);
+        }
+
+        .story-image svg {
+            width: 120px;
+            height: 120px;
+            fill: rgba(0,0,0,0.08);
+        }
+
+        .story-content {
+            padding: 20px 0;
+        }
+
+        .story-content .section-badge {
+            text-align: left;
+        }
+
+        .story-content h2 {
+            font-size: 38px;
+            color: var(--charcoal);
+            margin-bottom: 24px;
+        }
+
+        .story-content p {
+            font-size: 16px;
+            color: var(--warm-gray);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .story-features {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .story-feature {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .story-feature-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(74, 124, 89, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--success);
+            flex-shrink: 0;
+        }
+
+        .story-feature-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .story-feature span {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+
+        /* Values Section */
+        .values-section {
+            padding: 100px 40px;
+            background: var(--cream);
+        }
+
+        .values-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .value-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 36px;
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            gap: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            box-shadow: var(--shadow-medium);
+        }
+
+        .value-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--gold-light);
+            line-height: 1;
+        }
+
+        .value-content h3 {
+            font-size: 20px;
+            color: var(--charcoal);
+            margin-bottom: 10px;
+        }
+
+        .value-content p {
+            font-size: 15px;
+            color: var(--warm-gray);
+            line-height: 1.7;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 100px 40px;
+            background: var(--white);
+        }
+
+        .team-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+
+        .team-card {
+            text-align: center;
+        }
+
+        .team-avatar {
+            width: 160px;
+            height: 160px;
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+            border-radius: 24px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--charcoal);
+        }
+
+        .team-name {
+            font-size: 20px;
+            color: var(--charcoal);
+            margin-bottom: 4px;
+        }
+
+        .team-role {
+            font-size: 14px;
+            color: var(--warm-gray);
+            margin-bottom: 16px;
+        }
+
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .team-social a {
+            width: 36px;
+            height: 36px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--warm-gray);
+            transition: all 0.3s ease;
+        }
+
+        .team-social a:hover {
+            background: var(--racing-green);
+            color: var(--white);
+        }
+
+        .team-social svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, var(--racing-green) 0%, var(--racing-green-light) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: rgba(201, 165, 92, 0.1);
+            border-radius: 50%;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-content h2 {
+            font-size: 42px;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .cta-content p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 36px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold) 0%, #d4b06a 100%);
+            color: var(--charcoal);
+            padding: 16px 32px;
+            font-size: 16px;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 165, 92, 0.4);
+        }
+
+        .btn-outline-white {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: var(--white);
+            padding: 14px 30px;
+            font-size: 16px;
+        }
+
+        .btn-outline-white:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: var(--white);
+            padding: 60px 40px 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.7;
+            margin-top: 16px;
+            max-width: 280px;
+        }
+
+        .footer-column h4 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-bottom-links a {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 42px;
+            }
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .mission-grid {
+                grid-template-columns: 1fr;
+            }
+            .story-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .story-image {
+                height: 350px;
+            }
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-inner {
+                padding: 12px 20px;
+            }
+            .nav-menu {
+                display: none;
+            }
+            .hero {
+                padding: 120px 20px 60px;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+            .hero p {
+                font-size: 16px;
+            }
+            .stats-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+            .stat-number {
+                font-size: 36px;
+            }
+            .section-title {
+                font-size: 32px;
+            }
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            .cta-buttons {
+                flex-direction: column;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <a href="homepage_v2.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7"/>
+                    </svg>
+                </div>
+                <div class="logo-text">Equi<span>Market</span></div>
+            </a>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="homepage_v2.html">Ana Sayfa</a></li>
+                    <li><a href="ilanlar.html">İlanlar</a></li>
+                    <li><a href="about.html" class="active">Hakkımızda</a></li>
+                    <li><a href="contact.html">İletişim</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="login_register.html" class="btn btn-ghost">Giriş Yap</a>
+                <a href="login_register.html" class="btn btn-primary">Kayıt Ol</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">Türkiye'nin En Yenilikçi Yarış Atı Alım-Satım Merkezi</span>
+            <h1>Yarış Atı Ticaretinde <span class="highlight">Yeni Dönem</span></h1>
+            <p>EquiMarket olarak, alıcıları ve satıcıları bir araya getiren, güvenilir ve şeffaf bir platform oluşturarak Türkiye'deki yarış atı ticaretini dijital çağa taşıyoruz.</p>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number" id="aboutStatListings">0</div>
+                <div class="stat-label">Aktif İlan</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="aboutStatMembers">0</div>
+                <div class="stat-label">Kayıtlı Üye</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="aboutStatVolume">₺0</div>
+                <div class="stat-label">İşlem Hacmi</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">Memnuniyet</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section">
+        <div class="section-header">
+            <span class="section-badge">Misyonumuz</span>
+            <h2 class="section-title">Neden EquiMarket?</h2>
+            <p class="section-desc">Yarış atı ticaretini herkes için erişilebilir, güvenli ve şeffaf hale getiriyoruz.</p>
+        </div>
+
+        <div class="mission-grid">
+            <div class="mission-card">
+                <div class="mission-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h3>Güvenilir Platform</h3>
+                <p>Doğrulanmış satıcı profilleri ve kimlik kontrolü ile güvenli alışveriş ortamı sağlıyoruz. Her işlem şeffaf ve takip edilebilir.</p>
+            </div>
+
+            <div class="mission-card">
+                <div class="mission-icon">
+                    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                </div>
+                <h3>Geniş Ağ</h3>
+                <p>Türkiye'nin dört bir yanından yetiştiriciler, ahırlar ve alıcılar tek platformda. Doğru atı bulmak artık çok kolay.</p>
+            </div>
+
+            <div class="mission-card">
+                <div class="mission-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                </div>
+                <h3>Detaylı Analitik</h3>
+                <p>Pedigree bilgileri, yarış geçmişi, sağlık kayıtları ve performans verileri ile bilinçli kararlar alın.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story-section">
+        <div class="story-container">
+            <div class="story-image">
+                <svg viewBox="0 0 24 24">
+                    <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7"/>
+                </svg>
+            </div>
+            <div class="story-content">
+                <span class="section-badge">Hikayemiz</span>
+                <h2>Tutkudan Doğan Bir Vizyon</h2>
+                <p>EquiMarket, yarış atlarına duyulan derin bir tutku ve sektördeki dijital dönüşüm ihtiyacından doğdu. Geleneksel yöntemlerle yapılan at ticaretinin zorluklarını bizzat yaşayan kurucularımız, bu süreci herkes için kolaylaştırmak amacıyla yola çıktı.</p>
+                <p>Bugün, Türkiye'nin en güvenilir yarış atı pazaryeri olarak, binlerce at sahibi, yetiştirici ve alıcıyı bir araya getiriyoruz.</p>
+                
+                <div class="story-features">
+                    <div class="story-feature">
+                        <div class="story-feature-icon">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
+                        <span>Ergonomik ve temiz ilan kataloğu</span>
+                    </div>
+                    <div class="story-feature">
+                        <div class="story-feature-icon">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
+                        <span>7/24 müşteri desteği</span>
+                    </div>
+                    <div class="story-feature">
+                        <div class="story-feature-icon">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
+                        <span>Güvenli mesajlaşma sistemi</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="values-container">
+            <div class="section-header">
+                <span class="section-badge">Değerlerimiz</span>
+                <h2 class="section-title">Bizi Biz Yapan İlkeler</h2>
+            </div>
+
+            <div class="values-grid">
+                <div class="value-card">
+                    <span class="value-number">01</span>
+                    <div class="value-content">
+                        <h3>Şeffaflık</h3>
+                        <p>Her işlemde, her bilgide şeffaflığı ön planda tutuyoruz. Gizli ücret yok, sürpriz yok.</p>
+                    </div>
+                </div>
+
+                <div class="value-card">
+                    <span class="value-number">02</span>
+                    <div class="value-content">
+                        <h3>Güven</h3>
+                        <p>Doğrulanmış satıcılar ve şeffaf süreçler ile güvenilir bir ticaret ortamı sunuyoruz.</p>
+                    </div>
+                </div>
+
+                <div class="value-card">
+                    <span class="value-number">03</span>
+                    <div class="value-content">
+                        <h3>Uzmanlık</h3>
+                        <p>Yarış atı sektöründe derin bilgi ve deneyime sahip ekibimizle yanınızdayız.</p>
+                    </div>
+                </div>
+
+                <div class="value-card">
+                    <span class="value-number">04</span>
+                    <div class="value-content">
+                        <h3>Yenilikçilik</h3>
+                        <p>Teknolojiyi kullanarak geleneksel at ticaretini modern çağa taşıyoruz.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="team-container">
+            <div class="section-header">
+                <span class="section-badge">Ekibimiz</span>
+                <h2 class="section-title">Arkasındaki İsimler</h2>
+                <p class="section-desc">Tutkulu ve deneyimli ekibimizle tanışın</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">KY</div>
+                    <h3 class="team-name">Kaan Yılmaz</h3>
+                    <p class="team-role">Kurucu & CEO</p>
+                    <div class="team-social">
+                        <a href="#"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+                        <a href="#"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">AÇ</div>
+                    <h3 class="team-name">Ayşe Çelik</h3>
+                    <p class="team-role">Operasyon Direktörü</p>
+                    <div class="team-social">
+                        <a href="#"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+                        <a href="#"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">MT</div>
+                    <h3 class="team-name">Mehmet Tekin</h3>
+                    <p class="team-role">Teknoloji Lideri</p>
+                    <div class="team-social">
+                        <a href="#"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+                        <a href="#"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">ZK</div>
+                    <h3 class="team-name">Zeynep Koç</h3>
+                    <p class="team-role">Müşteri İlişkileri</p>
+                    <div class="team-social">
+                        <a href="#"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+                        <a href="#"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Yarış Atı Yolculuğunuza Başlayın</h2>
+            <p>İster alıcı ister satıcı olun, EquiMarket size kapılarını açıyor. Hemen ücretsiz kayıt olun ve Türkiye'nin en geniş yarış atı ağına katılın.</p>
+            <div class="cta-buttons">
+                <a href="login_register.html" class="btn btn-gold">Ücretsiz Kayıt Ol</a>
+                <a href="contact.html" class="btn btn-outline-white">İletişime Geç</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="homepage_v2.html" class="logo">
+                        <div class="logo-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/>
+                            </svg>
+                        </div>
+                        <div class="logo-text">Equi<span>Market</span></div>
+                    </a>
+                    <p>Türkiye'nin en güvenilir yarış atı pazaryeri. Alıcıları ve satıcıları bir araya getiriyoruz.</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="ilanlar.html">İlanları Keşfet</a></li>
+                        <li><a href="create_listing.html">İlan Ver</a></li>
+                        <li><a href="about.html">Nasıl Çalışır</a></li>
+                        <li><a href="pricing.html">Fiyatlandırma</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Şirket</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html" class="active">Hakkımızda</a></li>
+                        <li><a href="coming_soon.html">Kariyer</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">İletişim</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Destek</h4>
+                    <ul class="footer-links">
+                        <li><a href="faq.html">Yardım Merkezi</a></li>
+                        <li><a href="faq.html">SSS</a></li>
+                        <li><a href="seller_guide.html">Güvenlik</a></li>
+                        <li><a href="report.html">Şikayet</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 EquiMarket. Tüm hakları saklıdır.</p>
+                <div class="footer-bottom-links">
+                    <a href="privacy.html">Gizlilik Politikası</a>
+                    <a href="terms.html">Kullanım Koşulları</a>
+                    <a href="cookies.html">Çerez Politikası</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- API Scripts -->
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const authButtons = document.querySelector('.header-actions');
+            
+            // Auth durumu
+            const token = localStorage.getItem('equimarket_token');
+            const userData = localStorage.getItem('equimarket_user');
+
+            if (token && userData && authButtons) {
+                const user = JSON.parse(userData);
+                const initials = user.name ? user.name.substring(0, 2).toUpperCase() : 'KA';
+                const firstName = user.name ? user.name.split(' ')[0] : 'Kullanıcı';
+
+                authButtons.innerHTML = `
+                    <a href="dashboard.html" class="btn btn-ghost" style="display:flex;align-items:center;gap:10px;">
+                        <span style="width:36px;height:36px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--charcoal);">
+                            ${initials}
+                        </span>
+                        ${firstName}
+                    </a>
+                    <a href="#" onclick="logout(); return false;" class="btn btn-outline">Çıkış</a>
+                `;
+            }
+
+            // İstatistikleri yükle
+            await loadStats();
+        });
+
+        async function loadStats() {
+            try {
+                const result = await api.get('/horses?limit=1');
+                const listingCount = result.total || result.data?.length || 0;
+                
+                document.getElementById('aboutStatListings').textContent = listingCount + '+';
+                document.getElementById('aboutStatMembers').textContent = Math.floor(listingCount * 3) + '+';
+                document.getElementById('aboutStatVolume').textContent = '₺' + Math.floor(listingCount * 100) + 'K+';
+            } catch (e) {
+                document.getElementById('aboutStatListings').textContent = '10+';
+                document.getElementById('aboutStatMembers').textContent = '50+';
+                document.getElementById('aboutStatVolume').textContent = '₺1M+';
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('equimarket_token');
+            localStorage.removeItem('equimarket_user');
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>

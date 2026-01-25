@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="EquiMarket kullanım şartları ve koşulları.">
+    <meta name="keywords" content="at satışı, yarış atı, safkan at, at ilanları, equimarket">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Kullanım Şartları - EquiMarket">
+    <meta property="og:description" content="EquiMarket kullanım şartları ve koşulları.">
+    <meta property="og:site_name" content="EquiMarket">
+    <meta property="og:locale" content="tr_TR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kullanım Şartları - EquiMarket">
+    <meta name="twitter:description" content="EquiMarket kullanım şartları ve koşulları.">
+    <title>Kullanım Koşulları - EquiMarket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --racing-green: #1a3d2e;
+            --racing-green-light: #2d5a47;
+            --gold: #c9a55c;
+            --gold-light: #e8d5a8;
+            --cream: #faf8f3;
+            --charcoal: #2a2a2a;
+            --warm-gray: #6b6b6b;
+            --light-gray: #f5f4f0;
+            --white: #ffffff;
+            --shadow-soft: 0 4px 20px rgba(26, 61, 46, 0.08);
+            --shadow-medium: 0 8px 40px rgba(26, 61, 46, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(26, 61, 46, 0.08);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--racing-green);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--gold);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--racing-green);
+        }
+
+        .logo-text span { color: var(--gold); }
+
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover { color: var(--gold); }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--charcoal);
+        }
+
+        .btn-ghost:hover { background: var(--light-gray); }
+
+        .btn-primary {
+            background: var(--racing-green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover { background: var(--racing-green-light); }
+
+        /* Hero */
+        .hero {
+            padding: 140px 40px 60px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: var(--charcoal);
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--warm-gray);
+        }
+
+        .last-updated {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 16px;
+            background: var(--light-gray);
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--warm-gray);
+        }
+
+        /* Content */
+        .content-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 40px 100px;
+        }
+
+        .legal-nav {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-soft);
+            position: sticky;
+            top: 100px;
+        }
+
+        .legal-nav h4 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--warm-gray);
+            margin-bottom: 16px;
+        }
+
+        .legal-nav ul {
+            list-style: none;
+        }
+
+        .legal-nav li {
+            margin-bottom: 8px;
+        }
+
+        .legal-nav a {
+            color: var(--charcoal);
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .legal-nav a:hover {
+            color: var(--gold);
+        }
+
+        .legal-content {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 48px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .legal-content h2 {
+            font-size: 28px;
+            color: var(--racing-green);
+            margin: 40px 0 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .legal-content h2:first-child {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .legal-content h3 {
+            font-size: 20px;
+            color: var(--charcoal);
+            margin: 28px 0 12px;
+        }
+
+        .legal-content p {
+            margin-bottom: 16px;
+            color: var(--charcoal);
+        }
+
+        .legal-content ul, .legal-content ol {
+            margin: 16px 0 16px 24px;
+        }
+
+        .legal-content li {
+            margin-bottom: 8px;
+            color: var(--charcoal);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(201, 165, 92, 0.1), rgba(26, 61, 46, 0.05));
+            border-left: 4px solid var(--gold);
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+            margin: 24px 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--racing-green);
+            color: var(--white);
+            padding: 60px 40px 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.7);
+            margin-top: 16px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-column h4 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-bottom-links a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--gold);
+        }
+
+        @media (max-width: 768px) {
+            .header-inner { padding: 16px 20px; }
+            .nav-menu { display: none; }
+            .hero { padding: 120px 20px 40px; }
+            .hero h1 { font-size: 32px; }
+            .content-section { padding: 40px 20px 60px; }
+            .legal-content { padding: 24px; }
+            .legal-nav { display: none; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <a href="homepage_v2.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/>
+                    </svg>
+                </div>
+                <div class="logo-text">Equi<span>Market</span></div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="ilanlar.html">Atları İncele</a></li>
+                <li><a href="about.html">Hakkımızda</a></li>
+                <li><a href="pricing.html">Fiyatlandırma</a></li>
+                <li><a href="faq.html">SSS</a></li>
+                <li><a href="contact.html">İletişim</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="login_register.html" class="btn btn-ghost">Giriş Yap</a>
+                <a href="login_register.html" class="btn btn-primary">Kayıt Ol</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Kullanım Koşulları</h1>
+        <p>EquiMarket platformunu kullanmadan önce lütfen bu koşulları dikkatlice okuyun</p>
+        <span class="last-updated">Son güncelleme: 20 Ocak 2026</span>
+    </section>
+
+    <!-- Content -->
+    <section class="content-section">
+        <div class="legal-content">
+            <h2 id="genel">1. Genel Hükümler</h2>
+            <p>Bu Kullanım Koşulları ("Koşullar"), EquiMarket platformunun ("Platform") kullanımını düzenler. Platformu kullanarak, bu Koşulları kabul etmiş sayılırsınız.</p>
+            
+            <div class="highlight-box">
+                <p>EquiMarket, yalnızca alıcı ve satıcıları bir araya getiren bir aracı platformdur. Satışa sunulan atların mülkiyeti, sağlık durumu veya yasal durumu konusunda sorumluluk kabul etmez.</p>
+            </div>
+
+            <h3>1.1 Tanımlar</h3>
+            <ul>
+                <li><strong>Platform:</strong> EquiMarket web sitesi ve mobil uygulamaları</li>
+                <li><strong>Kullanıcı:</strong> Platformda hesap açan gerçek veya tüzel kişiler</li>
+                <li><strong>Satıcı:</strong> Platformda at ilanı veren kullanıcılar</li>
+                <li><strong>Alıcı:</strong> Platformda at arayan ve satın almak isteyen kullanıcılar</li>
+                <li><strong>İlan:</strong> Satışa sunulan atlara ait bilgi ve görselleri içeren paylaşımlar</li>
+            </ul>
+
+            <h2 id="uyelik">2. Üyelik ve Hesap</h2>
+            <h3>2.1 Hesap Oluşturma</h3>
+            <p>Platform üzerinde işlem yapabilmek için hesap oluşturmanız gerekmektedir. Hesap oluştururken:</p>
+            <ul>
+                <li>18 yaşından büyük olmanız gerekmektedir</li>
+                <li>Doğru ve güncel bilgiler vermeniz zorunludur</li>
+                <li>Hesabınızın güvenliğinden siz sorumlusunuz</li>
+                <li>Hesap bilgilerinizi üçüncü kişilerle paylaşmamalısınız</li>
+            </ul>
+
+            <h3>2.2 Hesap Türleri</h3>
+            <p>Platformda iki tür hesap bulunmaktadır:</p>
+            <ul>
+                <li><strong>Alıcı Hesabı:</strong> İlanları inceleme, favorilere ekleme ve satıcılarla iletişime geçme</li>
+                <li><strong>Satıcı Hesabı:</strong> İlan verme, profil oluşturma ve alıcılarla iletişim kurma</li>
+            </ul>
+
+            <h2 id="ilan">3. İlan Kuralları</h2>
+            <h3>3.1 İlan Verme</h3>
+            <p>Satıcı olarak ilan verirken aşağıdaki kurallara uymanız zorunludur:</p>
+            <ul>
+                <li>Yalnızca yasal yollarla sahip olduğunuz atları ilan edebilirsiniz</li>
+                <li>At hakkında verilen tüm bilgiler doğru ve eksiksiz olmalıdır</li>
+                <li>Görseller atın gerçek ve güncel görüntüleri olmalıdır</li>
+                <li>Fiyat bilgisi TL cinsinden ve net olarak belirtilmelidir</li>
+                <li>TJK kayıtlı atlar için kayıt numarası zorunludur</li>
+            </ul>
+
+            <h3>3.2 Yasak İçerikler</h3>
+            <p>Aşağıdaki içerikler kesinlikle yasaktır:</p>
+            <ul>
+                <li>Çalıntı veya yasal olmayan yollarla elde edilmiş atlar</li>
+                <li>Yanıltıcı veya yanlış bilgiler içeren ilanlar</li>
+                <li>Sahte veya düzenlenmiş görseller</li>
+                <li>Hayvan sağlığını tehlikeye atacak durumları gizleme</li>
+                <li>Irkçı, ayrımcı veya saldırgan içerikler</li>
+            </ul>
+
+            <h2 id="satis">4. Satış ve İşlemler</h2>
+            <h3>4.1 Platformun Rolü</h3>
+            <p>EquiMarket, alıcı ve satıcıları bir araya getiren bir aracı platformdur. Platform:</p>
+            <ul>
+                <li>Satış işlemlerinde taraf değildir</li>
+                <li>Ödeme işlemlerinde aracılık yapmaz</li>
+                <li>Satışa sunulan atların durumundan sorumlu değildir</li>
+                <li>Alıcı ve satıcı arasındaki anlaşmazlıklarda hakem değildir</li>
+            </ul>
+
+            <h3>4.2 Güvenli Ticaret İpuçları</h3>
+            <p>Güvenli bir alışveriş deneyimi için:</p>
+            <ul>
+                <li>Atı satın almadan önce mutlaka yerinde görün</li>
+                <li>Veteriner kontrolü yaptırın</li>
+                <li>Tüm yasal belgeleri kontrol edin</li>
+                <li>Güvenli ödeme yöntemleri kullanın</li>
+                <li>Şüpheli durumları bize bildirin</li>
+            </ul>
+
+            <h2 id="sorumluluk">5. Sorumluluk Sınırları</h2>
+            <p>EquiMarket, aşağıdaki durumlarda sorumluluk kabul etmez:</p>
+            <ul>
+                <li>Kullanıcılar arasındaki anlaşmazlıklar</li>
+                <li>İlanlarda verilen bilgilerin doğruluğu</li>
+                <li>Satış sonrası ortaya çıkan sorunlar</li>
+                <li>Atların sağlık durumu veya yasal durumu</li>
+                <li>Üçüncü taraf hizmetlerinden kaynaklanan sorunlar</li>
+            </ul>
+
+            <div class="highlight-box">
+                <p>Her zaman dikkatli olun ve güvenliğiniz için gerekli önlemleri alın. Şüpheli durumlarda bize ulaşın.</p>
+            </div>
+
+            <h2 id="fikri">6. Fikri Mülkiyet</h2>
+            <p>Platform üzerindeki tüm içerik, tasarım, logo ve markalar EquiMarket'e aittir veya lisanslıdır. Bu içeriklerin izinsiz kullanımı yasaktır.</p>
+            <p>Kullanıcılar tarafından yüklenen içeriklerin fikri mülkiyet hakları ilgili kullanıcıya aittir. Ancak içerik yükleyerek, EquiMarket'e bu içerikleri platform üzerinde kullanma hakkı vermiş olursunuz.</p>
+
+            <h2 id="fesih">7. Hesap Feshi</h2>
+            <p>EquiMarket, aşağıdaki durumlarda hesabınızı askıya alabilir veya sonlandırabilir:</p>
+            <ul>
+                <li>Bu Koşulların ihlali</li>
+                <li>Yasadışı faaliyetler</li>
+                <li>Dolandırıcılık veya kötü niyetli davranışlar</li>
+                <li>Diğer kullanıcılara zarar veren eylemler</li>
+                <li>Platformun itibarını zedeleyen davranışlar</li>
+            </ul>
+
+            <h2 id="degisiklik">8. Koşullarda Değişiklik</h2>
+            <p>EquiMarket, bu Kullanım Koşullarını önceden haber vererek değiştirme hakkını saklı tutar. Önemli değişiklikler e-posta yoluyla bildirilecektir. Değişiklikler sonrasında platformu kullanmaya devam etmeniz, yeni koşulları kabul ettiğiniz anlamına gelir.</p>
+
+            <h2 id="iletisim">9. İletişim</h2>
+            <p>Bu Kullanım Koşulları hakkında sorularınız için:</p>
+            <ul>
+                <li><strong>E-posta:</strong> hukuk@equimarket.com.tr</li>
+                <li><strong>Adres:</strong> EquiMarket Teknoloji A.Ş., Levent, İstanbul</li>
+                <li><strong>Telefon:</strong> 0850 123 45 67</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="homepage_v2.html" class="logo" style="margin-bottom: 8px;">
+                        <div class="logo-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/>
+                            </svg>
+                        </div>
+                        <div class="logo-text">Equi<span>Market</span></div>
+                    </a>
+                    <p>Türkiye'nin en güvenilir yarış atı pazaryeri. Alıcıları ve satıcıları bir araya getiriyoruz.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="ilanlar.html">İlanları Keşfet</a></li>
+                        <li><a href="create_listing.html">İlan Ver</a></li>
+                        <li><a href="about.html">Nasıl Çalışır</a></li>
+                        <li><a href="pricing.html">Fiyatlandırma</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Şirket</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Hakkımızda</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Destek</h4>
+                    <ul class="footer-links">
+                        <li><a href="faq.html">Yardım Merkezi</a></li>
+                        <li><a href="seller_guide.html">Satıcı Rehberi</a></li>
+                        <li><a href="report.html">Şikayet Bildir</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 EquiMarket. Tüm hakları saklıdır.</p>
+                <div class="footer-bottom-links">
+                    <a href="terms.html">Kullanım Koşulları</a>
+                    <a href="privacy.html">Gizlilik Politikası</a>
+                    <a href="cookies.html">Çerez Politikası</a>
+                    <a href="kvkk.html">KVKK</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const authButtons = document.querySelector('.header-actions');
+            if (!authButtons) return;
+            const token = localStorage.getItem('equimarket_token');
+            const userData = localStorage.getItem('equimarket_user');
+            if (token && userData) {
+                const user = JSON.parse(userData);
+                const dashboardUrl = user.role === 'seller' ? 'dashboard.html' : 'dashboard.html';
+                const initials = user.name ? user.name.substring(0, 2).toUpperCase() : 'KA';
+                const firstName = user.name ? user.name.split(' ')[0] : 'Kullanıcı';
+                authButtons.innerHTML = `
+                    <a href="${dashboardUrl}" class="btn btn-ghost" style="display:flex;align-items:center;gap:10px;">
+                        <span style="width:36px;height:36px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--charcoal);">${initials}</span>
+                        ${firstName}
+                    </a>
+                    <a href="#" onclick="logout(); return false;" class="btn btn-primary">Çıkış</a>
+                `;
+            }
+        });
+        function logout() {
+            localStorage.removeItem('equimarket_token');
+            localStorage.removeItem('equimarket_user');
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>

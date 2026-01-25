@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Atınızı satışa çıkarın. Ücretsiz ilan verin, binlerce alıcıya ulaşın.">
+    <meta name="keywords" content="at satışı, yarış atı, safkan at, at ilanları, equimarket">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="İlan Ver - EquiMarket">
+    <meta property="og:description" content="Atınızı satışa çıkarın. Ücretsiz ilan verin, binlerce alıcıya ulaşın.">
+    <meta property="og:site_name" content="EquiMarket">
+    <meta property="og:locale" content="tr_TR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="İlan Ver - EquiMarket">
+    <meta name="twitter:description" content="Atınızı satışa çıkarın. Ücretsiz ilan verin, binlerce alıcıya ulaşın.">
+    <title>Yeni İlan Ekle - EquiMarket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --racing-green: #1a3d2e;
+            --racing-green-light: #2d5a47;
+            --gold: #c9a55c;
+            --gold-light: #e8d5a8;
+            --cream: #faf8f3;
+            --charcoal: #2a2a2a;
+            --warm-gray: #6b6b6b;
+            --light-gray: #f5f4f0;
+            --white: #ffffff;
+            --success: #4a7c59;
+            --warning: #f59e0b;
+            --error: #dc2626;
+            --info: #3b82f6;
+            --shadow-soft: 0 4px 20px rgba(26, 61, 46, 0.08);
+            --shadow-medium: 0 8px 40px rgba(26, 61, 46, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--light-gray);
+            color: var(--charcoal);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            border-bottom: 1px solid var(--light-gray);
+            padding: 16px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--warm-gray);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--charcoal);
+        }
+
+        .back-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--racing-green);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--gold);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--racing-green);
+        }
+
+        .logo-text span { color: var(--gold); }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .draft-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--warm-gray);
+        }
+
+        .draft-status svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: var(--success);
+            stroke-width: 2;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .btn-outline {
+            background: var(--white);
+            border: 2px solid var(--light-gray);
+            color: var(--charcoal);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--racing-green);
+            color: var(--racing-green);
+        }
+
+        .btn-primary {
+            background: var(--racing-green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--racing-green-light);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold) 0%, #d4b06a 100%);
+            color: var(--charcoal);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 165, 92, 0.4);
+        }
+
+        /* Main Layout */
+        .main-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 40px;
+        }
+
+        /* Progress Steps */
+        .progress-section {
+            margin-bottom: 32px;
+        }
+
+        .progress-steps {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            position: relative;
+        }
+
+        .step:not(:last-child)::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: var(--light-gray);
+            margin: 0 16px;
+        }
+
+        .step.completed:not(:last-child)::after {
+            background: var(--success);
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            color: var(--warm-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .step.active .step-number {
+            background: var(--racing-green);
+            color: var(--white);
+        }
+
+        .step.completed .step-number {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .step.completed .step-number svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+        }
+
+        .step-label {
+            font-size: 14px;
+            color: var(--warm-gray);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .step.active .step-label {
+            color: var(--charcoal);
+            font-weight: 600;
+        }
+
+        .step.completed .step-label {
+            color: var(--success);
+        }
+
+        /* Form Card */
+        .form-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 24px;
+        }
+
+        .form-card-header {
+            margin-bottom: 28px;
+        }
+
+        .form-card-title {
+            font-size: 22px;
+            color: var(--charcoal);
+            margin-bottom: 8px;
+        }
+
+        .form-card-desc {
+            font-size: 14px;
+            color: var(--warm-gray);
+        }
+
+        /* Form Elements */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-row.single {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--charcoal);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .form-label .required {
+            color: var(--error);
+        }
+
+        .form-label .optional {
+            color: var(--warm-gray);
+            font-weight: 400;
+            font-size: 12px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 14px 16px;
+            border: 2px solid var(--light-gray);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 15px;
+            color: var(--charcoal);
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--racing-green);
+            box-shadow: 0 0 0 4px rgba(26, 61, 46, 0.08);
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--warm-gray);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236b6b6b' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 18px;
+            padding-right: 44px;
+        }
+
+        .form-textarea {
+            min-height: 140px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .form-hint {
+            font-size: 12px;
+            color: var(--warm-gray);
+            margin-top: 4px;
+        }
+
+        /* Price Input */
+        .price-input-wrapper {
+            position: relative;
+        }
+
+        .price-input-wrapper .currency {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--warm-gray);
+        }
+
+        .price-input-wrapper .form-input {
+            padding-left: 36px;
+        }
+
+        /* Photo Upload */
+        .photo-upload-area {
+            border: 2px dashed var(--light-gray);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: var(--cream);
+        }
+
+        .photo-upload-area:hover {
+            border-color: var(--racing-green);
+            background: rgba(26, 61, 46, 0.02);
+        }
+
+        .photo-upload-area.dragover {
+            border-color: var(--gold);
+            background: rgba(201, 165, 92, 0.05);
+        }
+
+        .upload-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--white);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .upload-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: none;
+            stroke: var(--racing-green);
+            stroke-width: 2;
+        }
+
+        .upload-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 8px;
+        }
+
+        .upload-title span {
+            color: var(--racing-green);
+            text-decoration: underline;
+        }
+
+        .upload-hint {
+            font-size: 13px;
+            color: var(--warm-gray);
+        }
+
+        /* Photo Preview Grid */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .photo-item {
+            aspect-ratio: 1;
+            background: var(--light-gray);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-item.main {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .photo-item svg {
+            width: 32px;
+            height: 32px;
+            fill: rgba(0,0,0,0.1);
+        }
+
+        .photo-item .main-badge {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: var(--gold);
+            color: var(--charcoal);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .photo-item .remove-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 28px;
+            height: 28px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            color: var(--white);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .photo-item:hover .remove-btn {
+            opacity: 1;
+        }
+
+        .photo-item .remove-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .photo-item.add-more {
+            border: 2px dashed var(--light-gray);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .photo-item.add-more:hover {
+            border-color: var(--racing-green);
+            background: rgba(26, 61, 46, 0.02);
+        }
+
+        .photo-item.add-more svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: var(--warm-gray);
+            stroke-width: 2;
+        }
+
+        /* Pedigree Section */
+        .pedigree-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .pedigree-column {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .pedigree-column-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--warm-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .pedigree-input {
+            padding: 12px 14px;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            color: var(--charcoal);
+            transition: all 0.3s ease;
+        }
+
+        .pedigree-input:focus {
+            outline: none;
+            border-color: var(--racing-green);
+        }
+
+        .pedigree-input.sire {
+            border-left: 3px solid var(--info);
+        }
+
+        .pedigree-input.dam {
+            border-left: 3px solid #ec4899;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .sidebar-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            color: var(--charcoal);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-title svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: var(--gold);
+            stroke-width: 2;
+        }
+
+        /* Preview Card */
+        .preview-card {
+            background: var(--light-gray);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .preview-image {
+            height: 140px;
+            background: linear-gradient(135deg, #e8e6e1 0%, #d4d2cd 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .preview-image svg {
+            width: 48px;
+            height: 48px;
+            fill: rgba(0,0,0,0.1);
+        }
+
+        .preview-content {
+            padding: 16px;
+        }
+
+        .preview-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 4px;
+        }
+
+        .preview-breed {
+            font-size: 13px;
+            color: var(--warm-gray);
+            margin-bottom: 12px;
+        }
+
+        .preview-price {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--racing-green);
+        }
+
+        /* Tips Card */
+        .tips-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .tip-item {
+            display: flex;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--warm-gray);
+            line-height: 1.5;
+        }
+
+        .tip-item svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: var(--success);
+            stroke-width: 2;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Package Selection */
+        .package-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .package-option {
+            border: 2px solid var(--light-gray);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .package-option:hover {
+            border-color: var(--racing-green);
+        }
+
+        .package-option.selected {
+            border-color: var(--racing-green);
+            background: rgba(26, 61, 46, 0.02);
+        }
+
+        .package-option.popular {
+            border-color: var(--gold);
+        }
+
+        .package-option.popular::before {
+            content: 'Popüler';
+            position: absolute;
+            top: -10px;
+            right: 16px;
+            background: var(--gold);
+            color: var(--charcoal);
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+        }
+
+        .package-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .package-name {
+            font-weight: 600;
+            color: var(--charcoal);
+            font-size: 14px;
+        }
+
+        .package-price {
+            font-weight: 700;
+            color: var(--racing-green);
+            font-size: 15px;
+        }
+
+        .package-features {
+            font-size: 12px;
+            color: var(--warm-gray);
+        }
+
+        .package-radio {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--light-gray);
+            border-radius: 50%;
+            display: none;
+        }
+
+        /* Form Actions */
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            border-top: 1px solid var(--light-gray);
+            margin-top: 8px;
+        }
+
+        .form-actions-left {
+            display: flex;
+            gap: 12px;
+        }
+
+        .form-actions-right {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+                padding: 24px 20px;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .progress-steps {
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+
+            .step-label {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 12px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .photo-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .photo-item.main {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+
+            .pedigree-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .form-actions-left,
+            .form-actions-right {
+                width: 100%;
+            }
+
+            .form-actions-right {
+                flex-direction: column;
+            }
+
+            .form-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <div class="header-left">
+                <a href="dashboard.html" class="back-btn">
+                    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    Geri
+                </a>
+                <a href="homepage_v2.html" class="logo">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7"/>
+                        </svg>
+                    </div>
+                    <div class="logo-text">Equi<span>Market</span></div>
+                </a>
+            </div>
+            <div class="header-right">
+                <span class="draft-status">
+                    <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                    Taslak kaydedildi
+                </span>
+                <button class="btn btn-outline">Önizleme</button>
+                <button class="btn btn-gold">İlanı Yayınla</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+        <!-- Main Form -->
+        <div class="form-area">
+            <!-- Progress Steps -->
+            <div class="progress-section">
+                <div class="progress-steps">
+                    <div class="step completed">
+                        <div class="step-number">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
+                        <span class="step-label">Temel Bilgiler</span>
+                    </div>
+                    <div class="step active">
+                        <div class="step-number">2</div>
+                        <span class="step-label">Detaylar</span>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <span class="step-label">Fotoğraflar</span>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <span class="step-label">Yayınla</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Basic Info Card -->
+            <div class="form-card">
+                <div class="form-card-header">
+                    <h2 class="form-card-title">Temel Bilgiler</h2>
+                    <p class="form-card-desc">Atınızın genel bilgilerini girin</p>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">At Adı <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="horse-name" placeholder="Örn: Thunder Bay" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">TJK Bağlantısı <span class="optional">(Opsiyonel)</span></label>
+                        <input type="text" class="form-input" id="horse-tjk" placeholder="Atın TJK profil bağlantısını girin">
+                        <span class="form-hint">TJK profil linki eklemek alıcıların güvenini artırır</span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Irk <span class="required">*</span></label>
+                        <select class="form-select" id="horse-breed" required>
+                            <option value="">Irk seçin</option>
+                            <option value="ingiliz">İngiliz</option>
+                            <option value="arap">Arap</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Doğum Tarihi <span class="required">*</span></label>
+                        <input type="date" class="form-input" id="horse-birthdate" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Cinsiyet <span class="required">*</span></label>
+                        <select class="form-select" id="horse-gender" required>
+                            <option value="">Cinsiyet seçin</option>
+                            <option value="erkek">Erkek (Aygır)</option>
+                            <option value="disi">Dişi (Kısrak)</option>
+                            <option value="igdis">İğdiş</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Renk <span class="required">*</span></label>
+                        <select class="form-select" id="horse-color" required>
+                            <option value="">Renk seçin</option>
+                            <option value="doru">Doru</option>
+                            <option value="kir">Kır</option>
+                            <option value="yagiz">Yağız</option>
+                            <option value="al">Al</option>
+                            <option value="diger">Diğer</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Yükseklik (cm) <span class="optional">(Opsiyonel)</span></label>
+                        <input type="number" class="form-input" id="horse-height" placeholder="Örn: 165">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ağırlık (kg) <span class="optional">(Opsiyonel)</span></label>
+                        <input type="number" class="form-input" id="horse-weight" placeholder="Örn: 480">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pedigree Card -->
+            <div class="form-card">
+                <div class="form-card-header">
+                    <h2 class="form-card-title">Soy Ağacı (Pedigree)</h2>
+                    <p class="form-card-desc">Atınızın soy bilgilerini girin</p>
+                </div>
+
+                <div class="pedigree-grid">
+                    <div class="pedigree-column">
+                        <span class="pedigree-column-title">Ebeveynler</span>
+                        <input type="text" class="pedigree-input sire" placeholder="Baba (Sire)" value="Northern Storm">
+                        <input type="text" class="pedigree-input dam" placeholder="Anne (Dam)" value="Golden Sunrise">
+                    </div>
+                    <div class="pedigree-column">
+                        <span class="pedigree-column-title">Büyük Ebeveynler (Baba)</span>
+                        <input type="text" class="pedigree-input sire" placeholder="Baba'nın Babası" value="Storm Cat">
+                        <input type="text" class="pedigree-input dam" placeholder="Baba'nın Annesi" value="Northern Lady">
+                    </div>
+                    <div class="pedigree-column">
+                        <span class="pedigree-column-title">Büyük Ebeveynler (Anne)</span>
+                        <input type="text" class="pedigree-input sire" placeholder="Anne'nin Babası" value="Sunday Silence">
+                        <input type="text" class="pedigree-input dam" placeholder="Anne'nin Annesi" value="Dawn Princess">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photos Card -->
+            <div class="form-card">
+                <div class="form-card-header">
+                    <h2 class="form-card-title">Fotoğraflar</h2>
+                    <p class="form-card-desc">En az 3, en fazla 10 fotoğraf yükleyebilirsiniz</p>
+                </div>
+
+                <div class="photo-upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+                    <input type="file" id="fileInput" multiple accept="image/jpeg,image/png,image/webp,image/gif" style="display:none">
+                    <div class="upload-icon">
+                        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                    </div>
+                    <p class="upload-title">Fotoğrafları sürükleyin veya <span>dosya seçin</span></p>
+                    <p class="upload-hint">PNG, JPG, WEBP • Maks. 5MB • En fazla 10 fotoğraf</p>
+                </div>
+
+                <div class="photo-grid" id="photoGrid"></div>
+            </div>
+
+            <!-- Description & Price Card -->
+            <div class="form-card">
+                <div class="form-card-header">
+                    <h2 class="form-card-title">Açıklama & Fiyat</h2>
+                    <p class="form-card-desc">Detaylı açıklama ve fiyat bilgisi</p>
+                </div>
+
+                <div class="form-row single">
+                    <div class="form-group">
+                        <label class="form-label">İlan Açıklaması <span class="required">*</span></label>
+                        <textarea class="form-textarea" id="horse-description" placeholder="Atınızı detaylı bir şekilde tanıtın. Yarış geçmişi, eğitim durumu, sağlık bilgileri ve diğer önemli detayları ekleyin..." required></textarea>
+                        <span class="form-hint">En az 100 karakter yazmanız önerilir</span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Fiyat <span class="required">*</span></label>
+                        <div class="price-input-wrapper">
+                            <span class="currency">₺</span>
+                            <input type="number" class="form-input" id="horse-price" placeholder="0" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Konum <span class="required">*</span></label>
+                        <select class="form-select" id="horse-city" required>
+                            <option value="">Şehir seçin</option>
+                            <option value="Adana">Adana</option>
+                            <option value="Adıyaman">Adıyaman</option>
+                            <option value="Afyonkarahisar">Afyonkarahisar</option>
+                            <option value="Ağrı">Ağrı</option>
+                            <option value="Aksaray">Aksaray</option>
+                            <option value="Amasya">Amasya</option>
+                            <option value="Ankara">Ankara</option>
+                            <option value="Antalya">Antalya</option>
+                            <option value="Ardahan">Ardahan</option>
+                            <option value="Artvin">Artvin</option>
+                            <option value="Aydın">Aydın</option>
+                            <option value="Balıkesir">Balıkesir</option>
+                            <option value="Bartın">Bartın</option>
+                            <option value="Batman">Batman</option>
+                            <option value="Bayburt">Bayburt</option>
+                            <option value="Bilecik">Bilecik</option>
+                            <option value="Bingöl">Bingöl</option>
+                            <option value="Bitlis">Bitlis</option>
+                            <option value="Bolu">Bolu</option>
+                            <option value="Burdur">Burdur</option>
+                            <option value="Bursa">Bursa</option>
+                            <option value="Çanakkale">Çanakkale</option>
+                            <option value="Çankırı">Çankırı</option>
+                            <option value="Çorum">Çorum</option>
+                            <option value="Denizli">Denizli</option>
+                            <option value="Diyarbakır">Diyarbakır</option>
+                            <option value="Düzce">Düzce</option>
+                            <option value="Edirne">Edirne</option>
+                            <option value="Elazığ">Elazığ</option>
+                            <option value="Erzincan">Erzincan</option>
+                            <option value="Erzurum">Erzurum</option>
+                            <option value="Eskişehir">Eskişehir</option>
+                            <option value="Gaziantep">Gaziantep</option>
+                            <option value="Giresun">Giresun</option>
+                            <option value="Gümüşhane">Gümüşhane</option>
+                            <option value="Hakkari">Hakkari</option>
+                            <option value="Hatay">Hatay</option>
+                            <option value="Iğdır">Iğdır</option>
+                            <option value="Isparta">Isparta</option>
+                            <option value="İstanbul">İstanbul</option>
+                            <option value="İzmir">İzmir</option>
+                            <option value="Kahramanmaraş">Kahramanmaraş</option>
+                            <option value="Karabük">Karabük</option>
+                            <option value="Karaman">Karaman</option>
+                            <option value="Kars">Kars</option>
+                            <option value="Kastamonu">Kastamonu</option>
+                            <option value="Kayseri">Kayseri</option>
+                            <option value="Kilis">Kilis</option>
+                            <option value="Kırıkkale">Kırıkkale</option>
+                            <option value="Kırklareli">Kırklareli</option>
+                            <option value="Kırşehir">Kırşehir</option>
+                            <option value="Kocaeli">Kocaeli</option>
+                            <option value="Konya">Konya</option>
+                            <option value="Kütahya">Kütahya</option>
+                            <option value="Malatya">Malatya</option>
+                            <option value="Manisa">Manisa</option>
+                            <option value="Mardin">Mardin</option>
+                            <option value="Mersin">Mersin</option>
+                            <option value="Muğla">Muğla</option>
+                            <option value="Muş">Muş</option>
+                            <option value="Nevşehir">Nevşehir</option>
+                            <option value="Niğde">Niğde</option>
+                            <option value="Ordu">Ordu</option>
+                            <option value="Osmaniye">Osmaniye</option>
+                            <option value="Rize">Rize</option>
+                            <option value="Sakarya">Sakarya</option>
+                            <option value="Samsun">Samsun</option>
+                            <option value="Şanlıurfa">Şanlıurfa</option>
+                            <option value="Siirt">Siirt</option>
+                            <option value="Sinop">Sinop</option>
+                            <option value="Sivas">Sivas</option>
+                            <option value="Şırnak">Şırnak</option>
+                            <option value="Tekirdağ">Tekirdağ</option>
+                            <option value="Tokat">Tokat</option>
+                            <option value="Trabzon">Trabzon</option>
+                            <option value="Tunceli">Tunceli</option>
+                            <option value="Uşak">Uşak</option>
+                            <option value="Van">Van</option>
+                            <option value="Yalova">Yalova</option>
+                            <option value="Yozgat">Yozgat</option>
+                            <option value="Zonguldak">Zonguldak</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <div class="form-actions-left">
+                        <button type="button" class="btn btn-outline" id="btn-draft">
+                            <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                            Taslak Kaydet
+                        </button>
+                    </div>
+                    <div class="form-actions-right">
+                        <button type="button" class="btn btn-outline" id="btn-preview">
+                            <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            Önizleme
+                        </button>
+                        <button type="submit" class="btn btn-gold" id="btn-publish">
+                            İlanı Yayınla
+                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Preview Card -->
+            <div class="sidebar-card">
+                <h3 class="sidebar-title">
+                    <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    İlan Önizlemesi
+                </h3>
+                <div class="preview-card">
+                    <div class="preview-image">
+                        <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                    </div>
+                    <div class="preview-content">
+                        <h4 class="preview-name">Thunder Bay</h4>
+                        <p class="preview-breed">3 Yaş · İngiliz · Erkek</p>
+                        <p class="preview-price">₺2,850,000</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Credits Section -->
+            <div class="sidebar-card">
+                <h3 class="sidebar-title">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    Kredilerim
+                </h3>
+                <div class="credits-info">
+                    <div class="credits-balance">
+                        <span class="credits-number">0</span>
+                        <span class="credits-label">Kullanılabilir Kredi</span>
+                    </div>
+                    <p class="credits-note">İlan yayınlamak için krediniz bulunmuyor.</p>
+                    <a href="#" class="btn btn-gold" style="width: 100%; text-align: center; margin-top: 12px;">
+                        <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; margin-right: 8px;"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                        Kredi Satın Al
+                    </a>
+                </div>
+                <div class="package-info" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--light-gray);">
+                    <p style="font-size: 13px; color: var(--warm-gray); margin-bottom: 8px;">Kredi Paketleri:</p>
+                    <div style="font-size: 12px; color: var(--charcoal);">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                            <span>5 Kredi</span>
+                            <span style="font-weight: 600;">₺249</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                            <span>10 Kredi</span>
+                            <span style="font-weight: 600;">₺449</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>25 Kredi</span>
+                            <span style="font-weight: 600;">₺999</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips Card -->
+            <div class="sidebar-card">
+                <h3 class="sidebar-title">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                    İpuçları
+                </h3>
+                <div class="tips-list">
+                    <div class="tip-item">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>Kaliteli ve net fotoğraflar ilanınızın görüntülenme oranını %70 artırır</span>
+                    </div>
+                    <div class="tip-item">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>Detaylı açıklama yazan satıcılar %50 daha fazla mesaj alır</span>
+                    </div>
+                    <div class="tip-item">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>Soy ağacı bilgilerini eksiksiz doldurun</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // Yüklenen resimler
+        let uploadedImages = [];
+        const MAX_IMAGES = 10;
+
+        // Drag and drop upload
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            handleFiles(files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+            e.target.value = ''; // Reset input
+        });
+
+        async function handleFiles(files) {
+            if (uploadedImages.length + files.length > MAX_IMAGES) {
+                showToast(`En fazla ${MAX_IMAGES} resim yükleyebilirsiniz`, 'error');
+                return;
+            }
+
+            const formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                // Boyut kontrolü
+                if (file.size > 5 * 1024 * 1024) {
+                    showToast(`${file.name} çok büyük (maks. 5MB)`, 'error');
+                    continue;
+                }
+                // Tip kontrolü
+                if (!file.type.match(/^image\/(jpeg|png|gif|webp)$/)) {
+                    showToast(`${file.name} desteklenmiyor`, 'error');
+                    continue;
+                }
+                formData.append('images', file);
+            }
+
+            if (formData.getAll('images').length === 0) return;
+
+            // Upload
+            uploadArea.innerHTML = '<div class="upload-icon"><svg class="spin" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div><p class="upload-title">Yükleniyor...</p>';
+
+            try {
+                const response = await fetch(api.baseUrl + '/upload/horse-images', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('equimarket_token')
+                    },
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    uploadedImages = [...uploadedImages, ...result.data];
+                    renderPhotos();
+                    showToast(`${result.data.length} resim yüklendi`);
+                } else {
+                    showToast(result.message || 'Yükleme hatası', 'error');
+                }
+            } catch (error) {
+                console.error('Upload error:', error);
+                showToast('Resim yüklenirken hata oluştu', 'error');
+            }
+
+            // Reset upload area
+            uploadArea.innerHTML = `
+                <input type="file" id="fileInput" multiple accept="image/jpeg,image/png,image/webp,image/gif" style="display:none">
+                <div class="upload-icon"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg></div>
+                <p class="upload-title">Fotoğrafları sürükleyin veya <span>dosya seçin</span></p>
+                <p class="upload-hint">PNG, JPG, WEBP • Maks. 5MB • En fazla 10 fotoğraf</p>
+            `;
+            document.getElementById('fileInput').addEventListener('change', (e) => {
+                handleFiles(e.target.files);
+                e.target.value = '';
+            });
+        }
+
+        function renderPhotos() {
+            const grid = document.getElementById('photoGrid');
+            if (uploadedImages.length === 0) {
+                grid.innerHTML = '';
+                return;
+            }
+
+            grid.innerHTML = uploadedImages.map((img, i) => `
+                <div class="photo-item ${i === 0 ? 'main' : ''}" data-index="${i}">
+                    <img src="${api.baseUrl.replace('/api', '')}${img.url}" alt="Fotoğraf ${i + 1}">
+                    ${i === 0 ? '<span class="main-badge">Ana Fotoğraf</span>' : ''}
+                    <button class="remove-btn" onclick="removePhoto(${i})">
+                        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            `).join('') + (uploadedImages.length < MAX_IMAGES ? `
+                <div class="photo-item add-more" onclick="document.getElementById('fileInput').click()">
+                    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                </div>
+            ` : '');
+        }
+
+        function removePhoto(index) {
+            uploadedImages.splice(index, 1);
+            renderPhotos();
+        }
+    </script>
+
+    <!-- API Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/horses.js"></script>
+    
+    <script>
+        // Sayfa yüklendiğinde giriş kontrolü
+        document.addEventListener('DOMContentLoaded', function() {
+            // Giriş yapılmamışsa login sayfasına yönlendir
+            if (typeof api !== 'undefined' && !api.isLoggedIn()) {
+                showToast('İlan vermek için giriş yapmalısınız', 'error');
+                setTimeout(() => {
+                    window.location.href = 'login_register.html';
+                }, 1500);
+                return;
+            }
+
+            // Header auth güncelle
+            updateHeaderAuth();
+        });
+
+        // Header'daki auth butonlarını güncelle
+        function updateHeaderAuth() {
+            const authButtons = document.querySelector('.header-actions');
+            if (!authButtons || typeof api === 'undefined') return;
+
+            const token = localStorage.getItem('equimarket_token');
+            const userData = localStorage.getItem('equimarket_user');
+
+            if (token && userData) {
+                const user = JSON.parse(userData);
+                const dashboardUrl = user.role === 'seller' ? 'dashboard.html' : 'dashboard.html';
+                const initials = user.name ? user.name.substring(0, 2).toUpperCase() : 'KA';
+                const firstName = user.name ? user.name.split(' ')[0] : 'Kullanıcı';
+
+                authButtons.innerHTML = `
+                    <a href="${dashboardUrl}" class="btn btn-ghost" style="display:flex;align-items:center;gap:10px;">
+                        <span style="width:36px;height:36px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--charcoal);">
+                            ${initials}
+                        </span>
+                        ${firstName}
+                    </a>
+                    <a href="#" onclick="logout(); return false;" class="btn btn-outline">Çıkış</a>
+                `;
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('equimarket_token');
+            localStorage.removeItem('equimarket_user');
+            window.location.href = 'homepage_v2.html';
+        }
+
+        // İlan Yayınla butonu
+        document.getElementById('btn-publish').addEventListener('click', async function() {
+            const btn = this;
+            const originalHTML = btn.innerHTML;
+
+            // Form verilerini topla
+            const horseData = {
+                name: document.getElementById('horse-name').value.trim(),
+                breed: document.getElementById('horse-breed').value,
+                birthDate: document.getElementById('horse-birthdate').value,
+                gender: document.getElementById('horse-gender').value,
+                color: document.getElementById('horse-color').value,
+                height: document.getElementById('horse-height').value || null,
+                weight: document.getElementById('horse-weight').value || null,
+                description: document.getElementById('horse-description').value.trim(),
+                price: parseInt(document.getElementById('horse-price').value) || 0,
+                location: {
+                    city: document.getElementById('horse-city').value
+                },
+                tjkLink: document.getElementById('horse-tjk').value.trim() || null
+            };
+
+            // Validasyon
+            if (!horseData.name) {
+                showToast('At adı zorunludur', 'error');
+                return;
+            }
+            if (!horseData.breed) {
+                showToast('Irk seçimi zorunludur', 'error');
+                return;
+            }
+            if (!horseData.birthDate) {
+                showToast('Doğum tarihi zorunludur', 'error');
+                return;
+            }
+            if (!horseData.gender) {
+                showToast('Cinsiyet seçimi zorunludur', 'error');
+                return;
+            }
+            if (!horseData.color) {
+                showToast('Renk seçimi zorunludur', 'error');
+                return;
+            }
+            if (!horseData.description || horseData.description.length < 50) {
+                showToast('Açıklama en az 50 karakter olmalıdır', 'error');
+                return;
+            }
+            if (!horseData.price || horseData.price < 1000) {
+                showToast('Geçerli bir fiyat girin', 'error');
+                return;
+            }
+            if (!horseData.location.city) {
+                showToast('Konum seçimi zorunludur', 'error');
+                return;
+            }
+
+            // Resim kontrolü ve ekleme
+            if (uploadedImages.length > 0) {
+                horseData.images = uploadedImages.map(img => img.url);
+            }
+
+            // Butonu devre dışı bırak
+            btn.innerHTML = '<span>Yayınlanıyor...</span>';
+            btn.disabled = true;
+
+            try {
+                if (typeof HorseService !== 'undefined') {
+                    const result = await HorseService.createHorse(horseData);
+
+                    if (result.success) {
+                        showToast('İlan başarıyla yayınlandı!');
+                        setTimeout(() => {
+                            window.location.href = 'dashboard.html';
+                        }, 1500);
+                    } else {
+                        showToast(result.message || 'İlan yayınlanırken bir hata oluştu', 'error');
+                        btn.innerHTML = originalHTML;
+                        btn.disabled = false;
+                    }
+                } else {
+                    showToast('Backend bağlantısı kurulamadı', 'error');
+                    btn.innerHTML = originalHTML;
+                    btn.disabled = false;
+                }
+            } catch (error) {
+                console.error('Publish Error:', error);
+                showToast('Bir hata oluştu: ' + error.message, 'error');
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            }
+        });
+
+        // Toast mesajı
+        function showToast(message, type = 'success') {
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `<span>${message}</span>`;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                background: ${type === 'success' ? '#1a3d2e' : '#dc2626'};
+                color: white;
+                padding: 16px 24px;
+                border-radius: 12px;
+                box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Toast animasyonları
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
