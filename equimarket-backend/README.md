@@ -179,3 +179,4 @@ Sorularınız için: destek@equimarket.com
 ---
 
 Made with ❤️ for EquiMarket
+"# equimarket" 
