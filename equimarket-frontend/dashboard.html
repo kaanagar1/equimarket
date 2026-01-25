@@ -305,12 +305,109 @@
 
         .notification-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 8px;
-            height: 8px;
+            top: 8px;
+            right: 8px;
+            min-width: 18px;
+            height: 18px;
             background: var(--error);
             border-radius: 50%;
+            font-size: 10px;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .notification-badge:empty {
+            display: none;
+        }
+
+        /* Notification Panel */
+        .notification-panel {
+            position: absolute;
+            top: 54px;
+            right: 0;
+            width: 360px;
+            max-height: 480px;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            z-index: 1000;
+            overflow: hidden;
+        }
+        .notification-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        .notification-panel-header h4 {
+            font-size: 16px;
+            margin: 0;
+        }
+        .notification-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .notification-item {
+            display: flex;
+            gap: 12px;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--light-gray);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .notification-item:hover {
+            background: var(--light-gray);
+        }
+        .notification-item.unread {
+            background: rgba(201, 165, 92, 0.05);
+        }
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .notification-icon.message { background: rgba(59, 130, 246, 0.1); color: var(--info); }
+        .notification-icon.offer { background: rgba(201, 165, 92, 0.1); color: var(--gold); }
+        .notification-icon.system { background: rgba(74, 124, 89, 0.1); color: var(--success); }
+        .notification-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.5;
+        }
+        .notification-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .notification-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+        .notification-text {
+            font-size: 13px;
+            color: var(--warm-gray);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .notification-time {
+            font-size: 11px;
+            color: var(--warm-gray);
+            margin-top: 4px;
+        }
+        .empty-notification {
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--warm-gray);
         }
 
         .btn {
@@ -704,7 +801,13 @@
                             <a href="messaging.html" class="nav-link">
                                 <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
                                 <span>Mesajlar</span>
-                                <span class="nav-badge">5</span>
+                                <span class="nav-badge" id="navMessageBadge">0</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="offers.html" class="nav-link">
+                                <svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                                <span>Teklifler</span>
                             </a>
                         </li>
                     </ul>
@@ -767,10 +870,20 @@
                         </button>
                     </div>
 
-                    <button class="notification-btn">
+                    <button class="notification-btn" onclick="toggleNotificationPanel()">
                         <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
-                        <span class="notification-badge"></span>
+                        <span class="notification-badge" id="notificationBadge"></span>
                     </button>
+                    <!-- Notification Panel -->
+                    <div class="notification-panel" id="notificationPanel" style="display: none;">
+                        <div class="notification-panel-header">
+                            <h4>Bildirimler</h4>
+                            <button onclick="markAllNotificationsRead()" style="background:none;border:none;color:var(--racing-green);font-size:13px;cursor:pointer;">Tümünü Okundu İşaretle</button>
+                        </div>
+                        <div class="notification-list" id="notificationList">
+                            <div class="empty-notification">Henüz bildirim yok</div>
+                        </div>
+                    </div>
 
                     <a href="create_listing.html" class="btn btn-gold" id="headerActionBtn">
                         <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
@@ -996,7 +1109,145 @@
             // Verileri yükle
             loadBuyerData();
             loadSellerData();
+            loadUnreadMessages();
+            loadDashboardStats();
+            loadNotifications();
+
+            // Panel dışına tıklanınca kapat
+            document.addEventListener('click', function(e) {
+                const panel = document.getElementById('notificationPanel');
+                const btn = document.querySelector('.notification-btn');
+                if (panel && !panel.contains(e.target) && !btn.contains(e.target)) {
+                    panel.style.display = 'none';
+                }
+            });
         });
+
+        // Bildirim panelini aç/kapat
+        function toggleNotificationPanel() {
+            const panel = document.getElementById('notificationPanel');
+            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Bildirimleri yükle
+        async function loadNotifications() {
+            try {
+                const result = await api.get('/notifications');
+                if (result.success) {
+                    const notifications = result.data || [];
+                    const unreadCount = result.unreadCount || 0;
+
+                    // Badge güncelle
+                    const badge = document.getElementById('notificationBadge');
+                    if (badge) {
+                        badge.textContent = unreadCount > 0 ? unreadCount : '';
+                    }
+
+                    // Listeyi güncelle
+                    const list = document.getElementById('notificationList');
+                    if (list) {
+                        if (notifications.length === 0) {
+                            list.innerHTML = '<div class="empty-notification">Henüz bildirim yok</div>';
+                        } else {
+                            list.innerHTML = notifications.map(n => renderNotification(n)).join('');
+                        }
+                    }
+                }
+            } catch (error) {
+                console.log('Bildirimler yüklenemedi:', error);
+            }
+        }
+
+        function renderNotification(n) {
+            const iconClass = n.type.includes('message') ? 'message' : n.type.includes('offer') ? 'offer' : 'system';
+            const icon = n.type.includes('message')
+                ? '<svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>'
+                : n.type.includes('offer')
+                ? '<svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>'
+                : '<svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg>';
+
+            const timeAgo = getTimeAgo(new Date(n.createdAt));
+
+            return `
+                <div class="notification-item ${n.isRead ? '' : 'unread'}" onclick="markNotificationRead('${n._id}', '${n.link || ''}')">
+                    <div class="notification-icon ${iconClass}">${icon}</div>
+                    <div class="notification-content">
+                        <div class="notification-title">${n.title}</div>
+                        <div class="notification-text">${n.message}</div>
+                        <div class="notification-time">${timeAgo}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getTimeAgo(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+            if (seconds < 60) return 'Az önce';
+            const minutes = Math.floor(seconds / 60);
+            if (minutes < 60) return minutes + ' dakika önce';
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return hours + ' saat önce';
+            const days = Math.floor(hours / 24);
+            if (days < 7) return days + ' gün önce';
+            return date.toLocaleDateString('tr-TR');
+        }
+
+        async function markNotificationRead(id, link) {
+            try {
+                await api.put('/notifications/' + id + '/read');
+                loadNotifications();
+                if (link) window.location.href = link;
+            } catch (error) {
+                console.log('Bildirim güncellenemedi:', error);
+            }
+        }
+
+        async function markAllNotificationsRead() {
+            try {
+                await api.put('/notifications/read-all');
+                loadNotifications();
+            } catch (error) {
+                console.log('Bildirimler güncellenemedi:', error);
+            }
+        }
+
+        // Okunmamış mesaj sayısını yükle
+        async function loadUnreadMessages() {
+            try {
+                const result = await api.get('/messages/unread-count');
+                if (result.success && result.data !== undefined) {
+                    const count = result.data.count || result.data || 0;
+                    const badge = document.getElementById('navMessageBadge');
+                    if (badge) {
+                        badge.textContent = count;
+                        badge.style.display = count > 0 ? 'inline' : 'none';
+                    }
+                }
+            } catch (error) {
+                console.log('Okunmamış mesaj yüklenemedi:', error);
+            }
+        }
+
+        // Gerçek dashboard istatistiklerini yükle
+        async function loadDashboardStats() {
+            try {
+                const result = await api.get('/users/dashboard/stats');
+                if (result.success && result.data) {
+                    const data = result.data;
+                    // Satıcı istatistikleri - listings objesi
+                    if (data.listings) {
+                        document.getElementById('sellerActiveListings').textContent = data.listings.active || 0;
+                    }
+                    // Görüntülenme - stats objesi
+                    const viewsEl = document.querySelector('#sellerContent .stat-card:nth-child(2) .stat-value');
+                    if (viewsEl && data.stats) {
+                        viewsEl.textContent = data.stats.totalViews || 0;
+                    }
+                }
+            } catch (error) {
+                console.log('Dashboard istatistikleri yüklenemedi:', error);
+            }
+        }
 
         function loadUserInfo() {
             const userData = localStorage.getItem('equimarket_user');
@@ -1041,6 +1292,29 @@
                 actionBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Yeni İlan';
                 actionBtn.href = 'create_listing.html';
                 actionBtn.className = 'btn btn-gold';
+
+                // Profilimi Gör butonunu ekle/güncelle
+                let profileBtn = document.getElementById('viewProfileBtn');
+                if (!profileBtn) {
+                    const userData = localStorage.getItem('equimarket_user');
+                    if (userData) {
+                        const user = JSON.parse(userData);
+                        profileBtn = document.createElement('a');
+                        profileBtn.id = 'viewProfileBtn';
+                        profileBtn.href = `seller_profile.html?id=${user._id || user.id}`;
+                        profileBtn.className = 'btn btn-primary';
+                        profileBtn.style.marginLeft = '12px';
+                        profileBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Profilimi Gör';
+                        actionBtn.parentNode.insertBefore(profileBtn, actionBtn.nextSibling);
+                    }
+                }
+                if (profileBtn) profileBtn.style.display = 'inline-flex';
+            }
+
+            // Alıcı modunda Profilimi Gör butonunu gizle
+            const profileBtn = document.getElementById('viewProfileBtn');
+            if (profileBtn && mode === 'buyer') {
+                profileBtn.style.display = 'none';
             }
         }
 

@@ -919,26 +919,6 @@
 
                 <!-- Register Form -->
                 <form class="auth-form" id="register-form">
-                    <!-- User Type Selection -->
-                    <div class="user-type-selection">
-                        <label class="user-type-card selected">
-                            <input type="radio" name="user_type" value="buyer" id="register-role-buyer" checked>
-                            <div class="user-type-icon">
-                                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                            </div>
-                            <div class="user-type-title">Alıcı</div>
-                            <div class="user-type-description">At aramak istiyorum</div>
-                        </label>
-                        <label class="user-type-card">
-                            <input type="radio" name="user_type" value="seller" id="register-role-seller">
-                            <div class="user-type-icon">
-                                <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg>
-                            </div>
-                            <div class="user-type-title">Satıcı</div>
-                            <div class="user-type-description">At satmak istiyorum</div>
-                        </label>
-                    </div>
-
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">Ad Soyad</label>
@@ -1159,7 +1139,7 @@
                 const email = document.getElementById('register-email').value;
                 const phone = document.getElementById('register-phone').value;
                 const password = document.getElementById('register-password').value;
-                const role = document.querySelector('input[name="user_type"]:checked').value;
+                const role = 'buyer'; // Tüm kullanıcılar aynı role ile kaydedilir
 
                 if (typeof AuthService !== 'undefined') {
                     const result = await AuthService.register({ name, email, phone, password, role });

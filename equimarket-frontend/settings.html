@@ -1017,26 +1017,26 @@
 
             <!-- Settings Tabs -->
             <div class="settings-tabs">
-                <button class="settings-tab active">
+                <button class="settings-tab active" onclick="scrollToSettingsSection('profile-section')">
                     <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                     <span>Profil</span>
                 </button>
-                <button class="settings-tab">
+                <button class="settings-tab" onclick="scrollToSettingsSection('security-section')">
                     <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
                     <span>Güvenlik</span>
                 </button>
-                <button class="settings-tab">
+                <button class="settings-tab" onclick="scrollToSettingsSection('notifications-section')">
                     <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
                     <span>Bildirimler</span>
                 </button>
-                <button class="settings-tab">
+                <button class="settings-tab" onclick="scrollToSettingsSection('billing-section')">
                     <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>
                     <span>Faturalandırma</span>
                 </button>
             </div>
 
             <!-- Profile Section -->
-            <div class="settings-card">
+            <div class="settings-card" id="profile-section">
                 <div class="profile-header">
                     <div class="profile-avatar">
                         <div class="profile-avatar-img" id="profileAvatarDisplay">VA</div>
@@ -1191,7 +1191,7 @@
             </div>
 
             <!-- Security Section -->
-            <div class="settings-card">
+            <div class="settings-card" id="security-section">
                 <div class="settings-card-header">
                     <div>
                         <h2 class="settings-card-title">Güvenlik</h2>
@@ -1212,41 +1212,10 @@
                     <button class="btn btn-outline">Şifre Değiştir</button>
                 </div>
 
-                <div class="security-item">
-                    <div class="security-info">
-                        <div class="security-icon active">
-                            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                        </div>
-                        <div class="security-details">
-                            <h4>İki Faktörlü Doğrulama</h4>
-                            <p>SMS ile doğrulama aktif</p>
-                        </div>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 16px;">
-                        <span class="security-status enabled">
-                            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                            Aktif
-                        </span>
-                        <button class="btn btn-outline">Yönet</button>
-                    </div>
-                </div>
-
-                <div class="security-item">
-                    <div class="security-info">
-                        <div class="security-icon">
-                            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                        </div>
-                        <div class="security-details">
-                            <h4>Aktif Oturumlar</h4>
-                            <p>3 cihazda oturum açık</p>
-                        </div>
-                    </div>
-                    <button class="btn btn-outline">Oturumları Görüntüle</button>
-                </div>
             </div>
 
             <!-- Notifications Section -->
-            <div class="settings-card">
+            <div class="settings-card" id="notifications-section">
                 <div class="settings-card-header">
                     <div>
                         <h2 class="settings-card-title">Bildirim Tercihleri</h2>
@@ -1311,7 +1280,7 @@
             </div>
 
             <!-- Billing Section -->
-            <div class="settings-card">
+            <div class="settings-card" id="billing-section">
                 <div class="settings-card-header">
                     <div>
                         <h2 class="settings-card-title">Faturalandırma</h2>
@@ -1361,6 +1330,17 @@
     <script src="js/api.js"></script>
     <script src="js/users.js"></script>
     <script>
+        // Settings tab scroll
+        function scrollToSettingsSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Aktif tab güncelle
+                document.querySelectorAll('.settings-tab').forEach(tab => tab.classList.remove('active'));
+                event.target.closest('.settings-tab').classList.add('active');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             // Giriş kontrolü
             if (!localStorage.getItem('equimarket_token')) {
