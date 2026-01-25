@@ -26,14 +26,14 @@ exports.register = async (req, res) => {
             });
         }
 
-        // Kullanıcı oluştur
+        // Kullanıcı oluştur - Tüm kullanıcılar hem alıcı hem satıcı olabilir
         const user = await User.create({
             name,
             email,
             password,
             phone,
-            role: role || 'buyer',
-            sellerInfo: role === 'seller' ? { memberSince: new Date() } : undefined
+            role: 'buyer', // Rol artık önemli değil, herkes her şeyi yapabilir
+            sellerInfo: { memberSince: new Date() } // Tüm kullanıcılar için sellerInfo başlat
         });
 
         // Token oluştur ve gönder

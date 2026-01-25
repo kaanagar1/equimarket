@@ -61,14 +61,9 @@ exports.authorize = (...roles) => {
     };
 };
 
-// Satıcı kontrolü
+// Satıcı kontrolü - Artık tüm giriş yapmış kullanıcılar satıcı olabilir
 exports.isSeller = (req, res, next) => {
-    if (req.user.role !== 'seller' && req.user.role !== 'admin') {
-        return res.status(403).json({
-            success: false,
-            message: 'Bu işlem için satıcı hesabına sahip olmanız gerekiyor'
-        });
-    }
+    // Tüm giriş yapmış kullanıcılar hem alıcı hem satıcı olabilir
     next();
 };
 

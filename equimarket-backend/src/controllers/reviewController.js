@@ -99,12 +99,12 @@ exports.createReview = async (req, res) => {
             });
         }
 
-        // Satıcı var mı
+        // Kullanıcı var mı - Herkes satıcı olabilir, rol kontrolü yok
         const seller = await User.findById(sellerId);
-        if (!seller || seller.role === 'buyer') {
+        if (!seller) {
             return res.status(404).json({
                 success: false,
-                message: 'Satıcı bulunamadı'
+                message: 'Kullanıcı bulunamadı'
             });
         }
 
