@@ -41,8 +41,8 @@ exports.updateProfile = async (req, res) => {
             }
         });
 
-        // Satıcı bilgileri (sadece satıcılar için)
-        if ((req.user.role === 'seller' || req.user.role === 'admin') && req.body.sellerInfo) {
+        // Satıcı bilgileri - Tüm kullanıcılar güncelleyebilir (herkes satıcı olabilir)
+        if (req.body.sellerInfo) {
             const sellerFields = ['companyName', 'tjkLicenseNo', 'specialties'];
             sellerFields.forEach(field => {
                 if (req.body.sellerInfo[field] !== undefined) {
@@ -72,21 +72,21 @@ exports.updateProfile = async (req, res) => {
     }
 };
 
-// @desc    Satıcı profilini getir (public)
+// @desc    Kullanıcı profilini getir (public) - Tüm kullanıcılar satıcı olabilir
 // @route   GET /api/users/seller/:id
 // @access  Public
 exports.getSellerProfile = async (req, res) => {
     try {
+        // Rol kontrolü kaldırıldı - her kullanıcı hem alıcı hem satıcı olabilir
         const seller = await User.findOne({
             _id: req.params.id,
-            role: { $in: ['seller', 'admin'] },
             isActive: true
         }).select('name avatar coverPhoto bio location website socialLinks sellerInfo createdAt');
 
         if (!seller) {
             return res.status(404).json({
                 success: false,
-                message: 'Satıcı bulunamadı'
+                message: 'Kullanıcı bulunamadı'
             });
         }
 

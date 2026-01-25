@@ -1781,16 +1781,14 @@
     <script src="js/api.js"></script>
     <script src="js/horses.js"></script>
     <script>
-        // Giriş kontrolü - giriş yapmamış kullanıcı bu sayfaya erişemez
-        if (!localStorage.getItem('equimarket_token')) {
-            window.location.href = 'login_register.html';
-        }
+        // Global horseId değişkeni
+        let horseId = null;
 
         // URL'den ilan ID'sini al (query string veya hash'ten)
         function getHorseId() {
             const urlParams = new URLSearchParams(window.location.search);
             let id = urlParams.get('id');
-            
+
             if (!id && window.location.hash) {
                 const hash = window.location.hash.substring(1);
                 if (hash.startsWith('id=')) {
@@ -1799,28 +1797,22 @@
                     id = hash;
                 }
             }
-            
+
             return id;
         }
-        
-        const horseId = getHorseId();
 
-        // Sayfa yüklenirken içeriği gizle
+        // Sayfa yüklenirken
         document.addEventListener('DOMContentLoaded', async function() {
-            // Giriş kontrolü (çift kontrol)
-            if (!localStorage.getItem('equimarket_token')) {
-                window.location.href = 'login_register.html';
-                return;
-            }
+            horseId = getHorseId();
 
-            // Auth header güncelle
-            updateHeaderAuth();
-
-            // ID yoksa ana sayfaya yönlendir
+            // ÖNCE ID kontrolü - ID yoksa hata göster (yönlendirme yapma)
             if (!horseId) {
-                window.location.href = 'ilanlar.html';
+                showError('Geçersiz ilan bağlantısı');
                 return;
             }
+
+            // Auth header güncelle (giriş yapmış kullanıcılar için)
+            updateHeaderAuth();
 
             // Sayfayı loading moduna al
             showLoading();
