@@ -6,6 +6,7 @@
     <title>Admin Panel - EquiMarket</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/toast.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root{--racing-green:#1a3d2e;--gold:#c9a55c;--charcoal:#2a2a2a;--warm-gray:#6b6b6b;--light-gray:#f5f4f0;--white:#fff;--success:#4a7c59;--warning:#f59e0b;--error:#dc2626;--shadow-soft:0 4px 20px rgba(26,61,46,.08)}
         *{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;background:var(--charcoal);color:var(--white)}h1,h2,h3{font-family:'Playfair Display',serif}
@@ -60,6 +61,26 @@
                 <div class="stat-card"><div class="stat-icon pending"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="stat-value" id="pendingListings">0</div><div class="stat-label">Bekleyen İlan</div></div>
                 <div class="stat-card"><div class="stat-icon messages"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div class="stat-value" id="totalMessages">0</div><div class="stat-label">Toplam Mesaj</div></div>
             </div>
+            <div class="charts-row" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px">
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Aylık Kayıtlar</span></div>
+                    <div style="padding:20px;height:280px"><canvas id="monthlyChart"></canvas></div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Irklara Göre İlanlar</span></div>
+                    <div style="padding:20px;height:280px"><canvas id="breedChart"></canvas></div>
+                </div>
+            </div>
+            <div class="charts-row" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px">
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Fiyat Dağılımı</span></div>
+                    <div style="padding:20px;height:280px"><canvas id="priceChart"></canvas></div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Şehirlere Göre İlanlar (Top 10)</span></div>
+                    <div style="padding:20px;height:280px"><canvas id="cityChart"></canvas></div>
+                </div>
+            </div>
             <div class="card">
                 <div class="card-header"><span class="card-title">Onay Bekleyen İlanlar</span><a href="admin_listings.html?status=pending" class="card-link">Tümünü Gör →</a></div>
                 <table class="table"><thead><tr><th>İlan</th><th>Satıcı</th><th>Fiyat</th><th>Tarih</th><th>İşlem</th></tr></thead><tbody id="pendingTable"><tr><td colspan="5" style="text-align:center;padding:40px;color:var(--warm-gray)">Yükleniyor...</td></tr></tbody></table>
@@ -69,9 +90,10 @@
     <script src="js/api.js"></script>
     <script src="js/toast.js"></script>
     <script>
+        let charts = {};
         document.addEventListener('DOMContentLoaded',()=>{
             const u=api.getUser();if(!u||u.role!=='admin'){toast.error('Erişim yetkiniz yok');setTimeout(()=>window.location.href='homepage_v2.html',1500);return;}
-            loadStats();loadPending();
+            loadStats();loadPending();loadCharts();
         });
         async function loadStats(){
             try{
@@ -98,6 +120,33 @@
         async function approve(id){const ok=await toast.confirm('Bu ilanı onaylamak istediğinize emin misiniz?',{title:'İlan Onayı',confirmText:'Onayla',cancelText:'İptal'});if(!ok)return;try{await api.put('/admin/listings/'+id,{status:'active'});toast.success('İlan onaylandı');loadStats();loadPending();}catch(e){toast.error('İşlem başarısız');}}
         async function reject(id){const r=await toast.prompt('Lütfen red sebebini belirtin:',{title:'İlan Reddi',placeholder:'Red sebebi...',confirmText:'Reddet',cancelText:'İptal',required:true});if(!r)return;try{await api.put('/admin/listings/'+id,{status:'rejected',rejectionReason:r});toast.success('İlan reddedildi');loadStats();loadPending();}catch(e){toast.error('İşlem başarısız');}}
         function logout(){localStorage.removeItem('equimarket_token');localStorage.removeItem('equimarket_user');window.location.href='homepage_v2.html';}
+
+        async function loadCharts(){
+            try{
+                const r=await api.get('/admin/charts');
+                if(r.success){
+                    const colors={primary:'rgba(26,61,46,0.8)',gold:'rgba(201,165,92,0.8)',gray:'rgba(107,107,107,0.5)'};
+                    const chartColors=['#1a3d2e','#c9a55c','#4a7c59','#2d5a47','#3b82f6','#f59e0b','#dc2626','#8b5cf6','#06b6d4','#84cc16'];
+
+                    // Monthly chart
+                    const monthlyCtx=document.getElementById('monthlyChart').getContext('2d');
+                    charts.monthly=new Chart(monthlyCtx,{type:'line',data:{labels:r.data.monthlyData.map(d=>d.month),datasets:[{label:'Kullanıcılar',data:r.data.monthlyData.map(d=>d.users),borderColor:colors.primary,backgroundColor:'rgba(26,61,46,0.1)',fill:true,tension:0.4},{label:'İlanlar',data:r.data.monthlyData.map(d=>d.listings),borderColor:colors.gold,backgroundColor:'rgba(201,165,92,0.1)',fill:true,tension:0.4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'}},scales:{y:{beginAtZero:true}}}});
+
+                    // Breed chart
+                    const breedNames={ingiliz:'İngiliz',arap:'Arap',turk:'Türk',diger:'Diğer'};
+                    const breedCtx=document.getElementById('breedChart').getContext('2d');
+                    charts.breed=new Chart(breedCtx,{type:'doughnut',data:{labels:r.data.listingsByBreed.map(b=>breedNames[b._id]||b._id),datasets:[{data:r.data.listingsByBreed.map(b=>b.count),backgroundColor:chartColors.slice(0,r.data.listingsByBreed.length)}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right'}}}});
+
+                    // Price chart
+                    const priceCtx=document.getElementById('priceChart').getContext('2d');
+                    charts.price=new Chart(priceCtx,{type:'bar',data:{labels:r.data.priceDistribution.map(p=>p.label),datasets:[{label:'İlan Sayısı',data:r.data.priceDistribution.map(p=>p.count),backgroundColor:colors.primary,borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
+
+                    // City chart
+                    const cityCtx=document.getElementById('cityChart').getContext('2d');
+                    charts.city=new Chart(cityCtx,{type:'bar',data:{labels:r.data.listingsByCity.map(c=>c._id||'Belirtilmemiş'),datasets:[{label:'İlan Sayısı',data:r.data.listingsByCity.map(c=>c.count),backgroundColor:chartColors.slice(0,r.data.listingsByCity.length),borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true}}}});
+                }
+            }catch(e){console.error('Chart load error:',e);}
+        }
     </script>
 </body>
 </html>

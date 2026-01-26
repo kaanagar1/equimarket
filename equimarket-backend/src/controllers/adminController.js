@@ -209,3 +209,84 @@ exports.bulkApproveListing = async (req, res) => {
         res.status(500).json({ success: false, message: 'Sunucu hatası' });
     }
 };
+
+// Get chart data
+exports.getChartData = async (req, res) => {
+    try {
+        // Listings by breed
+        const listingsByBreed = await Horse.aggregate([
+            { $match: { status: 'active' } },
+            { $group: { _id: '$breed', count: { $sum: 1 } } },
+            { $sort: { count: -1 } }
+        ]);
+
+        // Listings by city (top 10)
+        const listingsByCity = await Horse.aggregate([
+            { $match: { status: 'active' } },
+            { $group: { _id: '$location.city', count: { $sum: 1 } } },
+            { $sort: { count: -1 } },
+            { $limit: 10 }
+        ]);
+
+        // Price distribution
+        const priceRanges = [
+            { min: 0, max: 50000, label: '0-50K' },
+            { min: 50000, max: 100000, label: '50K-100K' },
+            { min: 100000, max: 250000, label: '100K-250K' },
+            { min: 250000, max: 500000, label: '250K-500K' },
+            { min: 500000, max: 1000000, label: '500K-1M' },
+            { min: 1000000, max: Infinity, label: '1M+' }
+        ];
+
+        const priceDistribution = await Promise.all(
+            priceRanges.map(async range => ({
+                label: range.label,
+                count: await Horse.countDocuments({
+                    status: 'active',
+                    price: { $gte: range.min, $lt: range.max === Infinity ? 999999999 : range.max }
+                })
+            }))
+        );
+
+        // Monthly registrations (last 6 months)
+        const monthlyData = [];
+        for (let i = 5; i >= 0; i--) {
+            const date = new Date();
+            date.setMonth(date.getMonth() - i);
+            const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+            const endOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59);
+
+            const users = await User.countDocuments({
+                createdAt: { $gte: startOfMonth, $lte: endOfMonth }
+            });
+            const listings = await Horse.countDocuments({
+                createdAt: { $gte: startOfMonth, $lte: endOfMonth }
+            });
+
+            monthlyData.push({
+                month: startOfMonth.toLocaleDateString('tr-TR', { month: 'short', year: 'numeric' }),
+                users,
+                listings
+            });
+        }
+
+        // Listing status breakdown
+        const statusBreakdown = await Horse.aggregate([
+            { $group: { _id: '$status', count: { $sum: 1 } } }
+        ]);
+
+        res.json({
+            success: true,
+            data: {
+                listingsByBreed,
+                listingsByCity,
+                priceDistribution,
+                monthlyData,
+                statusBreakdown
+            }
+        });
+    } catch (error) {
+        console.error('GetChartData Error:', error);
+        res.status(500).json({ success: false, message: 'Sunucu hatası' });
+    }
+};

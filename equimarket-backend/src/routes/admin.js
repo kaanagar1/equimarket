@@ -3,7 +3,8 @@ const router = express.Router();
 const { protect, isAdmin } = require('../middlewares/auth');
 const {
     getDashboardStats, getUsers, getUser, updateUser, deleteUser,
-    getListings, updateListing, deleteListing, approveListing, rejectListing, bulkApproveListing
+    getListings, updateListing, deleteListing, approveListing, rejectListing, bulkApproveListing,
+    getChartData
 } = require('../controllers/adminController');
 const {
     adminGetBlogs, adminGetBlog, adminCreateBlog, adminUpdateBlog, adminDeleteBlog
@@ -17,6 +18,7 @@ router.use(isAdmin);
 
 // Dashboard
 router.get('/stats', getDashboardStats);
+router.get('/charts', getChartData);
 
 // Users
 router.get('/users', getUsers);
