@@ -1871,9 +1871,11 @@
         // İlan detayını yükle
         async function loadHorseDetail() {
             try {
+                console.log('Loading horse detail for ID:', horseId);
                 const result = await api.get('/horses/' + horseId);
+                console.log('API Result:', result);
 
-                if (result.success && result.data) {
+                if (result && result.success && result.data) {
                     const horse = result.data;
                     updatePageWithHorseData(horse);
                     hideLoading();
@@ -1882,7 +1884,7 @@
                 }
             } catch (error) {
                 console.error('LoadHorseDetail Error:', error);
-                showError('İlan yüklenirken bir hata oluştu');
+                showError('İlan yüklenirken bir hata oluştu: ' + error.message);
             }
         }
 
