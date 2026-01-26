@@ -1609,6 +1609,15 @@
                     </div>
                 </div>
 
+                <!-- Location Map -->
+                <div class="location-card" id="locationCard" style="background:#fff;border-radius:16px;box-shadow:0 4px 20px rgba(26,61,46,.08);overflow:hidden;margin-bottom:20px">
+                    <div style="padding:16px 20px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:8px">
+                        <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#1a3d2e;stroke-width:2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span style="font-weight:600;color:#2a2a2a">Konum</span>
+                    </div>
+                    <div id="horseLocationMap" style="height:200px;background:#f5f4f0"></div>
+                </div>
+
                 <!-- Safety Card -->
                 <div class="safety-card">
                     <h4 class="safety-title">
@@ -1960,6 +1969,19 @@
             const locationValue = document.querySelector('.info-item:nth-child(4) .info-value');
             if (locationValue) locationValue.textContent = horse.location?.city || 'Türkiye';
 
+            // Harita oluştur
+            if (horse.location?.city && window.EquiMarketMap) {
+                const mapResult = window.EquiMarketMap.createLocationMap('horseLocationMap', horse.location.city, {
+                    zoom: 10,
+                    popup: `<strong>${horse.name}</strong><br>${horse.location.city}${horse.location.district ? ', ' + horse.location.district : ''}`
+                });
+                if (!mapResult) {
+                    document.getElementById('locationCard').style.display = 'none';
+                }
+            } else {
+                document.getElementById('locationCard').style.display = 'none';
+            }
+
             // Fiyat
             const priceFormatted = new Intl.NumberFormat('tr-TR').format(horse.price);
             const priceElement = document.querySelector('.price-amount');
@@ -2290,5 +2312,9 @@
     <script src="js/pwa.js"></script>
     <!-- Cookie Consent -->
     <script src="js/cookie-consent.js"></script>
+    <!-- Leaflet Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/map.js"></script>
 </body>
 </html>
