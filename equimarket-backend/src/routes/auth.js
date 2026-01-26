@@ -2,13 +2,16 @@ const express = require('express');
 const router = express.Router();
 const { body } = require('express-validator');
 const { protect } = require('../middlewares/auth');
+const { authLimiter, passwordResetLimiter } = require('../middlewares/rateLimit');
 
 const {
     register,
     login,
     getMe,
     logout,
-    updatePassword
+    updatePassword,
+    forgotPassword,
+    resetPassword
 } = require('../controllers/authController');
 
 // Validation kuralları
@@ -43,11 +46,15 @@ const loginValidation = [
         .notEmpty().withMessage('Şifre gereklidir')
 ];
 
-// Routes
-router.post('/register', registerValidation, register);
-router.post('/login', loginValidation, login);
+// Routes (rate limiting ile)
+router.post('/register', authLimiter, registerValidation, register);
+router.post('/login', authLimiter, loginValidation, login);
 router.get('/me', protect, getMe);
 router.post('/logout', protect, logout);
 router.put('/password', protect, updatePassword);
+
+// Şifre sıfırlama (Public - rate limiting ile)
+router.post('/forgot-password', passwordResetLimiter, forgotPassword);
+router.put('/reset-password/:token', passwordResetLimiter, resetPassword);
 
 module.exports = router;

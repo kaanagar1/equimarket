@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Horse = require('../models/Horse');
 const { Conversation, Message } = require('../models/Message');
+const { notifyListingApproved, notifyListingRejected } = require('../utils/notificationHelper');
 
 // Dashboard stats
 exports.getDashboardStats = async (req, res) => {
@@ -117,12 +118,94 @@ exports.deleteListing = async (req, res) => {
     } catch (error) { res.status(500).json({ success: false, message: 'Sunucu hatası' }); }
 };
 
+// Approve listing
+exports.approveListing = async (req, res) => {
+    try {
+        const listing = await Horse.findById(req.params.id).populate('seller', 'name email');
+        if (!listing) return res.status(404).json({ success: false, message: 'İlan bulunamadı' });
+
+        if (listing.status !== 'pending') {
+            return res.status(400).json({ success: false, message: 'Bu ilan onay bekliyor durumunda değil' });
+        }
+
+        listing.status = 'active';
+        listing.approvedAt = new Date();
+        listing.approvedBy = req.user._id;
+        await listing.save({ validateBeforeSave: false });
+
+        // Satıcıya bildirim gönder
+        await notifyListingApproved(
+            listing.seller._id.toString(),
+            listing.name,
+            listing._id.toString()
+        );
+
+        res.json({ success: true, message: 'İlan onaylandı', data: listing });
+    } catch (error) {
+        console.error('ApproveListing Error:', error);
+        res.status(500).json({ success: false, message: 'Sunucu hatası' });
+    }
+};
+
+// Reject listing
+exports.rejectListing = async (req, res) => {
+    try {
+        const { reason } = req.body;
+        if (!reason) return res.status(400).json({ success: false, message: 'Red nedeni gereklidir' });
+
+        const listing = await Horse.findById(req.params.id).populate('seller', 'name email');
+        if (!listing) return res.status(404).json({ success: false, message: 'İlan bulunamadı' });
+
+        if (listing.status !== 'pending') {
+            return res.status(400).json({ success: false, message: 'Bu ilan onay bekliyor durumunda değil' });
+        }
+
+        listing.status = 'rejected';
+        listing.rejectionReason = reason;
+        listing.rejectedAt = new Date();
+        listing.rejectedBy = req.user._id;
+        await listing.save({ validateBeforeSave: false });
+
+        // Satıcıya bildirim gönder
+        await notifyListingRejected(
+            listing.seller._id.toString(),
+            listing.name,
+            reason
+        );
+
+        res.json({ success: true, message: 'İlan reddedildi', data: listing });
+    } catch (error) {
+        console.error('RejectListing Error:', error);
+        res.status(500).json({ success: false, message: 'Sunucu hatası' });
+    }
+};
+
 // Bulk approve
 exports.bulkApproveListing = async (req, res) => {
     try {
         const { listingIds } = req.body;
         if (!listingIds || !listingIds.length) return res.status(400).json({ success: false, message: 'İlan ID gerekli' });
-        const result = await Horse.updateMany({ _id: { $in: listingIds }, status: 'pending' }, { status: 'active' });
-        res.json({ success: true, message: `${result.modifiedCount} ilan onaylandı` });
-    } catch (error) { res.status(500).json({ success: false, message: 'Sunucu hatası' }); }
+
+        // İlanları bul ve onayla
+        const listings = await Horse.find({ _id: { $in: listingIds }, status: 'pending' });
+
+        for (const listing of listings) {
+            listing.status = 'active';
+            listing.approvedAt = new Date();
+            listing.approvedBy = req.user._id;
+            await listing.save({ validateBeforeSave: false });
+
+            // Her ilan için bildirim gönder
+            await notifyListingApproved(
+                listing.seller.toString(),
+                listing.name,
+                listing._id.toString()
+            );
+        }
+
+        res.json({ success: true, message: `${listings.length} ilan onaylandı` });
+    } catch (error) {
+        console.error('BulkApproveListing Error:', error);
+        res.status(500).json({ success: false, message: 'Sunucu hatası' });
+    }
 };

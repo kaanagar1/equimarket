@@ -1,6 +1,7 @@
 const Review = require('../models/Review');
 const User = require('../models/User');
 const Horse = require('../models/Horse');
+const { notifyNewReview } = require('../utils/notificationHelper');
 
 // @desc    Satıcının değerlendirmelerini getir
 // @route   GET /api/reviews/seller/:sellerId
@@ -143,6 +144,10 @@ exports.createReview = async (req, res) => {
         });
 
         await review.populate('reviewer', 'name avatar');
+
+        // Satıcıya bildirim gönder
+        const reviewer = await User.findById(reviewerId);
+        await notifyNewReview(sellerId, reviewer.name, rating);
 
         res.status(201).json({
             success: true,

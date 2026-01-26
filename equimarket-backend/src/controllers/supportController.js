@@ -1,9 +1,6 @@
-// Support Controller - Contact Form & Reports
-
-// In-memory storage (production'da MongoDB'ye taşınmalı)
-// Şimdilik basit bir çözüm - e-posta servisi olmadan çalışır
-let contactMessages = [];
-let reports = [];
+// Support Controller - Contact Form & Reports (MongoDB version)
+const ContactMessage = require('../models/ContactMessage');
+const Report = require('../models/Report');
 
 // @desc    Contact form mesajı gönder
 // @route   POST /api/support/contact
@@ -12,46 +9,17 @@ exports.sendContactMessage = async (req, res) => {
     try {
         const { name, email, phone, subject, message } = req.body;
 
-        // Validasyon
-        if (!name || !email || !subject || !message) {
-            return res.status(400).json({
-                success: false,
-                message: 'Ad, e-posta, konu ve mesaj alanları zorunludur'
-            });
-        }
-
-        // E-posta formatı kontrolü
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            return res.status(400).json({
-                success: false,
-                message: 'Geçerli bir e-posta adresi girin'
-            });
-        }
-
         // Mesajı kaydet
-        const contactMessage = {
-            _id: Date.now().toString(),
+        const contactMessage = await ContactMessage.create({
             name,
             email,
             phone: phone || null,
             subject,
             message,
-            status: 'new', // new, read, replied, closed
-            createdAt: new Date(),
-            ipAddress: req.ip
-        };
-
-        contactMessages.push(contactMessage);
+            ipAddress: req.ip || req.connection?.remoteAddress
+        });
 
         // TODO: E-posta servisi eklendiğinde admin'e bildirim gönder
-        // await sendEmail({
-        //     to: 'destek@equimarket.com',
-        //     subject: `Yeni İletişim Formu: ${subject}`,
-        //     text: `${name} (${email}) mesaj gönderdi:\n\n${message}`
-        // });
-
-        console.log('Yeni contact mesajı:', contactMessage);
 
         res.status(201).json({
             success: true,
@@ -61,6 +29,16 @@ exports.sendContactMessage = async (req, res) => {
 
     } catch (error) {
         console.error('Contact form error:', error);
+
+        // Mongoose validation error
+        if (error.name === 'ValidationError') {
+            const messages = Object.values(error.errors).map(e => e.message);
+            return res.status(400).json({
+                success: false,
+                message: messages.join(', ')
+            });
+        }
+
         res.status(500).json({
             success: false,
             message: 'Mesaj gönderilirken bir hata oluştu'
@@ -73,39 +51,24 @@ exports.sendContactMessage = async (req, res) => {
 // @access  Public (opsiyonel auth)
 exports.sendReport = async (req, res) => {
     try {
-        const { 
-            type,           // listing, user, message, other
-            targetId,       // İlan veya kullanıcı ID'si
-            reason,         // Şikayet nedeni
-            description,    // Detaylı açıklama
-            contactEmail    // İletişim için e-posta (giriş yapmamışsa)
+        const {
+            type,
+            targetId,
+            reason,
+            description,
+            contactEmail
         } = req.body;
 
-        // Validasyon
-        if (!type || !reason || !description) {
-            return res.status(400).json({
-                success: false,
-                message: 'Şikayet türü, nedeni ve açıklama zorunludur'
-            });
-        }
-
         // Report kaydı
-        const report = {
-            _id: Date.now().toString(),
+        const report = await Report.create({
             type,
             targetId: targetId || null,
             reason,
             description,
             reportedBy: req.user?._id || null,
             contactEmail: contactEmail || req.user?.email || null,
-            status: 'pending', // pending, investigating, resolved, dismissed
-            createdAt: new Date(),
-            ipAddress: req.ip
-        };
-
-        reports.push(report);
-
-        console.log('Yeni şikayet:', report);
+            ipAddress: req.ip || req.connection?.remoteAddress
+        });
 
         res.status(201).json({
             success: true,
@@ -115,6 +78,15 @@ exports.sendReport = async (req, res) => {
 
     } catch (error) {
         console.error('Report error:', error);
+
+        if (error.name === 'ValidationError') {
+            const messages = Object.values(error.errors).map(e => e.message);
+            return res.status(400).json({
+                success: false,
+                message: messages.join(', ')
+            });
+        }
+
         res.status(500).json({
             success: false,
             message: 'Şikayet gönderilirken bir hata oluştu'
@@ -130,31 +102,42 @@ exports.sendReport = async (req, res) => {
 exports.getContactMessages = async (req, res) => {
     try {
         const { status, page = 1, limit = 20 } = req.query;
-        
-        let filtered = [...contactMessages];
-        
-        if (status) {
-            filtered = filtered.filter(m => m.status === status);
-        }
-        
-        // Yeniden eskiye sırala
-        filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        
-        const total = filtered.length;
-        const skip = (parseInt(page) - 1) * parseInt(limit);
-        const paginated = filtered.slice(skip, skip + parseInt(limit));
+
+        const filter = {};
+        if (status) filter.status = status;
+
+        const total = await ContactMessage.countDocuments(filter);
+        const messages = await ContactMessage.find(filter)
+            .sort({ createdAt: -1 })
+            .skip((parseInt(page) - 1) * parseInt(limit))
+            .limit(parseInt(limit));
+
+        // Stats
+        const stats = await ContactMessage.aggregate([
+            {
+                $group: {
+                    _id: '$status',
+                    count: { $sum: 1 }
+                }
+            }
+        ]);
+
+        const statsObj = {
+            total: await ContactMessage.countDocuments(),
+            new: 0,
+            read: 0,
+            replied: 0,
+            closed: 0
+        };
+        stats.forEach(s => { statsObj[s._id] = s.count; });
 
         res.status(200).json({
             success: true,
-            data: paginated,
+            data: messages,
             total,
             currentPage: parseInt(page),
             totalPages: Math.ceil(total / parseInt(limit)),
-            stats: {
-                total: contactMessages.length,
-                new: contactMessages.filter(m => m.status === 'new').length,
-                read: contactMessages.filter(m => m.status === 'read').length
-            }
+            stats: statsObj
         });
     } catch (error) {
         console.error('Get contacts error:', error);
@@ -168,19 +151,28 @@ exports.getContactMessages = async (req, res) => {
 exports.updateContactMessage = async (req, res) => {
     try {
         const { id } = req.params;
-        const { status } = req.body;
+        const { status, adminReply } = req.body;
 
-        const index = contactMessages.findIndex(m => m._id === id);
-        if (index === -1) {
+        const updateData = { status };
+        if (adminReply) {
+            updateData.adminReply = adminReply;
+            updateData.repliedAt = new Date();
+            updateData.repliedBy = req.user._id;
+        }
+
+        const message = await ContactMessage.findByIdAndUpdate(
+            id,
+            updateData,
+            { new: true, runValidators: true }
+        );
+
+        if (!message) {
             return res.status(404).json({ success: false, message: 'Mesaj bulunamadı' });
         }
 
-        contactMessages[index].status = status;
-        contactMessages[index].updatedAt = new Date();
-
         res.status(200).json({
             success: true,
-            data: contactMessages[index],
+            data: message,
             message: 'Mesaj durumu güncellendi'
         });
     } catch (error) {
@@ -195,34 +187,45 @@ exports.updateContactMessage = async (req, res) => {
 exports.getReports = async (req, res) => {
     try {
         const { status, type, page = 1, limit = 20 } = req.query;
-        
-        let filtered = [...reports];
-        
-        if (status) {
-            filtered = filtered.filter(r => r.status === status);
-        }
-        if (type) {
-            filtered = filtered.filter(r => r.type === type);
-        }
-        
-        // Yeniden eskiye sırala
-        filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        
-        const total = filtered.length;
-        const skip = (parseInt(page) - 1) * parseInt(limit);
-        const paginated = filtered.slice(skip, skip + parseInt(limit));
+
+        const filter = {};
+        if (status) filter.status = status;
+        if (type) filter.type = type;
+
+        const total = await Report.countDocuments(filter);
+        const reports = await Report.find(filter)
+            .populate('reportedBy', 'name email')
+            .populate('resolvedBy', 'name')
+            .sort({ createdAt: -1 })
+            .skip((parseInt(page) - 1) * parseInt(limit))
+            .limit(parseInt(limit));
+
+        // Stats
+        const stats = await Report.aggregate([
+            {
+                $group: {
+                    _id: '$status',
+                    count: { $sum: 1 }
+                }
+            }
+        ]);
+
+        const statsObj = {
+            total: await Report.countDocuments(),
+            pending: 0,
+            investigating: 0,
+            resolved: 0,
+            dismissed: 0
+        };
+        stats.forEach(s => { statsObj[s._id] = s.count; });
 
         res.status(200).json({
             success: true,
-            data: paginated,
+            data: reports,
             total,
             currentPage: parseInt(page),
             totalPages: Math.ceil(total / parseInt(limit)),
-            stats: {
-                total: reports.length,
-                pending: reports.filter(r => r.status === 'pending').length,
-                investigating: reports.filter(r => r.status === 'investigating').length
-            }
+            stats: statsObj
         });
     } catch (error) {
         console.error('Get reports error:', error);
@@ -238,23 +241,73 @@ exports.updateReport = async (req, res) => {
         const { id } = req.params;
         const { status, adminNote } = req.body;
 
-        const index = reports.findIndex(r => r._id === id);
-        if (index === -1) {
+        const updateData = { status };
+        if (adminNote) updateData.adminNote = adminNote;
+
+        if (status === 'resolved' || status === 'dismissed') {
+            updateData.resolvedAt = new Date();
+            updateData.resolvedBy = req.user._id;
+        }
+
+        const report = await Report.findByIdAndUpdate(
+            id,
+            updateData,
+            { new: true, runValidators: true }
+        ).populate('reportedBy', 'name email');
+
+        if (!report) {
             return res.status(404).json({ success: false, message: 'Şikayet bulunamadı' });
         }
 
-        reports[index].status = status;
-        if (adminNote) reports[index].adminNote = adminNote;
-        reports[index].updatedAt = new Date();
-        reports[index].resolvedBy = req.user._id;
-
         res.status(200).json({
             success: true,
-            data: reports[index],
+            data: report,
             message: 'Şikayet durumu güncellendi'
         });
     } catch (error) {
         console.error('Update report error:', error);
         res.status(500).json({ success: false, message: 'Şikayet güncellenemedi' });
+    }
+};
+
+// @desc    Admin - Contact mesajını sil
+// @route   DELETE /api/admin/support/contacts/:id
+// @access  Admin
+exports.deleteContactMessage = async (req, res) => {
+    try {
+        const message = await ContactMessage.findByIdAndDelete(req.params.id);
+
+        if (!message) {
+            return res.status(404).json({ success: false, message: 'Mesaj bulunamadı' });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Mesaj silindi'
+        });
+    } catch (error) {
+        console.error('Delete contact error:', error);
+        res.status(500).json({ success: false, message: 'Mesaj silinemedi' });
+    }
+};
+
+// @desc    Admin - Şikayeti sil
+// @route   DELETE /api/admin/support/reports/:id
+// @access  Admin
+exports.deleteReport = async (req, res) => {
+    try {
+        const report = await Report.findByIdAndDelete(req.params.id);
+
+        if (!report) {
+            return res.status(404).json({ success: false, message: 'Şikayet bulunamadı' });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Şikayet silindi'
+        });
+    } catch (error) {
+        console.error('Delete report error:', error);
+        res.status(500).json({ success: false, message: 'Şikayet silinemedi' });
     }
 };

@@ -1,5 +1,7 @@
 const User = require('../models/User');
 const { validationResult } = require('express-validator');
+const crypto = require('crypto');
+const { sendTemplateEmail } = require('../utils/emailService');
 
 // @desc    Kullanıcı kaydı
 // @route   POST /api/auth/register
@@ -168,6 +170,133 @@ exports.updatePassword = async (req, res) => {
         res.status(500).json({
             success: false,
             message: 'Sunucu hatası'
+        });
+    }
+};
+
+// @desc    Şifre sıfırlama isteği
+// @route   POST /api/auth/forgot-password
+// @access  Public
+exports.forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        if (!email) {
+            return res.status(400).json({
+                success: false,
+                message: 'E-posta adresi gereklidir'
+            });
+        }
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            // Güvenlik: Kullanıcı var/yok bilgisi verme
+            return res.status(200).json({
+                success: true,
+                message: 'Eğer bu e-posta kayıtlıysa, şifre sıfırlama linki gönderildi'
+            });
+        }
+
+        // Reset token oluştur
+        const resetToken = crypto.randomBytes(32).toString('hex');
+
+        // Token'ı hash'le ve veritabanına kaydet
+        user.resetPasswordToken = crypto
+            .createHash('sha256')
+            .update(resetToken)
+            .digest('hex');
+
+        // 1 saat geçerlilik
+        user.resetPasswordExpire = Date.now() + 60 * 60 * 1000;
+
+        await user.save({ validateBeforeSave: false });
+
+        // Reset URL oluştur
+        const resetUrl = `${process.env.CLIENT_URL || 'http://localhost:3000'}/reset_password.html?token=${resetToken}`;
+
+        // Email gönder
+        await sendTemplateEmail(user.email, 'passwordReset', {
+            resetUrl,
+            userName: user.name
+        });
+
+        res.status(200).json({
+            success: true,
+            message: 'Şifre sıfırlama linki e-posta adresinize gönderildi'
+        });
+
+    } catch (error) {
+        console.error('ForgotPassword Error:', error);
+
+        // Hata durumunda token'ları temizle
+        if (error.user) {
+            error.user.resetPasswordToken = undefined;
+            error.user.resetPasswordExpire = undefined;
+            await error.user.save({ validateBeforeSave: false });
+        }
+
+        res.status(500).json({
+            success: false,
+            message: 'E-posta gönderilemedi'
+        });
+    }
+};
+
+// @desc    Şifre sıfırla
+// @route   PUT /api/auth/reset-password/:token
+// @access  Public
+exports.resetPassword = async (req, res) => {
+    try {
+        const { token } = req.params;
+        const { password } = req.body;
+
+        if (!password) {
+            return res.status(400).json({
+                success: false,
+                message: 'Yeni şifre gereklidir'
+            });
+        }
+
+        if (password.length < 6) {
+            return res.status(400).json({
+                success: false,
+                message: 'Şifre en az 6 karakter olmalıdır'
+            });
+        }
+
+        // Token'ı hash'le
+        const resetPasswordToken = crypto
+            .createHash('sha256')
+            .update(token)
+            .digest('hex');
+
+        // Token ile kullanıcıyı bul (süre dolmamış)
+        const user = await User.findOne({
+            resetPasswordToken,
+            resetPasswordExpire: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                message: 'Geçersiz veya süresi dolmuş token'
+            });
+        }
+
+        // Yeni şifreyi kaydet
+        user.password = password;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+        await user.save();
+
+        sendTokenResponse(user, 200, res, 'Şifreniz başarıyla güncellendi');
+
+    } catch (error) {
+        console.error('ResetPassword Error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Şifre güncellenemedi'
         });
     }
 };

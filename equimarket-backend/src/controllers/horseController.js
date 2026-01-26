@@ -1,6 +1,7 @@
 const Horse = require('../models/Horse');
 const User = require('../models/User');
 const { validationResult } = require('express-validator');
+const { notifyFavorited } = require('../utils/notificationHelper');
 
 // @desc    Tüm ilanları getir (filtreleme ile)
 // @route   GET /api/horses
@@ -146,9 +147,9 @@ exports.createHorse = async (req, res) => {
 
         // Satıcı bilgisini ekle
         req.body.seller = req.user.id;
-        
-        // İlanı aktif olarak oluştur (onay beklemeden)
-        req.body.status = 'active';
+
+        // İlanı pending olarak oluştur (admin onayı bekler)
+        req.body.status = 'pending';
 
         // Varsayılan son kullanma tarihi (30 gün)
         if (!req.body.expiresAt) {
@@ -324,6 +325,7 @@ exports.toggleFavorite = async (req, res) => {
         const favoriteIndex = user.favorites.indexOf(req.params.id);
 
         let message;
+        let isFavoriting = false;
         if (favoriteIndex > -1) {
             // Favorilerden çıkar
             user.favorites.splice(favoriteIndex, 1);
@@ -334,10 +336,21 @@ exports.toggleFavorite = async (req, res) => {
             user.favorites.push(req.params.id);
             horse.stats.favorites += 1;
             message = 'Favorilere eklendi';
+            isFavoriting = true;
         }
 
         await user.save({ validateBeforeSave: false });
         await horse.save({ validateBeforeSave: false });
+
+        // Favoriye eklendiğinde ilan sahibine bildirim gönder
+        if (isFavoriting && horse.seller.toString() !== req.user.id) {
+            await notifyFavorited(
+                horse.seller.toString(),
+                user.name,
+                horse.name,
+                horse._id.toString()
+            );
+        }
 
         res.status(200).json({
             success: true,
