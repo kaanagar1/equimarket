@@ -1,5 +1,6 @@
 const Horse = require('../models/Horse');
 const Notification = require('../models/Notification');
+const SavedSearch = require('../models/SavedSearch');
 
 // Check for expiring listings and send notifications
 const checkExpiringListings = async () => {
@@ -128,6 +129,98 @@ const expireOldListings = async () => {
     }
 };
 
+// Check saved searches for new matches
+const checkSavedSearches = async () => {
+    try {
+        const now = new Date();
+        const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+        const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+        // Get saved searches that need checking
+        const searches = await SavedSearch.find({
+            'notifications.enabled': true,
+            $or: [
+                // Daily notifications not sent today
+                {
+                    'notifications.frequency': 'daily',
+                    $or: [
+                        { 'notifications.lastNotifiedAt': { $lt: oneDayAgo } },
+                        { 'notifications.lastNotifiedAt': null }
+                    ]
+                },
+                // Weekly notifications not sent this week
+                {
+                    'notifications.frequency': 'weekly',
+                    $or: [
+                        { 'notifications.lastNotifiedAt': { $lt: oneWeekAgo } },
+                        { 'notifications.lastNotifiedAt': null }
+                    ]
+                }
+            ]
+        }).populate('user', 'name email');
+
+        for (const search of searches) {
+            // Build filter
+            let filter = { status: 'active' };
+
+            if (search.filters.breed) filter.breed = search.filters.breed;
+            if (search.filters.gender) filter.gender = search.filters.gender;
+            if (search.filters.color) filter.color = search.filters.color;
+            if (search.filters.city) filter['location.city'] = search.filters.city;
+
+            if (search.filters.minPrice || search.filters.maxPrice) {
+                filter.price = {};
+                if (search.filters.minPrice) filter.price.$gte = Number(search.filters.minPrice);
+                if (search.filters.maxPrice) filter.price.$lte = Number(search.filters.maxPrice);
+            }
+
+            if (search.filters.minAge || search.filters.maxAge) {
+                filter.age = {};
+                if (search.filters.minAge) filter.age.$gte = Number(search.filters.minAge);
+                if (search.filters.maxAge) filter.age.$lte = Number(search.filters.maxAge);
+            }
+
+            // Check for new listings since last check
+            if (search.lastCheckedAt) {
+                filter.createdAt = { $gt: search.lastCheckedAt };
+            }
+
+            const newMatches = await Horse.countDocuments(filter);
+
+            if (newMatches > 0) {
+                // Send notification
+                await Notification.create({
+                    user: search.user._id,
+                    type: 'system',
+                    title: 'Kayıtlı aramanızla eşleşen yeni ilanlar',
+                    message: `"${search.name}" aramanızla eşleşen ${newMatches} yeni ilan var!`,
+                    metadata: {
+                        savedSearchId: search._id,
+                        searchName: search.name,
+                        newMatches
+                    },
+                    actionUrl: `/ilanlar.html?savedSearch=${search._id}`
+                });
+
+                // Update search
+                search.notifications.lastNotifiedAt = now;
+            }
+
+            // Update match count
+            const totalFilter = { ...filter };
+            delete totalFilter.createdAt;
+            search.matchCount = await Horse.countDocuments(totalFilter);
+            search.lastCheckedAt = now;
+            await search.save();
+        }
+
+        console.log(`[Scheduled Job] Checked ${searches.length} saved searches`);
+
+    } catch (error) {
+        console.error('[Scheduled Job] Error checking saved searches:', error);
+    }
+};
+
 // Clean up old notifications (older than 30 days and read)
 const cleanupOldNotifications = async () => {
     try {
@@ -166,6 +259,9 @@ const initScheduledJobs = () => {
     // Clean up old notifications once a day
     setInterval(cleanupOldNotifications, 24 * 60 * 60 * 1000);
 
+    // Check saved searches every 6 hours
+    setInterval(checkSavedSearches, 6 * 60 * 60 * 1000);
+
     console.log('[Scheduled Jobs] Initialized successfully');
 };
 
@@ -173,5 +269,6 @@ module.exports = {
     initScheduledJobs,
     checkExpiringListings,
     expireOldListings,
-    cleanupOldNotifications
+    cleanupOldNotifications,
+    checkSavedSearches
 };
