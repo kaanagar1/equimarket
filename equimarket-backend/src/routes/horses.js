@@ -10,7 +10,9 @@ const {
     updateHorse,
     deleteHorse,
     getMyListings,
-    toggleFavorite
+    toggleFavorite,
+    renewListing,
+    markAsSold
 } = require('../controllers/horseController');
 
 // Validation kuralları
@@ -58,5 +60,7 @@ router.post('/:id/favorite', toggleFavorite);
 router.post('/', horseValidation, createHorse);
 router.put('/:id', updateHorse);
 router.delete('/:id', deleteHorse);
+router.put('/:id/renew', renewListing);
+router.put('/:id/mark-sold', markAsSold);
 
 module.exports = router;

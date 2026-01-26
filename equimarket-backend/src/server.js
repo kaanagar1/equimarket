@@ -1,15 +1,22 @@
 const express = require('express');
+const http = require('http');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
 
 const connectDB = require('./config/db');
+const { generalLimiter } = require('./middlewares/rateLimit');
+const { initScheduledJobs } = require('./jobs/scheduledJobs');
+const { initSocket } = require('./config/socket');
 
 // Express app
 const app = express();
 
 // Veritabanı bağlantısı
 connectDB();
+
+// Zamanlanmış görevleri başlat
+initScheduledJobs();
 
 // Middleware
 app.use(cors({
@@ -18,6 +25,9 @@ app.use(cors({
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
+
+// Genel rate limiting (tüm API'ler için)
+app.use('/api', generalLimiter);
 
 // Static files
 app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
@@ -33,6 +43,7 @@ app.use('/api/support', require('./routes/support'));
 app.use('/api/upload', require('./routes/upload'));
 app.use('/api/reviews', require('./routes/reviews'));
 app.use('/api/notifications', require('./routes/notifications'));
+app.use('/api/saved-searches', require('./routes/savedSearches'));
 
 // Ana sayfa
 app.get('/', (req, res) => {
@@ -123,9 +134,14 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Server başlat
+// HTTP Server ve Socket.io başlat
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+const server = http.createServer(app);
+
+// Socket.io'yu başlat
+initSocket(server);
+
+server.listen(PORT, () => {
     console.log(`
 ╔════════════════════════════════════════════╗
 ║                                            ║
@@ -134,9 +150,10 @@ app.listen(PORT, () => {
 ║   Port: ${PORT}                              ║
 ║   Mode: ${process.env.NODE_ENV || 'development'}                     ║
 ║   URL:  http://localhost:${PORT}              ║
+║   Socket.io: Enabled                       ║
 ║                                            ║
 ╚════════════════════════════════════════════╝
     `);
 });
 
-module.exports = app;
+module.exports = { app, server };

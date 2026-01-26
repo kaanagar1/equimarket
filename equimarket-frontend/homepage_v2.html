@@ -19,6 +19,13 @@
     <meta name="twitter:title" content="EquiMarket - Türkiye'nin Yarış Atı Pazaryeri">
     <meta name="twitter:description" content="Türkiye'nin en güvenilir at alım satım platformu. Safkan yarış atları, doğrulanmış satıcılar.">
     <link rel="canonical" href="https://equimarket.com.tr/">
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1a3d2e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="EquiMarket">
+    <link rel="apple-touch-icon" href="/images/icons/icon-192x192.png">
     <title>EquiMarket - Türkiye'nin Yarış Atı Pazaryeri</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -283,8 +290,8 @@
         /* Hero Section */
         .hero {
             min-height: auto;
-            padding-top: 120px;
-            padding-bottom: 80px;
+            padding-top: 80px;
+            padding-bottom: 50px;
             background: linear-gradient(165deg, var(--racing-green) 0%, #0f2a1f 50%, #1a3d2e 100%);
             position: relative;
             display: flex;
@@ -347,7 +354,7 @@
         .hero-content {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 40px 40px;
+            padding: 25px 40px;
             display: block;
             text-align: center;
             position: relative;
@@ -395,7 +402,7 @@
         .hero-description {
             font-size: 18px;
             color: rgba(255, 255, 255, 0.75);
-            margin-bottom: 32px;
+            margin-bottom: 22px;
             line-height: 1.7;
             max-width: 600px;
             margin-left: auto;
@@ -405,7 +412,7 @@
         .hero-cta {
             display: flex;
             gap: 16px;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
             justify-content: center;
         }
 
@@ -778,7 +785,7 @@
 
         /* Section Styles */
         .section {
-            padding: 100px 40px;
+            padding: 60px 40px;
         }
 
         .section-container {
@@ -790,7 +797,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-bottom: 50px;
+            margin-bottom: 35px;
         }
 
         .section-title-group {
@@ -1171,7 +1178,7 @@
         /* CTA Section */
         .cta-section {
             background: linear-gradient(135deg, var(--gold) 0%, #d4b06a 50%, var(--gold-light) 100%);
-            padding: 80px 40px;
+            padding: 50px 40px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -1982,5 +1989,10 @@
     
     <!-- Feedback Popup -->
     <script src="js/feedback-popup.js"></script>
+
+    <!-- PWA Support -->
+    <script src="js/pwa.js"></script>
+    <!-- Cookie Consent -->
+    <script src="js/cookie-consent.js"></script>
 </body>
 </html>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İlan Yönetimi - EquiMarket Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/toast.css">
     <style>
         :root{--racing-green:#1a3d2e;--gold:#c9a55c;--charcoal:#2a2a2a;--warm-gray:#6b6b6b;--light-gray:#f5f4f0;--white:#fff;--success:#4a7c59;--warning:#f59e0b;--error:#dc2626;--shadow-soft:0 4px 20px rgba(26,61,46,.08)}
         *{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;background:var(--charcoal);color:var(--white)}h1,h2,h3{font-family:'Playfair Display',serif}
@@ -64,10 +65,11 @@
         </main>
     </div>
     <script src="js/api.js"></script>
+    <script src="js/toast.js"></script>
     <script>
         let page=1,total=1,selected=[];
         document.addEventListener('DOMContentLoaded',()=>{
-            const u=api.getUser();if(!u||u.role!=='admin'){alert('Yetki yok');window.location.href='homepage_v2.html';return;}
+            const u=api.getUser();if(!u||u.role!=='admin'){toast.error('Yetki yok');setTimeout(()=>window.location.href='homepage_v2.html',1500);return;}
             const p=new URLSearchParams(window.location.search);if(p.get('status'))document.getElementById('statusFilter').value=p.get('status');
             loadListings();loadPendingCount();
             document.getElementById('search').addEventListener('input',debounce(()=>{page=1;loadListings();},300));
@@ -96,10 +98,10 @@
         function goPage(p){if(p<1||p>total)return;page=p;loadListings();}
         function toggleAll(){const c=document.getElementById('selectAll').checked;document.querySelectorAll('.item-check').forEach(x=>x.checked=c);updateSelected();}
         function updateSelected(){selected=Array.from(document.querySelectorAll('.item-check:checked')).map(x=>x.value);document.getElementById('bulkBtn').style.display=selected.length?'flex':'none';}
-        async function approve(id){if(!confirm('Onayla?'))return;try{await api.put('/admin/listings/'+id,{status:'active'});alert('Onaylandı');loadListings();loadPendingCount();}catch(e){alert('Hata');}}
-        async function reject(id){const r=prompt('Red sebebi:');if(!r)return;try{await api.put('/admin/listings/'+id,{status:'rejected',rejectionReason:r});alert('Reddedildi');loadListings();loadPendingCount();}catch(e){alert('Hata');}}
-        async function deleteListing(id,name){if(!confirm('"'+name+'" silinsin mi?'))return;try{await api.delete('/admin/listings/'+id);alert('Silindi');loadListings();}catch(e){alert('Hata');}}
-        async function bulkApprove(){if(!selected.length||!confirm(selected.length+' ilan onaylansın mı?'))return;try{await api.post('/admin/listings/bulk-approve',{listingIds:selected});alert('Onaylandı');selected=[];document.getElementById('selectAll').checked=false;loadListings();loadPendingCount();}catch(e){alert('Hata');}}
+        async function approve(id){const ok=await toast.confirm('Bu ilanı onaylamak istediğinize emin misiniz?',{title:'İlan Onayı',confirmText:'Onayla',cancelText:'İptal'});if(!ok)return;try{await api.put('/admin/listings/'+id,{status:'active'});toast.success('İlan başarıyla onaylandı');loadListings();loadPendingCount();}catch(e){toast.error('İşlem sırasında bir hata oluştu');}}
+        async function reject(id){const r=await toast.prompt('Lütfen red sebebini belirtin:',{title:'İlan Reddi',placeholder:'Red sebebi...',confirmText:'Reddet',cancelText:'İptal',required:true});if(!r)return;try{await api.put('/admin/listings/'+id,{status:'rejected',rejectionReason:r});toast.success('İlan reddedildi');loadListings();loadPendingCount();}catch(e){toast.error('İşlem sırasında bir hata oluştu');}}
+        async function deleteListing(id,name){const ok=await toast.confirm('"'+name+'" ilanı kalıcı olarak silinecek. Devam etmek istiyor musunuz?',{title:'İlanı Sil',confirmText:'Sil',cancelText:'İptal',type:'danger'});if(!ok)return;try{await api.delete('/admin/listings/'+id);toast.success('İlan silindi');loadListings();}catch(e){toast.error('Silme işlemi başarısız');}}
+        async function bulkApprove(){if(!selected.length)return;const ok=await toast.confirm(selected.length+' ilan onaylanacak. Devam etmek istiyor musunuz?',{title:'Toplu Onay',confirmText:'Onayla',cancelText:'İptal'});if(!ok)return;try{await api.post('/admin/listings/bulk-approve',{listingIds:selected});toast.success(selected.length+' ilan onaylandı');selected=[];document.getElementById('selectAll').checked=false;loadListings();loadPendingCount();}catch(e){toast.error('İşlem sırasında bir hata oluştu');}}
         function debounce(fn,ms){let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms);};}
     </script>
 </body>

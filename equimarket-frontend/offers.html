@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teklifler - EquiMarket</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/toast.css">
     <style>
         :root{--racing-green:#1a3d2e;--gold:#c9a55c;--charcoal:#2a2a2a;--warm-gray:#6b6b6b;--light-gray:#f5f4f0;--white:#fff;--success:#4a7c59;--warning:#f59e0b;--error:#dc2626;--info:#3b82f6;--shadow-soft:0 4px 20px rgba(26,61,46,.08)}
         *{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;background:var(--light-gray);color:var(--charcoal)}h1,h2,h3{font-family:'Playfair Display',serif}
@@ -63,6 +64,7 @@
     </div>
     <script src="js/api.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/toast.js"></script>
     <script>
         let allOffers=[],currentFilter='all',currentUserId=null;
         document.addEventListener('DOMContentLoaded',()=>{
@@ -110,8 +112,9 @@
             }).join('');
         }
         async function respond(id,r){
-            if(!confirm(r==='accept'?'Kabul edilsin mi?':'Reddedilsin mi?'))return;
-            try{const res=await api.put('/messages/'+id+'/offer-response',{response:r});if(res.success){alert(r==='accept'?'Kabul edildi':'Reddedildi');loadOffers();}}catch(e){alert('Hata');}
+            const ok=await toast.confirm(r==='accept'?'Bu teklifi kabul etmek istiyor musunuz?':'Bu teklifi reddetmek istiyor musunuz?',{title:r==='accept'?'Teklifi Kabul Et':'Teklifi Reddet',confirmText:r==='accept'?'Kabul':'Reddet',cancelText:'İptal',type:r==='accept'?'warning':'danger'});
+            if(!ok)return;
+            try{const res=await api.put('/messages/'+id+'/offer-response',{response:r});if(res.success){toast.success(r==='accept'?'Teklif kabul edildi':'Teklif reddedildi');loadOffers();}}catch(e){toast.error('İşlem başarısız');}
         }
         function showEmpty(msg){document.getElementById('offersList').innerHTML=`<div class="empty-state"><h3>${msg||'Henüz teklif yok'}</h3><p>Teklifler burada görünecek</p></div>`;}
     </script>

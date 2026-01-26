@@ -3,7 +3,8 @@ const router = express.Router();
 const { protect, isAdmin } = require('../middlewares/auth');
 const {
     getDashboardStats, getUsers, getUser, updateUser, deleteUser,
-    getListings, updateListing, deleteListing, bulkApproveListing
+    getListings, updateListing, deleteListing, approveListing, rejectListing, bulkApproveListing,
+    getChartData
 } = require('../controllers/adminController');
 const {
     adminGetBlogs, adminGetBlog, adminCreateBlog, adminUpdateBlog, adminDeleteBlog
@@ -17,6 +18,7 @@ router.use(isAdmin);
 
 // Dashboard
 router.get('/stats', getDashboardStats);
+router.get('/charts', getChartData);
 
 // Users
 router.get('/users', getUsers);
@@ -28,6 +30,8 @@ router.delete('/users/:id', deleteUser);
 router.get('/listings', getListings);
 router.put('/listings/:id', updateListing);
 router.delete('/listings/:id', deleteListing);
+router.put('/listings/:id/approve', approveListing);
+router.put('/listings/:id/reject', rejectListing);
 router.post('/listings/bulk-approve', bulkApproveListing);
 
 // Blogs

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Yönetimi - EquiMarket Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/toast.css">
     <style>
         :root{--racing-green:#1a3d2e;--gold:#c9a55c;--charcoal:#2a2a2a;--warm-gray:#6b6b6b;--light-gray:#f5f4f0;--white:#fff;--success:#4a7c59;--warning:#f59e0b;--error:#dc2626;--info:#3b82f6;--shadow-soft:0 4px 20px rgba(26,61,46,.08)}
         *{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;background:var(--charcoal);color:var(--white)}h1,h2,h3{font-family:'Playfair Display',serif}
@@ -188,12 +189,13 @@
     </div>
 
     <script src="js/api.js"></script>
+    <script src="js/toast.js"></script>
     <script>
         let page = 1, totalPages = 1, tags = [];
 
         document.addEventListener('DOMContentLoaded', () => {
             const u = api.getUser();
-            if (!u || u.role !== 'admin') { alert('Yetki yok'); window.location.href = 'homepage_v2.html'; return; }
+            if (!u || u.role !== 'admin') { toast.error('Yetki yok'); setTimeout(()=>window.location.href='homepage_v2.html',1500); return; }
             
             loadBlogs();
             
@@ -318,7 +320,7 @@
                     document.getElementById('modalTitle').textContent = 'Blog Düzenle';
                     document.getElementById('blogModal').classList.add('active');
                 }
-            } catch (e) { alert('Hata'); }
+            } catch (e) { toast.error('Blog yüklenirken bir hata oluştu'); }
         }
 
         function closeModal() {
@@ -365,22 +367,23 @@
                     r = await api.post('/admin/blogs', data);
                 }
                 if (r.success) {
-                    alert(id ? 'Güncellendi!' : 'Oluşturuldu!');
+                    toast.success(id ? 'Blog yazısı güncellendi' : 'Blog yazısı oluşturuldu');
                     closeModal();
                     loadBlogs();
                 } else {
-                    alert(r.message || 'Hata');
+                    toast.error(r.message || 'İşlem başarısız');
                 }
-            } catch (e) { alert('Hata'); }
+            } catch (e) { toast.error('Kaydetme sırasında bir hata oluştu'); }
         }
 
         async function deleteBlog(id, title) {
-            if (!confirm('"' + title + '" silinsin mi?')) return;
+            const ok = await toast.confirm('"' + title + '" yazısı kalıcı olarak silinecek. Devam etmek istiyor musunuz?', {title:'Blog Yazısını Sil',confirmText:'Sil',cancelText:'İptal',type:'danger'});
+            if (!ok) return;
             try {
                 await api.delete('/admin/blogs/' + id);
-                alert('Silindi');
+                toast.success('Blog yazısı silindi');
                 loadBlogs();
-            } catch (e) { alert('Hata'); }
+            } catch (e) { toast.error('Silme işlemi başarısız'); }
         }
 
         function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; }

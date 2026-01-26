@@ -1,6 +1,7 @@
 const { Conversation, Message } = require('../models/Message');
 const Horse = require('../models/Horse');
 const User = require('../models/User');
+const { notifyNewMessage, notifyNewOffer, notifyOfferResponse } = require('../utils/notificationHelper');
 
 // @desc    Konuşmaları listele
 // @route   GET /api/messages/conversations
@@ -184,6 +185,28 @@ exports.sendMessage = async (req, res) => {
         const populatedMessage = await Message.findById(message._id)
             .populate('sender', 'name avatar');
 
+        // Bildirim gönder
+        const sender = await User.findById(req.user.id);
+        if (type === 'offer' && offerAmount) {
+            // Teklif bildirimi
+            await notifyNewOffer(
+                recipientId,
+                sender.name,
+                horse.name,
+                offerAmount,
+                conversation._id.toString()
+            );
+        } else {
+            // Normal mesaj bildirimi
+            await notifyNewMessage(
+                recipientId,
+                req.user.id,
+                sender.name,
+                content,
+                conversation._id.toString()
+            );
+        }
+
         res.status(201).json({
             success: true,
             data: {
@@ -257,6 +280,17 @@ exports.respondToOffer = async (req, res) => {
             content: statusMessages[message.offer.status],
             type: 'system'
         });
+
+        // Teklif sahibine bildirim gönder
+        const conversation = await Conversation.findById(message.conversation).populate('horse', 'name');
+        const seller = await User.findById(req.user.id);
+        await notifyOfferResponse(
+            message.sender.toString(),
+            seller.name,
+            conversation.horse?.name || 'İlan',
+            message.offer.status,
+            message.conversation.toString()
+        );
 
         res.status(200).json({
             success: true,

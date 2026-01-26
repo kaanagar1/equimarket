@@ -8,7 +8,11 @@ const NotificationSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['new_message', 'new_offer', 'offer_accepted', 'offer_rejected', 'listing_approved', 'listing_rejected', 'new_review', 'system'],
+        enum: [
+            'new_message', 'new_offer', 'offer_accepted', 'offer_rejected',
+            'listing_approved', 'listing_rejected', 'listing_expiring', 'listing_expired',
+            'new_review', 'favorited', 'system'
+        ],
         required: true
     },
     title: {
@@ -26,6 +30,14 @@ const NotificationSchema = new mongoose.Schema({
     relatedId: {
         type: mongoose.Schema.Types.ObjectId,
         default: null
+    },
+    actionUrl: {
+        type: String,
+        default: null
+    },
+    metadata: {
+        type: mongoose.Schema.Types.Mixed,
+        default: {}
     },
     isRead: {
         type: Boolean,

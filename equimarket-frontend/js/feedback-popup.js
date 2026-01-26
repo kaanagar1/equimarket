@@ -204,12 +204,14 @@
         const submitBtn = document.getElementById('feedbackSubmit');
 
         if (!currentRating) {
-            alert('Lütfen bir puan verin.');
+            if (typeof toast !== 'undefined') toast.warning('Lütfen bir puan verin.');
+            else alert('Lütfen bir puan verin.');
             return;
         }
 
         if (!text) {
-            alert('Lütfen görüşlerinizi yazın.');
+            if (typeof toast !== 'undefined') toast.warning('Lütfen görüşlerinizi yazın.');
+            else alert('Lütfen görüşlerinizi yazın.');
             return;
         }
 
