@@ -3,6 +3,7 @@ const router = express.Router();
 const { body } = require('express-validator');
 const { protect } = require('../middlewares/auth');
 const { authLimiter, passwordResetLimiter } = require('../middlewares/rateLimit');
+const { botProtection } = require('../middlewares/botProtection');
 
 const {
     register,
@@ -46,9 +47,9 @@ const loginValidation = [
         .notEmpty().withMessage('Şifre gereklidir')
 ];
 
-// Routes (rate limiting ile)
-router.post('/register', authLimiter, registerValidation, register);
-router.post('/login', authLimiter, loginValidation, login);
+// Routes (rate limiting ve bot protection ile)
+router.post('/register', authLimiter, botProtection(), registerValidation, register);
+router.post('/login', authLimiter, botProtection(), loginValidation, login);
 router.get('/me', protect, getMe);
 router.post('/logout', protect, logout);
 router.put('/password', protect, updatePassword);
