@@ -366,3 +366,99 @@ exports.toggleFavorite = async (req, res) => {
         });
     }
 };
+
+// @desc    İlan süresini yenile
+// @route   PUT /api/horses/:id/renew
+// @access  Private (Owner)
+exports.renewListing = async (req, res) => {
+    try {
+        const horse = await Horse.findById(req.params.id);
+
+        if (!horse) {
+            return res.status(404).json({
+                success: false,
+                message: 'İlan bulunamadı'
+            });
+        }
+
+        // Sahiplik kontrolü
+        if (horse.seller.toString() !== req.user.id && req.user.role !== 'admin') {
+            return res.status(403).json({
+                success: false,
+                message: 'Bu işlem için yetkiniz yok'
+            });
+        }
+
+        // Sadece active veya expired ilanlar yenilenebilir
+        if (!['active', 'expired'].includes(horse.status)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Sadece aktif veya süresi dolmuş ilanlar yenilenebilir'
+            });
+        }
+
+        // 30 gün daha ekle
+        const newExpiryDate = new Date();
+        newExpiryDate.setDate(newExpiryDate.getDate() + 30);
+
+        horse.expiresAt = newExpiryDate;
+        horse.status = 'active';
+        await horse.save({ validateBeforeSave: false });
+
+        res.status(200).json({
+            success: true,
+            message: 'İlan süresi 30 gün uzatıldı',
+            data: {
+                expiresAt: horse.expiresAt,
+                status: horse.status
+            }
+        });
+
+    } catch (error) {
+        console.error('RenewListing Error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Sunucu hatası'
+        });
+    }
+};
+
+// @desc    İlanı satıldı olarak işaretle
+// @route   PUT /api/horses/:id/mark-sold
+// @access  Private (Owner)
+exports.markAsSold = async (req, res) => {
+    try {
+        const horse = await Horse.findById(req.params.id);
+
+        if (!horse) {
+            return res.status(404).json({
+                success: false,
+                message: 'İlan bulunamadı'
+            });
+        }
+
+        // Sahiplik kontrolü
+        if (horse.seller.toString() !== req.user.id && req.user.role !== 'admin') {
+            return res.status(403).json({
+                success: false,
+                message: 'Bu işlem için yetkiniz yok'
+            });
+        }
+
+        horse.status = 'sold';
+        await horse.save({ validateBeforeSave: false });
+
+        res.status(200).json({
+            success: true,
+            message: 'İlan satıldı olarak işaretlendi',
+            data: horse
+        });
+
+    } catch (error) {
+        console.error('MarkAsSold Error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Sunucu hatası'
+        });
+    }
+};

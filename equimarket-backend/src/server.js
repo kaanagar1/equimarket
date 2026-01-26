@@ -5,12 +5,16 @@ require('dotenv').config();
 
 const connectDB = require('./config/db');
 const { generalLimiter } = require('./middlewares/rateLimit');
+const { initScheduledJobs } = require('./jobs/scheduledJobs');
 
 // Express app
 const app = express();
 
 // Veritabanı bağlantısı
 connectDB();
+
+// Zamanlanmış görevleri başlat
+initScheduledJobs();
 
 // Middleware
 app.use(cors({
