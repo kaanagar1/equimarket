@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - EquiMarket</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/toast.css">
     <style>
         :root{--racing-green:#1a3d2e;--gold:#c9a55c;--charcoal:#2a2a2a;--warm-gray:#6b6b6b;--light-gray:#f5f4f0;--white:#fff;--success:#4a7c59;--warning:#f59e0b;--error:#dc2626;--shadow-soft:0 4px 20px rgba(26,61,46,.08)}
         *{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;background:var(--charcoal);color:var(--white)}h1,h2,h3{font-family:'Playfair Display',serif}
@@ -66,9 +67,10 @@
         </main>
     </div>
     <script src="js/api.js"></script>
+    <script src="js/toast.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded',()=>{
-            const u=api.getUser();if(!u||u.role!=='admin'){alert('Erişim yetkiniz yok');window.location.href='homepage_v2.html';return;}
+            const u=api.getUser();if(!u||u.role!=='admin'){toast.error('Erişim yetkiniz yok');setTimeout(()=>window.location.href='homepage_v2.html',1500);return;}
             loadStats();loadPending();
         });
         async function loadStats(){
@@ -93,8 +95,8 @@
                 }
             }catch(e){console.error(e);}
         }
-        async function approve(id){if(!confirm('Onayla?'))return;try{await api.put('/admin/listings/'+id,{status:'active'});alert('Onaylandı');loadStats();loadPending();}catch(e){alert('Hata');}}
-        async function reject(id){const r=prompt('Red sebebi:');if(!r)return;try{await api.put('/admin/listings/'+id,{status:'rejected',rejectionReason:r});alert('Reddedildi');loadStats();loadPending();}catch(e){alert('Hata');}}
+        async function approve(id){const ok=await toast.confirm('Bu ilanı onaylamak istediğinize emin misiniz?',{title:'İlan Onayı',confirmText:'Onayla',cancelText:'İptal'});if(!ok)return;try{await api.put('/admin/listings/'+id,{status:'active'});toast.success('İlan onaylandı');loadStats();loadPending();}catch(e){toast.error('İşlem başarısız');}}
+        async function reject(id){const r=await toast.prompt('Lütfen red sebebini belirtin:',{title:'İlan Reddi',placeholder:'Red sebebi...',confirmText:'Reddet',cancelText:'İptal',required:true});if(!r)return;try{await api.put('/admin/listings/'+id,{status:'rejected',rejectionReason:r});toast.success('İlan reddedildi');loadStats();loadPending();}catch(e){toast.error('İşlem başarısız');}}
         function logout(){localStorage.removeItem('equimarket_token');localStorage.removeItem('equimarket_user');window.location.href='homepage_v2.html';}
     </script>
 </body>

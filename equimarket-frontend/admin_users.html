@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kullanıcı Yönetimi - EquiMarket Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/toast.css">
     <style>
         :root{--racing-green:#1a3d2e;--gold:#c9a55c;--charcoal:#2a2a2a;--warm-gray:#6b6b6b;--light-gray:#f5f4f0;--white:#fff;--success:#4a7c59;--error:#dc2626;--info:#3b82f6;--shadow-soft:0 4px 20px rgba(26,61,46,.08)}
         *{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;background:var(--charcoal);color:var(--white)}h1,h2,h3{font-family:'Playfair Display',serif}
@@ -86,10 +87,11 @@
         </div>
     </div>
     <script src="js/api.js"></script>
+    <script src="js/toast.js"></script>
     <script>
         let page=1,total=1;
         document.addEventListener('DOMContentLoaded',()=>{
-            const u=api.getUser();if(!u||u.role!=='admin'){alert('Yetki yok');window.location.href='homepage_v2.html';return;}
+            const u=api.getUser();if(!u||u.role!=='admin'){toast.error('Yetki yok');setTimeout(()=>window.location.href='homepage_v2.html',1500);return;}
             loadUsers();
             document.getElementById('search').addEventListener('input',debounce(()=>{page=1;loadUsers();},300));
             document.getElementById('roleFilter').addEventListener('change',()=>{page=1;loadUsers();});
@@ -120,15 +122,15 @@
         }
         function goPage(p){if(p<1||p>total)return;page=p;loadUsers();}
         async function editUser(id){
-            try{const r=await api.get('/admin/users/'+id);if(r.success){const u=r.data.user;document.getElementById('editId').value=u._id;document.getElementById('editName').value=u.name;document.getElementById('editEmail').value=u.email;document.getElementById('editRole').value=u.role;document.getElementById('editActive').checked=u.isActive;document.getElementById('editVerified').checked=u.sellerInfo?.isVerifiedSeller||false;document.getElementById('editModal').classList.add('active');}}catch(e){alert('Hata');}
+            try{const r=await api.get('/admin/users/'+id);if(r.success){const u=r.data.user;document.getElementById('editId').value=u._id;document.getElementById('editName').value=u.name;document.getElementById('editEmail').value=u.email;document.getElementById('editRole').value=u.role;document.getElementById('editActive').checked=u.isActive;document.getElementById('editVerified').checked=u.sellerInfo?.isVerifiedSeller||false;document.getElementById('editModal').classList.add('active');}}catch(e){toast.error('Kullanıcı bilgileri yüklenemedi');}
         }
         async function saveUser(e){
             e.preventDefault();
             const id=document.getElementById('editId').value;
             const data={role:document.getElementById('editRole').value,isActive:document.getElementById('editActive').checked,sellerInfo:{isVerifiedSeller:document.getElementById('editVerified').checked}};
-            try{const r=await api.put('/admin/users/'+id,data);if(r.success){alert('Güncellendi');closeModal();loadUsers();}}catch(e){alert('Hata');}
+            try{const r=await api.put('/admin/users/'+id,data);if(r.success){toast.success('Kullanıcı güncellendi');closeModal();loadUsers();}}catch(e){toast.error('Güncelleme başarısız');}
         }
-        async function deleteUser(id,name){if(!confirm('"'+name+'" silinsin mi?'))return;try{await api.delete('/admin/users/'+id);alert('Silindi');loadUsers();}catch(e){alert('Hata');}}
+        async function deleteUser(id,name){const ok=await toast.confirm('"'+name+'" kullanıcısı kalıcı olarak silinecek. Devam etmek istiyor musunuz?',{title:'Kullanıcıyı Sil',confirmText:'Sil',cancelText:'İptal',type:'danger'});if(!ok)return;try{await api.delete('/admin/users/'+id);toast.success('Kullanıcı silindi');loadUsers();}catch(e){toast.error('Silme işlemi başarısız');}}
         function closeModal(){document.getElementById('editModal').classList.remove('active');}
         function debounce(fn,ms){let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms);};}
     </script>

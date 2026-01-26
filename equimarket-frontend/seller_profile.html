@@ -303,8 +303,10 @@
         .review-helpful button.active { background: var(--racing-green); color: white; border-color: var(--racing-green); }
     </style>
 
+    <link rel="stylesheet" href="css/toast.css">
     <script src="js/api.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/toast.js"></script>
     <script>
         let sellerId = null, sellerData = null, sellerListings = [], sellerReviews = [];
         let selectedRating = 0;
@@ -312,7 +314,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
             sellerId = urlParams.get('id');
-            if (!sellerId) { alert('Satıcı bulunamadı'); window.location.href = 'ilanlar.html'; return; }
+            if (!sellerId) { toast.error('Satıcı bulunamadı'); setTimeout(()=>window.location.href='ilanlar.html',1500); return; }
             loadSellerProfile();
             initStarRating();
         });
@@ -433,10 +435,10 @@
         }
 
         function openReviewModal() {
-            if (!api.getUser()) { 
-                alert('Değerlendirme yapmak için giriş yapmalısınız'); 
-                window.location.href = 'login_register.html'; 
-                return; 
+            if (!api.getUser()) {
+                toast.warning('Değerlendirme yapmak için giriş yapmalısınız');
+                setTimeout(()=>window.location.href='login_register.html',1500);
+                return;
             }
             document.getElementById('reviewModal').classList.add('active');
         }
@@ -452,12 +454,12 @@
             const comment = document.getElementById('reviewComment').value.trim();
 
             if (!rating || rating < 1) {
-                alert('Lütfen bir puan seçin');
+                toast.warning('Lütfen bir puan seçin');
                 return;
             }
 
             if (comment.length < 10) {
-                alert('Yorum en az 10 karakter olmalıdır');
+                toast.warning('Yorum en az 10 karakter olmalıdır');
                 return;
             }
 
@@ -469,24 +471,24 @@
                 });
 
                 if (result.success) {
-                    alert('Değerlendirmeniz kaydedildi!');
+                    toast.success('Değerlendirmeniz kaydedildi!');
                     closeReviewModal();
                     loadSellerReviews();
                     document.getElementById('reviewForm').reset();
                     selectedRating = 0;
                     document.querySelectorAll('#starRating .star').forEach(s => s.classList.remove('active'));
                 } else {
-                    alert(result.message || 'Bir hata oluştu');
+                    toast.error(result.message || 'Bir hata oluştu');
                 }
             } catch (error) {
-                alert('Bir hata oluştu');
+                toast.error('Bir hata oluştu');
             }
         }
 
         async function markHelpful(reviewId) {
-            if (!api.getUser()) { 
-                alert('Giriş yapmalısınız'); 
-                return; 
+            if (!api.getUser()) {
+                toast.warning('Giriş yapmalısınız');
+                return;
             }
             try {
                 const result = await api.post('/reviews/' + reviewId + '/helpful');
@@ -591,14 +593,14 @@
         }
 
         function openContactModal() {
-            if (!api.getUser()) { alert('Mesaj göndermek için giriş yapmalısınız'); window.location.href = 'login_register.html'; return; }
+            if (!api.getUser()) { toast.warning('Mesaj göndermek için giriş yapmalısınız'); setTimeout(()=>window.location.href='login_register.html',1500); return; }
             document.getElementById('contactModal').classList.add('active');
         }
         function closeContactModal() { document.getElementById('contactModal').classList.remove('active'); }
         function sendMessage(e) {
             e.preventDefault();
-            alert('Mesajlaşma sayfasına yönlendiriliyorsunuz...');
-            window.location.href = 'messaging.html?to=' + sellerId;
+            toast.info('Mesajlaşma sayfasına yönlendiriliyorsunuz...');
+            setTimeout(()=>window.location.href='messaging.html?to='+sellerId,1000);
         }
         function formatNumber(n) { return new Intl.NumberFormat('tr-TR').format(n || 0); }
     </script>
