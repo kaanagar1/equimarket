@@ -1,4 +1,5 @@
 const express = require('express');
+const http = require('http');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
@@ -6,6 +7,7 @@ require('dotenv').config();
 const connectDB = require('./config/db');
 const { generalLimiter } = require('./middlewares/rateLimit');
 const { initScheduledJobs } = require('./jobs/scheduledJobs');
+const { initSocket } = require('./config/socket');
 
 // Express app
 const app = express();
@@ -131,9 +133,14 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Server başlat
+// HTTP Server ve Socket.io başlat
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+const server = http.createServer(app);
+
+// Socket.io'yu başlat
+initSocket(server);
+
+server.listen(PORT, () => {
     console.log(`
 ╔════════════════════════════════════════════╗
 ║                                            ║
@@ -142,9 +149,10 @@ app.listen(PORT, () => {
 ║   Port: ${PORT}                              ║
 ║   Mode: ${process.env.NODE_ENV || 'development'}                     ║
 ║   URL:  http://localhost:${PORT}              ║
+║   Socket.io: Enabled                       ║
 ║                                            ║
 ╚════════════════════════════════════════════╝
     `);
 });
 
-module.exports = app;
+module.exports = { app, server };
