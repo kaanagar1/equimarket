@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Çevrimdışı - EquiMarket</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1a3d2e">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a3d2e 0%, #2d5a45 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .offline-container {
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .offline-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .retry-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .retry-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .cached-pages {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cached-pages h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 15px;
+        }
+
+        .cached-pages a {
+            display: inline-block;
+            margin: 5px 10px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        .cached-pages a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .horse-animation {
+            margin: 30px 0;
+            font-size: 60px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="horse-animation">🐎</div>
+        <h1>Internet Bağlantısı Yok</h1>
+        <p>
+            Üzgünüz, şu anda internet bağlantınız yok gibi görünüyor.
+            Lütfen bağlantınızı kontrol edip tekrar deneyin.
+        </p>
+        <button class="retry-btn" onclick="window.location.reload()">
+            Tekrar Dene
+        </button>
+
+        <div class="cached-pages" id="cachedPages" style="display: none;">
+            <h3>Önbelleğe Alınmış Sayfalar</h3>
+            <div id="cachedLinks"></div>
+        </div>
+    </div>
+
+    <script>
+        // Check for cached pages and show them
+        if ('caches' in window) {
+            caches.open('equimarket-dynamic-v1').then(cache => {
+                cache.keys().then(requests => {
+                    const htmlPages = requests.filter(req =>
+                        req.url.endsWith('.html') && !req.url.includes('offline.html')
+                    );
+
+                    if (htmlPages.length > 0) {
+                        document.getElementById('cachedPages').style.display = 'block';
+                        const linksContainer = document.getElementById('cachedLinks');
+
+                        htmlPages.forEach(req => {
+                            const url = new URL(req.url);
+                            const pageName = url.pathname.replace('.html', '').replace('/', '') || 'Ana Sayfa';
+                            const link = document.createElement('a');
+                            link.href = url.pathname;
+                            link.textContent = pageName.charAt(0).toUpperCase() + pageName.slice(1);
+                            linksContainer.appendChild(link);
+                        });
+                    }
+                });
+            });
+        }
+
+        // Auto-retry when online
+        window.addEventListener('online', () => {
+            window.location.reload();
+        });
+    </script>
+</body>
+</html>
