@@ -77,11 +77,9 @@ exports.updateProfile = async (req, res) => {
 // @access  Public
 exports.getSellerProfile = async (req, res) => {
     try {
-        // Rol kontrolü kaldırıldı - her kullanıcı hem alıcı hem satıcı olabilir
-        const seller = await User.findOne({
-            _id: req.params.id,
-            isActive: true
-        }).select('name avatar coverPhoto bio location website socialLinks sellerInfo createdAt');
+        // Rol ve isActive kontrolü kaldırıldı - her kullanıcı profili görüntülenebilir
+        const seller = await User.findById(req.params.id)
+            .select('name avatar coverPhoto bio location website socialLinks sellerInfo createdAt');
 
         if (!seller) {
             return res.status(404).json({

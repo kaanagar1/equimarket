@@ -148,8 +148,8 @@ exports.createHorse = async (req, res) => {
         // Satıcı bilgisini ekle
         req.body.seller = req.user.id;
 
-        // İlanı pending olarak oluştur (admin onayı bekler)
-        req.body.status = 'pending';
+        // İlanı aktif olarak oluştur (onay gerekmiyor)
+        req.body.status = 'active';
 
         // Varsayılan son kullanma tarihi (30 gün)
         if (!req.body.expiresAt) {
