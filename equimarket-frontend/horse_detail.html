@@ -1796,6 +1796,7 @@
     <!-- API Scripts -->
     <script src="js/api.js"></script>
     <script src="js/horses.js"></script>
+    <script src="js/messages.js"></script>
     <script>
         // Global horseId değişkeni
         let horseId = null;
@@ -2179,7 +2180,7 @@
         }
 
         // Teklif ver
-        function makeOffer() {
+        async function makeOffer() {
             if (!localStorage.getItem('equimarket_token')) {
                 showToast('Teklif vermek için giriş yapmalısınız', 'error');
                 setTimeout(() => {
@@ -2189,11 +2190,60 @@
             }
 
             const currentPrice = currentHorse?.price || 0;
-            const offerAmount = prompt(`Teklif tutarınızı girin (Mevcut fiyat: ₺${currentPrice.toLocaleString('tr-TR')}):`);
-            
-            if (offerAmount && !isNaN(offerAmount)) {
-                showToast('Teklifiniz gönderildi! Satıcı size dönüş yapacak.');
-                // Gerçek implementasyonda: MessageService.sendMessage(..., 'offer', offerAmount)
+            const sellerId = currentHorse?.seller?._id;
+
+            if (!sellerId) {
+                showToast('Satıcı bilgisi bulunamadı', 'error');
+                return;
+            }
+
+            // Teklif tutarını al (toast.prompt varsa kullan, yoksa prompt)
+            let offerAmount;
+            if (typeof toast !== 'undefined' && toast.prompt) {
+                offerAmount = await toast.prompt('Teklif tutarınızı girin:', {
+                    title: 'Teklif Ver',
+                    placeholder: `Örn: ${Math.floor(currentPrice * 0.9).toLocaleString('tr-TR')}`,
+                    defaultValue: ''
+                });
+            } else {
+                offerAmount = prompt(`Teklif tutarınızı girin (Mevcut fiyat: ₺${currentPrice.toLocaleString('tr-TR')}):`);
+            }
+
+            if (!offerAmount || isNaN(offerAmount) || Number(offerAmount) <= 0) {
+                return;
+            }
+
+            const amount = Number(offerAmount);
+
+            try {
+                // API'ye teklif gönder
+                if (typeof MessageService !== 'undefined') {
+                    const result = await MessageService.sendMessage(
+                        sellerId,
+                        horseId,
+                        `₺${amount.toLocaleString('tr-TR')} tutarında teklif`,
+                        'offer',
+                        amount
+                    );
+
+                    if (result.success) {
+                        showToast('Teklifiniz gönderildi! Satıcı size dönüş yapacak.');
+
+                        // Opsiyonel: Mesajlar sayfasına yönlendir
+                        setTimeout(() => {
+                            if (confirm('Mesajlar sayfasına gitmek ister misiniz?')) {
+                                window.location.href = `messaging.html?horse=${horseId}&seller=${sellerId}`;
+                            }
+                        }, 1500);
+                    } else {
+                        showToast(result.message || 'Teklif gönderilemedi', 'error');
+                    }
+                } else {
+                    showToast('Backend bağlantısı kurulamadı', 'error');
+                }
+            } catch (error) {
+                console.error('MakeOffer Error:', error);
+                showToast('Teklif gönderilemedi', 'error');
             }
         }
 
