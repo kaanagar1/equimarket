@@ -148,10 +148,10 @@ exports.createHorse = async (req, res) => {
         // Satıcı bilgisini ekle
         req.body.seller = req.user.id;
 
-        // İlanı aktif olarak oluştur (onay gerekmiyor)
-        req.body.status = 'active';
+        // İlanı pending olarak oluştur (admin onayı bekler)
+        req.body.status = 'pending';
 
-        // Varsayılan son kullanma tarihi (30 gün)
+        // Varsayılan son kullanma tarihi (30 gün - onaydan sonra başlar)
         if (!req.body.expiresAt) {
             const expiryDate = new Date();
             expiryDate.setDate(expiryDate.getDate() + 30);
@@ -162,8 +162,9 @@ exports.createHorse = async (req, res) => {
 
         res.status(201).json({
             success: true,
-            message: 'İlan başarıyla oluşturuldu',
-            data: horse
+            message: 'İlan başarıyla oluşturuldu. Admin onayından sonra yayınlanacaktır.',
+            data: horse,
+            pendingApproval: true
         });
 
     } catch (error) {
