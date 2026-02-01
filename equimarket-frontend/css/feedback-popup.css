@@ -9,18 +9,16 @@
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(4px);
     z-index: 99999;
-    display: flex;
+    display: none; /* JS ile kontrol edilecek */
     align-items: center;
     justify-content: center;
     padding: 20px;
     opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
 .feedback-overlay.show {
     opacity: 1;
-    visibility: visible;
 }
 
 .feedback-popup {

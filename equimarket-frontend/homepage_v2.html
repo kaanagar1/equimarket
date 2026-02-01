@@ -1737,7 +1737,7 @@
                         const price = new Intl.NumberFormat('tr-TR').format(horse.price || 0);
                         
                         return `
-                            <a href="${loggedIn ? 'horse_detail.html?id=' + horse._id : 'login_register.html'}" class="hero-horse-card" style="text-decoration:none;color:inherit;cursor:pointer;">
+                            <a href="horse_detail.html?id=${horse._id}" class="hero-horse-card" style="text-decoration:none;color:inherit;cursor:pointer;">
                                 <div class="hero-card-image">
                                     ${horse.images && horse.images[0] ? 
                                         `<img src="${horse.images[0].url || horse.images[0]}" style="width:100%;height:100%;object-fit:cover;">` :
@@ -1752,7 +1752,7 @@
                                         <span class="hero-card-detail">${breedName}</span>
                                         <span class="hero-card-detail">${genderName}</span>
                                     </div>
-                                    <div class="hero-card-price">${loggedIn ? '₺' + price : 'Detaylar için giriş yapın →'}</div>
+                                    <div class="hero-card-price">₺${price}</div>
                                 </div>
                             </a>
                         `;
@@ -1859,8 +1859,8 @@
             const breedName = { ingiliz: 'İngiliz', arap: 'Arap' }[horse.breed] || horse.breed;
             const price = new Intl.NumberFormat('tr-TR').format(horse.price);
             
-            // Giriş yapmamış kullanıcı için login sayfasına yönlendir
-            const cardLink = loggedIn ? `horse_detail.html?id=${horse._id}` : 'login_register.html';
+            // İlan detayları herkese açık
+            const cardLink = `horse_detail.html?id=${horse._id}`;
 
             return `
                 <a href="${cardLink}" class="horse-card" style="text-decoration: none; color: inherit; display: block;">

@@ -1171,6 +1171,10 @@
     <script>
         let currentConversationId = null;
         let currentUserId = null;
+        let currentRecipientId = null;
+        let currentHorseId = null;
+        let conversationsData = [];
+        let currentTab = 'all';
 
         document.addEventListener('DOMContentLoaded', async function() {
             // Giriş kontrolü
@@ -1187,12 +1191,100 @@
             // Sidebar kullanıcı bilgisi
             updateSidebarUser();
 
+            // URL parametrelerini kontrol et (yeni konuşma başlatma)
+            await checkUrlParams();
+
             // Konuşmaları yükle
             await loadConversations();
 
             // Mesaj gönderme
             setupMessageInput();
+
+            // Tab badge'lerini güncelle
+            updateTabBadges();
         });
+
+        // URL parametrelerinden yeni konuşma başlat
+        async function checkUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const horseId = urlParams.get('horse');
+            const sellerId = urlParams.get('seller');
+
+            if (horseId && sellerId) {
+                currentHorseId = horseId;
+                currentRecipientId = sellerId;
+
+                // Mevcut konuşma var mı kontrol et
+                try {
+                    const result = await MessageService.getConversations();
+                    if (result.success && result.data) {
+                        const existingConv = result.data.find(c =>
+                            c.horse?._id === horseId &&
+                            c.participants?.some(p => p._id === sellerId)
+                        );
+
+                        if (existingConv) {
+                            // Mevcut konuşmayı aç
+                            conversationsData = result.data;
+                            setTimeout(() => selectConversation(existingConv._id), 500);
+                        } else {
+                            // Yeni konuşma için hazırla
+                            await prepareNewConversation(horseId, sellerId);
+                        }
+                    }
+                } catch (error) {
+                    console.error('URL params check error:', error);
+                }
+
+                // URL'i temizle
+                window.history.replaceState({}, document.title, 'messaging.html');
+            }
+        }
+
+        // Yeni konuşma için hazırla
+        async function prepareNewConversation(horseId, sellerId) {
+            // Header'ı göster
+            const header = document.getElementById('chatHeader');
+            header.style.display = 'flex';
+
+            // Satıcı bilgisini getir
+            try {
+                const sellerResult = await api.get(`/users/${sellerId}`);
+                if (sellerResult.success && sellerResult.data) {
+                    const seller = sellerResult.data;
+                    document.getElementById('chatUserAvatar').textContent = seller.name ? seller.name.substring(0, 2).toUpperCase() : '??';
+                    document.getElementById('chatUserName').textContent = seller.name || 'Satıcı';
+                }
+            } catch (e) {
+                document.getElementById('chatUserName').textContent = 'Satıcı';
+            }
+
+            // At bilgisini getir
+            try {
+                const horseResult = await api.get(`/horses/${horseId}`);
+                if (horseResult.success && horseResult.data) {
+                    const horse = horseResult.data;
+                    const horseLink = document.getElementById('chatHorseLink');
+                    horseLink.style.display = 'flex';
+                    horseLink.href = 'horse_detail.html?id=' + horseId;
+                    document.getElementById('chatHorseName').textContent = horse.name || 'İlan';
+                    document.getElementById('chatHorseMeta').textContent = (horse.age || '?') + ' Yaş · ' + (horse.breed || '');
+                }
+            } catch (e) {
+                console.error('Horse fetch error:', e);
+            }
+
+            // Mesaj alanını göster
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = `
+                <div style="text-align: center; padding: 40px; color: var(--warm-gray);">
+                    <p>Satıcıyla yeni bir konuşma başlatın</p>
+                    <p style="font-size: 13px; margin-top: 8px;">İlk mesajınızı yazın</p>
+                </div>
+            `;
+
+            document.getElementById('chatInputArea').style.display = 'block';
+        }
 
         function updateSidebarUser() {
             const userData = localStorage.getItem('equimarket_user');
@@ -1217,19 +1309,22 @@
                     if (result.success && result.data && result.data.length > 0) {
                         conversationsData = result.data;
                         container.innerHTML = result.data.map(conv => createConversationItemHTML(conv)).join('');
+                        updateTabBadges();
                     } else {
+                        conversationsData = [];
                         container.innerHTML = `
-                            <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.6);">
+                            <div style="text-align: center; padding: 40px; color: var(--warm-gray);">
                                 <p>Henüz mesajınız yok</p>
                                 <p style="font-size: 13px; margin-top: 8px;">İlan sayfalarından satıcılara mesaj gönderebilirsiniz</p>
                             </div>
                         `;
+                        updateTabBadges();
                     }
                 }
             } catch (error) {
                 console.error('LoadConversations Error:', error);
                 container.innerHTML = `
-                    <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.6);">
+                    <div style="text-align: center; padding: 40px; color: var(--warm-gray);">
                         Konuşmalar yüklenemedi
                     </div>
                 `;
@@ -1264,8 +1359,6 @@
             `;
         }
 
-        let conversationsData = [];
-
         async function selectConversation(conversationId) {
             currentConversationId = conversationId;
 
@@ -1273,15 +1366,27 @@
             document.querySelectorAll('.conversation-item').forEach(item => {
                 item.classList.remove('active');
             });
-            if (event && event.currentTarget) {
-                event.currentTarget.classList.add('active');
-                event.currentTarget.classList.remove('unread');
+
+            // Tıklanan öğeyi işaretle
+            const clickedItem = document.querySelector(`.conversation-item[onclick*="${conversationId}"]`);
+            if (clickedItem) {
+                clickedItem.classList.add('active');
+                clickedItem.classList.remove('unread');
             }
 
             // Konuşma verilerini bul
             const conv = conversationsData.find(c => c._id === conversationId);
             if (conv) {
                 updateChatHeader(conv);
+
+                // Recipient ve Horse ID'lerini ayarla
+                const otherUser = conv.participants?.find(p => p._id !== currentUserId);
+                if (otherUser) {
+                    currentRecipientId = otherUser._id;
+                }
+                if (conv.horse) {
+                    currentHorseId = conv.horse._id;
+                }
             }
 
             // Input alanını göster
@@ -1353,7 +1458,7 @@
 
         function setupMessageInput() {
             const textarea = document.querySelector('.chat-input');
-            const sendBtn = document.querySelector('.send-btn');
+            const sendBtn = document.querySelector('.chat-send-btn'); // Düzeltildi
 
             if (textarea) {
                 textarea.addEventListener('input', function() {
@@ -1372,38 +1477,152 @@
             if (sendBtn) {
                 sendBtn.addEventListener('click', sendMessage);
             }
+
+            // Hızlı yanıtlar
+            document.querySelectorAll('.quick-reply').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const textarea = document.querySelector('.chat-input');
+                    if (textarea) {
+                        textarea.value = this.textContent;
+                        textarea.focus();
+                    }
+                });
+            });
         }
 
         async function sendMessage() {
             const textarea = document.querySelector('.chat-input');
             const content = textarea.value.trim();
 
-            if (!content || !currentConversationId) return;
+            if (!content) return;
+
+            // Yeni konuşma mı yoksa mevcut konuşma mı?
+            if (!currentConversationId && !currentRecipientId) {
+                if (typeof toast !== 'undefined') {
+                    toast.warning('Lütfen bir konuşma seçin veya yeni konuşma başlatın');
+                }
+                return;
+            }
 
             textarea.value = '';
             textarea.style.height = 'auto';
 
+            // Kullanıcı bilgisi
+            const userData = localStorage.getItem('equimarket_user');
+            const user = userData ? JSON.parse(userData) : {};
+            const userInitials = user.name ? user.name.substring(0, 2).toUpperCase() : 'BN';
+
             try {
                 // Mesajı hemen göster (optimistic update)
                 const chatMessages = document.getElementById('chatMessages');
+
+                // Boş mesaj alanını temizle
+                const emptyState = chatMessages.querySelector('.empty-chat, div[style*="text-align: center"]');
+                if (emptyState) {
+                    emptyState.remove();
+                }
+
+                const tempId = 'temp-' + Date.now();
                 const tempMsg = `
-                    <div class="message sent">
-                        <div class="message-avatar">BN</div>
+                    <div class="message sent" id="${tempId}">
+                        <div class="message-avatar">${userInitials}</div>
                         <div class="message-content">
-                            <div class="message-bubble">${content}</div>
-                            <span class="message-time">Şimdi</span>
+                            <div class="message-bubble">${escapeHtml(content)}</div>
+                            <span class="message-time">Gönderiliyor...</span>
                         </div>
                     </div>
                 `;
                 chatMessages.insertAdjacentHTML('beforeend', tempMsg);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
 
-                // API'ye gönder (gerçek implementasyon için recipient ve horse ID gerekli)
-                // await MessageService.sendMessage(recipientId, horseId, content);
-                
+                // API'ye gönder
+                if (typeof MessageService !== 'undefined') {
+                    const result = await MessageService.sendMessage(
+                        currentRecipientId,
+                        currentHorseId,
+                        content
+                    );
+
+                    if (result.success) {
+                        // Geçici mesajı güncelle
+                        const tempElement = document.getElementById(tempId);
+                        if (tempElement) {
+                            const timeSpan = tempElement.querySelector('.message-time');
+                            if (timeSpan) {
+                                timeSpan.textContent = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+                            }
+                        }
+
+                        // Yeni konuşma oluşturulduysa, konuşma ID'sini güncelle
+                        if (result.data?.conversation) {
+                            currentConversationId = result.data.conversation;
+                            // Konuşmaları yeniden yükle
+                            await loadConversations();
+                        }
+                    } else {
+                        // Hata durumunda mesajı kaldır
+                        const tempElement = document.getElementById(tempId);
+                        if (tempElement) tempElement.remove();
+
+                        if (typeof toast !== 'undefined') {
+                            toast.error(result.message || 'Mesaj gönderilemedi');
+                        }
+                    }
+                }
+
             } catch (error) {
                 console.error('SendMessage Error:', error);
+                if (typeof toast !== 'undefined') {
+                    toast.error('Mesaj gönderilemedi');
+                }
             }
+        }
+
+        // HTML escape fonksiyonu
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Tab filtreleme
+        function filterConversations(tab) {
+            currentTab = tab;
+
+            // Tab butonlarını güncelle
+            document.querySelectorAll('.conv-tab').forEach(t => t.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Konuşmaları filtrele
+            const container = document.getElementById('conversationsList');
+            if (!conversationsData.length) return;
+
+            let filtered = conversationsData;
+            if (tab === 'unread') {
+                filtered = conversationsData.filter(c => c.unreadCount > 0);
+            }
+
+            if (filtered.length > 0) {
+                container.innerHTML = filtered.map(conv => createConversationItemHTML(conv)).join('');
+            } else {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: var(--warm-gray);">
+                        ${tab === 'unread' ? 'Okunmamış mesaj yok' : 'Henüz mesajınız yok'}
+                    </div>
+                `;
+            }
+        }
+
+        // Tab badge'lerini güncelle
+        function updateTabBadges() {
+            const allCount = conversationsData.length;
+            const unreadCount = conversationsData.filter(c => c.unreadCount > 0).length;
+
+            const allBadge = document.getElementById('tabAllCount');
+            const unreadBadge = document.getElementById('tabUnreadCount');
+
+            if (allBadge) allBadge.textContent = allCount;
+            if (unreadBadge) unreadBadge.textContent = unreadCount;
         }
 
         function logout() {

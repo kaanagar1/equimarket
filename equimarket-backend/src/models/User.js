@@ -85,12 +85,23 @@ const UserSchema = new mongoose.Schema({
 
     // Abonelik
     subscription: {
-        plan: { 
-            type: String, 
-            enum: ['free', 'featured', 'premium'], 
-            default: 'free' 
+        plan: {
+            type: String,
+            enum: ['free', 'featured', 'premium'],
+            default: 'free'
         },
         expiresAt: { type: Date }
+    },
+
+    // Ücretsiz İlan Hakları ve Feedback
+    freeListingCredits: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
+    feedbackGiven: {
+        type: Boolean,
+        default: false
     },
 
     // Favoriler

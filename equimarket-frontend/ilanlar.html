@@ -1706,12 +1706,12 @@
             const breedName = { ingiliz: 'İngiliz', arap: 'Arap' }[horse.breed] || horse.breed;
             const price = new Intl.NumberFormat('tr-TR').format(horse.price);
             
-            // Giriş yapmamış kullanıcı için satıcı bilgisi gösterme
-            const sellerInitials = loggedIn ? (horse.seller?.name?.substring(0, 2).toUpperCase() || 'XX') : '?';
-            const sellerName = loggedIn ? (horse.seller?.name?.split(' ')[0] || 'Satıcı') : 'Giriş yapın';
-            
-            // Link: giriş yapmamışsa login sayfasına
-            const cardLink = loggedIn ? `horse_detail.html?id=${horse._id}` : 'login_register.html';
+            // Satıcı bilgileri herkese açık
+            const sellerInitials = horse.seller?.name?.substring(0, 2).toUpperCase() || 'XX';
+            const sellerName = horse.seller?.name?.split(' ')[0] || 'Satıcı';
+
+            // İlan detayları herkese açık
+            const cardLink = `horse_detail.html?id=${horse._id}`;
 
             return `
                 <a href="${cardLink}" class="horse-card" style="text-decoration: none; color: inherit;">
@@ -1741,7 +1741,7 @@
                                 <h3 class="horse-card-name">${horse.name}</h3>
                                 <p class="horse-card-breed">${breedName || ''}</p>
                             </div>
-                            <span class="horse-card-price">${loggedIn ? '₺' + price : 'Giriş yapın'}</span>
+                            <span class="horse-card-price">₺${price}</span>
                         </div>
                         <div class="horse-card-meta">
                             <span class="meta-item">

@@ -1011,6 +1011,7 @@
                         </div>
                         <div class="stat-value" id="sellerActiveListings">0</div>
                         <div class="stat-label">Aktif İlan</div>
+                        <div id="pendingListingsInfo"></div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-header">
@@ -1364,10 +1365,25 @@
 
             if (typeof HorseService !== 'undefined') {
                 try {
-                    const result = await HorseService.getMyHorses();
-                    if (result.success && result.data && result.data.length > 0) {
-                        document.getElementById('sellerActiveListings').textContent = result.data.length;
-                        document.getElementById('sellerListings').innerHTML = result.data.slice(0, 3).map(horse => createHorseListItem(horse, true, true)).join('');
+                    const result = await HorseService.getMyListings();
+                    if (result.success && result.data) {
+                        // Aktif ve bekleyen ilanları say
+                        const activeCount = result.data.filter(h => h.status === 'active').length;
+                        const pendingCount = result.data.filter(h => h.status === 'pending').length;
+
+                        // İstatistikleri güncelle
+                        document.getElementById('sellerActiveListings').textContent = activeCount;
+
+                        // Bekleyen ilan varsa bilgi göster
+                        const pendingInfo = document.getElementById('pendingListingsInfo');
+                        if (pendingCount > 0 && pendingInfo) {
+                            pendingInfo.innerHTML = `<span style="color:var(--warning);font-size:12px;">${pendingCount} ilan onay bekliyor</span>`;
+                        }
+
+                        // Tüm ilanları göster (pending dahil)
+                        if (result.data.length > 0) {
+                            document.getElementById('sellerListings').innerHTML = result.data.slice(0, 5).map(horse => createHorseListItem(horse, true, true)).join('');
+                        }
                     }
                 } catch (error) {
                     console.error('Seller data load error:', error);
