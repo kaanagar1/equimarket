@@ -93,6 +93,71 @@ const UserService = {
      */
     async updateNotifications(settings) {
         return this.updateProfile({ notifications: settings });
+    },
+
+    /**
+     * Kullanıcı bilgilerini getir (public)
+     */
+    async getUser(userId) {
+        try {
+            const response = await api.get('/users/' + userId, false);
+            return response;
+        } catch (error) {
+            console.error('GetUser Error:', error);
+            return { success: false, message: error.message };
+        }
+    },
+
+    /**
+     * Bildirimleri getir
+     */
+    async getNotifications() {
+        try {
+            const response = await api.get('/notifications');
+            return response;
+        } catch (error) {
+            console.error('GetNotifications Error:', error);
+            return { success: false, data: [], message: error.message };
+        }
+    },
+
+    /**
+     * Bildirimi okundu olarak işaretle
+     */
+    async markNotificationRead(notificationId) {
+        try {
+            const response = await api.put('/notifications/' + notificationId + '/read');
+            return response;
+        } catch (error) {
+            console.error('MarkNotificationRead Error:', error);
+            return { success: false, message: error.message };
+        }
+    },
+
+    /**
+     * Tüm bildirimleri okundu olarak işaretle
+     */
+    async markAllNotificationsRead() {
+        try {
+            const response = await api.put('/notifications/read-all');
+            return response;
+        } catch (error) {
+            console.error('MarkAllNotificationsRead Error:', error);
+            return { success: false, message: error.message };
+        }
+    },
+
+    /**
+     * Favorilere ekle/çıkar
+     */
+    async toggleFavorite(horseId) {
+        try {
+            const response = await api.post('/users/favorites/' + horseId);
+            return response;
+        } catch (error) {
+            console.error('ToggleFavorite Error:', error);
+            return { success: false, message: error.message };
+        }
     }
 };
 

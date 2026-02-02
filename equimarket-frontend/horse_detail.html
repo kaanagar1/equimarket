@@ -1968,8 +1968,8 @@
             try {
                 console.log('Loading horse detail for ID:', horseId);
 
-                // API isteği - auth gerektirmeyen endpoint
-                const result = await api.get('/horses/' + horseId, false);
+                // HorseService kullan
+                const result = await HorseService.getHorse(horseId);
                 console.log('API Result:', result);
 
                 if (result && result.success && result.data) {
@@ -2188,7 +2188,7 @@
         // Satıcı istatistiklerini yükle
         async function loadSellerStats(sellerId) {
             try {
-                const result = await api.get(`/horses?seller=${sellerId}&status=active&limit=1`);
+                const result = await HorseService.getHorses({ seller: sellerId, status: 'active', limit: 1 });
                 if (result.success) {
                     const sellerListingsEl = document.getElementById('sellerListings');
                     if (sellerListingsEl) sellerListingsEl.textContent = result.total || result.count || 0;

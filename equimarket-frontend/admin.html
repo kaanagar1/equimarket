@@ -88,6 +88,7 @@
         </main>
     </div>
     <script src="js/api.js"></script>
+    <script src="js/admin.service.js"></script>
     <script src="js/toast.js"></script>
     <script>
         let charts = {};
@@ -97,7 +98,7 @@
         });
         async function loadStats(){
             try{
-                const r=await api.get('/admin/stats');
+                const r=await AdminService.getStats();
                 if(r.success){
                     document.getElementById('totalUsers').textContent=r.data.users.total;
                     document.getElementById('activeListings').textContent=r.data.listings.active;
@@ -109,7 +110,7 @@
         }
         async function loadPending(){
             try{
-                const r=await api.get('/admin/listings?status=pending&limit=5');
+                const r=await AdminService.getListings({status:'pending',limit:5});
                 if(r.success){
                     const tb=document.getElementById('pendingTable');
                     if(!r.data.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--warm-gray)">Bekleyen ilan yok</td></tr>';return;}
@@ -117,13 +118,13 @@
                 }
             }catch(e){console.error(e);}
         }
-        async function approve(id){const ok=await toast.confirm('Bu ilanı onaylamak istediğinize emin misiniz?',{title:'İlan Onayı',confirmText:'Onayla',cancelText:'İptal'});if(!ok)return;try{await api.put('/admin/listings/'+id,{status:'active'});toast.success('İlan onaylandı');loadStats();loadPending();}catch(e){toast.error('İşlem başarısız');}}
-        async function reject(id){const r=await toast.prompt('Lütfen red sebebini belirtin:',{title:'İlan Reddi',placeholder:'Red sebebi...',confirmText:'Reddet',cancelText:'İptal',required:true});if(!r)return;try{await api.put('/admin/listings/'+id,{status:'rejected',rejectionReason:r});toast.success('İlan reddedildi');loadStats();loadPending();}catch(e){toast.error('İşlem başarısız');}}
+        async function approve(id){const ok=await toast.confirm('Bu ilanı onaylamak istediğinize emin misiniz?',{title:'İlan Onayı',confirmText:'Onayla',cancelText:'İptal'});if(!ok)return;try{await AdminService.approveListing(id);toast.success('İlan onaylandı');loadStats();loadPending();}catch(e){toast.error('İşlem başarısız');}}
+        async function reject(id){const r=await toast.prompt('Lütfen red sebebini belirtin:',{title:'İlan Reddi',placeholder:'Red sebebi...',confirmText:'Reddet',cancelText:'İptal',required:true});if(!r)return;try{await AdminService.rejectListing(id,r);toast.success('İlan reddedildi');loadStats();loadPending();}catch(e){toast.error('İşlem başarısız');}}
         function logout(){localStorage.removeItem('equimarket_token');localStorage.removeItem('equimarket_user');window.location.href='homepage_v2.html';}
 
         async function loadCharts(){
             try{
-                const r=await api.get('/admin/charts');
+                const r=await AdminService.getChartData();
                 if(r.success){
                     const colors={primary:'rgba(26,61,46,0.8)',gold:'rgba(201,165,92,0.8)',gray:'rgba(107,107,107,0.5)'};
                     const chartColors=['#1a3d2e','#c9a55c','#4a7c59','#2d5a47','#3b82f6','#f59e0b','#dc2626','#8b5cf6','#06b6d4','#84cc16'];
