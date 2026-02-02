@@ -1798,6 +1798,13 @@
     <script src="js/horses.js"></script>
     <script src="js/messages.js"></script>
     <script>
+        // === DEBUG: Script başladı ===
+        console.log('🐎 Horse Detail Script Loaded');
+        console.log('📍 Current URL:', window.location.href);
+        console.log('📍 Pathname:', window.location.pathname);
+        console.log('📍 Search:', window.location.search);
+        console.log('📍 Hash:', window.location.hash);
+
         // Global değişkenler
         let horseId = null;
         let currentHorse = null;
@@ -1833,13 +1840,17 @@
 
         // URL'den ilan ID'sini al
         function getHorseId() {
+            console.log('🔍 getHorseId() çağrıldı');
+
             // Query string'den
             const urlParams = new URLSearchParams(window.location.search);
             let id = urlParams.get('id');
+            console.log('  - Query string id:', id);
 
             // Hash'ten
             if (!id && window.location.hash) {
                 const hash = window.location.hash.substring(1);
+                console.log('  - Hash:', hash);
                 if (hash.startsWith('id=')) {
                     id = hash.substring(3);
                 } else if (/^[a-f0-9]{24}$/i.test(hash)) {
@@ -1847,30 +1858,37 @@
                 }
             }
 
-            // Path'ten (örn: /horse_detail/123)
+            // Path'ten (örn: /horse_detail/123 veya /horse_detail.html/123)
             if (!id) {
-                const pathMatch = window.location.pathname.match(/horse_detail[\/\.]?([a-f0-9]{24})?/i);
+                const pathMatch = window.location.pathname.match(/horse_detail(?:\.html)?[\/]?([a-f0-9]{24})?/i);
+                console.log('  - Path match:', pathMatch);
                 if (pathMatch && pathMatch[1]) {
                     id = pathMatch[1];
                 }
             }
 
+            console.log('  - Final ID:', id);
             return id;
         }
 
         // Sayfa yüklenirken
         document.addEventListener('DOMContentLoaded', async function() {
+            console.log('🚀 DOMContentLoaded fired');
+
             // Maksimum loading süresi - 15 saniye sonra hata göster
             const loadingTimeout = setTimeout(() => {
+                console.error('⏰ Loading timeout!');
                 showError('Sayfa yüklenemedi. Lütfen sayfayı yenileyin.');
             }, 15000);
 
             try {
                 horseId = getHorseId();
+                console.log('📌 Horse ID:', horseId);
 
                 // ID kontrolü
                 if (!horseId) {
                     clearTimeout(loadingTimeout);
+                    console.error('❌ No horse ID found!');
                     showError('Geçersiz ilan bağlantısı. Lütfen geçerli bir ilan seçin.');
                     return;
                 }
@@ -1879,20 +1897,26 @@
                 updateHeaderAuth();
 
                 // İlan detayını yükle
+                console.log('📡 loadHorseDetail() çağrılıyor...');
                 await loadHorseDetail();
 
                 clearTimeout(loadingTimeout);
+                console.log('✅ Page loaded successfully');
             } catch (error) {
                 clearTimeout(loadingTimeout);
-                console.error('Sayfa yükleme hatası:', error);
+                console.error('💥 Sayfa yükleme hatası:', error);
                 showError('Sayfa yüklenirken bir hata oluştu');
             }
         });
 
         function hideLoading() {
+            console.log('🔄 hideLoading() çağrıldı');
             const loadingOverlay = document.getElementById('pageLoading');
             if (loadingOverlay) {
                 loadingOverlay.style.display = 'none';
+                console.log('  - Loading overlay hidden');
+            } else {
+                console.log('  - pageLoading element not found');
             }
             const container = document.querySelector('.container');
             if (container) {
