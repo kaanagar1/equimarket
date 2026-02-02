@@ -1585,7 +1585,8 @@
                         throw new Error(result.message || 'İlanlar yüklenemedi');
                     }
                 } else {
-                    console.log('Backend bağlantısı yok');
+                    // HorseService undefined - backend bağlantısı yok
+                    throw new Error('Backend servisi yüklenemedi');
                 }
             } catch (error) {
                 console.error('Load Horses Error:', error);
