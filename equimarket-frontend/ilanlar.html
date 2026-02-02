@@ -1585,7 +1585,8 @@
                         throw new Error(result.message || 'İlanlar yüklenemedi');
                     }
                 } else {
-                    console.log('Backend bağlantısı yok');
+                    // HorseService undefined - backend bağlantısı yok
+                    throw new Error('Backend servisi yüklenemedi');
                 }
             } catch (error) {
                 console.error('Load Horses Error:', error);
@@ -1699,19 +1700,23 @@
 
         // Horse card HTML oluştur
         function createHorseCardHTML(horse) {
+            // DEBUG: horse._id kontrolü
+            console.log('🐎 Creating card for horse:', horse.name, 'ID:', horse._id);
+
             const loggedIn = !!localStorage.getItem('equimarket_token');
             const age = horse.age || (horse.birthDate ? new Date().getFullYear() - new Date(horse.birthDate).getFullYear() : '?');
             const genderName = { erkek: 'Erkek', disi: 'Dişi', igdis: 'İğdiş' }[horse.gender] || horse.gender;
             const colorName = { doru: 'Doru', kir: 'Kır', yagiz: 'Yağız', al: 'Al', diger: 'Diğer' }[horse.color] || horse.color;
             const breedName = { ingiliz: 'İngiliz', arap: 'Arap' }[horse.breed] || horse.breed;
             const price = new Intl.NumberFormat('tr-TR').format(horse.price);
-            
+
             // Satıcı bilgileri herkese açık
             const sellerInitials = horse.seller?.name?.substring(0, 2).toUpperCase() || 'XX';
             const sellerName = horse.seller?.name?.split(' ')[0] || 'Satıcı';
 
             // İlan detayları herkese açık
             const cardLink = `horse_detail.html?id=${horse._id}`;
+            console.log('  → Card link:', cardLink);
 
             return `
                 <a href="${cardLink}" class="horse-card" style="text-decoration: none; color: inherit;">

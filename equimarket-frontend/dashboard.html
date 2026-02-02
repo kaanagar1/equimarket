@@ -1094,6 +1094,8 @@
     </div>
 
     <script src="js/api.js"></script>
+    <script src="js/users.js"></script>
+    <script src="js/messages.js"></script>
     <script src="js/horses.js"></script>
     <script>
         let currentMode = 'buyer';
@@ -1140,7 +1142,7 @@
         // Bildirimleri yükle
         async function loadNotifications() {
             try {
-                const result = await api.get('/notifications');
+                const result = await UserService.getNotifications();
                 if (result.success) {
                     const notifications = result.data || [];
                     const unreadCount = result.unreadCount || 0;
@@ -1202,7 +1204,7 @@
 
         async function markNotificationRead(id, link) {
             try {
-                await api.put('/notifications/' + id + '/read');
+                await UserService.markNotificationRead(id);
                 loadNotifications();
                 if (link) window.location.href = link;
             } catch (error) {
@@ -1212,7 +1214,7 @@
 
         async function markAllNotificationsRead() {
             try {
-                await api.put('/notifications/read-all');
+                await UserService.markAllNotificationsRead();
                 loadNotifications();
             } catch (error) {
                 console.log('Bildirimler güncellenemedi:', error);
@@ -1222,7 +1224,7 @@
         // Okunmamış mesaj sayısını yükle
         async function loadUnreadMessages() {
             try {
-                const result = await api.get('/messages/unread-count');
+                const result = await MessageService.getUnreadCount();
                 if (result.success && result.data !== undefined) {
                     const count = result.data.count || result.data || 0;
                     const badge = document.getElementById('navMessageBadge');
@@ -1239,7 +1241,7 @@
         // Gerçek dashboard istatistiklerini yükle
         async function loadDashboardStats() {
             try {
-                const result = await api.get('/users/dashboard/stats');
+                const result = await UserService.getDashboardStats();
                 if (result.success && result.data) {
                     const data = result.data;
                     // Satıcı istatistikleri - listings objesi

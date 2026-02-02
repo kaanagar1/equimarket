@@ -1,68 +1,27 @@
 const Horse = require('../models/Horse');
-const User = require('../models/User');
 const { validationResult } = require('express-validator');
-const { notifyFavorited } = require('../utils/notificationHelper');
+const HorseService = require('../services/horseService');
+
+/**
+ * Hata yanıtı helper
+ */
+const handleError = (res, error, defaultMessage = 'Sunucu hatası') => {
+    console.error(error);
+    const status = error.statusCode || 500;
+    const message = error.message || defaultMessage;
+    res.status(status).json({ success: false, message });
+};
 
 // @desc    Tüm ilanları getir (filtreleme ile)
 // @route   GET /api/horses
 // @access  Public
 exports.getHorses = async (req, res) => {
     try {
-        // Query parametreleri
-        const {
-            breed,
-            gender,
-            color,
-            city,
-            minPrice,
-            maxPrice,
-            minAge,
-            maxAge,
-            search,
-            sort,
-            page = 1,
-            limit = 12,
-            featured
-        } = req.query;
+        const { page = 1, limit = 12, sort } = req.query;
 
-        // Filter objesi oluştur
-        let filter = { status: 'active' };
-
-        if (breed) filter.breed = breed;
-        if (gender) filter.gender = gender;
-        if (color) filter.color = color;
-        if (city) filter['location.city'] = city;
-        
-        // Fiyat aralığı
-        if (minPrice || maxPrice) {
-            filter.price = {};
-            if (minPrice) filter.price.$gte = Number(minPrice);
-            if (maxPrice) filter.price.$lte = Number(maxPrice);
-        }
-
-        // Yaş aralığı
-        if (minAge || maxAge) {
-            filter.age = {};
-            if (minAge) filter.age.$gte = Number(minAge);
-            if (maxAge) filter.age.$lte = Number(maxAge);
-        }
-
-        // Metin araması
-        if (search) {
-            filter.$text = { $search: search };
-        }
-
-        // Öne çıkan
-        if (featured === 'true') {
-            filter.isFeatured = true;
-        }
-
-        // Sıralama
-        let sortOption = { isFeatured: -1, createdAt: -1 }; // Varsayılan
-        if (sort === 'price_asc') sortOption = { price: 1 };
-        if (sort === 'price_desc') sortOption = { price: -1 };
-        if (sort === 'newest') sortOption = { createdAt: -1 };
-        if (sort === 'oldest') sortOption = { createdAt: 1 };
+        // Service'den filter ve sort oluştur
+        const filter = HorseService.buildFilters(req.query);
+        const sortOption = HorseService.buildSortOption(sort);
 
         // Pagination
         const pageNum = parseInt(page);
@@ -75,9 +34,8 @@ exports.getHorses = async (req, res) => {
             .sort(sortOption)
             .skip(skip)
             .limit(limitNum)
-            .select('-description'); // Liste için açıklama gereksiz
+            .select('-description');
 
-        // Toplam sayı
         const total = await Horse.countDocuments(filter);
 
         res.status(200).json({
@@ -90,11 +48,7 @@ exports.getHorses = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('GetHorses Error:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Sunucu hatası'
-        });
+        handleError(res, error);
     }
 };
 
@@ -107,27 +61,16 @@ exports.getHorse = async (req, res) => {
             .populate('seller', 'name email phone avatar bio location website sellerInfo createdAt');
 
         if (!horse) {
-            return res.status(404).json({
-                success: false,
-                message: 'İlan bulunamadı'
-            });
+            return res.status(404).json({ success: false, message: 'İlan bulunamadı' });
         }
 
         // Görüntülenme sayısını artır
-        horse.stats.views += 1;
-        await horse.save({ validateBeforeSave: false });
+        await HorseService.incrementViewCount(horse);
 
-        res.status(200).json({
-            success: true,
-            data: horse
-        });
+        res.status(200).json({ success: true, data: horse });
 
     } catch (error) {
-        console.error('GetHorse Error:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Sunucu hatası'
-        });
+        handleError(res, error);
     }
 };
 
@@ -145,20 +88,9 @@ exports.createHorse = async (req, res) => {
             });
         }
 
-        // Satıcı bilgisini ekle
-        req.body.seller = req.user.id;
-
-        // İlanı pending olarak oluştur (admin onayı bekler)
-        req.body.status = 'pending';
-
-        // Varsayılan son kullanma tarihi (30 gün - onaydan sonra başlar)
-        if (!req.body.expiresAt) {
-            const expiryDate = new Date();
-            expiryDate.setDate(expiryDate.getDate() + 30);
-            req.body.expiresAt = expiryDate;
-        }
-
-        const horse = await Horse.create(req.body);
+        // Service'den varsayılan değerleri al
+        const horseData = HorseService.setCreateDefaults(req.body, req.user.id);
+        const horse = await Horse.create(horseData);
 
         res.status(201).json({
             success: true,
@@ -168,21 +100,12 @@ exports.createHorse = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('CreateHorse Error:', error);
-        
         // Mongoose validation hatası
         if (error.name === 'ValidationError') {
             const messages = Object.values(error.errors).map(e => e.message);
-            return res.status(400).json({
-                success: false,
-                message: messages.join(', ')
-            });
+            return res.status(400).json({ success: false, message: messages.join(', ') });
         }
-        
-        res.status(500).json({
-            success: false,
-            message: 'Sunucu hatası: ' + error.message
-        });
+        handleError(res, error);
     }
 };
 
@@ -191,27 +114,11 @@ exports.createHorse = async (req, res) => {
 // @access  Private (Owner)
 exports.updateHorse = async (req, res) => {
     try {
-        let horse = await Horse.findById(req.params.id);
+        // Sahiplik kontrolü ile ilanı getir
+        let horse = await HorseService.getHorseWithOwnershipCheck(req.params.id, req.user);
 
-        if (!horse) {
-            return res.status(404).json({
-                success: false,
-                message: 'İlan bulunamadı'
-            });
-        }
-
-        // Sahiplik kontrolü
-        if (horse.seller.toString() !== req.user.id && req.user.role !== 'admin') {
-            return res.status(403).json({
-                success: false,
-                message: 'Bu işlem için yetkiniz yok'
-            });
-        }
-
-        // Güncelleme sonrası tekrar onaya al (bazı alanlar için)
-        const sensitiveFields = ['name', 'price', 'description', 'images'];
-        const needsReview = sensitiveFields.some(field => req.body[field] !== undefined);
-        
+        // Hassas alan değişikliği kontrolü
+        const needsReview = HorseService.hasSensitiveChanges(req.body);
         if (needsReview && horse.status === 'active') {
             req.body.status = 'pending';
         }
@@ -228,11 +135,7 @@ exports.updateHorse = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('UpdateHorse Error:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Sunucu hatası'
-        });
+        handleError(res, error);
     }
 };
 
@@ -241,37 +144,14 @@ exports.updateHorse = async (req, res) => {
 // @access  Private (Owner)
 exports.deleteHorse = async (req, res) => {
     try {
-        const horse = await Horse.findById(req.params.id);
-
-        if (!horse) {
-            return res.status(404).json({
-                success: false,
-                message: 'İlan bulunamadı'
-            });
-        }
-
-        // Sahiplik kontrolü
-        if (horse.seller.toString() !== req.user.id && req.user.role !== 'admin') {
-            return res.status(403).json({
-                success: false,
-                message: 'Bu işlem için yetkiniz yok'
-            });
-        }
-
+        // Sahiplik kontrolü ile ilanı getir
+        const horse = await HorseService.getHorseWithOwnershipCheck(req.params.id, req.user);
         await horse.deleteOne();
 
-        res.status(200).json({
-            success: true,
-            message: 'İlan silindi',
-            data: {}
-        });
+        res.status(200).json({ success: true, message: 'İlan silindi', data: {} });
 
     } catch (error) {
-        console.error('DeleteHorse Error:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Sunucu hatası'
-        });
+        handleError(res, error);
     }
 };
 
@@ -282,7 +162,7 @@ exports.getMyListings = async (req, res) => {
     try {
         const { status, page = 1, limit = 10 } = req.query;
 
-        let filter = { seller: req.user.id };
+        const filter = { seller: req.user.id };
         if (status) filter.status = status;
 
         const horses = await Horse.find(filter)
@@ -300,11 +180,7 @@ exports.getMyListings = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('GetMyListings Error:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Sunucu hatası'
-        });
+        handleError(res, error);
     }
 };
 
@@ -313,58 +189,16 @@ exports.getMyListings = async (req, res) => {
 // @access  Private
 exports.toggleFavorite = async (req, res) => {
     try {
-        const horse = await Horse.findById(req.params.id);
-
-        if (!horse) {
-            return res.status(404).json({
-                success: false,
-                message: 'İlan bulunamadı'
-            });
-        }
-
-        const user = await User.findById(req.user.id);
-        const favoriteIndex = user.favorites.indexOf(req.params.id);
-
-        let message;
-        let isFavoriting = false;
-        if (favoriteIndex > -1) {
-            // Favorilerden çıkar
-            user.favorites.splice(favoriteIndex, 1);
-            horse.stats.favorites -= 1;
-            message = 'Favorilerden çıkarıldı';
-        } else {
-            // Favorilere ekle
-            user.favorites.push(req.params.id);
-            horse.stats.favorites += 1;
-            message = 'Favorilere eklendi';
-            isFavoriting = true;
-        }
-
-        await user.save({ validateBeforeSave: false });
-        await horse.save({ validateBeforeSave: false });
-
-        // Favoriye eklendiğinde ilan sahibine bildirim gönder
-        if (isFavoriting && horse.seller.toString() !== req.user.id) {
-            await notifyFavorited(
-                horse.seller.toString(),
-                user.name,
-                horse.name,
-                horse._id.toString()
-            );
-        }
+        const result = await HorseService.toggleFavorite(req.params.id, req.user.id);
 
         res.status(200).json({
             success: true,
-            message,
-            isFavorited: favoriteIndex === -1
+            message: result.message,
+            isFavorited: result.isFavorited
         });
 
     } catch (error) {
-        console.error('ToggleFavorite Error:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Sunucu hatası'
-        });
+        handleError(res, error);
     }
 };
 
@@ -373,54 +207,16 @@ exports.toggleFavorite = async (req, res) => {
 // @access  Private (Owner)
 exports.renewListing = async (req, res) => {
     try {
-        const horse = await Horse.findById(req.params.id);
-
-        if (!horse) {
-            return res.status(404).json({
-                success: false,
-                message: 'İlan bulunamadı'
-            });
-        }
-
-        // Sahiplik kontrolü
-        if (horse.seller.toString() !== req.user.id && req.user.role !== 'admin') {
-            return res.status(403).json({
-                success: false,
-                message: 'Bu işlem için yetkiniz yok'
-            });
-        }
-
-        // Sadece active veya expired ilanlar yenilenebilir
-        if (!['active', 'expired'].includes(horse.status)) {
-            return res.status(400).json({
-                success: false,
-                message: 'Sadece aktif veya süresi dolmuş ilanlar yenilenebilir'
-            });
-        }
-
-        // 30 gün daha ekle
-        const newExpiryDate = new Date();
-        newExpiryDate.setDate(newExpiryDate.getDate() + 30);
-
-        horse.expiresAt = newExpiryDate;
-        horse.status = 'active';
-        await horse.save({ validateBeforeSave: false });
+        const result = await HorseService.renewListing(req.params.id, req.user);
 
         res.status(200).json({
             success: true,
             message: 'İlan süresi 30 gün uzatıldı',
-            data: {
-                expiresAt: horse.expiresAt,
-                status: horse.status
-            }
+            data: result
         });
 
     } catch (error) {
-        console.error('RenewListing Error:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Sunucu hatası'
-        });
+        handleError(res, error);
     }
 };
 
@@ -429,25 +225,7 @@ exports.renewListing = async (req, res) => {
 // @access  Private (Owner)
 exports.markAsSold = async (req, res) => {
     try {
-        const horse = await Horse.findById(req.params.id);
-
-        if (!horse) {
-            return res.status(404).json({
-                success: false,
-                message: 'İlan bulunamadı'
-            });
-        }
-
-        // Sahiplik kontrolü
-        if (horse.seller.toString() !== req.user.id && req.user.role !== 'admin') {
-            return res.status(403).json({
-                success: false,
-                message: 'Bu işlem için yetkiniz yok'
-            });
-        }
-
-        horse.status = 'sold';
-        await horse.save({ validateBeforeSave: false });
+        const horse = await HorseService.markAsSold(req.params.id, req.user);
 
         res.status(200).json({
             success: true,
@@ -456,10 +234,6 @@ exports.markAsSold = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('MarkAsSold Error:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Sunucu hatası'
-        });
+        handleError(res, error);
     }
 };

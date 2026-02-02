@@ -1798,6 +1798,13 @@
     <script src="js/horses.js"></script>
     <script src="js/messages.js"></script>
     <script>
+        // === DEBUG: Script başladı ===
+        console.log('🐎 Horse Detail Script Loaded');
+        console.log('📍 Current URL:', window.location.href);
+        console.log('📍 Pathname:', window.location.pathname);
+        console.log('📍 Search:', window.location.search);
+        console.log('📍 Hash:', window.location.hash);
+
         // Global değişkenler
         let horseId = null;
         let currentHorse = null;
@@ -1833,13 +1840,17 @@
 
         // URL'den ilan ID'sini al
         function getHorseId() {
+            console.log('🔍 getHorseId() çağrıldı');
+
             // Query string'den
             const urlParams = new URLSearchParams(window.location.search);
             let id = urlParams.get('id');
+            console.log('  - Query string id:', id);
 
             // Hash'ten
             if (!id && window.location.hash) {
                 const hash = window.location.hash.substring(1);
+                console.log('  - Hash:', hash);
                 if (hash.startsWith('id=')) {
                     id = hash.substring(3);
                 } else if (/^[a-f0-9]{24}$/i.test(hash)) {
@@ -1847,30 +1858,40 @@
                 }
             }
 
-            // Path'ten (örn: /horse_detail/123)
+            // Path'ten (örn: /horse_detail/123 veya /horse_detail.html/123)
             if (!id) {
-                const pathMatch = window.location.pathname.match(/horse_detail[\/\.]?([a-f0-9]{24})?/i);
+                const pathMatch = window.location.pathname.match(/horse_detail(?:\.html)?[\/]?([a-f0-9]{24})?/i);
+                console.log('  - Path match:', pathMatch);
                 if (pathMatch && pathMatch[1]) {
                     id = pathMatch[1];
                 }
             }
 
+            console.log('  - Final ID:', id);
             return id;
         }
 
         // Sayfa yüklenirken
         document.addEventListener('DOMContentLoaded', async function() {
-            // Maksimum loading süresi - 15 saniye sonra hata göster
+            console.log('🚀 DOMContentLoaded fired');
+
+            let isCompleted = false; // Race condition önleme flag'i
+
+            // Maksimum loading süresi - 35 saniye (API timeout 30s'den büyük olmalı)
             const loadingTimeout = setTimeout(() => {
-                showError('Sayfa yüklenemedi. Lütfen sayfayı yenileyin.');
-            }, 15000);
+                if (!isCompleted) {
+                    console.error('⏰ Loading timeout!');
+                    showError('Sayfa yüklenemedi. Lütfen sayfayı yenileyin.');
+                }
+            }, 35000);
 
             try {
                 horseId = getHorseId();
+                console.log('📌 Horse ID:', horseId);
 
                 // ID kontrolü
                 if (!horseId) {
-                    clearTimeout(loadingTimeout);
+                    console.error('❌ No horse ID found!');
                     showError('Geçersiz ilan bağlantısı. Lütfen geçerli bir ilan seçin.');
                     return;
                 }
@@ -1879,20 +1900,27 @@
                 updateHeaderAuth();
 
                 // İlan detayını yükle
+                console.log('📡 loadHorseDetail() çağrılıyor...');
                 await loadHorseDetail();
 
-                clearTimeout(loadingTimeout);
+                console.log('✅ Page loaded successfully');
             } catch (error) {
-                clearTimeout(loadingTimeout);
-                console.error('Sayfa yükleme hatası:', error);
+                console.error('💥 Sayfa yükleme hatası:', error);
                 showError('Sayfa yüklenirken bir hata oluştu');
+            } finally {
+                isCompleted = true;
+                clearTimeout(loadingTimeout);
             }
         });
 
         function hideLoading() {
+            console.log('🔄 hideLoading() çağrıldı');
             const loadingOverlay = document.getElementById('pageLoading');
             if (loadingOverlay) {
                 loadingOverlay.style.display = 'none';
+                console.log('  - Loading overlay hidden');
+            } else {
+                console.log('  - pageLoading element not found');
             }
             const container = document.querySelector('.container');
             if (container) {
@@ -1940,14 +1968,13 @@
             try {
                 console.log('Loading horse detail for ID:', horseId);
 
-                // API isteği - auth gerektirmeyen endpoint
-                const result = await api.get('/horses/' + horseId, false);
+                // HorseService kullan
+                const result = await HorseService.getHorse(horseId);
                 console.log('API Result:', result);
 
                 if (result && result.success && result.data) {
                     currentHorse = result.data;
                     updatePageWithHorseData(currentHorse);
-                    hideLoading();
                 } else {
                     const errorMsg = result?.message || 'İlan bulunamadı';
                     showError(errorMsg);
@@ -1955,11 +1982,13 @@
             } catch (error) {
                 console.error('LoadHorseDetail Error:', error);
                 showError('İlan yüklenirken bir hata oluştu');
+            } finally {
+                // Loader her durumda kapatılmalı
+                hideLoading();
             }
         }
 
         function showError(message) {
-            hideLoading();
             const container = document.querySelector('.container');
             if (container) {
                 container.innerHTML = `
@@ -2159,7 +2188,7 @@
         // Satıcı istatistiklerini yükle
         async function loadSellerStats(sellerId) {
             try {
-                const result = await api.get(`/horses?seller=${sellerId}&status=active&limit=1`);
+                const result = await HorseService.getHorses({ seller: sellerId, status: 'active', limit: 1 });
                 if (result.success) {
                     const sellerListingsEl = document.getElementById('sellerListings');
                     if (sellerListingsEl) sellerListingsEl.textContent = result.total || result.count || 0;
@@ -2168,26 +2197,6 @@
                 console.error('Seller stats error:', e);
             }
         }
-
-        // Hata göster
-        function showError(message) {
-            const mainContent = document.querySelector('.main-content');
-            if (mainContent) {
-                mainContent.innerHTML = `
-                    <div style="text-align: center; padding: 60px;">
-                        <svg viewBox="0 0 24 24" style="width: 64px; height: 64px; fill: none; stroke: var(--warm-gray); stroke-width: 1; margin-bottom: 16px;">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 8v4M12 16h.01"/>
-                        </svg>
-                        <div style="font-size: 18px; color: var(--charcoal); margin-bottom: 8px;">${message}</div>
-                        <a href="ilanlar.html" class="btn btn-gold" style="margin-top: 20px;">İlanlara Dön</a>
-                    </div>
-                `;
-            }
-        }
-
-        // Global değişkenler (sayfa yüklendiğinde set edilecek)
-        let currentHorse = null;
 
         // Satıcıya mesaj gönder
         function startConversation() {
@@ -2234,6 +2243,9 @@
 
         // Teklif ver
         async function makeOffer() {
+            const offerBtn = document.getElementById('btn-offer');
+            const originalBtnText = offerBtn?.innerHTML;
+
             if (!localStorage.getItem('equimarket_token')) {
                 showToast('Teklif vermek için giriş yapmalısınız', 'error');
                 setTimeout(() => {
@@ -2268,6 +2280,12 @@
 
             const amount = Number(offerAmount);
 
+            // Loading state - buton disable et
+            if (offerBtn) {
+                offerBtn.disabled = true;
+                offerBtn.innerHTML = '<span class="spinner"></span> Gönderiliyor...';
+            }
+
             try {
                 // API'ye teklif gönder
                 if (typeof MessageService !== 'undefined') {
@@ -2297,6 +2315,12 @@
             } catch (error) {
                 console.error('MakeOffer Error:', error);
                 showToast('Teklif gönderilemedi', 'error');
+            } finally {
+                // Butonu eski haline getir
+                if (offerBtn) {
+                    offerBtn.disabled = false;
+                    offerBtn.innerHTML = originalBtnText;
+                }
             }
         }
 
