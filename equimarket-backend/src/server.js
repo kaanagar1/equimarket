@@ -20,7 +20,25 @@ initScheduledJobs();
 
 // Middleware
 app.use(cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:3000',
+    origin: function(origin, callback) {
+        // Allowed origins
+        const allowedOrigins = [
+            'http://localhost:3000',
+            'http://localhost:8080',
+            'http://127.0.0.1:3000',
+            'http://127.0.0.1:8080',
+            process.env.CLIENT_URL
+        ].filter(Boolean);
+
+        // Allow requests with no origin (mobile apps, curl, etc.)
+        if (!origin) return callback(null, true);
+
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+
+        return callback(new Error('CORS policy violation'), false);
+    },
     credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
