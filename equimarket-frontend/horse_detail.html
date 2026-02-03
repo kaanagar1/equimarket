@@ -1953,6 +1953,12 @@
             // Detaylı bilgiler
             updateDetailedInfo(horse);
 
+            // Soy ağacı (Pedigree)
+            updatePedigree(horse.pedigree);
+
+            // Yarış geçmişi
+            updateRacingHistory(horse.racingHistory);
+
             // Satıcı bilgileri
             updateSellerInfo(horse.seller);
         }
@@ -1960,7 +1966,7 @@
         // Detaylı bilgileri güncelle
         function updateDetailedInfo(horse) {
             const attributeItems = document.querySelectorAll('.attribute-item');
-            
+
             // Boy
             if (attributeItems[0]) {
                 attributeItems[0].querySelector('.attribute-value').textContent = horse.height ? `${horse.height} cm` : '-';
@@ -1969,6 +1975,127 @@
             if (attributeItems[1]) {
                 attributeItems[1].querySelector('.attribute-value').textContent = horse.weight ? `${horse.weight} kg` : '-';
             }
+        }
+
+        // Soy ağacını güncelle (1 → 2 → 4 simetrik yapı)
+        function updatePedigree(pedigree) {
+            const section = document.getElementById('pedigreeSection');
+            const tree = document.getElementById('pedigreeTree');
+
+            if (!pedigree || (!pedigree.sire && !pedigree.dam)) {
+                section.style.display = 'none';
+                return;
+            }
+
+            section.style.display = 'block';
+
+            const colorNames = { doru: 'Doru', kir: 'Kır', yagiz: 'Yağız', al: 'Al', diger: 'Diğer' };
+            const horseName = currentHorse?.name || 'At';
+            const horseYear = currentHorse?.birthDate ? new Date(currentHorse.birthDate).getFullYear() : '';
+            const horseColor = colorNames[currentHorse?.color] || '';
+            const horseGender = currentHorse?.gender === 'erkek' ? 'Erkek' : currentHorse?.gender === 'disi' ? 'Dişi' : '';
+
+            tree.innerHTML = `
+                <div class="pedigree-grid-3col" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+                    <!-- Seviye 1: At -->
+                    <div class="pedigree-column" style="display:flex;flex-direction:column;justify-content:center;">
+                        <div class="pedigree-column-title" style="font-size:11px;font-weight:600;color:var(--warm-gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">At</div>
+                        <div class="pedigree-box" style="background:var(--light-gray);border-radius:10px;padding:14px;border-left:3px solid var(--gold);">
+                            <div class="pedigree-name" style="font-weight:600;color:var(--charcoal);font-size:14px;">${horseName}</div>
+                            <div class="pedigree-meta" style="font-size:12px;color:var(--warm-gray);margin-top:4px;">${horseYear}${horseColor ? ' · ' + horseColor : ''}${horseGender ? ' · ' + horseGender : ''}</div>
+                        </div>
+                    </div>
+
+                    <!-- Seviye 2: Ebeveynler -->
+                    <div class="pedigree-column" style="display:flex;flex-direction:column;gap:12px;">
+                        <div class="pedigree-column-title" style="font-size:11px;font-weight:600;color:var(--warm-gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Ebeveynler</div>
+                        <div class="pedigree-box sire" style="background:var(--light-gray);border-radius:10px;padding:14px;border-left:3px solid var(--info);">
+                            <div class="pedigree-name" style="font-weight:600;color:var(--charcoal);font-size:14px;">${pedigree.sire || '-'}</div>
+                            <div class="pedigree-meta" style="font-size:12px;color:var(--warm-gray);margin-top:4px;">Baba</div>
+                        </div>
+                        <div class="pedigree-box dam" style="background:var(--light-gray);border-radius:10px;padding:14px;border-left:3px solid #ec4899;">
+                            <div class="pedigree-name" style="font-weight:600;color:var(--charcoal);font-size:14px;">${pedigree.dam || '-'}</div>
+                            <div class="pedigree-meta" style="font-size:12px;color:var(--warm-gray);margin-top:4px;">Anne</div>
+                        </div>
+                    </div>
+
+                    <!-- Seviye 3: Büyük Ebeveynler (4 kutu) -->
+                    <div class="pedigree-column" style="display:flex;flex-direction:column;gap:8px;">
+                        <div class="pedigree-column-title" style="font-size:11px;font-weight:600;color:var(--warm-gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Büyük Ebeveynler</div>
+                        <div class="pedigree-box sire" style="background:var(--light-gray);border-radius:8px;padding:10px;border-left:3px solid var(--info);font-size:13px;">
+                            <div class="pedigree-name" style="font-weight:600;color:var(--charcoal);">${pedigree.sireOfSire || '-'}</div>
+                            <div class="pedigree-meta" style="font-size:11px;color:var(--warm-gray);">Babanın Babası</div>
+                        </div>
+                        <div class="pedigree-box dam" style="background:var(--light-gray);border-radius:8px;padding:10px;border-left:3px solid #ec4899;font-size:13px;">
+                            <div class="pedigree-name" style="font-weight:600;color:var(--charcoal);">${pedigree.damOfSire || '-'}</div>
+                            <div class="pedigree-meta" style="font-size:11px;color:var(--warm-gray);">Babanın Annesi</div>
+                        </div>
+                        <div class="pedigree-box sire" style="background:var(--light-gray);border-radius:8px;padding:10px;border-left:3px solid var(--info);font-size:13px;">
+                            <div class="pedigree-name" style="font-weight:600;color:var(--charcoal);">${pedigree.sireOfDam || '-'}</div>
+                            <div class="pedigree-meta" style="font-size:11px;color:var(--warm-gray);">Annenin Babası</div>
+                        </div>
+                        <div class="pedigree-box dam" style="background:var(--light-gray);border-radius:8px;padding:10px;border-left:3px solid #ec4899;font-size:13px;">
+                            <div class="pedigree-name" style="font-weight:600;color:var(--charcoal);">${pedigree.damOfDam || '-'}</div>
+                            <div class="pedigree-meta" style="font-size:11px;color:var(--warm-gray);">Annenin Annesi</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Yarış geçmişini güncelle
+        function updateRacingHistory(racing) {
+            const section = document.getElementById('racingHistorySection');
+            const wrapper = document.getElementById('raceTableWrapper');
+
+            if (!racing || (!racing.totalRaces && !racing.wins && !racing.earnings)) {
+                section.style.display = 'none';
+                return;
+            }
+
+            section.style.display = 'block';
+
+            const lastRace = racing.lastRaceDate ? new Date(racing.lastRaceDate).toLocaleDateString('tr-TR') : '-';
+            const earnings = racing.earnings ? new Intl.NumberFormat('tr-TR').format(racing.earnings) : '0';
+            const winRate = racing.totalRaces > 0 ? Math.round((racing.wins / racing.totalRaces) * 100) : 0;
+
+            wrapper.innerHTML = `
+                <div class="racing-stats-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;">
+                    <div class="racing-stat-card" style="background:var(--light-gray);border-radius:12px;padding:20px;text-align:center;">
+                        <div class="stat-value" style="font-size:28px;font-weight:700;color:var(--racing-green);">${racing.totalRaces || 0}</div>
+                        <div class="stat-label" style="font-size:13px;color:var(--warm-gray);margin-top:4px;">Toplam Yarış</div>
+                    </div>
+                    <div class="racing-stat-card" style="background:var(--light-gray);border-radius:12px;padding:20px;text-align:center;">
+                        <div class="stat-value" style="font-size:28px;font-weight:700;color:var(--gold);">${racing.wins || 0}</div>
+                        <div class="stat-label" style="font-size:13px;color:var(--warm-gray);margin-top:4px;">Birincilik</div>
+                    </div>
+                    <div class="racing-stat-card" style="background:var(--light-gray);border-radius:12px;padding:20px;text-align:center;">
+                        <div class="stat-value" style="font-size:28px;font-weight:700;color:var(--info);">${racing.places || 0}</div>
+                        <div class="stat-label" style="font-size:13px;color:var(--warm-gray);margin-top:4px;">2. ve 3.lük</div>
+                    </div>
+                    <div class="racing-stat-card" style="background:var(--light-gray);border-radius:12px;padding:20px;text-align:center;">
+                        <div class="stat-value" style="font-size:28px;font-weight:700;color:var(--success);">%${winRate}</div>
+                        <div class="stat-label" style="font-size:13px;color:var(--warm-gray);margin-top:4px;">Kazanma Oranı</div>
+                    </div>
+                </div>
+
+                <div class="racing-details" style="margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+                    <div class="detail-item" style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--light-gray);">
+                        <span style="color:var(--warm-gray);font-size:14px;">Toplam Kazanç</span>
+                        <span style="font-weight:600;color:var(--charcoal);">₺${earnings}</span>
+                    </div>
+                    <div class="detail-item" style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--light-gray);">
+                        <span style="color:var(--warm-gray);font-size:14px;">Son Yarış</span>
+                        <span style="font-weight:600;color:var(--charcoal);">${lastRace}</span>
+                    </div>
+                    ${racing.bestTime ? `
+                    <div class="detail-item" style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--light-gray);">
+                        <span style="color:var(--warm-gray);font-size:14px;">En İyi Derece</span>
+                        <span style="font-weight:600;color:var(--charcoal);">${racing.bestTime}</span>
+                    </div>
+                    ` : ''}
+                </div>
+            `;
         }
 
         // Satıcı bilgilerini güncelle

@@ -943,12 +943,16 @@
                         <div class="step-number">2</div>
                         <span class="step-label">Soy Ağacı</span>
                     </div>
-                    <div class="step" data-target="photos-card" onclick="scrollToSection('photos-card')">
+                    <div class="step" data-target="racing-card" onclick="scrollToSection('racing-card')">
                         <div class="step-number">3</div>
+                        <span class="step-label">Yarış Geçmişi</span>
+                    </div>
+                    <div class="step" data-target="photos-card" onclick="scrollToSection('photos-card')">
+                        <div class="step-number">4</div>
                         <span class="step-label">Fotoğraflar</span>
                     </div>
                     <div class="step" data-target="price-card" onclick="scrollToSection('price-card')">
-                        <div class="step-number">4</div>
+                        <div class="step-number">5</div>
                         <span class="step-label">Fiyat & Yayınla</span>
                     </div>
                 </div>
@@ -1045,6 +1049,49 @@
                         <span class="pedigree-column-title">Büyük Ebeveynler (Anne)</span>
                         <input type="text" class="pedigree-input sire" id="pedigree-dam-sire" placeholder="(Annenin Babası)" oninput="this.value = this.value.replace(/[0-9]/g, '')">
                         <input type="text" class="pedigree-input dam" id="pedigree-dam-dam" placeholder="(Annenin Annesi)" oninput="this.value = this.value.replace(/[0-9]/g, '')">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Racing History Card -->
+            <div class="form-card" id="racing-card">
+                <div class="form-card-header">
+                    <h2 class="form-card-title">Yarış Geçmişi</h2>
+                    <p class="form-card-desc">Atınızın yarış istatistiklerini girin (opsiyonel)</p>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Toplam Yarış Sayısı</label>
+                        <input type="number" class="form-input" id="racing-total" placeholder="Örn: 15" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Birincilik Sayısı</label>
+                        <input type="number" class="form-input" id="racing-wins" placeholder="Örn: 5" min="0">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">İkinci ve Üçüncülük Sayısı</label>
+                        <input type="number" class="form-input" id="racing-places" placeholder="Örn: 7" min="0">
+                        <span class="form-hint">2. ve 3.'lük toplamı</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Toplam Kazanç (₺)</label>
+                        <input type="text" class="form-input" id="racing-earnings" placeholder="Örn: 250.000" oninput="formatPrice(this)">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Son Yarış Tarihi</label>
+                        <input type="date" class="form-input" id="racing-last-date">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">En İyi Derece</label>
+                        <input type="text" class="form-input" id="racing-best-time" placeholder="Örn: 1:35.2">
+                        <span class="form-hint">Dakika:Saniye.Salise formatında</span>
                     </div>
                 </div>
             </div>
@@ -1589,7 +1636,27 @@
                 location: {
                     city: document.getElementById('horse-city').value
                 },
-                tjkLink: document.getElementById('horse-tjk').value.trim() || null
+                tjkLink: document.getElementById('horse-tjk').value.trim() || null,
+
+                // Pedigree (Soy Ağacı)
+                pedigree: {
+                    sire: document.getElementById('pedigree-sire').value.trim() || null,
+                    dam: document.getElementById('pedigree-dam').value.trim() || null,
+                    sireOfSire: document.getElementById('pedigree-sire-sire').value.trim() || null,
+                    damOfSire: document.getElementById('pedigree-sire-dam').value.trim() || null,
+                    sireOfDam: document.getElementById('pedigree-dam-sire').value.trim() || null,
+                    damOfDam: document.getElementById('pedigree-dam-dam').value.trim() || null
+                },
+
+                // Yarış Geçmişi
+                racingHistory: {
+                    totalRaces: parseInt(document.getElementById('racing-total').value) || 0,
+                    wins: parseInt(document.getElementById('racing-wins').value) || 0,
+                    places: parseInt(document.getElementById('racing-places').value) || 0,
+                    earnings: parseInt(document.getElementById('racing-earnings').value.replace(/\D/g, '')) || 0,
+                    lastRaceDate: document.getElementById('racing-last-date').value || null,
+                    bestTime: document.getElementById('racing-best-time').value.trim() || null
+                }
             };
 
             // Validasyon
