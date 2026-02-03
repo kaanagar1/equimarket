@@ -1,6 +1,7 @@
 /**
- * EquiMarket Feedback Popup
- * Kullanıcıdan geribildirim toplar ve ücretsiz ilan hakkı verir
+ * EquiMarket Feedback Popup v2
+ * Non-intrusive bottom-corner banner design
+ * Controlled triggering with user interaction requirement
  */
 
 (function() {
@@ -8,296 +9,246 @@
 
     // Konfigürasyon
     const CONFIG = {
-        // Popup gösterilmeden önce geçmesi gereken süre (milisaniye)
-        DELAY_TIME: 60 * 1000, // 60 saniye (1 dakika)
-        // Production için: 15 * 60 * 1000 (15 dakika)
+        // Popup gösterilmeden önce geçmesi gereken minimum süre (milisaniye)
+        MIN_TIME_ON_PAGE: 20 * 1000, // 20 saniye
+
+        // Erteleme sonrası cooldown süresi (milisaniye)
+        DISMISS_COOLDOWN: 7 * 24 * 60 * 60 * 1000, // 7 gün
+
+        // Minimum scroll yüzdesi (viewport)
+        MIN_SCROLL_PERCENT: 30,
 
         // LocalStorage anahtarları
         STORAGE_KEYS: {
-            FEEDBACK_GIVEN: 'equimarket_feedback_given',
-            SESSION_START: 'equimarket_session_start',
-            POPUP_SHOWN: 'equimarket_popup_shown_session'
+            FEEDBACK_SUBMITTED: 'equimarket_feedback_submitted',
+            DISMISS_UNTIL: 'equimarket_feedback_dismiss_until'
         }
     };
 
     // Puanlama metinleri
     const RATING_TEXTS = {
-        1: 'Çok kötü 😞',
-        2: 'Kötü 😕',
-        3: 'Orta 😐',
-        4: 'İyi 😊',
-        5: 'Mükemmel! 🤩'
+        1: 'Çok kötü',
+        2: 'Kötü',
+        3: 'Orta',
+        4: 'İyi',
+        5: 'Mükemmel!'
     };
 
+    // State
     let currentRating = 0;
     let isInitialized = false;
-    let cssLoaded = false;
+    let isVisible = false;
+    let pageLoadTime = 0;
+    let hasUserInteracted = false;
+    let hasScrolled = false;
+    let popupShownThisPage = false;
 
-    // Popup HTML oluştur - başlangıçta gizli
-    function createPopupHTML() {
+    // Banner HTML oluştur
+    function createBannerHTML() {
         return `
-            <div class="feedback-overlay" id="feedbackOverlay" style="display: none;">
-                <div class="feedback-popup">
-                    <button class="feedback-close" id="feedbackClose" title="Kapat">
-                        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
-                    </button>
+            <div class="feedback-banner" id="feedbackBanner">
+                <button class="feedback-banner-close" id="feedbackBannerClose" title="Kapat" aria-label="Kapat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
 
-                    <div class="feedback-form-container" id="feedbackFormContainer">
-                        <div class="feedback-header">
-                            <div class="feedback-icon">
-                                <svg viewBox="0 0 24 24">
-                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                </svg>
-                            </div>
-                            <h2>Görüşleriniz Bizim İçin Değerli!</h2>
-                            <p>EquiMarket deneyiminizi değerlendirin ve <strong>1 ücretsiz ilan hakkı</strong> kazanın.</p>
+                <div class="feedback-banner-content" id="feedbackBannerContent">
+                    <div class="feedback-banner-header">
+                        <div class="feedback-banner-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
                         </div>
-
-                        <div class="feedback-reward">
-                            <span>
-                                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                                Geribildirim verin, 1 ücretsiz ilan hakkı kazanın!
-                            </span>
-                        </div>
-
-                        <div class="star-rating" id="starRating">
-                            <button class="star-btn" data-rating="1" type="button">
-                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            </button>
-                            <button class="star-btn" data-rating="2" type="button">
-                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            </button>
-                            <button class="star-btn" data-rating="3" type="button">
-                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            </button>
-                            <button class="star-btn" data-rating="4" type="button">
-                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            </button>
-                            <button class="star-btn" data-rating="5" type="button">
-                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                            </button>
-                        </div>
-                        <div class="rating-text" id="ratingText"></div>
-
-                        <form class="feedback-form" id="feedbackForm">
-                            <textarea
-                                class="feedback-textarea"
-                                id="feedbackText"
-                                placeholder="Deneyiminizi bizimle paylaşın... Neyi beğendiniz? Neleri geliştirebiliriz?"
-                                required
-                            ></textarea>
-
-                            <button type="submit" class="feedback-submit" id="feedbackSubmit" disabled>
-                                <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-                                Gönder ve Ödülü Kazan
-                            </button>
-                        </form>
-
-                        <div class="feedback-skip">
-                            <button type="button" id="feedbackSkip">Daha sonra hatırlat</button>
+                        <div class="feedback-banner-text">
+                            <h4>Deneyiminizi Değerlendirin</h4>
+                            <p><strong>1 ücretsiz ilan hakkı</strong> kazanın!</p>
                         </div>
                     </div>
 
-                    <div class="feedback-success" id="feedbackSuccess">
-                        <div class="feedback-success-icon">
-                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                        </div>
-                        <h3>Teşekkürler!</h3>
-                        <p>Değerli görüşleriniz için teşekkür ederiz. Geribildiriminiz EquiMarket'i daha iyi hale getirmemize yardımcı olacak.</p>
-                        <div class="reward-badge">
-                            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                            1 Ücretsiz İlan Hakkı Kazandınız!
-                        </div>
-                        <button class="feedback-success-btn" id="feedbackSuccessClose">Tamam</button>
+                    <div class="feedback-banner-stars" id="feedbackBannerStars">
+                        ${[1,2,3,4,5].map(n => `
+                            <button class="feedback-star" data-rating="${n}" type="button" aria-label="${n} yıldız">
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div class="feedback-rating-label" id="feedbackRatingLabel"></div>
+
+                    <div class="feedback-banner-form" id="feedbackBannerForm" style="display: none;">
+                        <textarea
+                            class="feedback-banner-textarea"
+                            id="feedbackBannerText"
+                            placeholder="Görüşlerinizi paylaşın..."
+                            rows="2"
+                        ></textarea>
+                        <button class="feedback-banner-submit" id="feedbackBannerSubmit" type="button">
+                            Gönder
+                        </button>
+                    </div>
+
+                    <button class="feedback-banner-later" id="feedbackBannerLater" type="button">
+                        Daha sonra
+                    </button>
+                </div>
+
+                <div class="feedback-banner-success" id="feedbackBannerSuccess">
+                    <div class="feedback-success-check">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </div>
+                    <div class="feedback-success-text">
+                        <h4>Teşekkürler!</h4>
+                        <p>1 ücretsiz ilan hakkı kazandınız.</p>
                     </div>
                 </div>
             </div>
         `;
     }
 
-    // CSS dosyasını yükle ve callback çağır
-    function loadCSS(callback) {
-        if (document.getElementById('feedback-popup-css')) {
-            cssLoaded = true;
-            if (callback) callback();
-            return;
-        }
-
-        const link = document.createElement('link');
-        link.id = 'feedback-popup-css';
-        link.rel = 'stylesheet';
-        link.href = '/css/feedback-popup.css'; // Mutlak path kullan
-
-        link.onload = function() {
-            cssLoaded = true;
-            if (callback) callback();
-        };
-
-        link.onerror = function() {
-            console.error('Feedback popup CSS yüklenemedi');
-            cssLoaded = true; // Hata olsa bile devam et
-            if (callback) callback();
-        };
-
-        document.head.appendChild(link);
-    }
-
-    // Popup'ı DOM'a ekle
-    function injectPopup() {
-        if (document.getElementById('feedbackOverlay')) return;
+    // Banner'ı DOM'a ekle
+    function injectBanner() {
+        if (document.getElementById('feedbackBanner')) return;
 
         const container = document.createElement('div');
-        container.innerHTML = createPopupHTML();
+        container.innerHTML = createBannerHTML();
         document.body.appendChild(container.firstElementChild);
     }
 
     // Event listener'ları bağla
     function bindEvents() {
-        const overlay = document.getElementById('feedbackOverlay');
-        if (!overlay) return;
+        const banner = document.getElementById('feedbackBanner');
+        if (!banner) return;
 
         // Yıldız rating
-        const starBtns = document.querySelectorAll('.star-btn');
-        starBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                handleStarClick(btn);
-            });
-            btn.addEventListener('mouseenter', () => handleStarHover(btn));
-            btn.addEventListener('mouseleave', () => handleStarLeave());
+        const stars = banner.querySelectorAll('.feedback-star');
+        stars.forEach(star => {
+            star.addEventListener('click', handleStarClick);
+            star.addEventListener('mouseenter', handleStarHover);
+            star.addEventListener('mouseleave', handleStarLeave);
         });
-
-        // Form submit
-        const form = document.getElementById('feedbackForm');
-        if (form) {
-            form.addEventListener('submit', handleSubmit);
-        }
 
         // Kapat butonu
-        const closeBtn = document.getElementById('feedbackClose');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                hidePopup();
-            });
-        }
+        document.getElementById('feedbackBannerClose')?.addEventListener('click', dismissBanner);
 
-        // Daha sonra hatırlat
-        const skipBtn = document.getElementById('feedbackSkip');
-        if (skipBtn) {
-            skipBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                skipPopup();
-            });
-        }
+        // Daha sonra butonu
+        document.getElementById('feedbackBannerLater')?.addEventListener('click', dismissBanner);
 
-        // Başarı ekranı kapat
-        const successCloseBtn = document.getElementById('feedbackSuccessClose');
-        if (successCloseBtn) {
-            successCloseBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                hidePopup();
-            });
-        }
-
-        // Overlay'e tıklayınca kapatma
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                hidePopup();
-            }
-        });
+        // Gönder butonu
+        document.getElementById('feedbackBannerSubmit')?.addEventListener('click', handleSubmit);
 
         // ESC tuşu ile kapatma
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && overlay.classList.contains('show')) {
-                hidePopup();
+            if (e.key === 'Escape' && isVisible) {
+                dismissBanner();
             }
         });
+
+        // Kullanıcı etkileşimi takibi
+        document.addEventListener('click', onUserInteraction, { once: true, passive: true });
+        document.addEventListener('scroll', onUserScroll, { passive: true });
+    }
+
+    // Kullanıcı tıkladığında
+    function onUserInteraction() {
+        hasUserInteracted = true;
+        checkAndShowBanner();
+    }
+
+    // Kullanıcı scroll yaptığında
+    function onUserScroll() {
+        const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+
+        if (scrollPercent >= CONFIG.MIN_SCROLL_PERCENT) {
+            hasScrolled = true;
+            checkAndShowBanner();
+        }
+    }
+
+    // Banner gösterilmeli mi kontrol et ve göster
+    function checkAndShowBanner() {
+        if (popupShownThisPage) return;
+        if (!shouldShowBanner()) return;
+
+        const timeOnPage = Date.now() - pageLoadTime;
+        const hasEnoughTime = timeOnPage >= CONFIG.MIN_TIME_ON_PAGE;
+        const hasInteraction = hasUserInteracted || hasScrolled;
+
+        if (hasEnoughTime && hasInteraction) {
+            showBanner();
+        }
     }
 
     // Yıldız tıklama
-    function handleStarClick(btn) {
+    function handleStarClick(e) {
+        const btn = e.currentTarget;
         currentRating = parseInt(btn.dataset.rating);
         updateStars();
-        const submitBtn = document.getElementById('feedbackSubmit');
-        if (submitBtn) {
-            submitBtn.disabled = false;
-        }
+
+        // Form alanını göster
+        const form = document.getElementById('feedbackBannerForm');
+        const laterBtn = document.getElementById('feedbackBannerLater');
+        if (form) form.style.display = 'flex';
+        if (laterBtn) laterBtn.style.display = 'none';
+
+        // Textarea'ya focus
+        setTimeout(() => {
+            document.getElementById('feedbackBannerText')?.focus();
+        }, 100);
     }
 
     // Yıldız hover
-    function handleStarHover(btn) {
-        const rating = parseInt(btn.dataset.rating);
-        const stars = document.querySelectorAll('.star-btn');
+    function handleStarHover(e) {
+        const rating = parseInt(e.currentTarget.dataset.rating);
+        const stars = document.querySelectorAll('.feedback-star');
+
         stars.forEach((star, index) => {
             star.classList.toggle('hover', index < rating);
         });
-        const ratingText = document.getElementById('ratingText');
-        if (ratingText) {
-            ratingText.textContent = RATING_TEXTS[rating];
-        }
+
+        const label = document.getElementById('feedbackRatingLabel');
+        if (label) label.textContent = RATING_TEXTS[rating];
     }
 
     // Yıldız hover çıkış
     function handleStarLeave() {
-        const stars = document.querySelectorAll('.star-btn');
+        const stars = document.querySelectorAll('.feedback-star');
         stars.forEach(star => star.classList.remove('hover'));
-        const ratingText = document.getElementById('ratingText');
-        if (ratingText) {
-            ratingText.textContent = currentRating ? RATING_TEXTS[currentRating] : '';
-        }
+
+        const label = document.getElementById('feedbackRatingLabel');
+        if (label) label.textContent = currentRating ? RATING_TEXTS[currentRating] : '';
     }
 
     // Yıldızları güncelle
     function updateStars() {
-        const stars = document.querySelectorAll('.star-btn');
+        const stars = document.querySelectorAll('.feedback-star');
         stars.forEach((star, index) => {
             star.classList.toggle('active', index < currentRating);
         });
-        const ratingText = document.getElementById('ratingText');
-        if (ratingText) {
-            ratingText.textContent = RATING_TEXTS[currentRating];
-        }
+
+        const label = document.getElementById('feedbackRatingLabel');
+        if (label) label.textContent = RATING_TEXTS[currentRating];
     }
 
     // Form gönder
-    async function handleSubmit(e) {
-        e.preventDefault();
-
-        const textArea = document.getElementById('feedbackText');
-        const text = textArea ? textArea.value.trim() : '';
-        const submitBtn = document.getElementById('feedbackSubmit');
+    async function handleSubmit() {
+        const textarea = document.getElementById('feedbackBannerText');
+        const text = textarea?.value.trim() || '';
+        const submitBtn = document.getElementById('feedbackBannerSubmit');
 
         if (!currentRating) {
             if (typeof toast !== 'undefined') toast.warning('Lütfen bir puan verin.');
-            else alert('Lütfen bir puan verin.');
-            return;
-        }
-
-        if (!text) {
-            if (typeof toast !== 'undefined') toast.warning('Lütfen görüşlerinizi yazın.');
-            else alert('Lütfen görüşlerinizi yazın.');
             return;
         }
 
         // Butonu devre dışı bırak
         if (submitBtn) {
             submitBtn.disabled = true;
-            submitBtn.innerHTML = `
-                <svg viewBox="0 0 24 24" class="spin-icon"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-                Gönderiliyor...
-            `;
+            submitBtn.textContent = 'Gönderiliyor...';
         }
 
         try {
-            // Kullanıcı bilgisini al
-            const userData = localStorage.getItem('equimarket_user');
-            const user = userData ? JSON.parse(userData) : null;
-
             // API'ye gönder
             if (typeof api !== 'undefined') {
                 const response = await api.post('/feedback', {
@@ -306,16 +257,17 @@
                     page: window.location.pathname
                 });
 
-                if (response.success) {
-                    // Kullanıcı bilgisini güncelle
-                    if (user && response.data && response.data.user) {
+                // Kullanıcı bilgisini güncelle
+                if (response?.success && response?.data?.user) {
+                    const userData = localStorage.getItem('equimarket_user');
+                    if (userData) {
                         localStorage.setItem('equimarket_user', JSON.stringify(response.data.user));
                     }
                 }
             }
 
-            // Feedback verildi olarak işaretle
-            localStorage.setItem(CONFIG.STORAGE_KEYS.FEEDBACK_GIVEN, 'true');
+            // Feedback verildi olarak işaretle (kalıcı)
+            localStorage.setItem(CONFIG.STORAGE_KEYS.FEEDBACK_SUBMITTED, 'true');
 
             // Başarı ekranını göster
             showSuccess();
@@ -329,165 +281,137 @@
             console.error('Feedback gönderme hatası:', error);
 
             // Hata olsa bile başarılı say (UX için)
-            localStorage.setItem(CONFIG.STORAGE_KEYS.FEEDBACK_GIVEN, 'true');
+            localStorage.setItem(CONFIG.STORAGE_KEYS.FEEDBACK_SUBMITTED, 'true');
             showSuccess();
         }
     }
 
     // Başarı ekranını göster
     function showSuccess() {
-        const formContainer = document.getElementById('feedbackFormContainer');
-        const successContainer = document.getElementById('feedbackSuccess');
+        const content = document.getElementById('feedbackBannerContent');
+        const success = document.getElementById('feedbackBannerSuccess');
 
-        if (formContainer) formContainer.classList.add('hidden');
-        if (successContainer) successContainer.classList.add('show');
+        if (content) content.style.display = 'none';
+        if (success) success.style.display = 'flex';
+
+        // 3 saniye sonra kapat
+        setTimeout(() => {
+            hideBanner();
+        }, 3000);
     }
 
-    // Popup'ı göster
-    function showPopup() {
-        if (!cssLoaded) {
-            // CSS yüklenene kadar bekle
-            setTimeout(showPopup, 100);
-            return;
-        }
+    // Banner'ı göster
+    function showBanner() {
+        const banner = document.getElementById('feedbackBanner');
+        if (!banner || isVisible || popupShownThisPage) return;
 
-        const overlay = document.getElementById('feedbackOverlay');
-        if (!overlay) return;
+        popupShownThisPage = true;
+        isVisible = true;
 
-        // Önce display'i ayarla
-        overlay.style.display = 'flex';
+        // Önce görünür yap (ama opacity 0)
+        banner.style.display = 'block';
 
-        // Kısa bir gecikme ile animasyonu başlat
+        // Animasyonu başlatmak için frame bekle
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
-                overlay.classList.add('show');
+                banner.classList.add('show');
             });
         });
-
-        document.body.style.overflow = 'hidden';
-
-        // Bu oturumda gösterildi olarak işaretle
-        sessionStorage.setItem(CONFIG.STORAGE_KEYS.POPUP_SHOWN, 'true');
     }
 
-    // Popup'ı gizle
-    function hidePopup() {
-        const overlay = document.getElementById('feedbackOverlay');
-        if (!overlay) return;
+    // Banner'ı gizle
+    function hideBanner() {
+        const banner = document.getElementById('feedbackBanner');
+        if (!banner) return;
 
-        overlay.classList.remove('show');
-        document.body.style.overflow = '';
+        banner.classList.remove('show');
+        isVisible = false;
 
-        // Animasyon bittikten sonra display'i gizle
+        // Animasyon bittikten sonra gizle
         setTimeout(() => {
-            overlay.style.display = 'none';
-            // Form state'i sıfırla
+            banner.style.display = 'none';
             resetForm();
         }, 300);
+    }
+
+    // Banner'ı ertele (dismiss)
+    function dismissBanner() {
+        // 7 gün boyunca gösterme
+        const dismissUntil = Date.now() + CONFIG.DISMISS_COOLDOWN;
+        localStorage.setItem(CONFIG.STORAGE_KEYS.DISMISS_UNTIL, dismissUntil.toString());
+
+        hideBanner();
     }
 
     // Form state'i sıfırla
     function resetForm() {
         currentRating = 0;
-        const textArea = document.getElementById('feedbackText');
-        const submitBtn = document.getElementById('feedbackSubmit');
-        const formContainer = document.getElementById('feedbackFormContainer');
-        const successContainer = document.getElementById('feedbackSuccess');
-        const ratingText = document.getElementById('ratingText');
 
-        if (textArea) textArea.value = '';
+        const textarea = document.getElementById('feedbackBannerText');
+        const submitBtn = document.getElementById('feedbackBannerSubmit');
+        const form = document.getElementById('feedbackBannerForm');
+        const laterBtn = document.getElementById('feedbackBannerLater');
+        const content = document.getElementById('feedbackBannerContent');
+        const success = document.getElementById('feedbackBannerSuccess');
+        const label = document.getElementById('feedbackRatingLabel');
+
+        if (textarea) textarea.value = '';
         if (submitBtn) {
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = `
-                <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-                Gönder ve Ödülü Kazan
-            `;
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Gönder';
         }
-        if (formContainer) formContainer.classList.remove('hidden');
-        if (successContainer) successContainer.classList.remove('show');
-        if (ratingText) ratingText.textContent = '';
+        if (form) form.style.display = 'none';
+        if (laterBtn) laterBtn.style.display = 'inline-flex';
+        if (content) content.style.display = 'block';
+        if (success) success.style.display = 'none';
+        if (label) label.textContent = '';
 
-        const stars = document.querySelectorAll('.star-btn');
+        const stars = document.querySelectorAll('.feedback-star');
         stars.forEach(star => {
-            star.classList.remove('active');
-            star.classList.remove('hover');
+            star.classList.remove('active', 'hover');
         });
     }
 
-    // Daha sonra hatırlat
-    function skipPopup() {
-        hidePopup();
-        // Oturum süresince tekrar gösterme
-    }
-
-    // Kullanıcı giriş yapmış mı kontrol et
+    // Kullanıcı giriş yapmış mı
     function isUserLoggedIn() {
         return !!localStorage.getItem('equimarket_token');
     }
 
-    // Feedback daha önce verilmiş mi kontrol et
-    function hasFeedbackGiven() {
-        return localStorage.getItem(CONFIG.STORAGE_KEYS.FEEDBACK_GIVEN) === 'true';
+    // Feedback daha önce gönderilmiş mi
+    function hasFeedbackSubmitted() {
+        return localStorage.getItem(CONFIG.STORAGE_KEYS.FEEDBACK_SUBMITTED) === 'true';
     }
 
-    // Bu oturumda popup gösterilmiş mi
-    function hasPopupShownThisSession() {
-        return sessionStorage.getItem(CONFIG.STORAGE_KEYS.POPUP_SHOWN) === 'true';
+    // Dismiss cooldown aktif mi
+    function isDismissCooldownActive() {
+        const dismissUntil = localStorage.getItem(CONFIG.STORAGE_KEYS.DISMISS_UNTIL);
+        if (!dismissUntil) return false;
+
+        return Date.now() < parseInt(dismissUntil);
     }
 
-    // Session başlangıç zamanını al/ayarla
-    function getSessionStart() {
-        let sessionStart = sessionStorage.getItem(CONFIG.STORAGE_KEYS.SESSION_START);
-
-        if (!sessionStart) {
-            sessionStart = Date.now().toString();
-            sessionStorage.setItem(CONFIG.STORAGE_KEYS.SESSION_START, sessionStart);
-        }
-
-        return parseInt(sessionStart);
-    }
-
-    // Popup gösterilmeli mi kontrol et
-    function shouldShowPopup() {
+    // Banner gösterilmeli mi
+    function shouldShowBanner() {
         // Giriş yapmamışsa gösterme
         if (!isUserLoggedIn()) return false;
 
-        // Daha önce feedback verdiyse gösterme
-        if (hasFeedbackGiven()) return false;
+        // Daha önce feedback gönderilmişse ASLA gösterme
+        if (hasFeedbackSubmitted()) return false;
 
-        // Bu oturumda zaten gösterildiyse gösterme
-        if (hasPopupShownThisSession()) return false;
+        // Dismiss cooldown aktifse gösterme
+        if (isDismissCooldownActive()) return false;
 
-        // Yeterli süre geçmiş mi
-        const sessionStart = getSessionStart();
-        const elapsed = Date.now() - sessionStart;
-
-        return elapsed >= CONFIG.DELAY_TIME;
+        return true;
     }
 
     // Zamanlayıcıyı başlat
     function startTimer() {
-        // Önce kontrol et
-        if (shouldShowPopup()) {
-            showPopup();
-            return;
-        }
+        if (!shouldShowBanner()) return;
 
-        // Giriş yapmamışsa veya feedback verdiyse zamanlayıcı kurma
-        if (!isUserLoggedIn() || hasFeedbackGiven()) return;
-
-        // Kalan süreyi hesapla
-        const sessionStart = getSessionStart();
-        const elapsed = Date.now() - sessionStart;
-        const remaining = CONFIG.DELAY_TIME - elapsed;
-
-        if (remaining > 0) {
-            setTimeout(() => {
-                if (shouldShowPopup()) {
-                    showPopup();
-                }
-            }, remaining);
-        }
+        // Minimum süre geçtikten sonra kontrol et
+        setTimeout(() => {
+            checkAndShowBanner();
+        }, CONFIG.MIN_TIME_ON_PAGE);
     }
 
     // Başlat
@@ -495,17 +419,17 @@
         if (isInitialized) return;
         isInitialized = true;
 
-        // Önce CSS'i yükle
-        loadCSS(() => {
-            // CSS yüklendikten sonra popup'ı DOM'a ekle
-            injectPopup();
+        // Sayfa yüklenme zamanını kaydet
+        pageLoadTime = Date.now();
 
-            // Event listener'ları bağla
-            bindEvents();
+        // Banner'ı DOM'a ekle
+        injectBanner();
 
-            // Zamanlayıcıyı başlat
-            startTimer();
-        });
+        // Event listener'ları bağla
+        bindEvents();
+
+        // Zamanlayıcıyı başlat
+        startTimer();
     }
 
     // Sayfa yüklendiğinde başlat
@@ -515,23 +439,10 @@
         init();
     }
 
-    // Spin animasyonu için CSS ekle
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .spin-icon {
-            animation: spin 1s linear infinite;
-        }
-    `;
-    document.head.appendChild(style);
-
     // Global erişim için (test amaçlı)
     window.EquiMarketFeedback = {
-        show: showPopup,
-        hide: hidePopup,
+        show: showBanner,
+        hide: hideBanner,
         reset: resetForm
     };
 
