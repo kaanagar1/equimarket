@@ -992,7 +992,7 @@
                         <svg viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
                         Filtreler
                     </h3>
-                    <a href="#" class="filters-clear">Temizle</a>
+                    <a href="javascript:void(0)" class="filters-clear" onclick="clearFilters(); return false;">Temizle</a>
                 </div>
 
                 <div class="filter-group">
@@ -1318,7 +1318,7 @@
                         </span>
                         ${firstName}
                     </a>
-                    <a href="#" onclick="logout(); return false;" class="btn btn-outline">Çıkış</a>
+                    <a href="javascript:void(0)" onclick="logout(); return false;" class="btn btn-outline">Çıkış</a>
                 `;
             }
         }
