@@ -1,115 +1,80 @@
 /**
  * EquiMarket Horse Service
  * İlan listeleme, detay, oluşturma ve yönetim
+ *
+ * API çağrıları horse.service.js (HorseApi) tarafından yapılır.
+ * Bu dosya UI yardımcı fonksiyonlarını ve HorseApi'yi sarmalayan facade'ı içerir.
  */
 
 const HorseService = {
     /**
      * İlanları listele (filtreli)
+     * @param {Object} filters - Filtre parametreleri
+     * @returns {Promise<Object>} API yanıtı
      */
     async getHorses(filters = {}) {
-        try {
-            const queryParams = new URLSearchParams();
-            
-            Object.entries(filters).forEach(([key, value]) => {
-                if (value !== undefined && value !== '' && value !== null) {
-                    queryParams.append(key, value);
-                }
-            });
-
-            const queryString = queryParams.toString();
-            const endpoint = API_CONFIG.ENDPOINTS.HORSES.LIST + (queryString ? `?${queryString}` : '');
-            
-            const response = await api.get(endpoint, false);
-            return response;
-        } catch (error) {
-            console.error('GetHorses Error:', error);
-            return { success: false, data: [], message: error.message };
-        }
+        return await HorseApi.getHorses(filters);
     },
 
     /**
      * Tek ilan detayı
+     * @param {string} id - İlan ID
+     * @returns {Promise<Object>} API yanıtı
      */
     async getHorse(id) {
-        try {
-            const response = await api.get(API_CONFIG.ENDPOINTS.HORSES.DETAIL(id), false);
-            return response;
-        } catch (error) {
-            console.error('GetHorse Error:', error);
-            return { success: false, message: error.message };
-        }
+        return await HorseApi.getHorse(id);
     },
 
     /**
      * Yeni ilan oluştur
+     * @param {Object} horseData - İlan verileri
+     * @returns {Promise<Object>} API yanıtı
      */
     async createHorse(horseData) {
-        try {
-            const response = await api.post(API_CONFIG.ENDPOINTS.HORSES.CREATE, horseData);
-            return response;
-        } catch (error) {
-            console.error('CreateHorse Error:', error);
-            return { success: false, message: error.message };
-        }
+        return await HorseApi.createHorse(horseData);
     },
 
     /**
      * İlan güncelle
+     * @param {string} id - İlan ID
+     * @param {Object} horseData - Güncellenecek veriler
+     * @returns {Promise<Object>} API yanıtı
      */
     async updateHorse(id, horseData) {
-        try {
-            const response = await api.put(API_CONFIG.ENDPOINTS.HORSES.UPDATE(id), horseData);
-            return response;
-        } catch (error) {
-            console.error('UpdateHorse Error:', error);
-            return { success: false, message: error.message };
-        }
+        return await HorseApi.updateHorse(id, horseData);
     },
 
     /**
      * İlan sil
+     * @param {string} id - İlan ID
+     * @returns {Promise<Object>} API yanıtı
      */
     async deleteHorse(id) {
-        try {
-            const response = await api.delete(API_CONFIG.ENDPOINTS.HORSES.DELETE(id));
-            return response;
-        } catch (error) {
-            console.error('DeleteHorse Error:', error);
-            return { success: false, message: error.message };
-        }
+        return await HorseApi.deleteHorse(id);
     },
 
     /**
      * Kullanıcının ilanları
+     * @param {Object} filters - Filtre parametreleri
+     * @returns {Promise<Object>} API yanıtı
      */
     async getMyListings(filters = {}) {
-        try {
-            const queryParams = new URLSearchParams(filters);
-            const endpoint = API_CONFIG.ENDPOINTS.HORSES.MY_LISTINGS + '?' + queryParams.toString();
-            const response = await api.get(endpoint);
-            return response;
-        } catch (error) {
-            console.error('GetMyListings Error:', error);
-            return { success: false, data: [], message: error.message };
-        }
+        return await HorseApi.getMyListings(filters);
     },
 
     /**
      * Favorilere ekle/çıkar
+     * @param {string} id - İlan ID
+     * @returns {Promise<Object>} API yanıtı
      */
     async toggleFavorite(id) {
-        try {
-            const response = await api.post(API_CONFIG.ENDPOINTS.HORSES.FAVORITE(id), {});
-            return response;
-        } catch (error) {
-            console.error('ToggleFavorite Error:', error);
-            return { success: false, message: error.message };
-        }
+        return await HorseApi.toggleFavorite(id);
     },
 
     /**
      * Fiyatı formatla
+     * @param {number} price - Fiyat
+     * @returns {string} Formatlanmış fiyat
      */
     formatPrice(price) {
         return new Intl.NumberFormat('tr-TR', {
@@ -122,6 +87,8 @@ const HorseService = {
 
     /**
      * Yaşı hesapla
+     * @param {string} birthDate - Doğum tarihi
+     * @returns {number} Yaş
      */
     calculateAge(birthDate) {
         const today = new Date();
@@ -131,6 +98,8 @@ const HorseService = {
 
     /**
      * Irk adını Türkçe getir
+     * @param {string} breed - Irk kodu
+     * @returns {string} Türkçe ırk adı
      */
     getBreedName(breed) {
         const breeds = {
@@ -144,6 +113,8 @@ const HorseService = {
 
     /**
      * Cinsiyet adını Türkçe getir
+     * @param {string} gender - Cinsiyet kodu
+     * @returns {string} Türkçe cinsiyet adı
      */
     getGenderName(gender) {
         const genders = {
@@ -156,6 +127,8 @@ const HorseService = {
 
     /**
      * Renk adını Türkçe getir
+     * @param {string} color - Renk kodu
+     * @returns {string} Türkçe renk adı
      */
     getColorName(color) {
         const colors = {
@@ -170,11 +143,14 @@ const HorseService = {
 
     /**
      * İlan kartı HTML oluştur
+     * @param {Object} horse - At ilanı verisi
+     * @param {boolean} showFavorite - Favori butonu göster
+     * @returns {string} HTML
      */
     createHorseCard(horse, showFavorite = true) {
         const mainImage = horse.images?.find(img => img.isMain)?.url || horse.images?.[0]?.url || '';
         const isFavorited = api.getUser()?.favorites?.includes(horse._id);
-        
+
         return `
             <a href="horse_detail.html?id=${horse._id}" class="horse-card">
                 <div class="horse-image">
@@ -219,6 +195,8 @@ const HorseService = {
 
 /**
  * Favori toggle (global fonksiyon)
+ * @param {string} horseId - İlan ID
+ * @param {HTMLElement} button - Buton elementi
  */
 async function toggleFavorite(horseId, button) {
     if (!api.isLoggedIn()) {
@@ -227,7 +205,7 @@ async function toggleFavorite(horseId, button) {
     }
 
     const result = await HorseService.toggleFavorite(horseId);
-    
+
     if (result.success) {
         button.classList.toggle('active', result.isFavorited);
         showToast(result.message);
@@ -238,6 +216,8 @@ async function toggleFavorite(horseId, button) {
 
 /**
  * Toast mesajı göster
+ * @param {string} message - Mesaj
+ * @param {string} type - Tip (success/error)
  */
 function showToast(message, type = 'success') {
     // Mevcut toast'ı kaldır
