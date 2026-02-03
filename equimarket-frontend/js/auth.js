@@ -99,11 +99,12 @@ const AuthService = {
     },
 
     /**
-     * Satıcı mı kontrol et
+     * Kullanıcı işlem yapabilir mi kontrol et (admin hariç herkes)
      */
     isSeller() {
         const role = this.getRole();
-        return role === 'seller' || role === 'admin';
+        // Tüm giriş yapmış kullanıcılar ilan verebilir
+        return role === 'user' || role === 'admin';
     }
 };
 
@@ -119,8 +120,7 @@ function updateAuthUI() {
 
     if (user) {
         // Giriş yapılmış - kullanıcı menüsü göster
-        const isSeller = user.role === 'seller' || user.role === 'admin';
-        const dashboardUrl = isSeller ? 'dashboard_seller.html' : 'dashboard_buyer.html';
+        const dashboardUrl = 'dashboard.html';
         
         authButtons.innerHTML = `
             <a href="${dashboardUrl}" class="btn btn-ghost">

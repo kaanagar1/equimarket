@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="EquiMarket">
     <link rel="apple-touch-icon" href="/images/icons/icon-192x192.png">
-    <title>Thunder Bay - EquiMarket</title>
+    <title>İlan Yükleniyor... - EquiMarket</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1241,11 +1241,9 @@
     <div class="breadcrumb">
         <a href="homepage_v2.html">Ana Sayfa</a>
         <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <a href="#">Atlar</a>
+        <a href="ilanlar.html">İlanlar</a>
         <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <a href="#">İngiliz</a>
-        <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span>Thunder Bay</span>
+        <span id="breadcrumbHorseName">Yükleniyor...</span>
     </div>
 
     <!-- Main Content -->
@@ -1257,14 +1255,8 @@
                 <div class="horse-header">
                     <div class="horse-title-row">
                         <div>
-                            <h1 class="horse-name">
-                                Thunder Bay
-                                <span class="verified-badge">
-                                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                                    Doğrulanmış
-                                </span>
-                            </h1>
-                            <p class="horse-breed">İngiliz (Thoroughbred) · Yarış Atı</p>
+                            <h1 class="horse-name">Yükleniyor...</h1>
+                            <p class="horse-breed">---</p>
                         </div>
                         <div class="horse-actions">
                             <button class="action-btn" id="btn-favorite" title="Favorilere Ekle" onclick="toggleFavorite()">
@@ -1285,7 +1277,7 @@
                             </div>
                             <div class="info-text">
                                 <span class="info-label">Yaş</span>
-                                <span class="info-value">3 Yaş (2022)</span>
+                                <span class="info-value">---</span>
                             </div>
                         </div>
                         <div class="info-item">
@@ -1294,7 +1286,7 @@
                             </div>
                             <div class="info-text">
                                 <span class="info-label">Cinsiyet</span>
-                                <span class="info-value">Erkek (Aygır)</span>
+                                <span class="info-value">---</span>
                             </div>
                         </div>
                         <div class="info-item">
@@ -1303,7 +1295,7 @@
                             </div>
                             <div class="info-text">
                                 <span class="info-label">Renk</span>
-                                <span class="info-value">Doru</span>
+                                <span class="info-value">---</span>
                             </div>
                         </div>
                         <div class="info-item">
@@ -1312,7 +1304,7 @@
                             </div>
                             <div class="info-text">
                                 <span class="info-label">Konum</span>
-                                <span class="info-value">İstanbul, Veliefendi</span>
+                                <span class="info-value">---</span>
                             </div>
                         </div>
                     </div>
@@ -1360,185 +1352,61 @@
                 </div>
 
                 <!-- Pedigree Section -->
-                <div class="content-section">
+                <div class="content-section" id="pedigreeSection" style="display:none;">
                     <h2 class="section-title">
                         <svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M7 7v0M17 7v0M7 17v0M17 17v0"/></svg>
                         Soy Ağacı
                     </h2>
-                    <div class="pedigree-tree">
-                        <div class="pedigree-column">
-                            <div class="pedigree-column-title">At</div>
-                            <div class="pedigree-box">
-                                <div class="pedigree-name">Thunder Bay</div>
-                                <div class="pedigree-meta">2022 · Doru · Erkek</div>
-                            </div>
-                        </div>
-                        <div class="pedigree-column">
-                            <div class="pedigree-column-title">Ebeveynler</div>
-                            <div class="pedigree-box male">
-                                <div class="pedigree-name">Lightning Strike</div>
-                                <div class="pedigree-meta">2016 · Kır · Erkek</div>
-                            </div>
-                            <div class="pedigree-box female">
-                                <div class="pedigree-name">Storm Queen</div>
-                                <div class="pedigree-meta">2015 · Doru · Dişi</div>
-                            </div>
-                        </div>
-                        <div class="pedigree-column">
-                            <div class="pedigree-column-title">Büyük Ebeveynler</div>
-                            <div class="pedigree-box male">
-                                <div class="pedigree-name">Thunder King</div>
-                                <div class="pedigree-meta">2010 · Kır</div>
-                            </div>
-                            <div class="pedigree-box female">
-                                <div class="pedigree-name">Fast Lady</div>
-                                <div class="pedigree-meta">2012 · Doru</div>
-                            </div>
-                            <div class="pedigree-box male">
-                                <div class="pedigree-name">Royal Star</div>
-                                <div class="pedigree-meta">2009 · Yağız</div>
-                            </div>
-                            <div class="pedigree-box female">
-                                <div class="pedigree-name">Diamond Rose</div>
-                                <div class="pedigree-meta">2011 · Al</div>
-                            </div>
-                        </div>
-                        <div class="pedigree-column pedigree-more">
-                            <div class="pedigree-column-title" style="visibility: hidden;">.</div>
-                            <a href="#" class="btn-pedigree-more">
-                                <svg viewBox="0 0 24 24" style="width: 20px; height: 20px;"><path d="M9 18l6-6-6-6"/></svg>
-                                <span>Daha fazlası için</span>
-                            </a>
-                        </div>
+                    <div class="pedigree-tree" id="pedigreeTree">
+                        <!-- Soy ağacı verisi API'den yüklenecek -->
                     </div>
                 </div>
 
-                <!-- Racing History -->
-                <div class="content-section">
+                <!-- Racing History - Yarış geçmişi varsa gösterilecek -->
+                <div class="content-section" id="racingHistorySection" style="display:none;">
                     <h2 class="section-title">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
                         Yarış Geçmişi
                     </h2>
-                    <div class="race-table-wrapper">
-                        <table class="race-table">
-                            <thead>
-                                <tr>
-                                    <th>Tarih</th>
-                                    <th>Hipodrom</th>
-                                    <th>Yarış</th>
-                                    <th>Mesafe</th>
-                                    <th>Derece</th>
-                                    <th>Jokey</th>
-                                    <th>İkramiye</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>15.12.2025</td>
-                                    <td>Veliefendi</td>
-                                    <td>Kış Koşusu</td>
-                                    <td>1600m</td>
-                                    <td><span class="position-badge position-1">1</span></td>
-                                    <td>Ahmet Çelik</td>
-                                    <td class="race-prize">₺125,000</td>
-                                </tr>
-                                <tr>
-                                    <td>28.11.2025</td>
-                                    <td>Veliefendi</td>
-                                    <td>3 Yaş Tay Koşusu</td>
-                                    <td>1400m</td>
-                                    <td><span class="position-badge position-2">2</span></td>
-                                    <td>Ahmet Çelik</td>
-                                    <td class="race-prize">₺45,000</td>
-                                </tr>
-                                <tr>
-                                    <td>10.11.2025</td>
-                                    <td>Veliefendi</td>
-                                    <td>Sonbahar Koşusu</td>
-                                    <td>1600m</td>
-                                    <td><span class="position-badge position-1">1</span></td>
-                                    <td>Ahmet Çelik</td>
-                                    <td class="race-prize">₺85,000</td>
-                                </tr>
-                                <tr>
-                                    <td>22.10.2025</td>
-                                    <td>Bursa</td>
-                                    <td>Cumhuriyet Koşusu</td>
-                                    <td>1800m</td>
-                                    <td><span class="position-badge position-3">3</span></td>
-                                    <td>Mehmet Kaya</td>
-                                    <td class="race-prize">₺30,000</td>
-                                </tr>
-                                <tr>
-                                    <td>05.10.2025</td>
-                                    <td>Veliefendi</td>
-                                    <td>Ekim Koşusu</td>
-                                    <td>1400m</td>
-                                    <td><span class="position-badge position-1">1</span></td>
-                                    <td>Ahmet Çelik</td>
-                                    <td class="race-prize">₺75,000</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="race-table-wrapper" id="raceTableWrapper">
+                        <!-- Yarış geçmişi API'den yüklenecek -->
                     </div>
                 </div>
 
                 <!-- Detailed Attributes -->
-                <div class="content-section">
+                <div class="content-section" id="attributesSection">
                     <h2 class="section-title">
                         <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
                         Detaylı Bilgiler
                     </h2>
-                    <div class="attributes-grid">
+                    <div class="attributes-grid" id="attributesGrid">
                         <div class="attribute-item">
                             <span class="attribute-label">Doğum Tarihi</span>
-                            <span class="attribute-value">15 Mart 2022</span>
+                            <span class="attribute-value">---</span>
                         </div>
                         <div class="attribute-item">
                             <span class="attribute-label">Doğum Yeri</span>
-                            <span class="attribute-value">İstanbul, Türkiye</span>
+                            <span class="attribute-value">---</span>
                         </div>
                         <div class="attribute-item">
                             <span class="attribute-label">Yükseklik</span>
-                            <span class="attribute-value">165 cm</span>
+                            <span class="attribute-value">---</span>
                         </div>
                         <div class="attribute-item">
                             <span class="attribute-label">Ağırlık</span>
-                            <span class="attribute-value">480 kg</span>
-                        </div>
-                        <div class="attribute-item">
-                            <span class="attribute-label">TJK Bağlantısı</span>
-                            <span class="attribute-value"><a href="#" style="color: var(--racing-green);">Profili Görüntüle</a></span>
-                        </div>
-                        <div class="attribute-item">
-                            <span class="attribute-label">Toplam Yarış</span>
-                            <span class="attribute-value">8 Yarış</span>
-                        </div>
-                        <div class="attribute-item">
-                            <span class="attribute-label">Birincilik</span>
-                            <span class="attribute-value">4 Birincilik</span>
-                        </div>
-                        <div class="attribute-item">
-                            <span class="attribute-label">Toplam Kazanç</span>
-                            <span class="attribute-value">₺485,000</span>
-                        </div>
-                        <div class="attribute-item">
-                            <span class="attribute-label">Son Sağlık Kontrolü</span>
-                            <span class="attribute-value">10 Aralık 2025</span>
+                            <span class="attribute-value">---</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Description -->
-                <div class="content-section">
+                <div class="content-section" id="descriptionSection">
                     <h2 class="section-title">
                         <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
                         Satıcı Açıklaması
                     </h2>
-                    <div class="description-text">
-                        <p>Thunder Bay, olağanüstü yarış performansı ve güçlü soy geçmişiyle dikkat çeken üstün yetenekli bir İngiliz safkan yarış atıdır. 2022 yılında İstanbul'da doğan bu muhteşem aygır, Lightning Strike ve Storm Queen'in birleşiminden gelen seçkin genetik özellikleri taşımaktadır.</p>
-                        <p>Eğitim sürecinde gösterdiği hızlı öğrenme kapasitesi ve yarışlardaki istikrarlı performansıyla antrenörlerinin övgüsünü kazanmıştır. Özellikle 1600 metre mesafedeki yarışlarda sergilediği patlayıcı finish gücü, onu kategorisinin en dikkat çekici atlarından biri haline getirmiştir.</p>
-                        <p>Sağlık durumu mükemmel olup, tüm aşıları ve veteriner kontrolleri günceldir. Detaylı sağlık raporları ve yarış kayıtları talep üzerine paylaşılabilir. Ciddi alıcıların yerinde görüntüleme için randevu alması tavsiye edilir.</p>
+                    <div class="description-text" id="horseDescription">
+                        <p style="color: var(--warm-gray);">Açıklama yükleniyor...</p>
                     </div>
                 </div>
             </div>
@@ -1548,7 +1416,7 @@
                 <!-- Price Card -->
                 <div class="price-card">
                     <div class="price-label">Satış Fiyatı</div>
-                    <div class="price-value" id="horse-price">₺2,850,000</div>
+                    <div class="price-value" id="horse-price">---</div>
                     <div class="price-note">KDV dahil · Pazarlık payı mevcut</div>
                     <div class="price-cta">
                         <button class="btn btn-gold btn-lg" id="btn-message" onclick="startConversation()">
@@ -1841,6 +1709,10 @@
         // URL'den ilan ID'sini al
         function getHorseId() {
             console.log('🔍 getHorseId() çağrıldı');
+            console.log('  - Full URL:', window.location.href);
+            console.log('  - Pathname:', window.location.pathname);
+            console.log('  - Search:', window.location.search);
+            console.log('  - Hash:', window.location.hash);
 
             // Query string'den
             const urlParams = new URLSearchParams(window.location.search);
@@ -2006,11 +1878,13 @@
 
         // Sayfa içeriğini güncelle
         function updatePageWithHorseData(horse) {
+            console.log('📝 updatePageWithHorseData çağrıldı:', horse.name);
+
             // Sayfa başlığı
             document.title = `${horse.name} - EquiMarket`;
 
             // Breadcrumb
-            const breadcrumbName = document.querySelector('.breadcrumb span:last-child');
+            const breadcrumbName = document.getElementById('breadcrumbHorseName');
             if (breadcrumbName) breadcrumbName.textContent = horse.name;
 
             // At adı
@@ -2067,12 +1941,14 @@
 
             // Fiyat
             const priceFormatted = new Intl.NumberFormat('tr-TR').format(horse.price);
-            const priceElement = document.querySelector('.price-amount');
+            const priceElement = document.getElementById('horse-price');
             if (priceElement) priceElement.textContent = `₺${priceFormatted}`;
 
             // Açıklama
-            const descriptionElement = document.querySelector('.story-text p');
-            if (descriptionElement) descriptionElement.textContent = horse.description;
+            const descriptionElement = document.getElementById('horseDescription');
+            if (descriptionElement && horse.description) {
+                descriptionElement.innerHTML = `<p>${horse.description}</p>`;
+            }
 
             // Detaylı bilgiler
             updateDetailedInfo(horse);

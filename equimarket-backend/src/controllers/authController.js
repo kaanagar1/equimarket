@@ -34,7 +34,7 @@ exports.register = async (req, res) => {
             email,
             password,
             phone,
-            role: 'buyer', // Rol artık önemli değil, herkes her şeyi yapabilir
+            role: 'user', // Tek kullanıcı tipi: user (admin hariç)
             sellerInfo: { memberSince: new Date() } // Tüm kullanıcılar için sellerInfo başlat
         });
 

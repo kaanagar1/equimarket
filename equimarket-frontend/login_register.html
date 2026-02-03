@@ -1146,7 +1146,7 @@
                 const email = document.getElementById('register-email').value;
                 const phone = document.getElementById('register-phone').value;
                 const password = document.getElementById('register-password').value;
-                const role = 'buyer'; // Tüm kullanıcılar aynı role ile kaydedilir
+                const role = 'user'; // Tüm kullanıcılar aynı role ile kaydedilir (admin hariç)
 
                 if (typeof AuthService !== 'undefined') {
                     const result = await AuthService.register({ name, email, phone, password, role });
@@ -1154,7 +1154,7 @@
                     if (result.success) {
                         showToast('Kayıt başarılı! Yönlendiriliyorsunuz...');
                         setTimeout(() => {
-                            window.location.href = result.user.role === 'seller' ? 'dashboard.html' : 'dashboard.html';
+                            window.location.href = 'dashboard.html';
                         }, 1000);
                     } else {
                         showToast(result.message, 'error');

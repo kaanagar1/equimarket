@@ -1307,8 +1307,7 @@
 
             if (token && userData) {
                 const user = JSON.parse(userData);
-                const isSeller = user.role === 'seller' || user.role === 'admin';
-                const dashboardUrl = isSeller ? 'dashboard.html' : 'dashboard.html';
+                const dashboardUrl = 'dashboard.html';
                 const initials = user.name ? user.name.substring(0, 2).toUpperCase() : 'KA';
                 const firstName = user.name ? user.name.split(' ')[0] : 'Kullanıcı';
 

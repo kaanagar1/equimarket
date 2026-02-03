@@ -61,7 +61,7 @@ exports.authorize = (...roles) => {
     };
 };
 
-// Satıcı kontrolü - Artık tüm giriş yapmış kullanıcılar satıcı olabilir
+// Kullanıcı kontrolü - Tüm giriş yapmış kullanıcılar işlem yapabilir
 exports.isSeller = (req, res, next) => {
     // Tüm giriş yapmış kullanıcılar hem alıcı hem satıcı olabilir
     next();
@@ -72,8 +72,9 @@ exports.isVerifiedSeller = (req, res, next) => {
     if (req.user.role === 'admin') {
         return next();
     }
-    
-    if (req.user.role !== 'seller' || !req.user.sellerInfo?.isVerifiedSeller) {
+
+    // Doğrulanmış kullanıcı kontrolü
+    if (!req.user.sellerInfo?.isVerifiedSeller) {
         return res.status(403).json({
             success: false,
             message: 'Bu işlem için doğrulanmış satıcı olmanız gerekiyor'

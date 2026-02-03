@@ -63,7 +63,7 @@
             <div class="page-header"><h1>Kullanıcı Yönetimi</h1><p>Tüm kullanıcıları görüntüle ve yönet</p></div>
             <div class="filters">
                 <input type="text" class="search-input" id="search" placeholder="İsim veya e-posta ara...">
-                <select class="filter-select" id="roleFilter"><option value="">Tüm Roller</option><option value="admin">Admin</option><option value="seller">Satıcı</option><option value="buyer">Alıcı</option></select>
+                <select class="filter-select" id="roleFilter"><option value="">Tüm Roller</option><option value="admin">Admin</option><option value="user">Kullanıcı</option></select>
                 <select class="filter-select" id="statusFilter"><option value="">Tüm Durumlar</option><option value="active">Aktif</option><option value="inactive">Pasif</option></select>
             </div>
             <div class="card">
@@ -79,7 +79,7 @@
                 <input type="hidden" id="editId">
                 <div class="form-group"><label class="form-label">İsim</label><input type="text" class="form-input" id="editName" readonly></div>
                 <div class="form-group"><label class="form-label">E-posta</label><input type="email" class="form-input" id="editEmail" readonly></div>
-                <div class="form-group"><label class="form-label">Rol</label><select class="form-select" id="editRole"><option value="buyer">Alıcı</option><option value="seller">Satıcı</option><option value="admin">Admin</option></select></div>
+                <div class="form-group"><label class="form-label">Rol</label><select class="form-select" id="editRole"><option value="user">Kullanıcı</option><option value="admin">Admin</option></select></div>
                 <div class="form-group"><label class="form-checkbox"><input type="checkbox" id="editActive"><span>Hesap Aktif</span></label></div>
                 <div class="form-group"><label class="form-checkbox"><input type="checkbox" id="editVerified"><span>Doğrulanmış Satıcı</span></label></div>
                 <div class="modal-actions"><button type="button" class="btn btn-secondary" onclick="closeModal()">İptal</button><button type="submit" class="btn btn-primary">Kaydet</button></div>
@@ -112,7 +112,7 @@
         function renderUsers(users){
             const tb=document.getElementById('usersTable');
             if(!users.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px">Kullanıcı bulunamadı</td></tr>';return;}
-            tb.innerHTML=users.map(u=>`<tr><td><div class="user-cell"><div class="user-avatar">${u.name.substring(0,2).toUpperCase()}</div><div><strong>${u.name}</strong><br><small style="color:var(--warm-gray)">${u.email}</small></div></div></td><td><span class="badge badge-${u.role}">${{admin:'Admin',seller:'Satıcı',buyer:'Alıcı'}[u.role]}</span></td><td><span class="badge badge-${u.isActive?'active':'inactive'}">${u.isActive?'Aktif':'Pasif'}</span></td><td>${new Date(u.createdAt).toLocaleDateString('tr-TR')}</td><td><button class="action-btn" onclick="editUser('${u._id}')"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>${u.role!=='admin'?`<button class="action-btn danger" onclick="deleteUser('${u._id}','${u.name}')"><svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></button>`:''}</td></tr>`).join('');
+            tb.innerHTML=users.map(u=>`<tr><td><div class="user-cell"><div class="user-avatar">${u.name.substring(0,2).toUpperCase()}</div><div><strong>${u.name}</strong><br><small style="color:var(--warm-gray)">${u.email}</small></div></div></td><td><span class="badge badge-${u.role}">${{admin:'Admin',user:'Kullanıcı'}[u.role]||'Kullanıcı'}</span></td><td><span class="badge badge-${u.isActive?'active':'inactive'}">${u.isActive?'Aktif':'Pasif'}</span></td><td>${new Date(u.createdAt).toLocaleDateString('tr-TR')}</td><td><button class="action-btn" onclick="editUser('${u._id}')"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>${u.role!=='admin'?`<button class="action-btn danger" onclick="deleteUser('${u._id}','${u.name}')"><svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></button>`:''}</td></tr>`).join('');
         }
         function renderPages(t,c,p){
             document.getElementById('pageInfo').textContent=t+' kullanıcı';

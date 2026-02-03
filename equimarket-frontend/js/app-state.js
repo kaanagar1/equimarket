@@ -90,18 +90,19 @@ const AppState = {
     },
 
     /**
-     * Satıcı mı? (admin dahil)
+     * Kullanıcı işlem yapabilir mi? (tüm giriş yapmış kullanıcılar)
      */
     get isSeller() {
         const role = this.user?.role;
-        return role === 'seller' || role === 'admin';
+        // Tüm giriş yapmış kullanıcılar ilan verebilir
+        return role === 'user' || role === 'admin';
     },
 
     /**
-     * Sadece alıcı mı?
+     * Normal kullanıcı mı?
      */
-    get isBuyer() {
-        return this.isLoggedIn && !this.isSeller;
+    get isUser() {
+        return this.isLoggedIn && this.user?.role === 'user';
     },
 
     /**
@@ -109,7 +110,9 @@ const AppState = {
      */
     hasRole(role) {
         if (role === 'admin') return this.isAdmin;
-        if (role === 'seller') return this.isSeller;
+        if (role === 'user') return this.isUser;
+        // Geriye uyumluluk için seller/buyer kontrolü
+        if (role === 'seller' || role === 'buyer') return this.isLoggedIn;
         return this.isLoggedIn;
     },
 

@@ -58,9 +58,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         
         // Rol
         const roles = document.querySelectorAll('.user-role, .sidebar-user-role');
-        const roleText = user.role === 'seller' ? 
-            (user.sellerInfo?.isVerifiedSeller ? 'Doğrulanmış Satıcı' : 'Satıcı') : 
-            'Alıcı';
+        const roleText = user.role === 'admin' ? 'Admin' :
+            (user.sellerInfo?.isVerifiedSeller ? 'Doğrulanmış Üye' : 'Üye');
         roles.forEach(el => el.textContent = roleText);
     }
     

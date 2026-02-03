@@ -7,8 +7,8 @@ const { notifyListingApproved, notifyListingRejected } = require('../utils/notif
 exports.getDashboardStats = async (req, res) => {
     try {
         const totalUsers = await User.countDocuments();
-        const buyerCount = await User.countDocuments({ role: 'buyer' });
-        const sellerCount = await User.countDocuments({ role: 'seller' });
+        const userCount = await User.countDocuments({ role: 'user' });
+        const adminCount = await User.countDocuments({ role: 'admin' });
         const newUsersThisMonth = await User.countDocuments({ createdAt: { $gte: new Date(new Date().setDate(1)) } });
         const totalListings = await Horse.countDocuments();
         const activeListings = await Horse.countDocuments({ status: 'active' });
@@ -25,7 +25,7 @@ exports.getDashboardStats = async (req, res) => {
             last7Days.push({ date: date.toISOString().split('T')[0], users, listings });
         }
 
-        res.json({ success: true, data: { users: { total: totalUsers, buyers: buyerCount, sellers: sellerCount, newThisMonth: newUsersThisMonth }, listings: { total: totalListings, active: activeListings, pending: pendingListings }, messages: { messages: totalMessages, pendingOffers }, chart: last7Days } });
+        res.json({ success: true, data: { users: { total: totalUsers, users: userCount, admins: adminCount, newThisMonth: newUsersThisMonth }, listings: { total: totalListings, active: activeListings, pending: pendingListings }, messages: { messages: totalMessages, pendingOffers }, chart: last7Days } });
     } catch (error) { res.status(500).json({ success: false, message: 'Sunucu hatası' }); }
 };
 
