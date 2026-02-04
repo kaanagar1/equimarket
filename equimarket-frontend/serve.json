@@ -1,6 +1,12 @@
 {
-  "cleanUrls": false,
-  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/horse_detail", "destination": "/horse_detail.html" },
+    { "source": "/dashboard", "destination": "/dashboard.html" },
+    { "source": "/ilanlar", "destination": "/ilanlar.html" },
+    { "source": "/login_register", "destination": "/login_register.html" },
+    { "source": "/homepage_v2", "destination": "/homepage_v2.html" },
+    { "source": "/admin_scripts", "destination": "/admin_scripts.html" }
+  ],
   "headers": [
     {
       "source": "**/*.html",
