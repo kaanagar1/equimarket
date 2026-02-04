@@ -1286,6 +1286,7 @@
 
     <!-- API Scripts -->
     <script src="js/api.js"></script>
+    <script src="js/loader.js"></script>
     <script src="js/horse.service.js"></script>
     <script src="js/horses.js"></script>
     <script>
@@ -1597,6 +1598,15 @@
                         <button onclick="loadHorses()" class="btn btn-outline" style="margin-top: 20px;">Tekrar Dene</button>
                     </div>
                 `;
+                // Toast ile de bilgilendir
+                if (typeof Loader !== 'undefined') {
+                    Loader.error('İlanlar yüklenirken bir hata oluştu');
+                }
+            } finally {
+                // Loader varsa kapat (ileride tam sayfa loader kullanılırsa)
+                if (typeof Loader !== 'undefined') {
+                    Loader.hide();
+                }
             }
         }
 

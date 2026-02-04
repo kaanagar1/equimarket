@@ -996,6 +996,7 @@
 
     <!-- API Scripts -->
     <script src="js/api.js"></script>
+    <script src="js/loader.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/horse.service.js"></script>
     <script src="js/horses.js"></script>
@@ -1016,7 +1017,7 @@
             try {
                 const result = await api.get('/horses?limit=1', false);
                 const listingCount = result.total || result.data?.length || 0;
-                
+
                 document.getElementById('loginStatListings').textContent = listingCount + '+';
                 document.getElementById('loginStatSellers').textContent = Math.floor(listingCount / 2) + '+';
                 document.getElementById('loginStatConnections').textContent = Math.floor(listingCount * 1.5) + '+';
@@ -1024,6 +1025,8 @@
                 document.getElementById('loginStatListings').textContent = '10+';
                 document.getElementById('loginStatSellers').textContent = '5+';
                 document.getElementById('loginStatConnections').textContent = '15+';
+            } finally {
+                // Arka plan işlemi - loader gerekmez
             }
         }
 
@@ -1102,6 +1105,8 @@
             e.preventDefault();
             const btn = e.target.querySelector('button[type="submit"]');
             const originalHTML = btn.innerHTML;
+            let shouldResetBtn = true;
+
             btn.innerHTML = '<span>Giriş yapılıyor...</span>';
             btn.disabled = true;
 
@@ -1113,24 +1118,26 @@
                     const result = await AuthService.login(email, password);
 
                     if (result.success) {
+                        shouldResetBtn = false; // Başarılı - yönlendirme yapılacak
                         showToast('Giriş başarılı! Yönlendiriliyorsunuz...');
                         setTimeout(() => {
-                            window.location.href = result.user.role === 'seller' ? 'dashboard.html' : 'dashboard.html';
+                            window.location.href = 'dashboard.html';
                         }, 1000);
                     } else {
-                        showToast(result.message, 'error');
-                        btn.innerHTML = originalHTML;
-                        btn.disabled = false;
+                        showToast(result.message || 'Giriş başarısız', 'error');
                     }
                 } else {
                     showToast('Backend bağlantısı kurulamadı', 'error');
+                }
+            } catch (err) {
+                console.error('Login error:', err);
+                showToast('Bir hata oluştu. Lütfen tekrar deneyin.', 'error');
+            } finally {
+                // Buton durumunu sadece yönlendirme yapılmayacaksa sıfırla
+                if (shouldResetBtn) {
                     btn.innerHTML = originalHTML;
                     btn.disabled = false;
                 }
-            } catch (err) {
-                showToast('Bir hata oluştu', 'error');
-                btn.innerHTML = originalHTML;
-                btn.disabled = false;
             }
         });
 
@@ -1139,6 +1146,8 @@
             e.preventDefault();
             const btn = e.target.querySelector('button[type="submit"]');
             const originalHTML = btn.innerHTML;
+            let shouldResetBtn = true;
+
             btn.innerHTML = '<span>Kayıt yapılıyor...</span>';
             btn.disabled = true;
 
@@ -1153,24 +1162,26 @@
                     const result = await AuthService.register({ name, email, phone, password, role });
 
                     if (result.success) {
+                        shouldResetBtn = false; // Başarılı - yönlendirme yapılacak
                         showToast('Kayıt başarılı! Yönlendiriliyorsunuz...');
                         setTimeout(() => {
                             window.location.href = 'dashboard.html';
                         }, 1000);
                     } else {
-                        showToast(result.message, 'error');
-                        btn.innerHTML = originalHTML;
-                        btn.disabled = false;
+                        showToast(result.message || 'Kayıt başarısız', 'error');
                     }
                 } else {
                     showToast('Backend bağlantısı kurulamadı', 'error');
+                }
+            } catch (err) {
+                console.error('Register error:', err);
+                showToast('Bir hata oluştu. Lütfen tekrar deneyin.', 'error');
+            } finally {
+                // Buton durumunu sadece yönlendirme yapılmayacaksa sıfırla
+                if (shouldResetBtn) {
                     btn.innerHTML = originalHTML;
                     btn.disabled = false;
                 }
-            } catch (err) {
-                showToast('Bir hata oluştu', 'error');
-                btn.innerHTML = originalHTML;
-                btn.disabled = false;
             }
         });
     </script>
