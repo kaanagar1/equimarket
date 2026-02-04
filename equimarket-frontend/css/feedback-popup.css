@@ -5,16 +5,16 @@
     bottom: 24px;
     right: 24px;
     background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
-    width: 340px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 320px;
     max-width: calc(100vw - 48px);
     padding: 20px;
     z-index: 9999;
     display: none;
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .feedback-banner.show {
@@ -160,20 +160,19 @@
 .feedback-banner-submit {
     width: 100%;
     padding: 10px 16px;
-    background: linear-gradient(135deg, #1a3d2e 0%, #2d5a47 100%);
+    background: #1a3d2e;
     color: #ffffff;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     font-family: 'DM Sans', sans-serif;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background 0.2s ease;
 }
 
 .feedback-banner-submit:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(26, 61, 46, 0.25);
+    background: #245038;
 }
 
 .feedback-banner-submit:disabled {
@@ -211,22 +210,16 @@
 }
 
 .feedback-success-check {
-    width: 48px;
-    height: 48px;
-    min-width: 48px;
-    background: linear-gradient(135deg, #4a7c59 0%, #5a9c6a 100%);
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    background: #4a7c59;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: successPop 0.4s ease;
 }
 
-@keyframes successPop {
-    0% { transform: scale(0); }
-    60% { transform: scale(1.15); }
-    100% { transform: scale(1); }
-}
 
 .feedback-success-check svg {
     width: 24px;

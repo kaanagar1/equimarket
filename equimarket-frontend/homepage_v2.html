@@ -260,9 +260,7 @@
         }
 
         .btn-primary:hover {
-            background: var(--racing-green-light);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(26, 61, 46, 0.35);
+            background: #245038;
         }
 
         .btn-secondary {
@@ -277,14 +275,13 @@
         }
 
         .btn-gold {
-            background: linear-gradient(135deg, var(--gold) 0%, #d4b06a 100%);
+            background: var(--gold);
             color: var(--charcoal);
             font-weight: 700;
         }
 
         .btn-gold:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(201, 165, 92, 0.4);
+            background: #d4b06a;
         }
 
         /* Hero Section */
@@ -461,10 +458,10 @@
             position: absolute;
             width: 320px;
             background: var(--white);
-            border-radius: 20px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: var(--shadow-strong);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
         }
 
         .hero-horse-card:nth-child(1) {
@@ -498,7 +495,7 @@
 
         .hero-card-image {
             height: 180px;
-            background: linear-gradient(135deg, #3d6b52 0%, #2a4d3a 100%);
+            background: #2d5a47;
             position: relative;
             display: flex;
             align-items: center;
@@ -604,9 +601,9 @@
 
         .search-box {
             background: var(--white);
-            border-radius: 16px;
+            border-radius: 10px;
             padding: 8px;
-            box-shadow: var(--shadow-strong);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
             gap: 8px;
@@ -750,10 +747,10 @@
         }
 
         .trust-icon {
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
             background: var(--white);
-            border-radius: 16px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -848,22 +845,21 @@
 
         .horse-card {
             background: var(--white);
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: var(--shadow-soft);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            transition: box-shadow 0.2s ease;
             cursor: pointer;
             position: relative;
         }
 
         .horse-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-medium);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         .horse-card-image {
             height: 220px;
-            background: linear-gradient(135deg, #e8e6e1 0%, #d4d2cd 100%);
+            background: #e8e6e1;
             position: relative;
             overflow: hidden;
             display: flex;
@@ -1119,12 +1115,10 @@
 
         .step-card {
             text-align: center;
-            padding: 40px 30px;
+            padding: 32px 24px;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
+            border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
         }
 
         .step-card:hover {
@@ -1177,27 +1171,9 @@
 
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(135deg, var(--gold) 0%, #d4b06a 50%, var(--gold-light) 100%);
+            background: var(--gold);
             padding: 50px 40px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
-            animation: rotate 30s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         .cta-content {

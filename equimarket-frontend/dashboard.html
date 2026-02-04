@@ -337,8 +337,8 @@
             width: 360px;
             max-height: 480px;
             background: var(--white);
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
             z-index: 1000;
             overflow: hidden;
         }
@@ -422,13 +422,13 @@
             align-items: center;
             gap: 8px;
             padding: 12px 20px;
-            border-radius: 10px;
+            border-radius: 8px;
             font-weight: 600;
             font-size: 14px;
             text-decoration: none;
             border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background 0.2s ease;
             font-family: inherit;
         }
 
@@ -446,8 +446,7 @@
         }
 
         .btn-gold:hover {
-            background: var(--gold-light);
-            transform: translateY(-2px);
+            background: #d4b06a;
         }
 
         .btn-primary {
@@ -456,7 +455,7 @@
         }
 
         .btn-primary:hover {
-            background: var(--racing-green-light);
+            background: #245038;
         }
 
         /* Content Sections */
@@ -478,9 +477,9 @@
 
         .stat-card {
             background: var(--white);
-            border-radius: 16px;
+            border-radius: 12px;
             padding: 24px;
-            box-shadow: var(--shadow-soft);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
         }
 
         .stat-value {
@@ -504,9 +503,9 @@
 
         .card {
             background: var(--white);
-            border-radius: 16px;
+            border-radius: 12px;
             padding: 24px;
-            box-shadow: var(--shadow-soft);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
         }
 
         .card-header {
@@ -625,10 +624,10 @@
             display: flex;
             align-items: center;
             gap: 16px;
-            background: linear-gradient(135deg, rgba(201, 165, 92, 0.1) 0%, rgba(201, 165, 92, 0.05) 100%);
-            border: 1px solid rgba(201, 165, 92, 0.2);
-            border-radius: 16px;
-            padding: 20px 24px;
+            background: rgba(201, 165, 92, 0.08);
+            border: 1px solid rgba(201, 165, 92, 0.15);
+            border-radius: 10px;
+            padding: 16px 20px;
             margin-bottom: 24px;
         }
 
