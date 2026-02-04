@@ -1094,6 +1094,7 @@
     </div>
 
     <script src="js/api.js"></script>
+    <script src="js/loader.js"></script>
     <script src="js/users.js"></script>
     <script src="js/messages.js"></script>
     <script src="js/horse.service.js"></script>
@@ -1165,7 +1166,9 @@
                     }
                 }
             } catch (error) {
-                console.log('Bildirimler yüklenemedi:', error);
+                console.error('Bildirimler yüklenemedi:', error);
+            } finally {
+                // Bildirimler arka planda yüklenir, loader gerekmez
             }
         }
 
@@ -1209,7 +1212,10 @@
                 loadNotifications();
                 if (link) window.location.href = link;
             } catch (error) {
-                console.log('Bildirim güncellenemedi:', error);
+                console.error('Bildirim güncellenemedi:', error);
+                Loader.error('Bildirim durumu güncellenemedi');
+            } finally {
+                // Arka plan işlemi
             }
         }
 
@@ -1218,7 +1224,10 @@
                 await UserService.markAllNotificationsRead();
                 loadNotifications();
             } catch (error) {
-                console.log('Bildirimler güncellenemedi:', error);
+                console.error('Bildirimler güncellenemedi:', error);
+                Loader.error('Bildirimler güncellenemedi');
+            } finally {
+                // Arka plan işlemi
             }
         }
 
@@ -1235,7 +1244,9 @@
                     }
                 }
             } catch (error) {
-                console.log('Okunmamış mesaj yüklenemedi:', error);
+                console.error('Okunmamış mesaj yüklenemedi:', error);
+            } finally {
+                // Arka plan işlemi
             }
         }
 
@@ -1256,7 +1267,9 @@
                     }
                 }
             } catch (error) {
-                console.log('Dashboard istatistikleri yüklenemedi:', error);
+                console.error('Dashboard istatistikleri yüklenemedi:', error);
+            } finally {
+                // Arka plan işlemi
             }
         }
 
@@ -1343,7 +1356,7 @@
                     const result = await HorseService.getHorses();
                     if (result.success && result.data) {
                         const favoriteHorses = result.data.filter(h => favorites.includes(h._id)).slice(0, 3);
-                        
+
                         if (favoriteHorses.length > 0) {
                             document.getElementById('buyerFavoritesList').innerHTML = favoriteHorses.map(horse => createHorseListItem(horse)).join('');
                         }
@@ -1356,6 +1369,9 @@
                     }
                 } catch (error) {
                     console.error('Buyer data load error:', error);
+                    Loader.error('Favoriler yüklenirken bir hata oluştu');
+                } finally {
+                    // Arka plan işlemi
                 }
             }
         }
@@ -1390,6 +1406,9 @@
                     }
                 } catch (error) {
                     console.error('Seller data load error:', error);
+                    Loader.error('İlanlarınız yüklenirken bir hata oluştu');
+                } finally {
+                    // Arka plan işlemi
                 }
             }
         }
