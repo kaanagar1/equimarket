@@ -483,57 +483,8 @@
             box-shadow: var(--shadow-soft);
         }
 
-        .stat-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 16px;
-        }
-
-        .stat-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .stat-icon svg {
-            width: 24px;
-            height: 24px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 1.5;
-        }
-
-        .stat-icon.green { background: rgba(74, 124, 89, 0.1); color: var(--success); }
-        .stat-icon.blue { background: rgba(59, 130, 246, 0.1); color: var(--info); }
-        .stat-icon.gold { background: rgba(201, 165, 92, 0.1); color: var(--gold); }
-        .stat-icon.orange { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
-        .stat-icon.red { background: rgba(220, 38, 38, 0.1); color: var(--error); }
-
-        .stat-trend {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .stat-trend svg {
-            width: 14px;
-            height: 14px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 2;
-        }
-
-        .stat-trend.up { color: var(--success); }
-        .stat-trend.down { color: var(--error); }
-
         .stat-value {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 700;
             color: var(--charcoal);
             margin-bottom: 4px;
@@ -566,18 +517,8 @@
         }
 
         .card-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
             font-size: 18px;
-        }
-
-        .card-title svg {
-            width: 20px;
-            height: 20px;
-            fill: none;
-            stroke: var(--gold);
-            stroke-width: 1.5;
+            font-weight: 600;
         }
 
         .card-link {
@@ -670,27 +611,13 @@
         /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 40px 20px;
-        }
-
-        .empty-state svg {
-            width: 64px;
-            height: 64px;
-            fill: none;
-            stroke: var(--warm-gray);
-            stroke-width: 1;
-            margin-bottom: 16px;
-        }
-
-        .empty-state h4 {
-            color: var(--charcoal);
-            margin-bottom: 8px;
+            padding: 32px 20px;
+            color: var(--warm-gray);
+            font-size: 14px;
         }
 
         .empty-state p {
-            color: var(--warm-gray);
-            font-size: 14px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         /* Alert Banner */
@@ -903,9 +830,6 @@
             <div class="content-section active" id="buyerContent">
                 <!-- Alert Banner -->
                 <div class="alert-banner">
-                    <div class="alert-icon">
-                        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
-                    </div>
                     <div class="alert-content">
                         <div class="alert-title">Yeni ilanlar var!</div>
                         <div class="alert-text">Aradığınız kriterlere uygun yeni ilanlar eklendi</div>
@@ -916,38 +840,18 @@
                 <!-- Buyer Stats -->
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon red">
-                                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-                            </div>
-                        </div>
                         <div class="stat-value" id="buyerFavorites">0</div>
                         <div class="stat-label">Favori At</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon gold">
-                                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                            </div>
-                        </div>
                         <div class="stat-value">0</div>
                         <div class="stat-label">Aktif Görüşme</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon blue">
-                                <svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-                            </div>
-                        </div>
                         <div class="stat-value">0</div>
                         <div class="stat-label">Bekleyen Teklif</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon green">
-                                <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
-                            </div>
-                        </div>
                         <div class="stat-value">0</div>
                         <div class="stat-label">Kayıtlı Arama</div>
                     </div>
@@ -958,17 +862,12 @@
                     <!-- Favorites -->
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">
-                                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-                                Favorilerim
-                            </h3>
-                            <a href="ilanlar.html" class="card-link">Tümünü Gör →</a>
+                            <h3 class="card-title">Favorilerim</h3>
+                            <a href="ilanlar.html" class="card-link">Tümünü Gör</a>
                         </div>
                         <div id="buyerFavoritesList">
                             <div class="empty-state">
-                                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-                                <h4>Henüz favori yok</h4>
-                                <p>Beğendiğiniz atları favorilere ekleyin</p>
+                                <p>Henüz favori yok</p>
                                 <a href="ilanlar.html" class="btn btn-primary">Atları Keşfet</a>
                             </div>
                         </div>
@@ -977,18 +876,12 @@
                     <!-- Recommended -->
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">
-                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                                Size Önerilen
-                            </h3>
-                            <a href="ilanlar.html" class="card-link">Tümünü Gör →</a>
+                            <h3 class="card-title">Size Önerilen</h3>
+                            <a href="ilanlar.html" class="card-link">Tümünü Gör</a>
                         </div>
                         <div id="buyerRecommended">
                             <div class="empty-state">
-                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                                <h4>Henüz öneri yok</h4>
-                                <p>İlanları inceleyin, size özel öneriler oluşturalım</p>
-                                <a href="ilanlar.html" class="btn btn-primary">Atları Keşfet</a>
+                                <p>Henüz öneri yok</p>
                             </div>
                         </div>
                     </div>
@@ -1000,51 +893,19 @@
                 <!-- Seller Stats -->
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon green">
-                                <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
-                            </div>
-                            <div class="stat-trend up">
-                                <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
-                                +2
-                            </div>
-                        </div>
                         <div class="stat-value" id="sellerActiveListings">0</div>
                         <div class="stat-label">Aktif İlan</div>
                         <div id="pendingListingsInfo"></div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon blue">
-                                <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                            </div>
-                            <div class="stat-trend up">
-                                <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
-                                +24%
-                            </div>
-                        </div>
                         <div class="stat-value">0</div>
                         <div class="stat-label">Bu Ay Görüntülenme</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon gold">
-                                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                            </div>
-                            <div class="stat-trend up">
-                                <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
-                                +5
-                            </div>
-                        </div>
                         <div class="stat-value">0</div>
                         <div class="stat-label">Yeni Mesaj</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon orange">
-                                <svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-                            </div>
-                        </div>
                         <div class="stat-value">0</div>
                         <div class="stat-label">Bekleyen Teklif</div>
                     </div>
@@ -1055,17 +916,12 @@
                     <!-- My Listings -->
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">
-                                <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
-                                İlanlarım
-                            </h3>
-                            <a href="create_listing.html" class="card-link">Yeni İlan →</a>
+                            <h3 class="card-title">İlanlarım</h3>
+                            <a href="create_listing.html" class="card-link">Yeni İlan</a>
                         </div>
                         <div id="sellerListings">
                             <div class="empty-state">
-                                <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
-                                <h4>Henüz ilanınız yok</h4>
-                                <p>İlk ilanınızı verin ve alıcılara ulaşın</p>
+                                <p>Henüz ilanınız yok</p>
                                 <a href="create_listing.html" class="btn btn-gold">İlan Ver</a>
                             </div>
                         </div>
@@ -1074,17 +930,12 @@
                     <!-- Recent Messages -->
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">
-                                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                                Son Mesajlar
-                            </h3>
-                            <a href="messaging.html" class="card-link">Tümünü Gör →</a>
+                            <h3 class="card-title">Son Mesajlar</h3>
+                            <a href="messaging.html" class="card-link">Tümünü Gör</a>
                         </div>
                         <div id="sellerMessages">
                             <div class="empty-state">
-                                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                                <h4>Henüz mesaj yok</h4>
-                                <p>İlan verdiğinizde alıcılar size mesaj gönderebilir</p>
+                                <p>Henüz mesaj yok</p>
                             </div>
                         </div>
                     </div>

@@ -53,46 +53,23 @@
 
 /* Header */
 .feedback-banner-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
     margin-bottom: 16px;
     padding-right: 24px;
+    text-align: center;
 }
 
-.feedback-banner-icon {
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
-    background: linear-gradient(135deg, #1a3d2e 0%, #2d5a47 100%);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.feedback-banner-icon svg {
-    width: 22px;
-    height: 22px;
-    stroke: #c9a55c;
-}
-
-.feedback-banner-text h4 {
+.feedback-banner-header h4 {
     font-family: 'DM Sans', sans-serif;
     font-size: 15px;
     font-weight: 600;
     color: #2a2a2a;
-    margin: 0 0 2px 0;
+    margin: 0 0 4px 0;
 }
 
-.feedback-banner-text p {
+.feedback-banner-header p {
     font-size: 13px;
     color: #666;
     margin: 0;
-}
-
-.feedback-banner-text strong {
-    color: #1a3d2e;
 }
 
 /* Stars */
