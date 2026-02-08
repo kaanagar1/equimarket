@@ -194,7 +194,8 @@
     <script>
         let page = 1, totalPages = 1, tags = [];
 
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (api.isLoggedIn()) { try { const r=await api.get('/auth/me'); if(r.success&&r.data) api.setUser(r.data); } catch(e){} }
             const u = api.getUser();
             if (!u || u.role !== 'admin') { toast.error('Yetki yok'); setTimeout(()=>window.location.href='homepage_v2.html',1500); return; }
             

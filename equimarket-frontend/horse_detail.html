@@ -1867,6 +1867,11 @@
                 }
             }
 
+            // "undefined" ve "null" string kontrolü
+            if (id === 'undefined' || id === 'null') {
+                id = null;
+            }
+
             console.log('  - Final ID:', id);
             return id;
         }
