@@ -34,17 +34,24 @@ exports.getHorses = async (req, res) => {
             .sort(sortOption)
             .skip(skip)
             .limit(limitNum)
-            .select('-description');
+            .select('-description')
+            .lean();
 
         const total = await Horse.countDocuments(filter);
 
+        // _id'yi string olarak garanti et
+        const horsesData = horses.map(h => ({
+            ...h,
+            _id: h._id.toString()
+        }));
+
         res.status(200).json({
             success: true,
-            count: horses.length,
+            count: horsesData.length,
             total,
             totalPages: Math.ceil(total / limitNum),
             currentPage: pageNum,
-            data: horses
+            data: horsesData
         });
 
     } catch (error) {
@@ -67,7 +74,11 @@ exports.getHorse = async (req, res) => {
         // Görüntülenme sayısını artır
         await HorseService.incrementViewCount(horse);
 
-        res.status(200).json({ success: true, data: horse });
+        // _id'yi string olarak garanti et
+        const horseData = horse.toObject();
+        horseData._id = horseData._id.toString();
+
+        res.status(200).json({ success: true, data: horseData });
 
     } catch (error) {
         handleError(res, error);
