@@ -172,11 +172,12 @@ const HorseService = {
      * İlan kartı HTML oluştur
      */
     createHorseCard(horse, showFavorite = true) {
+        const horseId = horse._id || horse.id;
         const mainImage = horse.images?.find(img => img.isMain)?.url || horse.images?.[0]?.url || '';
-        const isFavorited = api.getUser()?.favorites?.includes(horse._id);
-        
+        const isFavorited = api.getUser()?.favorites?.includes(horseId);
+
         return `
-            <a href="horse_detail.html?id=${horse._id}" class="horse-card">
+            <a href="${horseId ? `horse_detail.html?id=${horseId}` : '#'}" class="horse-card">
                 <div class="horse-image">
                     ${mainImage ? `<img src="${mainImage}" alt="${horse.name}">` : `
                         <div style="width:100%;height:100%;background:#e8e6e1;display:flex;align-items:center;justify-content:center;">
@@ -187,8 +188,8 @@ const HorseService = {
                     `}
                     ${horse.isFeatured ? '<span class="badge featured">Öne Çıkan</span>' : ''}
                     ${horse.seller?.sellerInfo?.isVerifiedSeller ? '<span class="badge verified">Doğrulanmış</span>' : ''}
-                    ${showFavorite && api.isLoggedIn() ? `
-                        <button class="favorite-btn ${isFavorited ? 'active' : ''}" onclick="event.preventDefault(); toggleFavorite('${horse._id}', this);">
+                    ${showFavorite && api.isLoggedIn() && horseId ? `
+                        <button class="favorite-btn ${isFavorited ? 'active' : ''}" onclick="event.preventDefault(); toggleFavorite('${horseId}', this);">
                             <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
                         </button>
                     ` : ''}

@@ -1700,8 +1700,7 @@
 
         // Horse card HTML oluştur
         function createHorseCardHTML(horse) {
-            // DEBUG: horse._id kontrolü
-            console.log('🐎 Creating card for horse:', horse.name, 'ID:', horse._id);
+            const horseId = horse._id || horse.id;
 
             const loggedIn = !!localStorage.getItem('equimarket_token');
             const age = horse.age || (horse.birthDate ? new Date().getFullYear() - new Date(horse.birthDate).getFullYear() : '?');
@@ -1715,8 +1714,7 @@
             const sellerName = horse.seller?.name?.split(' ')[0] || 'Satıcı';
 
             // İlan detayları herkese açık
-            const cardLink = `horse_detail.html?id=${horse._id}`;
-            console.log('  → Card link:', cardLink);
+            const cardLink = horseId ? `horse_detail.html?id=${horseId}` : '#';
 
             return `
                 <a href="${cardLink}" class="horse-card" style="text-decoration: none; color: inherit;">
@@ -1734,8 +1732,8 @@
                                 </span>
                             ` : ''}
                         </div>
-                        ${loggedIn ? `
-                            <button class="horse-card-favorite ${isFavorited(horse._id) ? 'active' : ''}" onclick="event.preventDefault(); event.stopPropagation(); toggleFavorite('${horse._id}', this);">
+                        ${loggedIn && horseId ? `
+                            <button class="horse-card-favorite ${isFavorited(horseId) ? 'active' : ''}" onclick="event.preventDefault(); event.stopPropagation(); toggleFavorite('${horseId}', this);">
                                 <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
                             </button>
                         ` : ''}

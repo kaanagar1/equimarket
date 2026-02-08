@@ -92,8 +92,18 @@
     <script src="js/toast.js"></script>
     <script>
         let charts = {};
-        document.addEventListener('DOMContentLoaded',()=>{
-            const u=api.getUser();if(!u||u.role!=='admin'){toast.error('Erişim yetkiniz yok');setTimeout(()=>window.location.href='homepage_v2.html',1500);return;}
+        document.addEventListener('DOMContentLoaded', async ()=>{
+            // Önce backend'den güncel kullanıcı bilgisini al (MongoDB'de role değişmiş olabilir)
+            if (api.isLoggedIn()) {
+                try {
+                    const meResponse = await api.get('/auth/me');
+                    if (meResponse.success && meResponse.data) {
+                        api.setUser(meResponse.data);
+                    }
+                } catch(e) { console.error('Admin auth refresh error:', e); }
+            }
+            const u=api.getUser();
+            if(!u||u.role!=='admin'){toast.error('Erişim yetkiniz yok');setTimeout(()=>window.location.href='homepage_v2.html',1500);return;}
             loadStats();loadPending();loadCharts();
         });
         async function loadStats(){

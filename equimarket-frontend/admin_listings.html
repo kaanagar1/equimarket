@@ -69,7 +69,8 @@
     <script src="js/toast.js"></script>
     <script>
         let page=1,total=1,selected=[];
-        document.addEventListener('DOMContentLoaded',()=>{
+        document.addEventListener('DOMContentLoaded', async ()=>{
+            if (api.isLoggedIn()) { try { const r=await api.get('/auth/me'); if(r.success&&r.data) api.setUser(r.data); } catch(e){} }
             const u=api.getUser();if(!u||u.role!=='admin'){toast.error('Yetki yok');setTimeout(()=>window.location.href='homepage_v2.html',1500);return;}
             const p=new URLSearchParams(window.location.search);if(p.get('status'))document.getElementById('statusFilter').value=p.get('status');
             loadListings();loadPendingCount();

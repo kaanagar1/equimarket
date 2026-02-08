@@ -311,10 +311,28 @@
         let sellerId = null, sellerData = null, sellerListings = [], sellerReviews = [];
         let selectedRating = 0;
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
             const urlParams = new URLSearchParams(window.location.search);
             sellerId = urlParams.get('id');
-            if (!sellerId) { toast.error('Satıcı bulunamadı'); setTimeout(()=>window.location.href='ilanlar.html',1500); return; }
+
+            // ID yoksa veya "undefined" string ise
+            if (!sellerId || sellerId === 'undefined' || sellerId === 'null') {
+                // Kendi profilini görmek istiyor olabilir - backend'den al
+                if (api.isLoggedIn()) {
+                    try {
+                        const meResponse = await api.get('/auth/me');
+                        if (meResponse.success && meResponse.data) {
+                            api.setUser(meResponse.data);
+                            sellerId = meResponse.data._id || meResponse.data.id;
+                        }
+                    } catch(e) {}
+                }
+                if (!sellerId || sellerId === 'undefined') {
+                    toast.error('Satıcı bulunamadı');
+                    setTimeout(()=>window.location.href='ilanlar.html',1500);
+                    return;
+                }
+            }
             loadSellerProfile();
             initStarRating();
         });
@@ -353,7 +371,11 @@
                 renderProfile();
                 loadSellerListings();
                 loadSellerReviews();
-            } catch (e) { document.getElementById('profileName').textContent = 'Satıcı bulunamadı'; }
+            } catch (e) {
+                console.error('Seller profile load error:', e);
+                document.getElementById('profileName').textContent = 'Profil yüklenemedi';
+                toast.error('Satıcı profili yüklenirken bir hata oluştu');
+            }
         }
 
         async function loadSellerReviews() {

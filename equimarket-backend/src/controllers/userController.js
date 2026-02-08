@@ -77,6 +77,15 @@ exports.updateProfile = async (req, res) => {
 // @access  Public
 exports.getSellerProfile = async (req, res) => {
     try {
+        // Geçersiz ObjectId kontrolü
+        const mongoose = require('mongoose');
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Geçersiz kullanıcı ID'
+            });
+        }
+
         // Rol ve isActive kontrolü kaldırıldı - her kullanıcı profili görüntülenebilir
         const seller = await User.findById(req.params.id)
             .select('name avatar coverPhoto bio location website socialLinks sellerInfo createdAt');
