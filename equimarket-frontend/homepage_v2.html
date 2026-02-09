@@ -1535,7 +1535,7 @@
 
     <!-- CTA Section -->
     <section class="cta-section">
-        <div class="cta-content">
+        <div class="cta-content" id="ctaContent">
             <h2 class="cta-title">Atınızı Satmak İster misiniz?</h2>
             <p class="cta-description">Türkiye'nin en büyük yarış atı topluluğuna katılın. Binlerce potansiyel alıcıya ulaşın, güvenli ve kolay satış yapın.</p>
             <div class="cta-buttons">
@@ -1673,6 +1673,7 @@
         document.addEventListener('DOMContentLoaded', async function() {
             // Auth kontrolü
             updateHeaderAuth();
+            updateCtaSection();
             
             // Hero kartları yükle
             await loadHeroCards();
@@ -1712,6 +1713,27 @@
                     <a href="#" onclick="logout(); return false;" class="btn btn-outline">Çıkış</a>
                 `;
             }
+        }
+
+        function updateCtaSection() {
+            const cta = document.getElementById('ctaContent');
+            if (!cta || !isLoggedIn()) return;
+
+            const userData = localStorage.getItem('equimarket_user');
+            const user = userData ? JSON.parse(userData) : {};
+            const firstName = user.name ? user.name.split(' ')[0] : '';
+
+            cta.innerHTML = `
+                <h2 class="cta-title">${firstName ? firstName + ', ' : ''}Hemen İlan Verin!</h2>
+                <p class="cta-description">Atınızı binlerce potansiyel alıcıya ulaştırın. Detaylı ilan oluşturun, teklifleri yönetin ve güvenle satış yapın.</p>
+                <div class="cta-buttons">
+                    <a href="create_listing.html" class="btn btn-primary" style="gap:8px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                        Yeni İlan Oluştur
+                    </a>
+                    <a href="dashboard.html" class="btn btn-secondary">Panelime Git</a>
+                </div>
+            `;
         }
 
         function logout() {
