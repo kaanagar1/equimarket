@@ -1275,7 +1275,7 @@
                     const horse = horseResult.data;
                     const horseLink = document.getElementById('chatHorseLink');
                     horseLink.style.display = 'flex';
-                    horseLink.href = 'horse_detail?id=' + horseId;
+                    horseLink.href = 'horse_detail#id=' + horseId;
                     document.getElementById('chatHorseName').textContent = horse.name || 'İlan';
                     document.getElementById('chatHorseMeta').textContent = (horse.age || '?') + ' Yaş · ' + (horse.breed || '');
                 }
@@ -1418,7 +1418,7 @@
             if (conv.horse) {
                 const horseLink = document.getElementById('chatHorseLink');
                 horseLink.style.display = 'flex';
-                horseLink.href = 'horse_detail?id=' + conv.horse._id;
+                horseLink.href = 'horse_detail#id=' + conv.horse._id;
                 document.getElementById('chatHorseName').textContent = conv.horse.name || 'İlan';
                 document.getElementById('chatHorseMeta').textContent = (conv.horse.age || '?') + ' Yaş · ' + (conv.horse.breed || '');
             }

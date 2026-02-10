@@ -1714,7 +1714,7 @@
             const sellerName = horse.seller?.name?.split(' ')[0] || 'Satıcı';
 
             // İlan detayları herkese açık
-            const cardLink = horseId ? `horse_detail?id=${horseId}` : '#';
+            const cardLink = horseId ? `horse_detail#id=${horseId}` : '#';
 
             return `
                 <a href="${cardLink}" class="horse-card" style="text-decoration: none; color: inherit;">
