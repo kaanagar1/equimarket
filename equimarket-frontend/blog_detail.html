@@ -73,7 +73,7 @@
                     <div class="article-body">${blog.content}</div>
                     ${blog.tags?.length ? `
                         <div class="article-tags">
-                            ${blog.tags.map(t => `<a href="blog.html?tag=${encodeURIComponent(t)}" class="tag">#${t}</a>`).join('')}
+                            ${blog.tags.map(t => `<a href="blog?tag=${encodeURIComponent(t)}" class="tag">#${t}</a>`).join('')}
                         </div>
                     ` : ''}
                     <div class="share-section">
@@ -92,7 +92,7 @@
                         <h2 class="section-title">İlgili Yazılar</h2>
                         <div class="related-grid">
                             ${related.map(r => `
-                                <a href="blog_detail.html?slug=${r.slug}" class="related-card">
+                                <a href="blog_detail?slug=${r.slug}" class="related-card">
                                     <div class="related-card-image">
                                         ${r.coverImage ? `<img src="${r.coverImage}" alt="${r.title}">` : ''}
                                     </div>

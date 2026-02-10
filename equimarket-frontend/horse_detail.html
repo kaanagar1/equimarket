@@ -2350,7 +2350,7 @@
             if (!seller) return;
 
             const sellerId = seller._id;
-            const profileUrl = `seller_profile.html?id=${sellerId}`;
+            const profileUrl = `seller_profile?id=${sellerId}`;
 
             // Sahiplik kontrolü - Düzenle butonunu göster
             const currentUser = api.getUser();
@@ -2358,7 +2358,7 @@
                 const editBtn = document.getElementById('btn-edit');
                 if (editBtn) {
                     editBtn.style.display = 'flex';
-                    editBtn.href = `edit_listing.html?id=${currentHorse._id}`;
+                    editBtn.href = `edit_listing?id=${currentHorse._id}`;
                 }
                 // Kendi ilanıysa mesaj/teklif butonlarını gizle
                 document.getElementById('btn-message').style.display = 'none';
@@ -2432,7 +2432,7 @@
             const otherListingsBtn = document.getElementById('otherListingsBtn');
 
             if (viewProfileBtn) viewProfileBtn.href = profileUrl;
-            if (otherListingsBtn) otherListingsBtn.href = `ilanlar.html?seller=${sellerId}`;
+            if (otherListingsBtn) otherListingsBtn.href = `ilanlar?seller=${sellerId}`;
         }
 
         // Satıcı istatistiklerini yükle
@@ -2553,7 +2553,7 @@
                         // Opsiyonel: Mesajlar sayfasına yönlendir
                         setTimeout(() => {
                             if (confirm('Mesajlar sayfasına gitmek ister misiniz?')) {
-                                window.location.href = `messaging.html?horse=${horseId}&seller=${sellerId}`;
+                                window.location.href = `messaging?horse=${horseId}&seller=${sellerId}`;
                             }
                         }, 1500);
                     } else {
