@@ -213,7 +213,7 @@
                         <strong style="font-size:14px">${listing.name}</strong><br>
                         <span style="color:#666">${listing.breedDisplay || listing.breed}</span><br>
                         <span style="color:#1a3d2e;font-weight:600">₺${listing.price?.toLocaleString('tr-TR') || 'Belirtilmemiş'}</span><br>
-                        <a href="horse_detail#id=${listing._id}" style="color:#c9a55c">Detayları Gör →</a>
+                        <a href="horse_detail.html#id=${listing._id}" style="color:#c9a55c">Detayları Gör →</a>
                     </div>
                 `;
 
