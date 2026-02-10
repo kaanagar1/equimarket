@@ -253,7 +253,7 @@
                     const side = r.data.slice(1, 3);
 
                     let html = `
-                        <a href="blog_detail.html?slug=${main.slug}" class="featured-main">
+                        <a href="blog_detail?slug=${main.slug}" class="featured-main">
                             ${main.coverImage ? `<img src="${main.coverImage}" alt="${main.title}">` : ''}
                             <div class="overlay">
                                 <span class="cat-tag">${catLabels[main.category] || main.category}</span>
@@ -269,7 +269,7 @@
                     `;
                     side.forEach(b => {
                         html += `
-                            <a href="blog_detail.html?slug=${b.slug}" class="featured-small">
+                            <a href="blog_detail?slug=${b.slug}" class="featured-small">
                                 ${b.coverImage ? `<img src="${b.coverImage}" alt="${b.title}">` : ''}
                                 <div class="overlay">
                                     <h3>${b.title}</h3>
@@ -317,7 +317,7 @@
 
             grid.innerHTML = blogs.map(b => `
                 <article class="blog-card">
-                    <a href="blog_detail.html?slug=${b.slug}">
+                    <a href="blog_detail?slug=${b.slug}">
                         <div class="blog-card-image">
                             ${b.coverImage ? `<img src="${b.coverImage}" alt="${b.title}">` : ''}
                             <span class="cat-tag">${catLabels[b.category] || b.category}</span>

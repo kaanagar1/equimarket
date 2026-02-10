@@ -1759,7 +1759,7 @@
                         const price = new Intl.NumberFormat('tr-TR').format(horse.price || 0);
                         
                         return `
-                            <a href="horse_detail.html?id=${horse._id || horse.id}" class="hero-horse-card" style="text-decoration:none;color:inherit;cursor:pointer;">
+                            <a href="horse_detail?id=${horse._id || horse.id}" class="hero-horse-card" style="text-decoration:none;color:inherit;cursor:pointer;">
                                 <div class="hero-card-image">
                                     ${horse.images && horse.images[0] ? 
                                         `<img src="${horse.images[0].url || horse.images[0]}" style="width:100%;height:100%;object-fit:cover;">` :
@@ -1883,7 +1883,7 @@
             
             // İlan detayları herkese açık
             const horseId = horse._id || horse.id;
-            const cardLink = horseId ? `horse_detail.html?id=${horseId}` : '#';
+            const cardLink = horseId ? `horse_detail?id=${horseId}` : '#';
 
             return `
                 <a href="${cardLink}" class="horse-card" style="text-decoration: none; color: inherit; display: block;">

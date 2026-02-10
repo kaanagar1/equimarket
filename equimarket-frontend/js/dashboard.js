@@ -142,8 +142,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                     <span>❤️ ${horse.stats?.favorites || 0}</span>
                 </div>
                 <div class="listing-actions">
-                    <a href="horse_detail.html?id=${horse._id}" class="btn-icon" title="Görüntüle">👁</a>
-                    <a href="create_listing.html?edit=${horse._id}" class="btn-icon" title="Düzenle">✏️</a>
+                    <a href="horse_detail?id=${horse._id}" class="btn-icon" title="Görüntüle">👁</a>
+                    <a href="create_listing?edit=${horse._id}" class="btn-icon" title="Düzenle">✏️</a>
                     <button class="btn-icon delete" onclick="deleteListing('${horse._id}')" title="Sil">🗑</button>
                 </div>
             </div>
@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
         
         container.innerHTML = favorites.slice(0, 6).map(horse => `
-            <a href="horse_detail.html?id=${horse._id}" class="favorite-card">
+            <a href="horse_detail?id=${horse._id}" class="favorite-card">
                 <div class="favorite-image">
                     ${horse.images?.[0]?.url ? 
                         `<img src="${horse.images[0].url}" alt="${horse.name}">` : 
@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         
         // Sadece son 5 tanesini göster
         container.innerHTML = recentlyViewed.slice(0, 5).map(item => `
-            <a href="horse_detail.html?id=${item.id}" class="recent-item">
+            <a href="horse_detail?id=${item.id}" class="recent-item">
                 <span class="recent-name">${item.name}</span>
                 <span class="recent-time">${Helpers.timeAgo(item.viewedAt)}</span>
             </a>
@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 container.innerHTML = result.data.slice(0, 5).map(conv => {
                     const otherUser = conv.participants.find(p => p._id !== user._id);
                     return `
-                        <a href="messaging.html?conv=${conv._id}" class="message-item ${conv.unreadCount > 0 ? 'unread' : ''}">
+                        <a href="messaging?conv=${conv._id}" class="message-item ${conv.unreadCount > 0 ? 'unread' : ''}">
                             <div class="message-avatar">
                                 ${otherUser?.avatar ? 
                                     `<img src="${otherUser.avatar}" alt="">` : 

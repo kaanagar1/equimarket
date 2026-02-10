@@ -177,7 +177,7 @@ const HorseService = {
         const isFavorited = api.getUser()?.favorites?.includes(horseId);
 
         return `
-            <a href="${horseId ? `horse_detail.html?id=${horseId}` : '#'}" class="horse-card">
+            <a href="${horseId ? `horse_detail?id=${horseId}` : '#'}" class="horse-card">
                 <div class="horse-image">
                     ${mainImage ? `<img src="${mainImage}" alt="${horse.name}">` : `
                         <div style="width:100%;height:100%;background:#e8e6e1;display:flex;align-items:center;justify-content:center;">

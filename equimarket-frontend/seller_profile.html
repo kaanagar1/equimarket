@@ -603,7 +603,7 @@
             }
             grid.innerHTML = sellerListings.map(l => {
                 const img = l.images?.[0]?.url;
-                return '<a href="horse_detail.html?id=' + l._id + '" class="listing-link"><div class="listing-card"><div class="listing-image">' + (img ? '<img src="' + img + '">' : '<div class="listing-image-placeholder"><svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg></div>') + (l.isFeatured ? '<span class="listing-badge featured">Öne Çıkan</span>' : '') + '</div><div class="listing-info"><h3 class="listing-title">' + l.name + '</h3><div class="listing-meta"><span>' + (l.age || '?') + ' Yaş</span><span>' + (l.breed || '') + '</span><span>' + (l.location?.city || '') + '</span></div><div class="listing-price">₺' + formatNumber(l.price) + '</div></div></div></a>';
+                return '<a href="horse_detail?id=' + l._id + '" class="listing-link"><div class="listing-card"><div class="listing-image">' + (img ? '<img src="' + img + '">' : '<div class="listing-image-placeholder"><svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg></div>') + (l.isFeatured ? '<span class="listing-badge featured">Öne Çıkan</span>' : '') + '</div><div class="listing-info"><h3 class="listing-title">' + l.name + '</h3><div class="listing-meta"><span>' + (l.age || '?') + ' Yaş</span><span>' + (l.breed || '') + '</span><span>' + (l.location?.city || '') + '</span></div><div class="listing-price">₺' + formatNumber(l.price) + '</div></div></div></a>';
             }).join('');
         }
 
@@ -622,7 +622,7 @@
         function sendMessage(e) {
             e.preventDefault();
             toast.info('Mesajlaşma sayfasına yönlendiriliyorsunuz...');
-            setTimeout(()=>window.location.href='messaging.html?to='+sellerId,1000);
+            setTimeout(()=>window.location.href='messaging?to='+sellerId,1000);
         }
         function formatNumber(n) { return new Intl.NumberFormat('tr-TR').format(n || 0); }
     </script>
