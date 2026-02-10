@@ -1935,6 +1935,7 @@
             const loadingTimeout = setTimeout(() => {
                 if (!isCompleted) {
                     console.error('⏰ Loading timeout!');
+                    hideLoading();
                     showError('Sayfa yüklenemedi. Lütfen sayfayı yenileyin.');
                 }
             }, 35000);
@@ -1946,6 +1947,7 @@
                 // ID kontrolü
                 if (!horseId) {
                     console.error('❌ No horse ID found!');
+                    hideLoading();
                     showError('Geçersiz ilan bağlantısı. Lütfen geçerli bir ilan seçin.');
                     return;
                 }
@@ -1964,6 +1966,7 @@
             } finally {
                 isCompleted = true;
                 clearTimeout(loadingTimeout);
+                hideLoading();
             }
         });
 
@@ -2132,6 +2135,9 @@
                 descriptionElement.innerHTML = `<p>${horse.description}</p>`;
             }
 
+            // Fotoğraf galerisi
+            updatePhotoGallery(horse.images);
+
             // Detaylı bilgiler
             updateDetailedInfo(horse);
 
@@ -2143,6 +2149,65 @@
 
             // Satıcı bilgileri
             updateSellerInfo(horse.seller);
+        }
+
+        // Fotoğraf galerisini güncelle
+        function updatePhotoGallery(images) {
+            if (!images || images.length === 0) return;
+
+            const mainPhoto = document.querySelector('.main-photo');
+            const thumbnailGrid = document.querySelector('.thumbnail-grid');
+            if (!mainPhoto || !thumbnailGrid) return;
+
+            const placeholderSvg = `<svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>`;
+
+            let currentIndex = 0;
+            const imageUrls = images.map(img => img.url || img);
+
+            function showImage(index) {
+                currentIndex = index;
+                const url = imageUrls[index];
+                const placeholder = mainPhoto.querySelector('.placeholder-icon');
+                if (placeholder) placeholder.style.display = 'none';
+
+                let mainImg = mainPhoto.querySelector('img.gallery-main-img');
+                if (!mainImg) {
+                    mainImg = document.createElement('img');
+                    mainImg.className = 'gallery-main-img';
+                    mainImg.style.cssText = 'width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;border-radius:16px;';
+                    mainPhoto.insertBefore(mainImg, mainPhoto.firstChild);
+                }
+                mainImg.src = url;
+                mainImg.alt = `Fotoğraf ${index + 1}`;
+
+                const badge = mainPhoto.querySelector('.photo-badge');
+                if (badge) badge.innerHTML = `<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg> ${index + 1} / ${imageUrls.length}`;
+
+                thumbnailGrid.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+                    thumb.classList.toggle('active', i === index);
+                });
+            }
+
+            // Thumbnails
+            thumbnailGrid.innerHTML = imageUrls.map((url, i) => `
+                <div class="thumbnail ${i === 0 ? 'active' : ''}" data-index="${i}">
+                    <img src="${url}" alt="Fotoğraf ${i + 1}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+                </div>
+            `).join('');
+
+            thumbnailGrid.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.addEventListener('click', () => {
+                    showImage(parseInt(thumb.dataset.index));
+                });
+            });
+
+            // Nav buttons
+            const prevBtn = mainPhoto.querySelector('.photo-nav.prev');
+            const nextBtn = mainPhoto.querySelector('.photo-nav.next');
+            if (prevBtn) prevBtn.addEventListener('click', () => showImage((currentIndex - 1 + imageUrls.length) % imageUrls.length));
+            if (nextBtn) nextBtn.addEventListener('click', () => showImage((currentIndex + 1) % imageUrls.length));
+
+            showImage(0);
         }
 
         // Detaylı bilgileri güncelle
