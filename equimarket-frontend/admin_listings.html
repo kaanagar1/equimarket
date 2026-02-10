@@ -37,9 +37,23 @@
         .page-btn.active{background:var(--racing-green);color:var(--white);border-color:var(--racing-green)}.page-btn:disabled{opacity:.5}
         .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;border:none;background:var(--success);color:var(--white)}
         @media(max-width:768px){.sidebar{display:none}.main{margin-left:0}}
+        .layout{display:none}
+        .access-denied{display:none;min-height:100vh;background:var(--light-gray);justify-content:center;align-items:center;flex-direction:column;gap:24px;font-family:'DM Sans',sans-serif}
+        .access-denied.show{display:flex}
+        .access-denied svg{width:80px;height:80px;fill:none;stroke:var(--error);stroke-width:1.5}
+        .access-denied h2{font-family:'Playfair Display',serif;font-size:28px;color:var(--charcoal)}
+        .access-denied p{color:var(--warm-gray);font-size:16px}
+        .access-denied a{padding:14px 32px;background:var(--racing-green);color:var(--white);border-radius:10px;text-decoration:none;font-weight:600;font-size:15px}
+        .access-denied a:hover{background:#2d5a47}
     </style>
 </head>
 <body>
+    <div class="access-denied" id="accessDenied">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></svg>
+        <h2>Erişim Yetkiniz Yok</h2>
+        <p>Bu sayfayı görüntüleme yetkiniz bulunmamaktadır.</p>
+        <a href="homepage_v2.html">Anasayfaya Dön</a>
+    </div>
     <div class="layout">
         <aside class="sidebar">
             <a href="admin.html" class="sidebar-logo">EquiMarket<span class="logo-badge">ADMIN</span></a>
@@ -71,7 +85,8 @@
         let page=1,total=1,selected=[];
         document.addEventListener('DOMContentLoaded', async ()=>{
             if (api.isLoggedIn()) { try { const r=await api.get('/auth/me'); if(r.success&&r.data) api.setUser(r.data); } catch(e){} }
-            const u=api.getUser();if(!u||u.role!=='admin'){toast.error('Yetki yok');setTimeout(()=>window.location.href='homepage_v2.html',1500);return;}
+            const u=api.getUser();if(!u||u.role!=='admin'){document.getElementById('accessDenied').classList.add('show');return;}
+            document.querySelector('.layout').style.display='flex';
             const p=new URLSearchParams(window.location.search);if(p.get('status'))document.getElementById('statusFilter').value=p.get('status');
             loadListings();loadPendingCount();
             document.getElementById('search').addEventListener('input',debounce(()=>{page=1;loadListings();},300));

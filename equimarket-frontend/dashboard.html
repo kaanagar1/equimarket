@@ -172,6 +172,13 @@
             font-weight: 700;
             padding: 2px 8px;
             border-radius: 100px;
+            display: none;
+        }
+        .nav-link.has-unread > span:first-of-type {
+            font-weight: 700;
+        }
+        .nav-link.has-unread .nav-badge {
+            display: inline;
         }
 
         /* Sidebar Footer */
@@ -808,7 +815,7 @@
                             <a href="messaging.html" class="nav-link">
                                 <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
                                 <span>Mesajlar</span>
-                                <span class="nav-badge" id="navMessageBadge">0</span>
+                                <span class="nav-badge" id="navMessageBadge"></span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -1233,13 +1240,12 @@
         async function loadUnreadMessages() {
             try {
                 const result = await MessageService.getUnreadCount();
-                if (result.success && result.data !== undefined) {
-                    const count = result.data.count || result.data || 0;
-                    const badge = document.getElementById('navMessageBadge');
-                    if (badge) {
-                        badge.textContent = count;
-                        badge.style.display = count > 0 ? 'inline' : 'none';
-                    }
+                const count = result?.data?.unreadCount || result?.data?.count || 0;
+                const badge = document.getElementById('navMessageBadge');
+                const link = badge?.closest('.nav-link');
+                if (badge && link) {
+                    if (count > 0) { badge.textContent = count; link.classList.add('has-unread'); }
+                    else { badge.textContent = ''; link.classList.remove('has-unread'); }
                 }
             } catch (error) {
                 console.log('Okunmamış mesaj yüklenemedi:', error);
@@ -1436,8 +1442,6 @@
         }
     </script>
 
-    <!-- Feedback Popup -->
-    <script src="js/feedback-popup.js"></script>
     <!-- PWA Support -->
     <script src="js/pwa.js"></script>
     <!-- Cookie Consent -->
