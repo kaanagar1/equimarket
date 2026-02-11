@@ -253,7 +253,7 @@
 
         .detail-layout {
             display: grid;
-            grid-template-columns: 1fr 400px;
+            grid-template-columns: minmax(0, 1fr) 400px;
             gap: 40px;
         }
 
@@ -272,6 +272,7 @@
             display: flex;
             flex-direction: column;
             gap: 32px;
+            min-width: 0;
         }
 
         /* Horse Header */
@@ -296,6 +297,8 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            flex-wrap: wrap;
+            word-break: break-word;
         }
 
         .verified-badge {
@@ -559,6 +562,7 @@
             border-radius: 20px;
             padding: 32px;
             box-shadow: var(--shadow-soft);
+            overflow: hidden;
         }
 
         .section-title {
@@ -775,6 +779,8 @@
             font-size: 16px;
             line-height: 1.8;
             color: var(--charcoal);
+            overflow-wrap: break-word;
+            word-break: break-word;
         }
 
         .description-text p {
@@ -1510,22 +1516,7 @@
                         Detaylı Bilgiler
                     </h2>
                     <div class="attributes-grid" id="attributesGrid">
-                        <div class="attribute-item">
-                            <span class="attribute-label">Doğum Tarihi</span>
-                            <span class="attribute-value">---</span>
-                        </div>
-                        <div class="attribute-item">
-                            <span class="attribute-label">Doğum Yeri</span>
-                            <span class="attribute-value">---</span>
-                        </div>
-                        <div class="attribute-item">
-                            <span class="attribute-label">Yükseklik</span>
-                            <span class="attribute-value">---</span>
-                        </div>
-                        <div class="attribute-item">
-                            <span class="attribute-label">Ağırlık</span>
-                            <span class="attribute-value">---</span>
-                        </div>
+                        <!-- JS tarafından dinamik doldurulacak -->
                     </div>
                 </div>
 
@@ -1685,7 +1676,7 @@
         </div>
 
         <!-- Similar Horses -->
-        <div class="similar-section">
+        <div class="similar-section" id="similarSection" style="display:none;">
             <h2 class="section-title" style="margin-bottom: 32px;">
                 <svg viewBox="0 0 24 24">
                     <path
@@ -1693,83 +1684,8 @@
                 </svg>
                 Benzer İlanlar
             </h2>
-            <div class="similar-grid">
-                <div class="similar-card">
-                    <div class="similar-card-image">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z" />
-                        </svg>
-                    </div>
-                    <div class="similar-card-content">
-                        <h3 class="similar-card-name">Golden Dawn</h3>
-                        <p class="similar-card-breed">İngiliz (Thoroughbred)</p>
-                        <div class="similar-card-meta">
-                            <span>3 Yaş</span>
-                            <span>·</span>
-                            <span>Erkek</span>
-                            <span>·</span>
-                            <span>Doru</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="similar-card">
-                    <div class="similar-card-image">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z" />
-                        </svg>
-                    </div>
-                    <div class="similar-card-content">
-                        <h3 class="similar-card-name">Swift Runner</h3>
-                        <p class="similar-card-breed">İngiliz (Thoroughbred)</p>
-                        <div class="similar-card-meta">
-                            <span>4 Yaş</span>
-                            <span>·</span>
-                            <span>Erkek</span>
-                            <span>·</span>
-                            <span>Kır</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="similar-card">
-                    <div class="similar-card-image">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z" />
-                        </svg>
-                    </div>
-                    <div class="similar-card-content">
-                        <h3 class="similar-card-name">Midnight Star</h3>
-                        <p class="similar-card-breed">İngiliz (Thoroughbred)</p>
-                        <div class="similar-card-meta">
-                            <span>3 Yaş</span>
-                            <span>·</span>
-                            <span>Dişi</span>
-                            <span>·</span>
-                            <span>Yağız</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="similar-card">
-                    <div class="similar-card-image">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z" />
-                        </svg>
-                    </div>
-                    <div class="similar-card-content">
-                        <h3 class="similar-card-name">Royal Champion</h3>
-                        <p class="similar-card-breed">İngiliz (Thoroughbred)</p>
-                        <div class="similar-card-meta">
-                            <span>3 Yaş</span>
-                            <span>·</span>
-                            <span>Erkek</span>
-                            <span>·</span>
-                            <span>Al</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="similar-grid" id="similarGrid">
+                <!-- API'den dinamik yüklenecek -->
             </div>
         </div>
     </div>
@@ -2149,6 +2065,9 @@
 
             // Satıcı bilgileri
             updateSellerInfo(horse.seller);
+
+            // Benzer ilanları yükle
+            loadSimilarHorses(horse);
         }
 
         // Fotoğraf galerisini güncelle
@@ -2212,16 +2131,43 @@
 
         // Detaylı bilgileri güncelle
         function updateDetailedInfo(horse) {
-            const attributeItems = document.querySelectorAll('.attribute-item');
+            const grid = document.getElementById('attributesGrid');
+            if (!grid) return;
 
-            // Boy
-            if (attributeItems[0]) {
-                attributeItems[0].querySelector('.attribute-value').textContent = horse.height ? `${horse.height} cm` : '-';
-            }
-            // Ağırlık
-            if (attributeItems[1]) {
-                attributeItems[1].querySelector('.attribute-value').textContent = horse.weight ? `${horse.weight} kg` : '-';
-            }
+            const breedNames = { ingiliz: 'İngiliz', arap: 'Arap', turk: 'Türk Atı', diger: 'Diğer' };
+            const genderNames = { erkek: 'Erkek (Aygır)', disi: 'Dişi (Kısrak)', igdis: 'İğdiş' };
+            const colorNames = { doru: 'Doru', kir: 'Kır', yagiz: 'Yağız', al: 'Al', diger: 'Diğer' };
+
+            const birthDate = horse.birthDate ? new Date(horse.birthDate).toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' }) : null;
+            const age = horse.age || (horse.birthDate ? new Date().getFullYear() - new Date(horse.birthDate).getFullYear() : null);
+
+            const attrs = [
+                { label: 'Irk', value: breedNames[horse.breed] || horse.breedDisplay || horse.breed },
+                { label: 'Cinsiyet', value: genderNames[horse.gender] || horse.gender },
+                { label: 'Renk', value: colorNames[horse.color] || horse.color },
+                { label: 'Yaş', value: age ? `${age} Yaş` : null },
+                { label: 'Doğum Tarihi', value: birthDate },
+                { label: 'Yükseklik', value: horse.height ? `${horse.height} cm` : null },
+                { label: 'Ağırlık', value: horse.weight ? `${horse.weight} kg` : null },
+                { label: 'Konum', value: horse.location ? `${horse.location.district ? horse.location.district + ', ' : ''}${horse.location.city}` : null },
+                { label: 'Baba (Sire)', value: horse.pedigree?.sire || null },
+                { label: 'Anne (Dam)', value: horse.pedigree?.dam || null },
+                { label: 'Aşı Durumu', value: horse.health?.vaccinated === true ? 'Aşılı' : horse.health?.vaccinated === false ? 'Aşısız' : null },
+                { label: 'Son Veteriner Kontrolü', value: horse.health?.lastVetCheck ? new Date(horse.health.lastVetCheck).toLocaleDateString('tr-TR') : null },
+                { label: 'Sağlık Notu', value: horse.health?.healthNotes || null },
+                { label: 'TJK Kayıt No', value: horse.tjkRegistrationNo || null },
+                { label: 'TJK Doğrulanmış', value: horse.isTjkVerified ? 'Evet' : horse.tjkRegistrationNo ? 'Hayır' : null },
+                { label: 'Fiyat', value: horse.price ? `₺${horse.price.toLocaleString('tr-TR')}` : null },
+                { label: 'Pazarlık', value: horse.priceNegotiable === true ? 'Pazarlık Payı Var' : horse.priceNegotiable === false ? 'Sabit Fiyat' : null },
+                { label: 'İlan Paketi', value: horse.listingPackage === 'premium' ? 'Premium' : horse.listingPackage === 'featured' ? 'Öne Çıkan' : null },
+            ].filter(a => a.value);
+
+            grid.innerHTML = attrs.map(a => `
+                <div class="attribute-item">
+                    <span class="attribute-label">${a.label}</span>
+                    <span class="attribute-value">${a.value}</span>
+                </div>
+            `).join('');
         }
 
         // Soy ağacını güncelle (1 → 2 → 4 simetrik yapı)
@@ -2345,6 +2291,96 @@
             `;
         }
 
+        // Benzer ilanları yükle (irk, cinsiyet, fiyat aralığı)
+        async function loadSimilarHorses(horse) {
+            const section = document.getElementById('similarSection');
+            const grid = document.getElementById('similarGrid');
+            if (!section || !grid) return;
+
+            const breedNames = { ingiliz: 'İngiliz', arap: 'Arap', turk: 'Türk Atı', diger: 'Diğer' };
+            const genderNames = { erkek: 'Erkek', disi: 'Dişi', igdis: 'İğdiş' };
+            const colorNames = { doru: 'Doru', kir: 'Kır', yagiz: 'Yağız', al: 'Al', diger: 'Diğer' };
+            const currentId = horse._id || horse.id;
+
+            try {
+                // 1. Öncelik: Aynı ırk
+                const filters = { breed: horse.breed, limit: 8, status: 'active' };
+                if (horse.price) {
+                    filters.minPrice = Math.floor(horse.price * 0.5);
+                    filters.maxPrice = Math.ceil(horse.price * 2);
+                }
+
+                const result = await HorseService.getHorses(filters);
+                let horses = [];
+
+                if (result.success && result.data) {
+                    horses = (Array.isArray(result.data) ? result.data : result.data.horses || [])
+                        .filter(h => (h._id || h.id) !== currentId);
+                }
+
+                // Yeterli sonuç yoksa genel arama yap
+                if (horses.length < 2) {
+                    const fallback = await HorseService.getHorses({ limit: 8, status: 'active' });
+                    if (fallback.success && fallback.data) {
+                        const fallbackList = (Array.isArray(fallback.data) ? fallback.data : fallback.data.horses || [])
+                            .filter(h => (h._id || h.id) !== currentId);
+                        // Mevcut sonuçların ID'lerini çıkar, tekrar ekleme
+                        const existingIds = new Set(horses.map(h => h._id || h.id));
+                        for (const h of fallbackList) {
+                            if (!existingIds.has(h._id || h.id)) horses.push(h);
+                        }
+                    }
+                }
+
+                if (horses.length === 0) return;
+
+                // Benzerlik skoru hesapla ve sırala
+                horses = horses.map(h => {
+                    let score = 0;
+                    if (h.breed === horse.breed) score += 3;
+                    if (h.gender === horse.gender) score += 2;
+                    if (h.color === horse.color) score += 1;
+                    if (h.location?.city === horse.location?.city) score += 1;
+                    if (horse.price && h.price) {
+                        const ratio = h.price / horse.price;
+                        if (ratio > 0.7 && ratio < 1.4) score += 2;
+                    }
+                    return { ...h, _similarScore: score };
+                }).sort((a, b) => b._similarScore - a._similarScore).slice(0, 4);
+
+                section.style.display = 'block';
+                grid.innerHTML = horses.map(h => {
+                    const hId = h._id || h.id;
+                    const img = h.images?.find(i => i.isMain)?.url || h.images?.[0]?.url || h.images?.[0] || '';
+                    const age = h.age || (h.birthDate ? new Date().getFullYear() - new Date(h.birthDate).getFullYear() : '?');
+                    const price = h.price ? `₺${h.price.toLocaleString('tr-TR')}` : '';
+
+                    return `
+                        <a href="horse_detail.html#id=${hId}" class="similar-card" style="text-decoration:none;color:inherit;">
+                            <div class="similar-card-image" style="${img ? '' : ''}">
+                                ${img ? `<img src="${img}" alt="${h.name}" style="width:100%;height:100%;object-fit:cover;">` :
+                                `<svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>`}
+                            </div>
+                            <div class="similar-card-content">
+                                <h3 class="similar-card-name">${h.name}</h3>
+                                <p class="similar-card-breed">${breedNames[h.breed] || h.breed || ''}</p>
+                                <div class="similar-card-meta">
+                                    <span>${age} Yaş</span>
+                                    <span>·</span>
+                                    <span>${genderNames[h.gender] || h.gender || ''}</span>
+                                    <span>·</span>
+                                    <span>${colorNames[h.color] || h.color || ''}</span>
+                                </div>
+                                ${price ? `<div style="margin-top:8px;font-weight:700;color:var(--racing-green);font-size:16px;">${price}</div>` : ''}
+                            </div>
+                        </a>
+                    `;
+                }).join('');
+            } catch (e) {
+                console.error('Similar horses error:', e);
+            }
+        }
+
         // Satıcı bilgilerini güncelle
         function updateSellerInfo(seller) {
             if (!seller) return;
@@ -2354,15 +2390,22 @@
 
             // Sahiplik kontrolü - Düzenle butonunu göster
             const currentUser = api.getUser();
-            if (currentUser && (currentUser._id === sellerId || currentUser.role === 'admin')) {
+            const currentUserId = String(currentUser?._id || currentUser?.id || '');
+            const sellerIdStr = String(sellerId || '');
+            const isOwner = currentUserId && sellerIdStr && currentUserId === sellerIdStr;
+            const isAdmin = currentUser?.role === 'admin';
+
+            if (isOwner || isAdmin) {
                 const editBtn = document.getElementById('btn-edit');
                 if (editBtn) {
                     editBtn.style.display = 'flex';
-                    editBtn.href = `edit_listing?id=${currentHorse._id}`;
+                    editBtn.href = `edit_listing.html#id=${currentHorse._id || currentHorse.id}`;
                 }
                 // Kendi ilanıysa mesaj/teklif butonlarını gizle
-                document.getElementById('btn-message').style.display = 'none';
-                document.getElementById('btn-offer').style.display = 'none';
+                if (isOwner) {
+                    document.getElementById('btn-message').style.display = 'none';
+                    document.getElementById('btn-offer').style.display = 'none';
+                }
             }
 
             // Satıcı adı ve linki
