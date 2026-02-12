@@ -290,8 +290,8 @@
         /* Hero Section */
         .hero {
             min-height: auto;
-            padding-top: 80px;
-            padding-bottom: 50px;
+            padding-top: 70px;
+            padding-bottom: 10px;
             background: linear-gradient(165deg, var(--racing-green) 0%, #0f2a1f 50%, #1a3d2e 100%);
             position: relative;
             display: flex;
@@ -354,7 +354,7 @@
         .hero-content {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 25px 40px;
+            padding: 12px 40px;
             display: block;
             text-align: center;
             position: relative;
@@ -368,30 +368,30 @@
         .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             background: rgba(201, 165, 92, 0.15);
             border: 1px solid rgba(201, 165, 92, 0.3);
-            padding: 8px 16px;
+            padding: 5px 12px;
             border-radius: 50px;
-            font-size: 13px;
+            font-size: 11px;
             color: var(--gold-light);
-            margin-bottom: 24px;
+            margin-bottom: 10px;
             backdrop-filter: blur(10px);
         }
 
         .hero-badge-dot {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             background: var(--gold);
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
 
         .hero h1 {
-            font-size: 52px;
+            font-size: 36px;
             line-height: 1.1;
-            margin-bottom: 20px;
-            letter-spacing: -1px;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
         }
 
         .hero h1 .highlight {
@@ -400,30 +400,30 @@
         }
 
         .hero-description {
-            font-size: 18px;
+            font-size: 14px;
             color: rgba(255, 255, 255, 0.75);
-            margin-bottom: 22px;
-            line-height: 1.7;
-            max-width: 600px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+            max-width: 520px;
             margin-left: auto;
             margin-right: auto;
         }
 
         .hero-cta {
             display: flex;
-            gap: 16px;
-            margin-bottom: 25px;
+            gap: 12px;
+            margin-bottom: 14px;
             justify-content: center;
         }
 
         .hero-cta .btn {
-            padding: 16px 32px;
-            font-size: 16px;
+            padding: 10px 24px;
+            font-size: 14px;
         }
 
         .hero-stats {
             display: flex;
-            gap: 50px;
+            gap: 36px;
             justify-content: center;
         }
 
@@ -433,15 +433,15 @@
 
         .hero-stat-number {
             font-family: 'Playfair Display', serif;
-            font-size: 42px;
+            font-size: 28px;
             font-weight: 700;
             color: var(--gold);
             line-height: 1;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .hero-stat-label {
-            font-size: 14px;
+            font-size: 11px;
             color: rgba(255, 255, 255, 0.6);
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -1461,17 +1461,17 @@
         /* ===== FEATURED CARDS IN BANNER ===== */
         .hero-featured-cards {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             justify-content: center;
-            margin-top: 20px;
+            margin-top: 10px;
             flex-wrap: wrap;
         }
         .hero-mini-card {
             background: rgba(255,255,255,0.12);
             border: 1px solid rgba(255,255,255,0.18);
-            border-radius: 14px;
+            border-radius: 10px;
             padding: 0;
-            width: 200px;
+            width: 160px;
             overflow: hidden;
             backdrop-filter: blur(8px);
             transition: all 0.3s ease;
@@ -1484,7 +1484,7 @@
             transform: translateY(-4px);
         }
         .hero-mini-card-img {
-            height: 110px;
+            height: 80px;
             background: rgba(255,255,255,0.08);
             display: flex;
             align-items: center;
@@ -1495,16 +1495,16 @@
             width: 100%; height: 100%; object-fit: cover;
         }
         .hero-mini-card-body {
-            padding: 12px;
+            padding: 8px 10px;
         }
         .hero-mini-card-name {
             font-family: 'Playfair Display', serif;
-            font-size: 15px;
+            font-size: 13px;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
         .hero-mini-card-price {
-            font-size: 13px;
+            font-size: 11px;
             color: var(--gold-light);
             font-weight: 600;
         }
@@ -1611,7 +1611,7 @@
             .header-inner { padding: 15px 20px; }
             nav { display: none; }
             .hero { padding-top: 70px; }
-            .hero h1 { font-size: 32px; }
+            .hero h1 { font-size: 26px; }
             .hero-cta { flex-direction: column; align-items: center; }
             .hero-stats { flex-direction: column; gap: 20px; }
             .hero-stat { text-align: center; }
@@ -1686,7 +1686,7 @@
                             <!-- Öne çıkan at kartları -->
                             <div class="hero-featured-cards animate-fade-in-up animate-delay-4" id="heroFeaturedCards">
                             </div>
-                            <div class="hero-stats animate-fade-in-up animate-delay-4" style="margin-top:20px;">
+                            <div class="hero-stats animate-fade-in-up animate-delay-4" style="margin-top:10px;">
                                 <div class="hero-stat">
                                     <div class="hero-stat-number" id="statActiveListings">0</div>
                                     <div class="hero-stat-label">Aktif İlan</div>
@@ -1708,7 +1708,7 @@
                     <div class="ad-overlay"></div>
                     <div class="hero-content" style="position:relative;z-index:1;">
                         <div class="hero-text">
-                            <h1 style="font-size:44px;margin-bottom:16px;">Reklam Alanı</h1>
+                            <h1 style="font-size:30px;margin-bottom:10px;">Reklam Alanı</h1>
                             <p class="hero-description">Bu alan admin panelinden yönetilebilir. Reklam veren firmaların görselleri ve linkleri burada gösterilir.</p>
                             <div class="hero-cta" style="margin-top:24px;">
                                 <a href="contact.html" class="btn btn-gold">Reklam Verin</a>
@@ -1721,7 +1721,7 @@
                     <div class="ad-overlay"></div>
                     <div class="hero-content" style="position:relative;z-index:1;">
                         <div class="hero-text">
-                            <h1 style="font-size:44px;margin-bottom:16px;">Reklam Alanı</h1>
+                            <h1 style="font-size:30px;margin-bottom:10px;">Reklam Alanı</h1>
                             <p class="hero-description">Bu alan admin panelinden yönetilebilir. Sponsorluk veya reklam içeriği burada gösterilir.</p>
                             <div class="hero-cta" style="margin-top:24px;">
                                 <a href="contact.html" class="btn btn-gold">İletişime Geçin</a>
@@ -2146,7 +2146,7 @@
             const content = slide.querySelector('.hero-content .hero-text');
             if (content) {
                 content.innerHTML = `
-                    <h1 style="font-size:44px;margin-bottom:16px;">${banner.title || 'Reklam Alanı'}</h1>
+                    <h1 style="font-size:30px;margin-bottom:10px;">${banner.title || 'Reklam Alanı'}</h1>
                     <p class="hero-description">${banner.subtitle || ''}</p>
                     ${banner.linkUrl ? `<div class="hero-cta" style="margin-top:24px;"><a href="${banner.linkUrl}" class="btn btn-gold">Detaylar</a></div>` : ''}
                 `;
