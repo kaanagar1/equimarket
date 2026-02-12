@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banner Yönetimi - EquiMarket Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--racing-green:#1a3d2e;--gold:#c9a55c;--charcoal:#2a2a2a;--warm-gray:#6b6b6b;--light-gray:#f5f4f0;--white:#fff;--success:#4a7c59;--warning:#f59e0b;--error:#dc2626;--shadow-soft:0 4px 20px rgba(26,61,46,.08)}
+        *{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;background:var(--charcoal);color:var(--white)}h1,h2,h3{font-family:'Playfair Display',serif}
+        .layout{display:flex;min-height:100vh}.sidebar{background:#1a1a1a;width:260px;padding:24px 16px;position:fixed;top:0;bottom:0;left:0;border-right:1px solid rgba(255,255,255,.1)}
+        .sidebar-logo{display:flex;align-items:center;gap:12px;margin-bottom:32px;text-decoration:none;color:var(--white);font-size:20px;font-weight:700}
+        .logo-badge{background:var(--error);font-size:10px;padding:2px 6px;border-radius:4px;margin-left:8px}
+        .nav-section-title{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.4);padding:0 12px;margin:16px 0 8px}
+        .nav-link{display:flex;align-items:center;gap:12px;padding:12px;color:rgba(255,255,255,.6);text-decoration:none;border-radius:8px;margin-bottom:4px;font-size:14px}
+        .nav-link:hover{background:rgba(255,255,255,.05);color:var(--white)}.nav-link.active{background:var(--gold);color:var(--charcoal)}
+        .nav-link svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
+        .main{flex:1;margin-left:260px;padding:32px;background:var(--light-gray);min-height:100vh}
+        .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}.page-header h1{font-size:28px;color:var(--charcoal)}.page-header p{color:var(--warm-gray)}
+        .card{background:var(--white);border-radius:16px;box-shadow:var(--shadow-soft);overflow:hidden;margin-bottom:24px}
+        .card-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid var(--light-gray)}
+        .card-title{font-size:16px;font-weight:600;color:var(--charcoal)}
+        .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;border:none;text-decoration:none;transition:all .2s}
+        .btn-primary{background:var(--racing-green);color:var(--white)}.btn-primary:hover{opacity:.9}
+        .btn-gold{background:var(--gold);color:var(--charcoal)}.btn-gold:hover{opacity:.9}
+        .btn-danger{background:var(--error);color:var(--white)}.btn-danger:hover{opacity:.9}
+        .btn-outline{background:transparent;border:2px solid var(--racing-green);color:var(--racing-green)}.btn-outline:hover{background:var(--racing-green);color:var(--white)}
+        .btn-sm{padding:6px 14px;font-size:12px;border-radius:6px}
+        .table{width:100%;border-collapse:collapse}.table th,.table td{padding:14px 20px;text-align:left}
+        .table th{background:var(--light-gray);font-size:11px;text-transform:uppercase;color:var(--warm-gray)}.table td{border-bottom:1px solid var(--light-gray);color:var(--charcoal);font-size:14px}
+        .badge{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600}
+        .badge-active{background:rgba(74,124,89,.1);color:var(--success)}
+        .badge-inactive{background:rgba(220,38,38,.1);color:var(--error)}
+        .badge-hero{background:rgba(201,165,92,.15);color:#9a7b3a}
+        .badge-side{background:rgba(59,130,246,.1);color:#3b82f6}
+        .thumbnail{width:80px;height:50px;border-radius:8px;object-fit:cover;background:var(--light-gray);display:flex;align-items:center;justify-content:center;overflow:hidden}
+        .thumbnail img{width:100%;height:100%;object-fit:cover}
+
+        /* Modal */
+        .modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:1000;justify-content:center;align-items:center}
+        .modal-overlay.show{display:flex}
+        .modal{background:var(--white);border-radius:20px;width:600px;max-width:95vw;max-height:90vh;overflow-y:auto;padding:32px}
+        .modal h2{font-size:22px;color:var(--charcoal);margin-bottom:24px}
+        .form-group{margin-bottom:20px}
+        .form-group label{display:block;font-size:13px;font-weight:600;color:var(--charcoal);margin-bottom:8px}
+        .form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 16px;border:2px solid var(--light-gray);border-radius:10px;font-size:14px;font-family:inherit;color:var(--charcoal);transition:border-color .2s}
+        .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--racing-green);outline:none}
+        .form-group textarea{resize:vertical;min-height:80px}
+        .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+        .form-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:24px}
+        .form-hint{font-size:11px;color:var(--warm-gray);margin-top:4px}
+
+        /* Horse selection */
+        .horse-search{position:relative}
+        .horse-search-results{position:absolute;top:100%;left:0;right:0;background:var(--white);border:2px solid var(--light-gray);border-top:none;border-radius:0 0 10px 10px;max-height:200px;overflow-y:auto;z-index:10;display:none}
+        .horse-search-results.show{display:block}
+        .horse-search-item{padding:10px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--charcoal)}
+        .horse-search-item:hover{background:var(--light-gray)}
+        .selected-horses{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+        .selected-horse{background:var(--light-gray);padding:6px 12px;border-radius:20px;font-size:12px;display:flex;align-items:center;gap:6px;color:var(--charcoal)}
+        .selected-horse .remove{cursor:pointer;color:var(--error);font-weight:700;font-size:14px}
+
+        .preview-img{max-width:100%;max-height:120px;border-radius:8px;margin-top:8px;display:none}
+        .toast{position:fixed;bottom:24px;right:24px;padding:16px 24px;border-radius:12px;color:var(--white);font-weight:500;z-index:10001;animation:slideIn .3s ease}
+        @keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+
+        .layout{display:none}
+        .access-denied{display:none;min-height:100vh;background:var(--light-gray);justify-content:center;align-items:center;flex-direction:column;gap:24px;font-family:'DM Sans',sans-serif}
+        .access-denied.show{display:flex}
+        .access-denied svg{width:80px;height:80px;fill:none;stroke:var(--error);stroke-width:1.5}
+        .access-denied h2{font-family:'Playfair Display',serif;font-size:28px;color:var(--charcoal)}
+        .access-denied p{color:var(--warm-gray);font-size:16px}
+        .access-denied a{padding:14px 32px;background:var(--racing-green);color:var(--white);border-radius:10px;text-decoration:none;font-weight:600}
+
+        @media(max-width:768px){.sidebar{display:none}.main{margin-left:0}.form-row{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+    <div class="access-denied" id="accessDenied">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></svg>
+        <h2>Erişim Yetkiniz Yok</h2>
+        <p>Bu sayfayı görüntüleme yetkiniz bulunmamaktadır.</p>
+        <a href="homepage_v2.html">Anasayfaya Dön</a>
+    </div>
+    <div class="layout">
+        <aside class="sidebar">
+            <a href="admin.html" class="sidebar-logo">EquiMarket<span class="logo-badge">ADMIN</span></a>
+            <div class="nav-section-title">Genel</div>
+            <a href="admin.html" class="nav-link"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
+            <div class="nav-section-title">Yönetim</div>
+            <a href="admin_users.html" class="nav-link"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Kullanıcılar</a>
+            <a href="admin_listings.html" class="nav-link"><svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>İlanlar</a>
+            <a href="admin_blog.html" class="nav-link"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Blog</a>
+            <a href="admin_banners.html" class="nav-link active"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>Banner & Reklam</a>
+            <div class="nav-section-title">Diğer</div>
+            <a href="homepage_v2.html" class="nav-link"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Siteye Git</a>
+            <a href="#" onclick="logout()" class="nav-link"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>Çıkış</a>
+        </aside>
+        <main class="main">
+            <div class="page-header">
+                <div>
+                    <h1>Banner & Reklam Yönetimi</h1>
+                    <p>Anasayfa banner slider'ı ve yan reklam alanlarını yönetin</p>
+                </div>
+                <button class="btn btn-primary" onclick="openModal()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Yeni Banner
+                </button>
+            </div>
+
+            <!-- Hero Slider Bannerları -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Hero Slider Bannerları</span>
+                    <span style="font-size:12px;color:var(--warm-gray)">Anasayfa üstündeki kayan banner</span>
+                </div>
+                <table class="table">
+                    <thead><tr><th>Sıra</th><th>Önizleme</th><th>Başlık</th><th>Öne Çıkan Atlar</th><th>Durum</th><th>İşlem</th></tr></thead>
+                    <tbody id="heroBannerTable">
+                        <tr><td colspan="6" style="text-align:center;padding:40px;color:var(--warm-gray)">Yükleniyor...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Yan Reklam Bannerları -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Yan Reklam Bannerları</span>
+                    <span style="font-size:12px;color:var(--warm-gray)">Anasayfa sağ ve sol kenar reklamları</span>
+                </div>
+                <table class="table">
+                    <thead><tr><th>Konum</th><th>Önizleme</th><th>Başlık</th><th>Link</th><th>Durum</th><th>İşlem</th></tr></thead>
+                    <tbody id="sideBannerTable">
+                        <tr><td colspan="6" style="text-align:center;padding:40px;color:var(--warm-gray)">Yükleniyor...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Banner Modal -->
+    <div class="modal-overlay" id="bannerModal">
+        <div class="modal">
+            <h2 id="modalTitle">Yeni Banner Oluştur</h2>
+            <form id="bannerForm" onsubmit="saveBanner(event)">
+                <input type="hidden" id="bannerId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Banner Türü</label>
+                        <select id="bannerType" onchange="onTypeChange()">
+                            <option value="hero">Hero Slider</option>
+                            <option value="side-left">Sol Reklam</option>
+                            <option value="side-right">Sağ Reklam</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Sıralama</label>
+                        <input type="number" id="bannerOrder" value="0" min="0" max="10">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Başlık</label>
+                    <input type="text" id="bannerTitle" placeholder="Banner başlığı">
+                </div>
+                <div class="form-group">
+                    <label>Alt Başlık / Açıklama</label>
+                    <textarea id="bannerSubtitle" placeholder="Banner açıklaması (opsiyonel)"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Görsel URL</label>
+                    <input type="url" id="bannerImageUrl" placeholder="https://example.com/banner.jpg" oninput="previewImage(this.value)">
+                    <div class="form-hint">Reklam görseli için URL girin. Hero slider için 1400x400px, yan banner için 160x600px önerilir.</div>
+                    <img class="preview-img" id="imagePreview">
+                </div>
+                <div class="form-group">
+                    <label>Link URL (tıklandığında yönlenecek sayfa)</label>
+                    <input type="url" id="bannerLinkUrl" placeholder="https://example.com">
+                </div>
+
+                <!-- Öne çıkan atlar (sadece hero banner için) -->
+                <div class="form-group" id="featuredHorsesGroup">
+                    <label>Öne Çıkan Atlar (Hero Banner için)</label>
+                    <div class="horse-search">
+                        <input type="text" id="horseSearch" placeholder="At adı ile arayın..." oninput="searchHorses(this.value)">
+                        <div class="horse-search-results" id="horseSearchResults"></div>
+                    </div>
+                    <div class="selected-horses" id="selectedHorses"></div>
+                    <div class="form-hint">Maksimum 3 at seçebilirsiniz. Banner'da öne çıkan ilan kartları olarak gösterilir.</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Durum</label>
+                        <select id="bannerActive">
+                            <option value="true">Aktif</option>
+                            <option value="false">Pasif</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal()">İptal</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        let allBanners = [];
+        let allHorses = [];
+        let selectedHorseIds = [];
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Auth check
+            if (api.isLoggedIn()) {
+                try {
+                    const r = await api.get('/auth/me');
+                    if (r.success && r.data) api.setUser(r.data);
+                } catch(e) {}
+            }
+            const u = api.getUser();
+            if (!u || u.role !== 'admin') {
+                document.getElementById('accessDenied').classList.add('show');
+                return;
+            }
+            document.querySelector('.layout').style.display = 'flex';
+
+            await loadBanners();
+            await loadHorses();
+        });
+
+        function logout() {
+            localStorage.removeItem('equimarket_token');
+            localStorage.removeItem('equimarket_user');
+            window.location.href = 'login_register.html';
+        }
+
+        async function loadBanners() {
+            try {
+                const result = await api.get('/admin/banners');
+                if (result.success) {
+                    allBanners = result.data;
+                    renderBanners();
+                }
+            } catch (e) {
+                console.error('Load banners error:', e);
+            }
+        }
+
+        async function loadHorses() {
+            try {
+                const result = await api.get('/horses?limit=100&status=active', false);
+                if (result.success) {
+                    allHorses = result.data || [];
+                }
+            } catch (e) {
+                console.error('Load horses error:', e);
+            }
+        }
+
+        function renderBanners() {
+            const heroBanners = allBanners.filter(b => b.type === 'hero');
+            const sideBanners = allBanners.filter(b => b.type === 'side-left' || b.type === 'side-right');
+
+            // Hero bannerlar
+            const heroTable = document.getElementById('heroBannerTable');
+            if (heroBanners.length === 0) {
+                heroTable.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--warm-gray)">Henüz hero banner eklenmedi.</td></tr>';
+            } else {
+                heroTable.innerHTML = heroBanners.sort((a,b) => a.order - b.order).map(b => `
+                    <tr>
+                        <td><strong>${b.order + 1}</strong></td>
+                        <td>
+                            <div class="thumbnail">
+                                ${b.imageUrl ? `<img src="${b.imageUrl}" alt="">` : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>'}
+                            </div>
+                        </td>
+                        <td><strong>${b.title || 'Başlıksız'}</strong><br><span style="font-size:12px;color:var(--warm-gray)">${b.subtitle ? b.subtitle.substring(0, 50) + '...' : '-'}</span></td>
+                        <td>${b.featuredHorses ? b.featuredHorses.map(h => `<span style="font-size:12px">${h.name || h}</span>`).join(', ') : '-'}</td>
+                        <td><span class="badge ${b.isActive ? 'badge-active' : 'badge-inactive'}">${b.isActive ? 'Aktif' : 'Pasif'}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline" onclick="editBanner('${b._id}')">Düzenle</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteBanner('${b._id}')">Sil</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            // Yan bannerlar
+            const sideTable = document.getElementById('sideBannerTable');
+            if (sideBanners.length === 0) {
+                sideTable.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--warm-gray)">Henüz yan banner eklenmedi.</td></tr>';
+            } else {
+                sideTable.innerHTML = sideBanners.map(b => `
+                    <tr>
+                        <td><span class="badge badge-side">${b.type === 'side-left' ? 'Sol' : 'Sağ'}</span></td>
+                        <td>
+                            <div class="thumbnail">
+                                ${b.imageUrl ? `<img src="${b.imageUrl}" alt="">` : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>'}
+                            </div>
+                        </td>
+                        <td>${b.title || 'Başlıksız'}</td>
+                        <td style="font-size:12px;word-break:break-all">${b.linkUrl || '-'}</td>
+                        <td><span class="badge ${b.isActive ? 'badge-active' : 'badge-inactive'}">${b.isActive ? 'Aktif' : 'Pasif'}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline" onclick="editBanner('${b._id}')">Düzenle</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteBanner('${b._id}')">Sil</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // Modal işlemleri
+        function openModal(banner = null) {
+            const modal = document.getElementById('bannerModal');
+            const title = document.getElementById('modalTitle');
+            const form = document.getElementById('bannerForm');
+
+            if (banner) {
+                title.textContent = 'Banner Düzenle';
+                document.getElementById('bannerId').value = banner._id;
+                document.getElementById('bannerType').value = banner.type;
+                document.getElementById('bannerOrder').value = banner.order || 0;
+                document.getElementById('bannerTitle').value = banner.title || '';
+                document.getElementById('bannerSubtitle').value = banner.subtitle || '';
+                document.getElementById('bannerImageUrl').value = banner.imageUrl || '';
+                document.getElementById('bannerLinkUrl').value = banner.linkUrl || '';
+                document.getElementById('bannerActive').value = banner.isActive ? 'true' : 'false';
+
+                // Öne çıkan atlar
+                selectedHorseIds = (banner.featuredHorses || []).map(h => typeof h === 'object' ? h._id : h);
+                renderSelectedHorses();
+                previewImage(banner.imageUrl);
+            } else {
+                title.textContent = 'Yeni Banner Oluştur';
+                form.reset();
+                document.getElementById('bannerId').value = '';
+                selectedHorseIds = [];
+                renderSelectedHorses();
+                document.getElementById('imagePreview').style.display = 'none';
+            }
+
+            onTypeChange();
+            modal.classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('bannerModal').classList.remove('show');
+        }
+
+        function onTypeChange() {
+            const type = document.getElementById('bannerType').value;
+            const horsesGroup = document.getElementById('featuredHorsesGroup');
+            horsesGroup.style.display = type === 'hero' ? 'block' : 'none';
+        }
+
+        function previewImage(url) {
+            const img = document.getElementById('imagePreview');
+            if (url) {
+                img.src = url;
+                img.style.display = 'block';
+                img.onerror = () => { img.style.display = 'none'; };
+            } else {
+                img.style.display = 'none';
+            }
+        }
+
+        // At arama
+        function searchHorses(query) {
+            const results = document.getElementById('horseSearchResults');
+            if (!query || query.length < 2) {
+                results.classList.remove('show');
+                return;
+            }
+
+            const filtered = allHorses.filter(h =>
+                h.name.toLowerCase().includes(query.toLowerCase()) &&
+                !selectedHorseIds.includes(h._id)
+            ).slice(0, 5);
+
+            if (filtered.length > 0) {
+                results.innerHTML = filtered.map(h => `
+                    <div class="horse-search-item" onclick="selectHorse('${h._id}', '${h.name}')">
+                        <strong>${h.name}</strong> - ${new Intl.NumberFormat('tr-TR').format(h.price)} TL
+                    </div>
+                `).join('');
+                results.classList.add('show');
+            } else {
+                results.classList.remove('show');
+            }
+        }
+
+        function selectHorse(id, name) {
+            if (selectedHorseIds.length >= 3) {
+                showToast('Maksimum 3 at seçebilirsiniz', 'error');
+                return;
+            }
+            if (!selectedHorseIds.includes(id)) {
+                selectedHorseIds.push(id);
+                renderSelectedHorses();
+            }
+            document.getElementById('horseSearch').value = '';
+            document.getElementById('horseSearchResults').classList.remove('show');
+        }
+
+        function removeHorse(id) {
+            selectedHorseIds = selectedHorseIds.filter(h => h !== id);
+            renderSelectedHorses();
+        }
+
+        function renderSelectedHorses() {
+            const container = document.getElementById('selectedHorses');
+            container.innerHTML = selectedHorseIds.map(id => {
+                const horse = allHorses.find(h => h._id === id);
+                const name = horse ? horse.name : id;
+                return `<span class="selected-horse">${name} <span class="remove" onclick="removeHorse('${id}')">&times;</span></span>`;
+            }).join('');
+        }
+
+        // Banner kaydet
+        async function saveBanner(e) {
+            e.preventDefault();
+
+            const id = document.getElementById('bannerId').value;
+            const data = {
+                type: document.getElementById('bannerType').value,
+                order: parseInt(document.getElementById('bannerOrder').value) || 0,
+                title: document.getElementById('bannerTitle').value,
+                subtitle: document.getElementById('bannerSubtitle').value,
+                imageUrl: document.getElementById('bannerImageUrl').value,
+                linkUrl: document.getElementById('bannerLinkUrl').value,
+                isActive: document.getElementById('bannerActive').value === 'true',
+                featuredHorses: document.getElementById('bannerType').value === 'hero' ? selectedHorseIds : []
+            };
+
+            try {
+                let result;
+                if (id) {
+                    result = await api.put('/admin/banners/' + id, data);
+                } else {
+                    result = await api.post('/admin/banners', data);
+                }
+
+                if (result.success) {
+                    showToast(id ? 'Banner güncellendi' : 'Banner oluşturuldu');
+                    closeModal();
+                    await loadBanners();
+                } else {
+                    showToast(result.message || 'Bir hata oluştu', 'error');
+                }
+            } catch (error) {
+                showToast('Bir hata oluştu', 'error');
+            }
+        }
+
+        function editBanner(id) {
+            const banner = allBanners.find(b => b._id === id);
+            if (banner) openModal(banner);
+        }
+
+        async function deleteBanner(id) {
+            if (!confirm('Bu banner\'ı silmek istediğinize emin misiniz?')) return;
+
+            try {
+                const result = await api.delete('/admin/banners/' + id);
+                if (result.success) {
+                    showToast('Banner silindi');
+                    await loadBanners();
+                } else {
+                    showToast(result.message || 'Bir hata oluştu', 'error');
+                }
+            } catch (error) {
+                showToast('Bir hata oluştu', 'error');
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            toast.style.cssText = `
+                position:fixed;bottom:24px;right:24px;padding:16px 24px;border-radius:12px;
+                background:${type === 'success' ? 'var(--racing-green)' : 'var(--error)'};
+                color:white;font-weight:500;z-index:10001;box-shadow:0 8px 30px rgba(0,0,0,.2);
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Modal dışına tıklama
+        document.getElementById('bannerModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+    </script>
+</body>
+</html>

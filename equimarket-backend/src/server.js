@@ -45,6 +45,7 @@ app.use('/api/reviews', require('./routes/reviews'));
 app.use('/api/notifications', require('./routes/notifications'));
 app.use('/api/saved-searches', require('./routes/savedSearches'));
 app.use('/api/feedback', require('./routes/feedbackRoutes'));
+app.use('/api/banners', require('./routes/banners'));
 
 // Ana sayfa
 app.get('/', (req, res) => {

@@ -12,6 +12,9 @@ const {
 const {
     getContactMessages, updateContactMessage, getReports, updateReport
 } = require('../controllers/supportController');
+const {
+    getAllBanners, createBanner, updateBanner, deleteBanner
+} = require('../controllers/bannerController');
 
 router.use(protect);
 router.use(isAdmin);
@@ -46,5 +49,11 @@ router.get('/support/contacts', getContactMessages);
 router.put('/support/contacts/:id', updateContactMessage);
 router.get('/support/reports', getReports);
 router.put('/support/reports/:id', updateReport);
+
+// Banners
+router.get('/banners', getAllBanners);
+router.post('/banners', createBanner);
+router.put('/banners/:id', updateBanner);
+router.delete('/banners/:id', deleteBanner);
 
 module.exports = router;
