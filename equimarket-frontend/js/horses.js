@@ -228,9 +228,13 @@ async function toggleFavorite(horseId, button) {
     }
 
     const result = await HorseService.toggleFavorite(horseId);
-    
+
     if (result.success) {
         button.classList.toggle('active', result.isFavorited);
+        // localStorage'ı güncelle - dashboard'da favoriler doğru gözüksün
+        if (typeof AppState !== 'undefined') {
+            AppState.toggleFavorite(horseId);
+        }
         showToast(result.message);
     } else {
         showToast(result.message, 'error');

@@ -1284,14 +1284,17 @@
             if (!userData) return;
 
             const user = JSON.parse(userData);
-            const favorites = user.favorites || [];
+            const favorites = (user.favorites || []).map(String);
+
+            // Favori sayısını güncelle
+            document.getElementById('buyerFavorites').textContent = favorites.length;
 
             if (favorites.length > 0 && typeof HorseService !== 'undefined') {
                 try {
                     // Tüm ilanları çek ve favorileri filtrele
                     const result = await HorseService.getHorses();
                     if (result.success && result.data) {
-                        const favoriteHorses = result.data.filter(h => favorites.includes(h._id)).slice(0, 3);
+                        const favoriteHorses = result.data.filter(h => favorites.includes(String(h._id))).slice(0, 3);
                         
                         if (favoriteHorses.length > 0) {
                             document.getElementById('buyerFavoritesList').innerHTML = favoriteHorses.map(horse => createHorseListItem(horse)).join('');

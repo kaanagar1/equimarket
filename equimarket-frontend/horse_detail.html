@@ -1497,9 +1497,6 @@
                     <div class="price-note">KDV dahil · Pazarlık payı mevcut</div>
                     <div class="price-cta">
                         <button class="btn btn-gold btn-lg" id="btn-message" onclick="startConversation()">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
-                            </svg>
                             Mesaj Gönder
                         </button>
                         <button class="btn btn-outline" id="btn-phone" onclick="showPhone()">
@@ -1510,18 +1507,8 @@
                             Telefon Göster
                         </button>
                         <button class="btn btn-primary" id="btn-offer" onclick="makeOffer()">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
-                            </svg>
                             Teklif Ver
                         </button>
-                        <a href="javascript:void(0)" class="btn btn-outline" id="btn-edit" style="display:none;">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
-                                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
-                            </svg>
-                            İlanı Düzenle
-                        </a>
                     </div>
                 </div>
 
@@ -2306,24 +2293,15 @@
             const sellerId = seller._id;
             const profileUrl = `seller_profile.html?id=${sellerId}`;
 
-            // Sahiplik kontrolü - Düzenle butonunu göster
+            // Sahiplik kontrolü - Kendi ilanıysa mesaj/teklif butonlarını gizle
             const currentUser = api.getUser();
             const currentUserId = String(currentUser?._id || currentUser?.id || '');
             const sellerIdStr = String(sellerId || '');
             const isOwner = currentUserId && sellerIdStr && currentUserId === sellerIdStr;
-            const isAdmin = currentUser?.role === 'admin';
 
-            if (isOwner || isAdmin) {
-                const editBtn = document.getElementById('btn-edit');
-                if (editBtn) {
-                    editBtn.style.display = 'flex';
-                    editBtn.href = `edit_listing.html?id=${currentHorse._id || currentHorse.id}`;
-                }
-                // Kendi ilanıysa mesaj/teklif butonlarını gizle
-                if (isOwner) {
-                    document.getElementById('btn-message').style.display = 'none';
-                    document.getElementById('btn-offer').style.display = 'none';
-                }
+            if (isOwner) {
+                document.getElementById('btn-message').style.display = 'none';
+                document.getElementById('btn-offer').style.display = 'none';
             }
 
             // Satıcı adı ve linki
@@ -2602,29 +2580,39 @@
         }
 
         // Favori ekle/çıkar
-        function toggleFavorite() {
+        async function toggleFavorite() {
             if (!localStorage.getItem('equimarket_user')) {
                 showToast('Favorilere eklemek için giriş yapmalısınız', 'error');
                 return;
             }
 
-            const favorites = getFavorites();
-            const isCurrentlyFavorite = favorites.includes(horseId);
+            if (!horseId) return;
 
-            const userData = JSON.parse(localStorage.getItem('equimarket_user'));
-
-            if (isCurrentlyFavorite) {
-                // Favorilerden çıkar
-                userData.favorites = favorites.filter(id => id !== horseId);
-                localStorage.setItem('equimarket_user', JSON.stringify(userData));
-                updateFavoriteButton();
-                showToast('Favorilerden çıkarıldı');
-            } else {
-                // Favorilere ekle
-                userData.favorites = [...favorites, horseId];
-                localStorage.setItem('equimarket_user', JSON.stringify(userData));
-                updateFavoriteButton();
-                showToast('Favorilere eklendi');
+            try {
+                // Backend'e istek gönder
+                const result = await HorseService.toggleFavorite(horseId);
+                if (result.success) {
+                    // localStorage'ı güncelle
+                    if (typeof AppState !== 'undefined') {
+                        AppState.toggleFavorite(horseId);
+                    } else {
+                        const userData = JSON.parse(localStorage.getItem('equimarket_user'));
+                        const favorites = userData.favorites || [];
+                        if (result.isFavorited) {
+                            userData.favorites = [...favorites, horseId];
+                        } else {
+                            userData.favorites = favorites.filter(id => id !== horseId);
+                        }
+                        localStorage.setItem('equimarket_user', JSON.stringify(userData));
+                    }
+                    updateFavoriteButton();
+                    showToast(result.message);
+                } else {
+                    showToast(result.message || 'Bir hata oluştu', 'error');
+                }
+            } catch (error) {
+                console.error('Favorite toggle error:', error);
+                showToast('Bir hata oluştu', 'error');
             }
         }
 

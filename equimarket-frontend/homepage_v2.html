@@ -1383,7 +1383,217 @@
             color: var(--gold);
         }
 
+        /* ===== BANNER CAROUSEL ===== */
+        .hero-carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+        .hero-slides {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 300%;
+        }
+        .hero-slide {
+            width: 100%;
+            flex-shrink: 0;
+            min-height: auto;
+            position: relative;
+        }
+        .hero-slide .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        /* Carousel dots */
+        .carousel-dots {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.35);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+        .carousel-dot.active {
+            background: var(--gold);
+            width: 28px;
+            border-radius: 5px;
+        }
+        /* Carousel arrows */
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+        .carousel-arrow:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        .carousel-arrow svg {
+            width: 20px; height: 20px;
+            fill: none; stroke: currentColor; stroke-width: 2;
+        }
+        .carousel-arrow-left { left: 20px; }
+        .carousel-arrow-right { right: 20px; }
+
+        /* ===== FEATURED CARDS IN BANNER ===== */
+        .hero-featured-cards {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .hero-mini-card {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 14px;
+            padding: 0;
+            width: 200px;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+        .hero-mini-card:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-4px);
+        }
+        .hero-mini-card-img {
+            height: 110px;
+            background: rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .hero-mini-card-img img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .hero-mini-card-body {
+            padding: 12px;
+        }
+        .hero-mini-card-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .hero-mini-card-price {
+            font-size: 13px;
+            color: var(--gold-light);
+            font-weight: 600;
+        }
+
+        /* ===== AD SLIDE (2. ve 3. banner) ===== */
+        .hero-slide-ad {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-slide-ad .hero-content {
+            max-width: 800px;
+        }
+        .ad-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.35);
+            z-index: 0;
+        }
+
+        /* ===== SIDE AD BANNERS ===== */
+        .page-with-ads {
+            display: flex;
+            max-width: 100%;
+            position: relative;
+        }
+        .side-ad {
+            width: 160px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+            z-index: 5;
+            padding: 10px;
+        }
+        .side-ad-inner {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow-soft);
+            overflow: hidden;
+            text-align: center;
+        }
+        .side-ad-inner a {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        .side-ad-inner img {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+        }
+        .side-ad-placeholder {
+            padding: 30px 12px;
+            color: var(--warm-gray);
+            font-size: 11px;
+            background: var(--light-gray);
+            border-radius: 12px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .side-ad-placeholder svg {
+            width: 28px; height: 28px;
+            stroke: var(--warm-gray); fill: none; stroke-width: 1.5;
+            opacity: 0.5;
+        }
+        .side-ad-label {
+            font-size: 9px;
+            color: var(--warm-gray);
+            text-align: center;
+            margin-top: 4px;
+            opacity: 0.6;
+        }
+        .main-content-area {
+            flex: 1;
+            min-width: 0;
+        }
+
         /* Responsive */
+        @media (max-width: 1400px) {
+            .side-ad { width: 130px; }
+        }
         @media (max-width: 1200px) {
             .hero-content { grid-template-columns: 1fr; text-align: center; }
             .hero-visual { display: none; }
@@ -1393,15 +1603,17 @@
             .horse-grid { grid-template-columns: repeat(2, 1fr); }
             .steps-grid { grid-template-columns: repeat(2, 1fr); }
             .footer-grid { grid-template-columns: repeat(2, 1fr); }
+            .side-ad { display: none; }
+            .hero-mini-card { width: 170px; }
         }
 
         @media (max-width: 768px) {
             .header-inner { padding: 15px 20px; }
             nav { display: none; }
             .hero { padding-top: 70px; }
-            .hero h1 { font-size: 40px; }
+            .hero h1 { font-size: 32px; }
             .hero-cta { flex-direction: column; align-items: center; }
-            .hero-stats { flex-direction: column; gap: 30px; }
+            .hero-stats { flex-direction: column; gap: 20px; }
             .hero-stat { text-align: center; }
             .search-box { flex-direction: column; border-radius: 12px; }
             .search-divider { width: 100%; height: 1px; }
@@ -1413,6 +1625,9 @@
             .steps-grid { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr; gap: 40px; }
             .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+            .carousel-arrow { display: none; }
+            .hero-featured-cards { flex-direction: column; align-items: center; }
+            .hero-mini-card { width: 90%; max-width: 280px; }
         }
     </style>
 </head>
@@ -1441,47 +1656,110 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Carousel -->
     <section class="hero">
         <div class="hero-bg-elements">
             <div class="hero-circle hero-circle-1"></div>
             <div class="hero-circle hero-circle-2"></div>
             <div class="hero-circle hero-circle-3"></div>
         </div>
-        <div class="hero-content">
-            <div class="hero-text">
-                <div class="hero-badge animate-fade-in-up">
-                    <span class="hero-badge-dot"></span>
-                    Türkiye'nin En Yenilikçi Yarış Atı Pazaryeri
-                </div>
-                <h1 class="animate-fade-in-up animate-delay-1">
-                    Şampiyonunuzu<br><span class="highlight">Keşfedin</span>
-                </h1>
-                <p class="hero-description animate-fade-in-up animate-delay-2">
-                    Türkiye'nin en prestijli ekürilerinden, en başarılı yetiştiricilerinden safkan yarış atlarına ulaşın. Güvenilir altyapımız ve geniş ağımızla hayalinizdeki şampiyona bir adım daha yakınsınız.
-                </p>
-                <div class="hero-cta animate-fade-in-up animate-delay-3">
-                    <a href="ilanlar.html" class="btn btn-gold">Atları İncele</a>
-                    <a href="about.html" class="btn btn-secondary" style="border-color: rgba(255,255,255,0.5); color: #ffffff; background: transparent;">Nasıl Çalışır</a>
-                </div>
-                <div class="hero-stats animate-fade-in-up animate-delay-4">
-                    <div class="hero-stat">
-                        <div class="hero-stat-number" id="statActiveListings">0</div>
-                        <div class="hero-stat-label">Aktif İlan</div>
+        <div class="hero-carousel">
+            <div class="hero-slides" id="heroSlides">
+                <!-- Slide 1: Ana sayfa + öne çıkan atlar -->
+                <div class="hero-slide">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <div class="hero-badge animate-fade-in-up">
+                                <span class="hero-badge-dot"></span>
+                                Türkiye'nin En Yenilikçi Yarış Atı Pazaryeri
+                            </div>
+                            <h1 class="animate-fade-in-up animate-delay-1">
+                                Şampiyonunuzu<br><span class="highlight">Keşfedin</span>
+                            </h1>
+                            <p class="hero-description animate-fade-in-up animate-delay-2">
+                                Türkiye'nin en prestijli ekürilerinden, en başarılı yetiştiricilerinden safkan yarış atlarına ulaşın.
+                            </p>
+                            <div class="hero-cta animate-fade-in-up animate-delay-3">
+                                <a href="ilanlar.html" class="btn btn-gold">Atları İncele</a>
+                                <a href="about.html" class="btn btn-secondary" style="border-color: rgba(255,255,255,0.5); color: #ffffff; background: transparent;">Nasıl Çalışır</a>
+                            </div>
+                            <!-- Öne çıkan at kartları -->
+                            <div class="hero-featured-cards animate-fade-in-up animate-delay-4" id="heroFeaturedCards">
+                            </div>
+                            <div class="hero-stats animate-fade-in-up animate-delay-4" style="margin-top:20px;">
+                                <div class="hero-stat">
+                                    <div class="hero-stat-number" id="statActiveListings">0</div>
+                                    <div class="hero-stat-label">Aktif İlan</div>
+                                </div>
+                                <div class="hero-stat">
+                                    <div class="hero-stat-number" id="statVerifiedSellers">0</div>
+                                    <div class="hero-stat-label">Doğrulanmış Satıcı</div>
+                                </div>
+                                <div class="hero-stat">
+                                    <div class="hero-stat-number" id="statSuccessfulSales">0</div>
+                                    <div class="hero-stat-label">Başarılı Bağlantı</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="hero-stat">
-                        <div class="hero-stat-number" id="statVerifiedSellers">0</div>
-                        <div class="hero-stat-label">Doğrulanmış Satıcı</div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="hero-stat-number" id="statSuccessfulSales">0</div>
-                        <div class="hero-stat-label">Başarılı Bağlantı</div>
+                </div>
+                <!-- Slide 2: Reklam banner (admin'den yönetilecek) -->
+                <div class="hero-slide hero-slide-ad" id="heroSlide2">
+                    <div class="ad-overlay"></div>
+                    <div class="hero-content" style="position:relative;z-index:1;">
+                        <div class="hero-text">
+                            <h1 style="font-size:44px;margin-bottom:16px;">Reklam Alanı</h1>
+                            <p class="hero-description">Bu alan admin panelinden yönetilebilir. Reklam veren firmaların görselleri ve linkleri burada gösterilir.</p>
+                            <div class="hero-cta" style="margin-top:24px;">
+                                <a href="contact.html" class="btn btn-gold">Reklam Verin</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <!-- Slide 3: Reklam banner 2 -->
+                <div class="hero-slide hero-slide-ad" id="heroSlide3">
+                    <div class="ad-overlay"></div>
+                    <div class="hero-content" style="position:relative;z-index:1;">
+                        <div class="hero-text">
+                            <h1 style="font-size:44px;margin-bottom:16px;">Reklam Alanı</h1>
+                            <p class="hero-description">Bu alan admin panelinden yönetilebilir. Sponsorluk veya reklam içeriği burada gösterilir.</p>
+                            <div class="hero-cta" style="margin-top:24px;">
+                                <a href="contact.html" class="btn btn-gold">İletişime Geçin</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Carousel Controls -->
+            <button class="carousel-arrow carousel-arrow-left" onclick="changeSlide(-1)">
+                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="carousel-arrow carousel-arrow-right" onclick="changeSlide(1)">
+                <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+            </button>
+            <div class="carousel-dots" id="carouselDots">
+                <button class="carousel-dot active" onclick="goToSlide(0)"></button>
+                <button class="carousel-dot" onclick="goToSlide(1)"></button>
+                <button class="carousel-dot" onclick="goToSlide(2)"></button>
             </div>
         </div>
     </section>
 
+    <!-- Page with side ads wrapper -->
+    <div class="page-with-ads">
+        <!-- Sol reklam banner -->
+        <div class="side-ad" id="sideAdLeft">
+            <div class="side-ad-inner" id="sideAdLeftContent">
+                <div class="side-ad-placeholder">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                    <span>Reklam Alanı</span>
+                </div>
+            </div>
+            <div class="side-ad-label">Reklam</div>
+        </div>
+
+        <!-- Ana içerik -->
+        <div class="main-content-area">
 
     <!-- Featured Listings -->
     <section class="section">
@@ -1544,6 +1822,20 @@
             </div>
         </div>
     </section>
+
+        </div><!-- /main-content-area -->
+
+        <!-- Sağ reklam banner -->
+        <div class="side-ad" id="sideAdRight">
+            <div class="side-ad-inner" id="sideAdRightContent">
+                <div class="side-ad-placeholder">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                    <span>Reklam Alanı</span>
+                </div>
+            </div>
+            <div class="side-ad-label">Reklam</div>
+        </div>
+    </div><!-- /page-with-ads -->
 
     <!-- Footer -->
     <footer>
@@ -1630,21 +1922,47 @@
             header.classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // Favorite button toggle
-        document.querySelectorAll('.horse-card-favorite').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                btn.classList.toggle('active');
-            });
-        });
+        // ===== CAROUSEL =====
+        let currentSlide = 0;
+        const totalSlides = 3;
+        let autoSlideTimer = null;
 
-        // Quick filter active state
-        document.querySelectorAll('.quick-filter').forEach(filter => {
-            filter.addEventListener('click', (e) => {
-                e.preventDefault();
-                document.querySelectorAll('.quick-filter').forEach(f => f.classList.remove('active'));
-                filter.classList.add('active');
+        function goToSlide(index) {
+            currentSlide = index;
+            const slides = document.getElementById('heroSlides');
+            if (slides) {
+                slides.style.transform = `translateX(-${index * (100 / totalSlides)}%)`;
+            }
+            // Dot'ları güncelle
+            document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
             });
+            resetAutoSlide();
+        }
+
+        function changeSlide(dir) {
+            let next = currentSlide + dir;
+            if (next < 0) next = totalSlides - 1;
+            if (next >= totalSlides) next = 0;
+            goToSlide(next);
+        }
+
+        function resetAutoSlide() {
+            if (autoSlideTimer) clearInterval(autoSlideTimer);
+            autoSlideTimer = setInterval(() => changeSlide(1), 6000);
+        }
+
+        // Otomatik kayma başlat
+        resetAutoSlide();
+
+        // Swipe desteği (mobil)
+        let touchStartX = 0;
+        document.querySelector('.hero-carousel')?.addEventListener('touchstart', e => {
+            touchStartX = e.touches[0].clientX;
+        });
+        document.querySelector('.hero-carousel')?.addEventListener('touchend', e => {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) changeSlide(diff > 0 ? 1 : -1);
         });
 
         // Intersection Observer for animations
@@ -1674,13 +1992,13 @@
             // Auth kontrolü
             updateHeaderAuth();
             updateCtaSection();
-            
-            // Hero kartları yükle
-            await loadHeroCards();
-            
+
+            // Bannerları yükle (hero slider + side ads)
+            await loadBanners();
+
             // İstatistikleri yükle
             await loadStats();
-            
+
             // Öne çıkan ilanları yükle
             await loadFeaturedHorses();
         });
@@ -1742,59 +2060,106 @@
             window.location.reload();
         }
 
-        // Hero kartlarını yükle
-        async function loadHeroCards() {
-            const stack = document.getElementById('heroCardStack');
-            if (!stack) return;
-
+        // Banner'ları API'den yükle
+        async function loadBanners() {
             try {
-                const result = await api.get('/horses?limit=3&status=active');
-                
-                if (result.success && result.data && result.data.length > 0) {
-                    const loggedIn = isLoggedIn();
-                    stack.innerHTML = result.data.map((horse, i) => {
-                        const age = horse.age || (horse.birthDate ? new Date().getFullYear() - new Date(horse.birthDate).getFullYear() : '?');
-                        const breedName = { ingiliz: 'İngiliz', arap: 'Arap', turk: 'Türk' }[horse.breed] || horse.breed || '';
-                        const genderName = { erkek: 'Erkek', disi: 'Dişi', igdis: 'İğdiş' }[horse.gender] || '';
-                        const price = new Intl.NumberFormat('tr-TR').format(horse.price || 0);
-                        
-                        return `
-                            <a href="horse_detail.html#id=${horse._id || horse.id}" class="hero-horse-card" style="text-decoration:none;color:inherit;cursor:pointer;">
-                                <div class="hero-card-image">
-                                    ${horse.images && horse.images[0] ? 
-                                        `<img src="${horse.images[0].url || horse.images[0]}" style="width:100%;height:100%;object-fit:cover;">` :
-                                        `<div class="placeholder-icon"><svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg></div>`
-                                    }
-                                    ${i === 0 ? '<span class="hero-card-badge">Öne Çıkan</span>' : ''}
-                                </div>
-                                <div class="hero-card-content">
-                                    <div class="hero-card-name">${horse.name || 'İlan'}</div>
-                                    <div class="hero-card-details">
-                                        <span class="hero-card-detail">${age} Yaş</span>
-                                        <span class="hero-card-detail">${breedName}</span>
-                                        <span class="hero-card-detail">${genderName}</span>
-                                    </div>
-                                    <div class="hero-card-price">₺${price}</div>
-                                </div>
-                            </a>
-                        `;
-                    }).join('');
+                const result = await api.get('/banners', false);
+                if (result.success && result.data) {
+                    const banners = result.data;
+
+                    // Hero slider bannerları
+                    const heroBanners = banners.filter(b => b.type === 'hero').sort((a, b) => a.order - b.order);
+
+                    // Slide 1: Öne çıkan atları yükle (ilk hero banner veya varsayılan)
+                    const firstHero = heroBanners[0];
+                    if (firstHero && firstHero.featuredHorses && firstHero.featuredHorses.length > 0) {
+                        renderFeaturedHeroCards(firstHero.featuredHorses);
+                    } else {
+                        // Varsayılan: Son 3 aktif ilanı göster
+                        await loadDefaultFeaturedCards();
+                    }
+
+                    // Slide 2 & 3: Reklam bannerları
+                    if (heroBanners.length > 1) renderAdSlide('heroSlide2', heroBanners[1]);
+                    if (heroBanners.length > 2) renderAdSlide('heroSlide3', heroBanners[2]);
+
+                    // Yan reklam bannerları
+                    const leftAd = banners.find(b => b.type === 'side-left' && b.isActive);
+                    const rightAd = banners.find(b => b.type === 'side-right' && b.isActive);
+
+                    if (leftAd) renderSideAd('sideAdLeftContent', leftAd);
+                    if (rightAd) renderSideAd('sideAdRightContent', rightAd);
                 } else {
-                    stack.innerHTML = `
-                        <div class="hero-horse-card" style="opacity:0.7;">
-                            <div class="hero-card-image">
-                                <div class="placeholder-icon"><svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg></div>
-                            </div>
-                            <div class="hero-card-content">
-                                <div class="hero-card-name">Henüz ilan yok</div>
-                                <div class="hero-card-details"><span class="hero-card-detail">İlk ilanı siz verin</span></div>
-                                <div class="hero-card-price"><a href="create_listing.html" style="color:var(--gold);">İlan Ver →</a></div>
-                            </div>
-                        </div>
-                    `;
+                    await loadDefaultFeaturedCards();
                 }
             } catch (error) {
-                console.error('Hero cards error:', error);
+                console.log('Banners not available, using defaults');
+                await loadDefaultFeaturedCards();
+            }
+        }
+
+        // Varsayılan öne çıkan kartları yükle
+        async function loadDefaultFeaturedCards() {
+            try {
+                const result = await api.get('/horses?limit=3&status=active', false);
+                if (result.success && result.data && result.data.length > 0) {
+                    renderFeaturedHeroCards(result.data);
+                }
+            } catch (e) {
+                console.log('Default featured cards error:', e);
+            }
+        }
+
+        // Öne çıkan at kartlarını banner'da göster
+        function renderFeaturedHeroCards(horses) {
+            const container = document.getElementById('heroFeaturedCards');
+            if (!container || !horses.length) return;
+
+            container.innerHTML = horses.slice(0, 3).map(horse => {
+                const horseId = horse._id || horse.id;
+                const img = horse.images?.[0]?.url || horse.images?.[0] || '';
+                const price = new Intl.NumberFormat('tr-TR').format(horse.price || 0);
+                return `
+                    <a href="horse_detail.html#id=${horseId}" class="hero-mini-card">
+                        <div class="hero-mini-card-img">
+                            ${img ? `<img src="${img}" alt="${horse.name}">` :
+                            `<svg viewBox="0 0 24 24" style="width:36px;height:36px;fill:rgba(255,255,255,0.2);"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>`}
+                        </div>
+                        <div class="hero-mini-card-body">
+                            <div class="hero-mini-card-name">${horse.name || 'İlan'}</div>
+                            <div class="hero-mini-card-price">₺${price}</div>
+                        </div>
+                    </a>
+                `;
+            }).join('');
+        }
+
+        // Reklam slide'ını render et
+        function renderAdSlide(slideId, banner) {
+            const slide = document.getElementById(slideId);
+            if (!slide || !banner) return;
+
+            if (banner.imageUrl) {
+                slide.style.backgroundImage = `url('${banner.imageUrl}')`;
+            }
+
+            const content = slide.querySelector('.hero-content .hero-text');
+            if (content) {
+                content.innerHTML = `
+                    <h1 style="font-size:44px;margin-bottom:16px;">${banner.title || 'Reklam Alanı'}</h1>
+                    <p class="hero-description">${banner.subtitle || ''}</p>
+                    ${banner.linkUrl ? `<div class="hero-cta" style="margin-top:24px;"><a href="${banner.linkUrl}" class="btn btn-gold">Detaylar</a></div>` : ''}
+                `;
+            }
+        }
+
+        // Yan reklam banner'ını render et
+        function renderSideAd(containerId, banner) {
+            const container = document.getElementById(containerId);
+            if (!container || !banner) return;
+
+            if (banner.imageUrl) {
+                container.innerHTML = `<a href="${banner.linkUrl || '#'}" target="_blank" rel="noopener"><img src="${banner.imageUrl}" alt="${banner.title || 'Reklam'}"></a>`;
             }
         }
 
@@ -1950,30 +2315,32 @@
         }
 
         // Favori ekle/çıkar
-        function toggleFavorite(horseId, button) {
-            // Giriş kontrolü
+        async function toggleFavorite(horseId, button) {
             if (!localStorage.getItem('equimarket_token')) {
                 showToast('Favorilere eklemek için giriş yapmalısınız', 'error');
                 return;
             }
 
-            const favorites = getFavorites();
-            const isCurrentlyFavorite = favorites.includes(horseId);
-
-            // localStorage'ı güncelle
-            const userData = JSON.parse(localStorage.getItem('equimarket_user'));
-            
-            if (isCurrentlyFavorite) {
-                userData.favorites = favorites.filter(id => id !== horseId);
-                button.classList.remove('active');
-                showToast('Favorilerden çıkarıldı');
-            } else {
-                userData.favorites = [...favorites, horseId];
-                button.classList.add('active');
-                showToast('Favorilere eklendi');
+            try {
+                const result = await HorseService.toggleFavorite(horseId);
+                if (result.success) {
+                    // localStorage güncelle
+                    const userData = JSON.parse(localStorage.getItem('equimarket_user'));
+                    if (result.isFavorited) {
+                        userData.favorites = [...(userData.favorites || []), horseId];
+                        button.classList.add('active');
+                    } else {
+                        userData.favorites = (userData.favorites || []).filter(id => id !== horseId);
+                        button.classList.remove('active');
+                    }
+                    localStorage.setItem('equimarket_user', JSON.stringify(userData));
+                    showToast(result.message);
+                } else {
+                    showToast(result.message || 'Bir hata oluştu', 'error');
+                }
+            } catch (error) {
+                showToast('Bir hata oluştu', 'error');
             }
-
-            localStorage.setItem('equimarket_user', JSON.stringify(userData));
         }
 
         // Toast mesajı
