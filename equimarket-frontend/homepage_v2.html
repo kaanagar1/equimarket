@@ -290,8 +290,8 @@
         /* Hero Section */
         .hero {
             min-height: auto;
-            padding-top: 70px;
-            padding-bottom: 10px;
+            padding-top: 64px;
+            padding-bottom: 0;
             background: linear-gradient(165deg, var(--racing-green) 0%, #0f2a1f 50%, #1a3d2e 100%);
             position: relative;
             display: flex;
@@ -327,24 +327,24 @@
         }
 
         .hero-circle-1 {
-            width: 600px;
-            height: 600px;
-            top: -200px;
-            right: -100px;
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            right: -50px;
             animation: float 8s ease-in-out infinite;
         }
 
         .hero-circle-2 {
-            width: 400px;
-            height: 400px;
-            bottom: -100px;
-            left: -100px;
+            width: 200px;
+            height: 200px;
+            bottom: -60px;
+            left: -60px;
             animation: float 6s ease-in-out infinite reverse;
         }
 
         .hero-circle-3 {
-            width: 200px;
-            height: 200px;
+            width: 120px;
+            height: 120px;
             top: 40%;
             right: 20%;
             background: rgba(201, 165, 92, 0.05);
@@ -354,7 +354,7 @@
         .hero-content {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 12px 40px;
+            padding: 8px 40px 6px;
             display: block;
             text-align: center;
             position: relative;
@@ -388,9 +388,9 @@
         }
 
         .hero h1 {
-            font-size: 36px;
+            font-size: 28px;
             line-height: 1.1;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             letter-spacing: -0.5px;
         }
 
@@ -400,30 +400,30 @@
         }
 
         .hero-description {
-            font-size: 14px;
+            font-size: 13px;
             color: rgba(255, 255, 255, 0.75);
-            margin-bottom: 12px;
-            line-height: 1.6;
-            max-width: 520px;
+            margin-bottom: 8px;
+            line-height: 1.5;
+            max-width: 480px;
             margin-left: auto;
             margin-right: auto;
         }
 
         .hero-cta {
             display: flex;
-            gap: 12px;
-            margin-bottom: 14px;
+            gap: 10px;
+            margin-bottom: 8px;
             justify-content: center;
         }
 
         .hero-cta .btn {
-            padding: 10px 24px;
-            font-size: 14px;
+            padding: 8px 20px;
+            font-size: 13px;
         }
 
         .hero-stats {
             display: flex;
-            gap: 36px;
+            gap: 30px;
             justify-content: center;
         }
 
@@ -433,15 +433,15 @@
 
         .hero-stat-number {
             font-family: 'Playfair Display', serif;
-            font-size: 28px;
+            font-size: 22px;
             font-weight: 700;
             color: var(--gold);
             line-height: 1;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
 
         .hero-stat-label {
-            font-size: 11px;
+            font-size: 10px;
             color: rgba(255, 255, 255, 0.6);
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -1389,89 +1389,21 @@
             width: 100%;
             overflow: hidden;
         }
-        .hero-slides {
-            display: flex;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            width: 300%;
-        }
-        .hero-slide {
-            width: 100%;
-            flex-shrink: 0;
-            min-height: auto;
-            position: relative;
-        }
-        .hero-slide .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-        /* Carousel dots */
-        .carousel-dots {
-            position: absolute;
-            bottom: 18px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 10;
-        }
-        .carousel-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.35);
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            padding: 0;
-        }
-        .carousel-dot.active {
-            background: var(--gold);
-            width: 28px;
-            border-radius: 5px;
-        }
-        /* Carousel arrows */
-        .carousel-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.25);
-            color: white;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-        }
-        .carousel-arrow:hover {
-            background: rgba(255,255,255,0.3);
-        }
-        .carousel-arrow svg {
-            width: 20px; height: 20px;
-            fill: none; stroke: currentColor; stroke-width: 2;
-        }
-        .carousel-arrow-left { left: 20px; }
-        .carousel-arrow-right { right: 20px; }
 
         /* ===== FEATURED CARDS IN BANNER ===== */
         .hero-featured-cards {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             justify-content: center;
-            margin-top: 10px;
+            margin-top: 6px;
             flex-wrap: wrap;
         }
         .hero-mini-card {
             background: rgba(255,255,255,0.12);
             border: 1px solid rgba(255,255,255,0.18);
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 0;
-            width: 160px;
+            width: 130px;
             overflow: hidden;
             backdrop-filter: blur(8px);
             transition: all 0.3s ease;
@@ -1484,7 +1416,7 @@
             transform: translateY(-4px);
         }
         .hero-mini-card-img {
-            height: 80px;
+            height: 60px;
             background: rgba(255,255,255,0.08);
             display: flex;
             align-items: center;
@@ -1495,123 +1427,38 @@
             width: 100%; height: 100%; object-fit: cover;
         }
         .hero-mini-card-body {
-            padding: 8px 10px;
+            padding: 5px 8px;
         }
         .hero-mini-card-name {
             font-family: 'Playfair Display', serif;
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 600;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
         .hero-mini-card-price {
-            font-size: 11px;
+            font-size: 10px;
             color: var(--gold-light);
             font-weight: 600;
         }
 
-        /* ===== AD SLIDE (2. ve 3. banner) ===== */
-        .hero-slide-ad {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background-size: cover;
-            background-position: center;
-        }
-        .hero-slide-ad .hero-content {
-            max-width: 800px;
-        }
-        .ad-overlay {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.35);
-            z-index: 0;
-        }
-
-        /* ===== SIDE AD BANNERS ===== */
-        .page-with-ads {
-            display: flex;
-            max-width: 100%;
-            position: relative;
-        }
-        .side-ad {
-            width: 160px;
-            flex-shrink: 0;
-            position: sticky;
-            top: 90px;
-            height: fit-content;
-            z-index: 5;
-            padding: 10px;
-        }
-        .side-ad-inner {
-            background: var(--white);
-            border-radius: 12px;
-            box-shadow: var(--shadow-soft);
-            overflow: hidden;
-            text-align: center;
-        }
-        .side-ad-inner a {
-            display: block;
-            text-decoration: none;
-            color: inherit;
-        }
-        .side-ad-inner img {
-            width: 100%;
-            display: block;
-            border-radius: 12px;
-        }
-        .side-ad-placeholder {
-            padding: 30px 12px;
-            color: var(--warm-gray);
-            font-size: 11px;
-            background: var(--light-gray);
-            border-radius: 12px;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .side-ad-placeholder svg {
-            width: 28px; height: 28px;
-            stroke: var(--warm-gray); fill: none; stroke-width: 1.5;
-            opacity: 0.5;
-        }
-        .side-ad-label {
-            font-size: 9px;
-            color: var(--warm-gray);
-            text-align: center;
-            margin-top: 4px;
-            opacity: 0.6;
-        }
-        .main-content-area {
-            flex: 1;
-            min-width: 0;
-        }
-
         /* Responsive */
-        @media (max-width: 1400px) {
-            .side-ad { width: 130px; }
-        }
         @media (max-width: 1200px) {
             .hero-content { grid-template-columns: 1fr; text-align: center; }
             .hero-visual { display: none; }
-            .hero-description { margin: 0 auto 40px; }
+            .hero-description { margin: 0 auto 20px; }
             .hero-cta { justify-content: center; }
             .hero-stats { justify-content: center; }
             .horse-grid { grid-template-columns: repeat(2, 1fr); }
             .steps-grid { grid-template-columns: repeat(2, 1fr); }
             .footer-grid { grid-template-columns: repeat(2, 1fr); }
-            .side-ad { display: none; }
-            .hero-mini-card { width: 170px; }
+            .hero-mini-card { width: 140px; }
         }
 
         @media (max-width: 768px) {
             .header-inner { padding: 15px 20px; }
             nav { display: none; }
-            .hero { padding-top: 70px; }
-            .hero h1 { font-size: 26px; }
+            .hero { padding-top: 60px; }
+            .hero h1 { font-size: 22px; }
             .hero-cta { flex-direction: column; align-items: center; }
             .hero-stats { flex-direction: column; gap: 20px; }
             .hero-stat { text-align: center; }
@@ -1625,7 +1472,6 @@
             .steps-grid { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr; gap: 40px; }
             .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
-            .carousel-arrow { display: none; }
             .hero-featured-cards { flex-direction: column; align-items: center; }
             .hero-mini-card { width: 90%; max-width: 280px; }
         }
@@ -1664,9 +1510,6 @@
             <div class="hero-circle hero-circle-3"></div>
         </div>
         <div class="hero-carousel">
-            <div class="hero-slides" id="heroSlides">
-                <!-- Slide 1: Ana sayfa + öne çıkan atlar -->
-                <div class="hero-slide">
                     <div class="hero-content">
                         <div class="hero-text">
                             <div class="hero-badge animate-fade-in-up">
@@ -1686,7 +1529,7 @@
                             <!-- Öne çıkan at kartları -->
                             <div class="hero-featured-cards animate-fade-in-up animate-delay-4" id="heroFeaturedCards">
                             </div>
-                            <div class="hero-stats animate-fade-in-up animate-delay-4" style="margin-top:10px;">
+                            <div class="hero-stats animate-fade-in-up animate-delay-4" style="margin-top:6px;">
                                 <div class="hero-stat">
                                     <div class="hero-stat-number" id="statActiveListings">0</div>
                                     <div class="hero-stat-label">Aktif İlan</div>
@@ -1702,64 +1545,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Slide 2: Reklam banner (admin'den yönetilecek) -->
-                <div class="hero-slide hero-slide-ad" id="heroSlide2">
-                    <div class="ad-overlay"></div>
-                    <div class="hero-content" style="position:relative;z-index:1;">
-                        <div class="hero-text">
-                            <h1 style="font-size:30px;margin-bottom:10px;">Reklam Alanı</h1>
-                            <p class="hero-description">Bu alan admin panelinden yönetilebilir. Reklam veren firmaların görselleri ve linkleri burada gösterilir.</p>
-                            <div class="hero-cta" style="margin-top:24px;">
-                                <a href="contact.html" class="btn btn-gold">Reklam Verin</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 3: Reklam banner 2 -->
-                <div class="hero-slide hero-slide-ad" id="heroSlide3">
-                    <div class="ad-overlay"></div>
-                    <div class="hero-content" style="position:relative;z-index:1;">
-                        <div class="hero-text">
-                            <h1 style="font-size:30px;margin-bottom:10px;">Reklam Alanı</h1>
-                            <p class="hero-description">Bu alan admin panelinden yönetilebilir. Sponsorluk veya reklam içeriği burada gösterilir.</p>
-                            <div class="hero-cta" style="margin-top:24px;">
-                                <a href="contact.html" class="btn btn-gold">İletişime Geçin</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Carousel Controls -->
-            <button class="carousel-arrow carousel-arrow-left" onclick="changeSlide(-1)">
-                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-            </button>
-            <button class="carousel-arrow carousel-arrow-right" onclick="changeSlide(1)">
-                <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
-            </button>
-            <div class="carousel-dots" id="carouselDots">
-                <button class="carousel-dot active" onclick="goToSlide(0)"></button>
-                <button class="carousel-dot" onclick="goToSlide(1)"></button>
-                <button class="carousel-dot" onclick="goToSlide(2)"></button>
-            </div>
         </div>
     </section>
 
-    <!-- Page with side ads wrapper -->
-    <div class="page-with-ads">
-        <!-- Sol reklam banner -->
-        <div class="side-ad" id="sideAdLeft">
-            <div class="side-ad-inner" id="sideAdLeftContent">
-                <div class="side-ad-placeholder">
-                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-                    <span>Reklam Alanı</span>
-                </div>
-            </div>
-            <div class="side-ad-label">Reklam</div>
-        </div>
-
-        <!-- Ana içerik -->
-        <div class="main-content-area">
+    <!-- Ana içerik -->
 
     <!-- Featured Listings -->
     <section class="section">
@@ -1822,20 +1611,6 @@
             </div>
         </div>
     </section>
-
-        </div><!-- /main-content-area -->
-
-        <!-- Sağ reklam banner -->
-        <div class="side-ad" id="sideAdRight">
-            <div class="side-ad-inner" id="sideAdRightContent">
-                <div class="side-ad-placeholder">
-                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-                    <span>Reklam Alanı</span>
-                </div>
-            </div>
-            <div class="side-ad-label">Reklam</div>
-        </div>
-    </div><!-- /page-with-ads -->
 
     <!-- Footer -->
     <footer>
@@ -1922,48 +1697,7 @@
             header.classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // ===== CAROUSEL =====
-        let currentSlide = 0;
-        const totalSlides = 3;
-        let autoSlideTimer = null;
-
-        function goToSlide(index) {
-            currentSlide = index;
-            const slides = document.getElementById('heroSlides');
-            if (slides) {
-                slides.style.transform = `translateX(-${index * (100 / totalSlides)}%)`;
-            }
-            // Dot'ları güncelle
-            document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
-            resetAutoSlide();
-        }
-
-        function changeSlide(dir) {
-            let next = currentSlide + dir;
-            if (next < 0) next = totalSlides - 1;
-            if (next >= totalSlides) next = 0;
-            goToSlide(next);
-        }
-
-        function resetAutoSlide() {
-            if (autoSlideTimer) clearInterval(autoSlideTimer);
-            autoSlideTimer = setInterval(() => changeSlide(1), 6000);
-        }
-
-        // Otomatik kayma başlat
-        resetAutoSlide();
-
-        // Swipe desteği (mobil)
-        let touchStartX = 0;
-        document.querySelector('.hero-carousel')?.addEventListener('touchstart', e => {
-            touchStartX = e.touches[0].clientX;
-        });
-        document.querySelector('.hero-carousel')?.addEventListener('touchend', e => {
-            const diff = touchStartX - e.changedTouches[0].clientX;
-            if (Math.abs(diff) > 50) changeSlide(diff > 0 ? 1 : -1);
-        });
+        // Carousel removed - single hero banner only
 
         // Intersection Observer for animations
         const observer = new IntersectionObserver((entries) => {
@@ -2079,16 +1813,6 @@
                         await loadDefaultFeaturedCards();
                     }
 
-                    // Slide 2 & 3: Reklam bannerları
-                    if (heroBanners.length > 1) renderAdSlide('heroSlide2', heroBanners[1]);
-                    if (heroBanners.length > 2) renderAdSlide('heroSlide3', heroBanners[2]);
-
-                    // Yan reklam bannerları
-                    const leftAd = banners.find(b => b.type === 'side-left' && b.isActive);
-                    const rightAd = banners.find(b => b.type === 'side-right' && b.isActive);
-
-                    if (leftAd) renderSideAd('sideAdLeftContent', leftAd);
-                    if (rightAd) renderSideAd('sideAdRightContent', rightAd);
                 } else {
                     await loadDefaultFeaturedCards();
                 }
@@ -2135,34 +1859,6 @@
         }
 
         // Reklam slide'ını render et
-        function renderAdSlide(slideId, banner) {
-            const slide = document.getElementById(slideId);
-            if (!slide || !banner) return;
-
-            if (banner.imageUrl) {
-                slide.style.backgroundImage = `url('${banner.imageUrl}')`;
-            }
-
-            const content = slide.querySelector('.hero-content .hero-text');
-            if (content) {
-                content.innerHTML = `
-                    <h1 style="font-size:30px;margin-bottom:10px;">${banner.title || 'Reklam Alanı'}</h1>
-                    <p class="hero-description">${banner.subtitle || ''}</p>
-                    ${banner.linkUrl ? `<div class="hero-cta" style="margin-top:24px;"><a href="${banner.linkUrl}" class="btn btn-gold">Detaylar</a></div>` : ''}
-                `;
-            }
-        }
-
-        // Yan reklam banner'ını render et
-        function renderSideAd(containerId, banner) {
-            const container = document.getElementById(containerId);
-            if (!container || !banner) return;
-
-            if (banner.imageUrl) {
-                container.innerHTML = `<a href="${banner.linkUrl || '#'}" target="_blank" rel="noopener"><img src="${banner.imageUrl}" alt="${banner.title || 'Reklam'}"></a>`;
-            }
-        }
-
         // İstatistikleri yükle
         async function loadStats() {
             try {
