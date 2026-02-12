@@ -1915,18 +1915,9 @@
                             </div>
                         </div>
                         <div class="horse-card-meta">
-                            <span class="horse-meta-item">
-                                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-                                ${age} Yaş
-                            </span>
-                            <span class="horse-meta-item">
-                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
-                                ${genderName || '-'}
-                            </span>
-                            <span class="horse-meta-item">
-                                <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-                                ${colorName || '-'}
-                            </span>
+                            <span class="horse-meta-item">${age} Yaş</span>
+                            <span class="horse-meta-item">${genderName || '-'}</span>
+                            <span class="horse-meta-item">${colorName || '-'}</span>
                         </div>
                         <div class="horse-card-footer">
                             <span class="horse-card-price ${loggedIn ? '' : 'login-required'}">
@@ -1979,7 +1970,7 @@
             } else {
                 userData.favorites = [...favorites, horseId];
                 button.classList.add('active');
-                showToast('Favorilere eklendi â¤ï¸');
+                showToast('Favorilere eklendi');
             }
 
             localStorage.setItem('equimarket_user', JSON.stringify(userData));

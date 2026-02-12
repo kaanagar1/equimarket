@@ -44,7 +44,7 @@
         banner.id = 'pwa-install-banner';
         banner.innerHTML = `
             <div class="pwa-banner-content">
-                <div class="pwa-banner-icon">🐎</div>
+                <div class="pwa-banner-icon" style="font-weight:700;color:#1a3d2e;">EM</div>
                 <div class="pwa-banner-text">
                     <strong>EquiMarket'i Yükle</strong>
                     <span>Ana ekranınıza ekleyerek daha hızlı erişin</span>

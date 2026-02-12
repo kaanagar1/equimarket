@@ -36,7 +36,7 @@
         banner.id = 'cookie-consent-banner';
         banner.innerHTML = `
             <div class="cookie-content">
-                <div class="cookie-icon">🍪</div>
+                <div class="cookie-icon"></div>
                 <div class="cookie-text">
                     <h4>Çerez Politikası</h4>
                     <p>

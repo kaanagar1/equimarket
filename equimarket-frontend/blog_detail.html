@@ -73,7 +73,7 @@
                     <div class="article-body">${blog.content}</div>
                     ${blog.tags?.length ? `
                         <div class="article-tags">
-                            ${blog.tags.map(t => `<a href="blog?tag=${encodeURIComponent(t)}" class="tag">#${t}</a>`).join('')}
+                            ${blog.tags.map(t => `<a href="blog.html?tag=${encodeURIComponent(t)}" class="tag">#${t}</a>`).join('')}
                         </div>
                     ` : ''}
                     <div class="share-section">

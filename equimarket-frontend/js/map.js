@@ -132,7 +132,7 @@
         // Custom horse icon
         if (options.horseIcon) {
             markerOptions.icon = L.divIcon({
-                html: `<div class="horse-marker" style="background:${options.color || '#1a3d2e'};color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 2px 8px rgba(0,0,0,0.3);">🐎</div>`,
+                html: `<div class="horse-marker" style="background:${options.color || '#1a3d2e'};color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.3);">EM</div>`,
                 className: 'horse-marker-icon',
                 iconSize: [36, 36],
                 iconAnchor: [18, 36],
