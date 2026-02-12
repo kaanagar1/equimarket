@@ -1747,18 +1747,9 @@
                             <span class="horse-card-price">₺${price}</span>
                         </div>
                         <div class="horse-card-meta">
-                            <span class="meta-item">
-                                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-                                ${age} Yaş
-                            </span>
-                            <span class="meta-item">
-                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
-                                ${genderName || '-'}
-                            </span>
-                            <span class="meta-item">
-                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
-                                ${colorName || '-'}
-                            </span>
+                            <span class="meta-item">${age} Yaş</span>
+                            <span class="meta-item">${genderName || '-'}</span>
+                            <span class="meta-item">${colorName || '-'}</span>
                         </div>
                         <div class="horse-card-footer">
                             <span class="horse-card-location">
@@ -1815,7 +1806,7 @@
                     // Favorilere ekle
                     userData.favorites = [...favorites, horseId];
                     button.classList.add('active');
-                    showToast('Favorilere eklendi â¤ï¸');
+                    showToast('Favorilere eklendi');
                 }
 
                 localStorage.setItem('equimarket_user', JSON.stringify(userData));

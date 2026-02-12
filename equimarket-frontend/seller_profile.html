@@ -622,7 +622,7 @@
         function sendMessage(e) {
             e.preventDefault();
             toast.info('Mesajlaşma sayfasına yönlendiriliyorsunuz...');
-            setTimeout(()=>window.location.href='messaging?to='+sellerId,1000);
+            setTimeout(()=>window.location.href='messaging.html?to='+sellerId,1000);
         }
         function formatNumber(n) { return new Intl.NumberFormat('tr-TR').format(n || 0); }
     </script>

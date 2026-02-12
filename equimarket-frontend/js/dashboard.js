@@ -138,13 +138,13 @@ document.addEventListener('DOMContentLoaded', async function() {
                     <span class="status-badge ${horse.status}">${getStatusText(horse.status)}</span>
                 </div>
                 <div class="listing-stats">
-                    <span>👁 ${horse.stats?.views || 0}</span>
-                    <span>❤️ ${horse.stats?.favorites || 0}</span>
+                    <span>${horse.stats?.views || 0} Gr.</span>
+                    <span>${horse.stats?.favorites || 0} Fav.</span>
                 </div>
                 <div class="listing-actions">
-                    <a href="horse_detail.html#id=${horse._id}" class="btn-icon" title="Görüntüle">👁</a>
-                    <a href="create_listing.html?edit=${horse._id}" class="btn-icon" title="Düzenle">✏️</a>
-                    <button class="btn-icon delete" onclick="deleteListing('${horse._id}')" title="Sil">🗑</button>
+                    <a href="horse_detail.html#id=${horse._id}" class="btn-icon" title="Görüntüle">Gör</a>
+                    <a href="create_listing.html?edit=${horse._id}" class="btn-icon" title="Düzenle">Düz.</a>
+                    <button class="btn-icon delete" onclick="deleteListing('${horse._id}')" title="Sil">Sil</button>
                 </div>
             </div>
         `).join('');
@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 <div class="favorite-info">
                     <h4>${horse.name}</h4>
                     <p class="price">${Helpers.formatPrice(horse.price)}</p>
-                    <p class="location">📍 ${horse.location?.city}</p>
+                    <p class="location">${horse.location?.city || ''}</p>
                 </div>
             </a>
         `).join('');
@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 container.innerHTML = result.data.slice(0, 5).map(conv => {
                     const otherUser = conv.participants.find(p => p._id !== user._id);
                     return `
-                        <a href="messaging?conv=${conv._id}" class="message-item ${conv.unreadCount > 0 ? 'unread' : ''}">
+                        <a href="messaging.html?conv=${conv._id}" class="message-item ${conv.unreadCount > 0 ? 'unread' : ''}">
                             <div class="message-avatar">
                                 ${otherUser?.avatar ? 
                                     `<img src="${otherUser.avatar}" alt="">` : 
@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                                     <span class="message-time">${Helpers.timeAgo(conv.lastMessage?.createdAt)}</span>
                                 </div>
                                 <p class="message-preview">${conv.lastMessage?.content || ''}</p>
-                                <span class="message-horse">🐎 ${conv.horse?.name}</span>
+                                <span class="message-horse">${conv.horse?.name || ''}</span>
                             </div>
                             ${conv.unreadCount > 0 ? `<span class="unread-dot"></span>` : ''}
                         </a>

@@ -73,7 +73,7 @@
         const captchaHTML = `
             <div class="captcha-container" id="${captchaId}" style="margin-top:16px;padding:16px;background:#f5f4f0;border-radius:12px;border:1px solid #e5e5e5;">
                 <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-                    <span style="font-size:20px;">🔒</span>
+                    <span style="font-size:16px;font-weight:600;color:#1a3d2e;">Doğrulama</span>
                     <span style="font-weight:600;color:#2a2a2a;">Robot Doğrulaması</span>
                 </div>
                 <div style="display:flex;align-items:center;gap:12px;">

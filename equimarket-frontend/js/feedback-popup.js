@@ -22,11 +22,11 @@
 
     // Puanlama metinleri
     const RATING_TEXTS = {
-        1: 'Çok kötü 😞',
-        2: 'Kötü 😕',
-        3: 'Orta 😐',
-        4: 'İyi 😊',
-        5: 'Mükemmel! 🤩'
+        1: 'Çok kötü',
+        2: 'Kötü',
+        3: 'Orta',
+        4: 'İyi',
+        5: 'Mükemmel'
     };
 
     let currentRating = 0;
