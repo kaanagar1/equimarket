@@ -290,8 +290,8 @@
         /* Hero Section */
         .hero {
             min-height: auto;
-            padding-top: 64px;
-            padding-bottom: 0;
+            padding-top: 80px;
+            padding-bottom: 50px;
             background: linear-gradient(165deg, var(--racing-green) 0%, #0f2a1f 50%, #1a3d2e 100%);
             position: relative;
             display: flex;
@@ -327,24 +327,24 @@
         }
 
         .hero-circle-1 {
-            width: 300px;
-            height: 300px;
-            top: -100px;
-            right: -50px;
+            width: 600px;
+            height: 600px;
+            top: -200px;
+            right: -100px;
             animation: float 8s ease-in-out infinite;
         }
 
         .hero-circle-2 {
-            width: 200px;
-            height: 200px;
-            bottom: -60px;
-            left: -60px;
+            width: 400px;
+            height: 400px;
+            bottom: -100px;
+            left: -100px;
             animation: float 6s ease-in-out infinite reverse;
         }
 
         .hero-circle-3 {
-            width: 120px;
-            height: 120px;
+            width: 200px;
+            height: 200px;
             top: 40%;
             right: 20%;
             background: rgba(201, 165, 92, 0.05);
@@ -354,9 +354,12 @@
         .hero-content {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 8px 40px 6px;
-            display: block;
-            text-align: center;
+            padding: 40px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            text-align: left;
             position: relative;
             z-index: 1;
         }
@@ -368,30 +371,30 @@
         .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             background: rgba(201, 165, 92, 0.15);
             border: 1px solid rgba(201, 165, 92, 0.3);
-            padding: 5px 12px;
+            padding: 8px 16px;
             border-radius: 50px;
-            font-size: 11px;
+            font-size: 13px;
             color: var(--gold-light);
-            margin-bottom: 10px;
+            margin-bottom: 24px;
             backdrop-filter: blur(10px);
         }
 
         .hero-badge-dot {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background: var(--gold);
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
 
         .hero h1 {
-            font-size: 28px;
+            font-size: 52px;
             line-height: 1.1;
-            margin-bottom: 6px;
-            letter-spacing: -0.5px;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
         }
 
         .hero h1 .highlight {
@@ -400,51 +403,21 @@
         }
 
         .hero-description {
-            font-size: 13px;
+            font-size: 18px;
             color: rgba(255, 255, 255, 0.75);
-            margin-bottom: 8px;
-            line-height: 1.5;
-            max-width: 480px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 32px;
+            line-height: 1.7;
+            max-width: 600px;
         }
 
         .hero-cta {
             display: flex;
-            gap: 10px;
-            margin-bottom: 8px;
-            justify-content: center;
+            gap: 16px;
         }
 
         .hero-cta .btn {
-            padding: 8px 20px;
-            font-size: 13px;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-        }
-
-        .hero-stat {
-            text-align: left;
-        }
-
-        .hero-stat-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--gold);
-            line-height: 1;
-            margin-bottom: 1px;
-        }
-
-        .hero-stat-label {
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.6);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            padding: 16px 32px;
+            font-size: 16px;
         }
 
         /* Hero Visual */
@@ -1383,41 +1356,33 @@
             color: var(--gold);
         }
 
-        /* ===== BANNER CAROUSEL ===== */
-        .hero-carousel {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-        }
-
-        /* ===== FEATURED CARDS IN BANNER ===== */
+        /* ===== HERO FEATURED CARDS (2x2 grid, right side) ===== */
         .hero-featured-cards {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 6px;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
         }
         .hero-mini-card {
-            background: rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.10);
             border: 1px solid rgba(255,255,255,0.18);
-            border-radius: 8px;
+            border-radius: 14px;
             padding: 0;
-            width: 130px;
             overflow: hidden;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
             text-decoration: none;
             color: white;
             display: block;
+            aspect-ratio: 1;
         }
         .hero-mini-card:hover {
             background: rgba(255,255,255,0.2);
-            transform: translateY(-4px);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
         }
         .hero-mini-card-img {
-            height: 60px;
-            background: rgba(255,255,255,0.08);
+            height: 65%;
+            background: rgba(255,255,255,0.06);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1427,16 +1392,19 @@
             width: 100%; height: 100%; object-fit: cover;
         }
         .hero-mini-card-body {
-            padding: 5px 8px;
+            padding: 10px 12px;
         }
         .hero-mini-card-name {
             font-family: 'Playfair Display', serif;
-            font-size: 11px;
+            font-size: 14px;
             font-weight: 600;
-            margin-bottom: 1px;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .hero-mini-card-price {
-            font-size: 10px;
+            font-size: 13px;
             color: var(--gold-light);
             font-weight: 600;
         }
@@ -1444,24 +1412,21 @@
         /* Responsive */
         @media (max-width: 1200px) {
             .hero-content { grid-template-columns: 1fr; text-align: center; }
-            .hero-visual { display: none; }
-            .hero-description { margin: 0 auto 20px; }
+            .hero-description { margin: 0 auto 32px; }
             .hero-cta { justify-content: center; }
-            .hero-stats { justify-content: center; }
+            .hero-featured-cards { max-width: 400px; margin: 0 auto; }
             .horse-grid { grid-template-columns: repeat(2, 1fr); }
             .steps-grid { grid-template-columns: repeat(2, 1fr); }
             .footer-grid { grid-template-columns: repeat(2, 1fr); }
-            .hero-mini-card { width: 140px; }
         }
 
         @media (max-width: 768px) {
             .header-inner { padding: 15px 20px; }
             nav { display: none; }
-            .hero { padding-top: 60px; }
-            .hero h1 { font-size: 22px; }
+            .hero { padding-top: 70px; }
+            .hero h1 { font-size: 32px; }
             .hero-cta { flex-direction: column; align-items: center; }
-            .hero-stats { flex-direction: column; gap: 20px; }
-            .hero-stat { text-align: center; }
+            .hero-featured-cards { grid-template-columns: 1fr 1fr; max-width: 320px; }
             .search-box { flex-direction: column; border-radius: 12px; }
             .search-divider { width: 100%; height: 1px; }
             .search-btn { width: 100%; justify-content: center; }
@@ -1472,8 +1437,6 @@
             .steps-grid { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr; gap: 40px; }
             .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
-            .hero-featured-cards { flex-direction: column; align-items: center; }
-            .hero-mini-card { width: 90%; max-width: 280px; }
         }
     </style>
 </head>
@@ -1502,49 +1465,34 @@
         </div>
     </header>
 
-    <!-- Hero Carousel -->
+    <!-- Hero Banner -->
     <section class="hero">
         <div class="hero-bg-elements">
             <div class="hero-circle hero-circle-1"></div>
             <div class="hero-circle hero-circle-2"></div>
             <div class="hero-circle hero-circle-3"></div>
         </div>
-        <div class="hero-carousel">
-                    <div class="hero-content">
-                        <div class="hero-text">
-                            <div class="hero-badge animate-fade-in-up">
-                                <span class="hero-badge-dot"></span>
-                                Türkiye'nin En Yenilikçi Yarış Atı Pazaryeri
-                            </div>
-                            <h1 class="animate-fade-in-up animate-delay-1">
-                                Şampiyonunuzu<br><span class="highlight">Keşfedin</span>
-                            </h1>
-                            <p class="hero-description animate-fade-in-up animate-delay-2">
-                                Türkiye'nin en prestijli ekürilerinden, en başarılı yetiştiricilerinden safkan yarış atlarına ulaşın.
-                            </p>
-                            <div class="hero-cta animate-fade-in-up animate-delay-3">
-                                <a href="ilanlar.html" class="btn btn-gold">Atları İncele</a>
-                                <a href="about.html" class="btn btn-secondary" style="border-color: rgba(255,255,255,0.5); color: #ffffff; background: transparent;">Nasıl Çalışır</a>
-                            </div>
-                            <!-- Öne çıkan at kartları -->
-                            <div class="hero-featured-cards animate-fade-in-up animate-delay-4" id="heroFeaturedCards">
-                            </div>
-                            <div class="hero-stats animate-fade-in-up animate-delay-4" style="margin-top:6px;">
-                                <div class="hero-stat">
-                                    <div class="hero-stat-number" id="statActiveListings">0</div>
-                                    <div class="hero-stat-label">Aktif İlan</div>
-                                </div>
-                                <div class="hero-stat">
-                                    <div class="hero-stat-number" id="statVerifiedSellers">0</div>
-                                    <div class="hero-stat-label">Doğrulanmış Satıcı</div>
-                                </div>
-                                <div class="hero-stat">
-                                    <div class="hero-stat-number" id="statSuccessfulSales">0</div>
-                                    <div class="hero-stat-label">Başarılı Bağlantı</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="hero-content">
+            <!-- Sol: Yazı alanı -->
+            <div class="hero-text">
+                <div class="hero-badge animate-fade-in-up">
+                    <span class="hero-badge-dot"></span>
+                    Türkiye'nin En Yenilikçi Yarış Atı Pazaryeri
+                </div>
+                <h1 class="animate-fade-in-up animate-delay-1">
+                    Şampiyonunuzu<br><span class="highlight">Keşfedin</span>
+                </h1>
+                <p class="hero-description animate-fade-in-up animate-delay-2">
+                    Türkiye'nin en prestijli ekürilerinden, en başarılı yetiştiricilerinden safkan yarış atlarına ulaşın.
+                </p>
+                <div class="hero-cta animate-fade-in-up animate-delay-3">
+                    <a href="ilanlar.html" class="btn btn-gold">Atları İncele</a>
+                    <a href="about.html" class="btn btn-secondary" style="border-color: rgba(255,255,255,0.5); color: #ffffff; background: transparent;">Nasıl Çalışır</a>
+                </div>
+            </div>
+            <!-- Sağ: 2x2 Öne çıkan at kartları -->
+            <div class="hero-featured-cards animate-fade-in-up animate-delay-4" id="heroFeaturedCards">
+            </div>
         </div>
     </section>
 
@@ -1555,9 +1503,7 @@
         <div class="section-container">
             <div class="section-header">
                 <div class="section-title-group">
-                    <div class="section-subtitle">Seçkin Koleksiyon</div>
-                    <h2 class="section-title">Öne Çıkan İlanlar</h2>
-                    <p class="section-description">Editörlerimiz tarafından seçilmiş, en kaliteli yarış atları</p>
+                    <h2 class="section-title">Öne Çıkanlar</h2>
                 </div>
                 <a href="ilanlar.html" class="section-link">Tümünü Gör <span>→</span></a>
             </div>
@@ -1566,7 +1512,6 @@
                 <button class="category-filter active" data-breed="">Tümü</button>
                 <button class="category-filter" data-breed="ingiliz">İngiliz</button>
                 <button class="category-filter" data-breed="arap">Arap</button>
-                <button class="category-filter" data-breed="turk">Türk</button>
             </div>
             <style>
                 .category-filter {
@@ -1730,9 +1675,6 @@
             // Bannerları yükle (hero slider + side ads)
             await loadBanners();
 
-            // İstatistikleri yükle
-            await loadStats();
-
             // Öne çıkan ilanları yükle
             await loadFeaturedHorses();
         });
@@ -1825,7 +1767,7 @@
         // Varsayılan öne çıkan kartları yükle
         async function loadDefaultFeaturedCards() {
             try {
-                const result = await api.get('/horses?limit=3&status=active', false);
+                const result = await api.get('/horses?limit=4&status=active', false);
                 if (result.success && result.data && result.data.length > 0) {
                     renderFeaturedHeroCards(result.data);
                 }
@@ -1839,7 +1781,7 @@
             const container = document.getElementById('heroFeaturedCards');
             if (!container || !horses.length) return;
 
-            container.innerHTML = horses.slice(0, 3).map(horse => {
+            container.innerHTML = horses.slice(0, 4).map(horse => {
                 const horseId = horse._id || horse.id;
                 const img = horse.images?.[0]?.url || horse.images?.[0] || '';
                 const price = new Intl.NumberFormat('tr-TR').format(horse.price || 0);
@@ -1856,22 +1798,6 @@
                     </a>
                 `;
             }).join('');
-        }
-
-        // Reklam slide'ını render et
-        // İstatistikleri yükle
-        async function loadStats() {
-            try {
-                // Admin stats endpoint'ini kullan veya basit sayım yap
-                const horsesResult = await api.get('/horses?limit=1');
-                const activeListings = horsesResult.total || horsesResult.data?.length || 0;
-                
-                document.getElementById('statActiveListings').textContent = activeListings > 0 ? activeListings + '+' : '0';
-                document.getElementById('statVerifiedSellers').textContent = Math.floor(activeListings / 2) + '+';
-                document.getElementById('statSuccessfulSales').textContent = Math.floor(activeListings * 1.5) + '+';
-            } catch (error) {
-                console.error('Stats error:', error);
-            }
         }
 
         // Tüm atları sakla (filtreleme için)
