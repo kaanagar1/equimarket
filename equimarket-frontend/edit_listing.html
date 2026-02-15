@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İlan Düzenle - EquiMarket</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --racing-green: #1a3d2e;
@@ -26,7 +29,11 @@
             --shadow-medium: 0 8px 40px rgba(26, 61, 46, 0.12);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'DM Sans', sans-serif;
@@ -36,7 +43,10 @@
             min-height: 100vh;
         }
 
-        h1, h2, h3, h4 {
+        h1,
+        h2,
+        h3,
+        h4 {
             font-family: 'Playfair Display', serif;
             font-weight: 600;
             line-height: 1.2;
@@ -119,7 +129,9 @@
             color: var(--racing-green);
         }
 
-        .logo-text span { color: var(--gold); }
+        .logo-text span {
+            color: var(--gold);
+        }
 
         .header-right {
             display: flex;
@@ -497,7 +509,7 @@
         .photo-item svg {
             width: 32px;
             height: 32px;
-            fill: rgba(0,0,0,0.1);
+            fill: rgba(0, 0, 0, 0.1);
         }
 
         .photo-item .main-badge {
@@ -518,7 +530,7 @@
             right: 8px;
             width: 28px;
             height: 28px;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -656,7 +668,7 @@
         .preview-image svg {
             width: 48px;
             height: 48px;
-            fill: rgba(0,0,0,0.1);
+            fill: rgba(0, 0, 0, 0.1);
         }
 
         .preview-content {
@@ -869,19 +881,23 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header>
         <div class="header-inner">
             <div class="header-left">
                 <a href="dashboard.html" class="back-btn">
-                    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
                     Geri
                 </a>
                 <a href="homepage_v2.html" class="logo">
                     <div class="logo-icon">
                         <svg viewBox="0 0 24 24">
-                            <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7"/>
+                            <path
+                                d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7" />
                         </svg>
                     </div>
                     <div class="logo-text">Equi<span>Market</span></div>
@@ -889,7 +905,9 @@
             </div>
             <div class="header-right">
                 <span class="draft-status">
-                    <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 6L9 17l-5-5" />
+                    </svg>
                     Taslak kaydedildi
                 </span>
                 <button class="btn btn-outline">Önizleme</button>
@@ -907,7 +925,9 @@
                 <div class="progress-steps">
                     <div class="step completed">
                         <div class="step-number">
-                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                         </div>
                         <span class="step-label">Temel Bilgiler</span>
                     </div>
@@ -940,7 +960,8 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">TJK Bağlantısı <span class="optional">(Opsiyonel)</span></label>
-                        <input type="text" class="form-input" id="horse-tjk" placeholder="Atın TJK profil bağlantısını girin">
+                        <input type="text" class="form-input" id="horse-tjk"
+                            placeholder="Atın TJK profil bağlantısını girin">
                         <span class="form-hint">TJK profil linki eklemek alıcıların güvenini artırır</span>
                     </div>
                 </div>
@@ -1005,18 +1026,19 @@
                 <div class="pedigree-grid">
                     <div class="pedigree-column">
                         <span class="pedigree-column-title">Ebeveynler</span>
-                        <input type="text" class="pedigree-input sire" placeholder="Baba (Sire)" value="Northern Storm">
-                        <input type="text" class="pedigree-input dam" placeholder="Anne (Dam)" value="Golden Sunrise">
+                        <input type="text" class="pedigree-input sire" id="ped-sire" placeholder="Baba (Sire)">
+                        <input type="text" class="pedigree-input dam" id="ped-dam" placeholder="Anne (Dam)">
                     </div>
                     <div class="pedigree-column">
                         <span class="pedigree-column-title">Büyük Ebeveynler (Baba)</span>
-                        <input type="text" class="pedigree-input sire" placeholder="Baba'nın Babası" value="Storm Cat">
-                        <input type="text" class="pedigree-input dam" placeholder="Baba'nın Annesi" value="Northern Lady">
+                        <input type="text" class="pedigree-input sire" id="ped-sireOfSire"
+                            placeholder="Baba'nın Babası">
+                        <input type="text" class="pedigree-input dam" id="ped-damOfSire" placeholder="Baba'nın Annesi">
                     </div>
                     <div class="pedigree-column">
                         <span class="pedigree-column-title">Büyük Ebeveynler (Anne)</span>
-                        <input type="text" class="pedigree-input sire" placeholder="Anne'nin Babası" value="Sunday Silence">
-                        <input type="text" class="pedigree-input dam" placeholder="Anne'nin Annesi" value="Dawn Princess">
+                        <input type="text" class="pedigree-input sire" id="ped-sireOfDam" placeholder="Anne'nin Babası">
+                        <input type="text" class="pedigree-input dam" id="ped-damOfDam" placeholder="Anne'nin Annesi">
                     </div>
                 </div>
             </div>
@@ -1030,7 +1052,9 @@
 
                 <div class="photo-upload-area" id="uploadArea">
                     <div class="upload-icon">
-                        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+                        </svg>
                     </div>
                     <p class="upload-title">Fotoğrafları sürükleyin veya <span>dosya seçin</span></p>
                     <p class="upload-hint">PNG, JPG, WEBP "¢ Maks. 5MB "¢ Min. 800x600px</p>
@@ -1038,26 +1062,43 @@
 
                 <div class="photo-grid">
                     <div class="photo-item main">
-                        <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z" />
+                        </svg>
                         <span class="main-badge">Ana Fotoğraf</span>
                         <button class="remove-btn">
-                            <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M18 6L6 18M6 6l12 12" />
+                            </svg>
                         </button>
                     </div>
                     <div class="photo-item">
-                        <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z" />
+                        </svg>
                         <button class="remove-btn">
-                            <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M18 6L6 18M6 6l12 12" />
+                            </svg>
                         </button>
                     </div>
                     <div class="photo-item">
-                        <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z" />
+                        </svg>
                         <button class="remove-btn">
-                            <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M18 6L6 18M6 6l12 12" />
+                            </svg>
                         </button>
                     </div>
                     <div class="photo-item add-more">
-                        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 5v14M5 12h14" />
+                        </svg>
                     </div>
                 </div>
             </div>
@@ -1072,7 +1113,9 @@
                 <div class="form-row single">
                     <div class="form-group">
                         <label class="form-label">İlan Açıklaması <span class="required">*</span></label>
-                        <textarea class="form-textarea" id="horse-description" placeholder="Atınızı detaylı bir şekilde tanıtın. Yarış geçmişi, eğitim durumu, sağlık bilgileri ve diğer önemli detayları ekleyin..." required></textarea>
+                        <textarea class="form-textarea" id="horse-description"
+                            placeholder="Atınızı detaylı bir şekilde tanıtın. Yarış geçmişi, eğitim durumu, sağlık bilgileri ve diğer önemli detayları ekleyin..."
+                            required></textarea>
                         <span class="form-hint">En az 100 karakter yazmanız önerilir</span>
                     </div>
                 </div>
@@ -1177,18 +1220,27 @@
                 <div class="form-actions">
                     <div class="form-actions-left">
                         <button type="button" class="btn btn-outline" id="btn-draft">
-                            <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
                             Taslak Kaydet
                         </button>
                     </div>
                     <div class="form-actions-right">
                         <button type="button" class="btn btn-outline" id="btn-preview">
-                            <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
                             Önizleme
                         </button>
                         <button type="submit" class="btn btn-gold" id="btn-publish">
                             İlanı Yayınla
-                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
                         </button>
                     </div>
                 </div>
@@ -1200,17 +1252,23 @@
             <!-- Preview Card -->
             <div class="sidebar-card">
                 <h3 class="sidebar-title">
-                    <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
                     İlan Önizlemesi
                 </h3>
                 <div class="preview-card">
                     <div class="preview-image">
-                        <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z" />
+                        </svg>
                     </div>
                     <div class="preview-content">
-                        <h4 class="preview-name">Thunder Bay</h4>
-                        <p class="preview-breed">3 Yaş · İngiliz · Erkek</p>
-                        <p class="preview-price">₺2,850,000</p>
+                        <h4 class="preview-name" id="preview-name">—</h4>
+                        <p class="preview-breed" id="preview-breed">— · — · —</p>
+                        <p class="preview-price" id="preview-price">₺0</p>
                     </div>
                 </div>
             </div>
@@ -1218,7 +1276,10 @@
             <!-- Credits Section -->
             <div class="sidebar-card">
                 <h3 class="sidebar-title">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 6v6l4 2" />
+                    </svg>
                     Kredilerim
                 </h3>
                 <div class="credits-info">
@@ -1228,11 +1289,14 @@
                     </div>
                     <p class="credits-note">İlan yayınlamak için krediniz bulunmuyor.</p>
                     <a href="#" class="btn btn-gold" style="width: 100%; text-align: center; margin-top: 12px;">
-                        <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; margin-right: 8px;"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                        <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; margin-right: 8px;">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
+                        </svg>
                         Kredi Satın Al
                     </a>
                 </div>
-                <div class="package-info" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--light-gray);">
+                <div class="package-info"
+                    style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--light-gray);">
                     <p style="font-size: 13px; color: var(--warm-gray); margin-bottom: 8px;">Kredi Paketleri:</p>
                     <div style="font-size: 12px; color: var(--charcoal);">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
@@ -1254,20 +1318,29 @@
             <!-- Tips Card -->
             <div class="sidebar-card">
                 <h3 class="sidebar-title">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 16v-4M12 8h.01" />
+                    </svg>
                     İpuçları
                 </h3>
                 <div class="tips-list">
                     <div class="tip-item">
-                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
                         <span>Kaliteli ve net fotoğraflar ilanınızın görüntülenme oranını %70 artırır</span>
                     </div>
                     <div class="tip-item">
-                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
                         <span>Detaylı açıklama yazan satıcılar %50 daha fazla mesaj alır</span>
                     </div>
                     <div class="tip-item">
-                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
                         <span>Soy ağacı bilgilerini eksiksiz doldurun</span>
                     </div>
                 </div>
@@ -1278,7 +1351,7 @@
     <script>
         // Drag and drop upload
         const uploadArea = document.getElementById('uploadArea');
-        
+
         uploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadArea.classList.add('dragover');
@@ -1307,20 +1380,44 @@
     <script src="js/api.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/horses.js"></script>
-    
+
     <script>
         let listingId = null;
         let currentListing = null;
 
         // Sayfa yüklendiğinde
-        document.addEventListener('DOMContentLoaded', async function() {
-            // URL'den ilan ID'sini al
+        document.addEventListener('DOMContentLoaded', async function () {
+            // URL'den ilan ID'sini al — tüm olası formatları dene
+            const fullUrl = window.location.href;
+            console.log('[EditListing] Tam URL:', fullUrl);
+
+            // 1. Query string: ?id=xxx
             const urlParams = new URLSearchParams(window.location.search);
             listingId = urlParams.get('id');
 
+            // 2. Hash: #id=xxx
+            if (!listingId && window.location.hash) {
+                const hashStr = window.location.hash.substring(1);
+                const hashParams = new URLSearchParams(hashStr);
+                listingId = hashParams.get('id');
+
+                // 3. Sadece hash ObjectId: #xxx
+                if (!listingId && /^[a-f0-9]{24}$/i.test(hashStr)) {
+                    listingId = hashStr;
+                }
+            }
+
+            // 4. URL'de herhangi bir yerde 24 karakterlik ObjectId varsa yakala
             if (!listingId) {
-                showToast('İlan bulunamadı', 'error');
-                setTimeout(() => window.location.href = 'dashboard.html', 1500);
+                const idMatch = fullUrl.match(/[?&#=\/]([a-f0-9]{24})(?:[&#\/]|$)/i);
+                if (idMatch) listingId = idMatch[1];
+            }
+
+            console.log('[EditListing] Çıkarılan ID:', listingId);
+
+            if (!listingId || listingId === 'undefined' || listingId === 'null' || listingId.trim() === '') {
+                console.error('[EditListing] ID bulunamadı! URL:', fullUrl);
+                showToast('İlan ID bulunamadı. URL: ' + fullUrl, 'error');
                 return;
             }
 
@@ -1342,9 +1439,10 @@
         async function loadListingData() {
             try {
                 const result = await api.get('/horses/' + listingId);
-                
+
                 if (!result.success) {
-                    showToast('İlan bulunamadı', 'error');
+                    console.error('Load listing failed:', result.message);
+                    showToast('İlan bulunamadı: ' + (result.message || 'Sunucu hatası'), 'error');
                     setTimeout(() => window.location.href = 'dashboard.html', 1500);
                     return;
                 }
@@ -1353,7 +1451,9 @@
 
                 // Sahiplik kontrolü
                 const currentUser = api.getUser();
-                if (currentListing.seller._id !== currentUser._id && currentUser.role !== 'admin') {
+                const sellerId = String(currentListing.seller?._id || currentListing.seller);
+                const userId = String(currentUser?._id || currentUser?.id || '');
+                if (sellerId !== userId && currentUser.role !== 'admin') {
                     showToast('Bu ilanı düzenleme yetkiniz yok', 'error');
                     setTimeout(() => window.location.href = 'dashboard.html', 1500);
                     return;
@@ -1364,7 +1464,7 @@
 
             } catch (error) {
                 console.error('Load listing error:', error);
-                showToast('İlan yüklenirken hata oluştu', 'error');
+                showToast('İlan yüklenirken hata oluştu: ' + error.message, 'error');
             }
         }
 
@@ -1373,7 +1473,7 @@
             // Temel bilgiler
             document.getElementById('horse-name').value = listing.name || '';
             document.getElementById('horse-breed').value = listing.breed || '';
-            
+
             // Doğum tarihi
             if (listing.birthDate) {
                 const date = new Date(listing.birthDate);
@@ -1382,7 +1482,7 @@
 
             document.getElementById('horse-gender').value = listing.gender || '';
             document.getElementById('horse-color').value = listing.color || '';
-            
+
             // Fiziksel özellikler
             if (listing.height) document.getElementById('horse-height').value = listing.height;
             if (listing.weight) document.getElementById('horse-weight').value = listing.weight;
@@ -1403,8 +1503,76 @@
                 document.getElementById('horse-tjk').value = listing.tjkLink;
             }
 
+            // Soy Ağacı (Pedigree)
+            if (listing.pedigree) {
+                const p = listing.pedigree;
+                const pedFields = {
+                    'ped-sire': p.sire,
+                    'ped-dam': p.dam,
+                    'ped-sireOfSire': p.sireOfSire,
+                    'ped-damOfSire': p.damOfSire,
+                    'ped-sireOfDam': p.sireOfDam,
+                    'ped-damOfDam': p.damOfDam
+                };
+                Object.entries(pedFields).forEach(([id, val]) => {
+                    const el = document.getElementById(id);
+                    if (el && val) el.value = val;
+                });
+            }
+
+            // Önizleme kartını güncelle
+            updatePreview(listing);
+
             // Sayfa başlığını güncelle
             document.title = listing.name + ' - İlan Düzenle | EquiMarket';
+
+            // Canlı önizleme: form değişikliklerini dinle
+            setupLivePreview();
+        }
+
+        // Önizleme kartını güncelle
+        function updatePreview(data) {
+            const breedNames = { ingiliz: 'İngiliz', arap: 'Arap', turk: 'Türk', diger: 'Diğer' };
+            const genderNames = { erkek: 'Erkek', disi: 'Dişi', igdis: 'İğdiş' };
+
+            const name = data.name || '—';
+            const breed = breedNames[data.breed] || data.breed || '—';
+            const gender = genderNames[data.gender] || data.gender || '—';
+            let age = '—';
+            if (data.birthDate) {
+                const birthYear = new Date(data.birthDate).getFullYear();
+                age = (new Date().getFullYear() - birthYear) || '—';
+            }
+            const price = data.price ? new Intl.NumberFormat('tr-TR').format(data.price) : '0';
+
+            const nameEl = document.getElementById('preview-name');
+            const breedEl = document.getElementById('preview-breed');
+            const priceEl = document.getElementById('preview-price');
+            if (nameEl) nameEl.textContent = name;
+            if (breedEl) breedEl.textContent = `${age} Yaş · ${breed} · ${gender}`;
+            if (priceEl) priceEl.textContent = `₺${price}`;
+        }
+
+        // Canlı önizleme
+        function setupLivePreview() {
+            const fields = ['horse-name', 'horse-breed', 'horse-birthdate', 'horse-gender', 'horse-price'];
+            fields.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('input', refreshPreview);
+                    el.addEventListener('change', refreshPreview);
+                }
+            });
+        }
+
+        function refreshPreview() {
+            updatePreview({
+                name: document.getElementById('horse-name').value,
+                breed: document.getElementById('horse-breed').value,
+                birthDate: document.getElementById('horse-birthdate').value,
+                gender: document.getElementById('horse-gender').value,
+                price: document.getElementById('horse-price').value
+            });
         }
 
         // Header'daki auth butonlarını güncelle
@@ -1439,7 +1607,7 @@
         }
 
         // İlan Güncelle butonu
-        document.getElementById('btn-publish').addEventListener('click', async function() {
+        document.getElementById('btn-publish').addEventListener('click', async function () {
             const btn = this;
             const originalHTML = btn.innerHTML;
 
@@ -1457,7 +1625,15 @@
                 location: {
                     city: document.getElementById('horse-city').value
                 },
-                tjkLink: document.getElementById('horse-tjk').value.trim() || null
+                tjkLink: document.getElementById('horse-tjk').value.trim() || null,
+                pedigree: {
+                    sire: document.getElementById('ped-sire').value.trim() || null,
+                    dam: document.getElementById('ped-dam').value.trim() || null,
+                    sireOfSire: document.getElementById('ped-sireOfSire').value.trim() || null,
+                    damOfSire: document.getElementById('ped-damOfSire').value.trim() || null,
+                    sireOfDam: document.getElementById('ped-sireOfDam').value.trim() || null,
+                    damOfDam: document.getElementById('ped-damOfDam').value.trim() || null
+                }
             };
 
             // Validasyon
@@ -1563,4 +1739,5 @@
         document.head.appendChild(style);
     </script>
 </body>
+
 </html>

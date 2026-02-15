@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Satılık yarış atları, safkan atlar. Irk, yaş, fiyat ve lokasyona göre filtreleyin.">
+    <meta name="description"
+        content="Satılık yarış atları, safkan atlar. Irk, yaş, fiyat ve lokasyona göre filtreleyin.">
     <meta name="keywords" content="at satışı, yarış atı, safkan at, at ilanları, equimarket, türkiye at pazarı">
     <meta name="robots" content="index, follow">
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="At İlanları - EquiMarket">
-    <meta property="og:description" content="Satılık yarış atları, safkan atlar. Irk, yaş, fiyat ve lokasyona göre filtreleyin.">
+    <meta property="og:description"
+        content="Satılık yarış atları, safkan atlar. Irk, yaş, fiyat ve lokasyona göre filtreleyin.">
     <meta property="og:url" content="https://equimarket.com.tr/ilanlar">
     <meta property="og:site_name" content="EquiMarket">
     <meta property="og:locale" content="tr_TR">
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="At İlanları - EquiMarket">
-    <meta name="twitter:description" content="Satılık yarış atları, safkan atlar. Irk, yaş, fiyat ve lokasyona göre filtreleyin.">
+    <meta name="twitter:description"
+        content="Satılık yarış atları, safkan atlar. Irk, yaş, fiyat ve lokasyona göre filtreleyin.">
     <link rel="canonical" href="https://equimarket.com.tr/ilanlar">
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json">
@@ -29,7 +33,9 @@
     <title>Arama Sonuçları - EquiMarket</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --racing-green: #1a3d2e;
@@ -49,7 +55,11 @@
             --shadow-medium: 0 8px 40px rgba(26, 61, 46, 0.12);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'DM Sans', sans-serif;
@@ -58,7 +68,10 @@
             line-height: 1.6;
         }
 
-        h1, h2, h3, h4 {
+        h1,
+        h2,
+        h3,
+        h4 {
             font-family: 'Playfair Display', serif;
             font-weight: 600;
             line-height: 1.2;
@@ -118,7 +131,9 @@
             color: var(--racing-green);
         }
 
-        .logo-text span { color: var(--gold); }
+        .logo-text span {
+            color: var(--gold);
+        }
 
         /* Header Search */
         .header-search {
@@ -621,7 +636,7 @@
         .horse-card-image svg {
             width: 64px;
             height: 64px;
-            fill: rgba(0,0,0,0.08);
+            fill: rgba(0, 0, 0, 0.08);
         }
 
         .horse-card-badges {
@@ -671,7 +686,7 @@
             right: 14px;
             width: 40px;
             height: 40px;
-            background: rgba(255,255,255,0.95);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -887,7 +902,7 @@
 
         .footer-text {
             font-size: 14px;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255, 255, 255, 0.6);
         }
 
         .footer-links {
@@ -897,7 +912,7 @@
 
         .footer-links a {
             font-size: 14px;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255, 255, 255, 0.6);
             text-decoration: none;
             transition: color 0.3s ease;
         }
@@ -918,12 +933,15 @@
                 grid-template-columns: 1fr;
                 padding: 90px 20px 40px;
             }
+
             .filters-sidebar {
                 position: static;
             }
+
             .filters-card {
                 display: none;
             }
+
             .header-search {
                 display: none;
             }
@@ -933,20 +951,25 @@
             .header-inner {
                 padding: 12px 20px;
             }
+
             .results-grid {
                 grid-template-columns: 1fr;
             }
+
             .results-grid.list-view .horse-card {
                 grid-template-columns: 1fr;
             }
+
             .results-header {
                 flex-direction: column;
                 align-items: flex-start;
             }
+
             .results-actions {
                 width: 100%;
                 justify-content: space-between;
             }
+
             .footer-container {
                 flex-direction: column;
                 gap: 16px;
@@ -955,6 +978,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header>
@@ -962,15 +986,18 @@
             <a href="homepage_v2.html" class="logo">
                 <div class="logo-icon">
                     <svg viewBox="0 0 24 24">
-                        <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7"/>
+                        <path
+                            d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7" />
                     </svg>
                 </div>
                 <div class="logo-text">Equi<span>Market</span></div>
             </a>
 
             <nav style="display:flex;gap:24px;">
-                <a href="homepage_v2.html" style="color:var(--warm-gray);text-decoration:none;font-weight:500;">Ana Sayfa</a>
-                <a href="ilanlar.html" style="color:var(--racing-green);text-decoration:none;font-weight:600;">İlanlar</a>
+                <a href="homepage_v2.html" style="color:var(--warm-gray);text-decoration:none;font-weight:500;">Ana
+                    Sayfa</a>
+                <a href="ilanlar.html"
+                    style="color:var(--racing-green);text-decoration:none;font-weight:600;">İlanlar</a>
                 <a href="about.html" style="color:var(--warm-gray);text-decoration:none;font-weight:500;">Hakkımızda</a>
                 <a href="contact.html" style="color:var(--warm-gray);text-decoration:none;font-weight:500;">İletişim</a>
             </nav>
@@ -989,7 +1016,9 @@
             <div class="filters-card">
                 <div class="filters-header">
                     <h3 class="filters-title">
-                        <svg viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+                        </svg>
                         Filtreler
                     </h3>
                     <a href="#" class="filters-clear">Temizle</a>
@@ -1196,14 +1225,28 @@
                     </select>
                     <div class="view-toggle">
                         <button class="view-btn active" title="Grid görünüm">
-                            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                            <svg viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="7" height="7" />
+                                <rect x="14" y="3" width="7" height="7" />
+                                <rect x="3" y="14" width="7" height="7" />
+                                <rect x="14" y="14" width="7" height="7" />
+                            </svg>
                         </button>
                         <button class="view-btn" title="Liste görünüm">
-                            <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                            <svg viewBox="0 0 24 24">
+                                <line x1="8" y1="6" x2="21" y2="6" />
+                                <line x1="8" y1="12" x2="21" y2="12" />
+                                <line x1="8" y1="18" x2="21" y2="18" />
+                                <line x1="3" y1="6" x2="3.01" y2="6" />
+                                <line x1="3" y1="12" x2="3.01" y2="12" />
+                                <line x1="3" y1="18" x2="3.01" y2="18" />
+                            </svg>
                         </button>
                     </div>
                     <button class="save-search-btn">
-                        <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z" />
+                        </svg>
                         Aramayı Kaydet
                     </button>
                 </div>
@@ -1254,12 +1297,12 @@
         // View toggle
         const viewBtns = document.querySelectorAll('.view-btn');
         const resultsGrid = document.getElementById('resultsGrid');
-        
+
         viewBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 viewBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
+
                 if (btn.title === 'Liste görünüm') {
                     resultsGrid.classList.add('list-view');
                 } else {
@@ -1289,10 +1332,10 @@
     <script src="js/horses.js"></script>
     <script>
         // Sayfa yüklendiğinde ilanları çek
-        document.addEventListener('DOMContentLoaded', async function() {
+        document.addEventListener('DOMContentLoaded', async function () {
             // Auth kontrolü
             updateHeaderAuth();
-            
+
             // İlanları yükle
             await loadHorses();
         });
@@ -1456,7 +1499,7 @@
 
         // Tek filtreyi kaldır
         function removeFilter(filterType) {
-            switch(filterType) {
+            switch (filterType) {
                 case 'breed':
                     document.getElementById('filter-breed').value = '';
                     break;
@@ -1500,8 +1543,142 @@
             document.getElementById('results-title').textContent = 'Tüm İlanlar';
         }
 
+        // ----- ARAMAYI KAYDET FONKSİYONLARI (M23) -----
+        const SAVED_SEARCHES_KEY = 'equimarket_saved_searches';
+
+        function getSavedSearches() {
+            try {
+                return JSON.parse(localStorage.getItem(SAVED_SEARCHES_KEY)) || [];
+            } catch (e) { return []; }
+        }
+
+        function saveCurrentSearch() {
+            const filters = getFilterValues();
+            const hasFilters = Object.keys(filters).length > 0;
+            if (!hasFilters) {
+                showToast('Kaydetmek için en az bir filtre seçin', 'error');
+                return;
+            }
+
+            // Filtre açıklaması oluştur
+            const labels = {
+                breed: { ingiliz: 'İngiliz', arap: 'Arap' },
+                gender: { erkek: 'Erkek', disi: 'Dişi', igdis: 'İğdiş' }
+            };
+            const parts = [];
+            if (filters.breed) parts.push(labels.breed[filters.breed] || filters.breed);
+            if (filters.age) parts.push(filters.age + ' Yaş');
+            if (filters.gender) parts.push(filters.gender.split(',').map(g => labels.gender[g] || g).join(', '));
+            if (filters.city) parts.push(filters.city);
+            if (filters.minPrice || filters.maxPrice) parts.push('₺' + (filters.minPrice || '0') + '-' + (filters.maxPrice || '∞'));
+
+            const defaultName = parts.join(' · ') || 'Kayıtlı Arama';
+            const searchName = prompt('Arama adı:', defaultName);
+            if (!searchName) return;
+
+            const searches = getSavedSearches();
+            searches.push({
+                id: Date.now(),
+                name: searchName,
+                filters: filters,
+                savedAt: new Date().toISOString()
+            });
+            localStorage.setItem(SAVED_SEARCHES_KEY, JSON.stringify(searches));
+            showToast('Arama kaydedildi: ' + searchName);
+            renderSavedSearchesPanel();
+        }
+
+        function applySavedSearch(searchId) {
+            const searches = getSavedSearches();
+            const search = searches.find(s => s.id === searchId);
+            if (!search) return;
+
+            // Önce filtreleri temizle
+            clearFilters();
+
+            // Filtreleri uygula
+            const f = search.filters;
+            if (f.breed) document.getElementById('filter-breed').value = f.breed;
+            if (f.age) document.getElementById('filter-age').value = f.age;
+            if (f.gender) {
+                f.gender.split(',').forEach(g => {
+                    const cb = document.querySelector('#filter-gender input[value="' + g + '"]');
+                    if (cb) cb.checked = true;
+                });
+            }
+            if (f.minPrice) document.getElementById('filter-price-min').value = f.minPrice;
+            if (f.maxPrice) document.getElementById('filter-price-max').value = f.maxPrice;
+            if (f.city) document.getElementById('filter-city').value = f.city;
+            if (f.color) {
+                f.color.split(',').forEach(c => {
+                    const cb = document.querySelector('#filter-color input[value="' + c + '"]');
+                    if (cb) cb.checked = true;
+                });
+            }
+
+            applyFilters();
+            closeSavedSearchesPanel();
+            showToast('"' + search.name + '" filtresi uygulandı');
+        }
+
+        function deleteSavedSearch(searchId) {
+            let searches = getSavedSearches();
+            searches = searches.filter(s => s.id !== searchId);
+            localStorage.setItem(SAVED_SEARCHES_KEY, JSON.stringify(searches));
+            renderSavedSearchesPanel();
+            showToast('Arama silindi');
+        }
+
+        function renderSavedSearchesPanel() {
+            let panel = document.getElementById('savedSearchesPanel');
+            if (!panel) {
+                panel = document.createElement('div');
+                panel.id = 'savedSearchesPanel';
+                panel.style.cssText = 'position:fixed;top:0;right:0;bottom:0;width:360px;background:white;z-index:10000;box-shadow:-4px 0 30px rgba(0,0,0,0.15);overflow-y:auto;transform:translateX(100%);transition:transform 0.3s ease;padding:24px;';
+                document.body.appendChild(panel);
+            }
+
+            const searches = getSavedSearches();
+            panel.innerHTML = `
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+                    <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--charcoal);">Kayıtlı Aramalar</h3>
+                    <button onclick="closeSavedSearchesPanel()" style="background:none;border:none;cursor:pointer;font-size:24px;color:var(--warm-gray);">&times;</button>
+                </div>
+                <button onclick="saveCurrentSearch()" style="width:100%;padding:14px;background:var(--racing-green);color:white;border:none;border-radius:12px;font-weight:600;cursor:pointer;margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px;">
+                    <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;"><path d="M12 5v14M5 12h14"/></svg>
+                    Mevcut Aramayı Kaydet
+                </button>
+                ${searches.length === 0 ? '<p style="text-align:center;color:var(--warm-gray);font-size:14px;padding:20px;">Henüz kayıtlı arama yok</p>' :
+                    searches.map(s => `
+                        <div style="border:2px solid var(--light-gray);border-radius:12px;padding:16px;margin-bottom:12px;cursor:pointer;transition:border-color 0.3s;" onmouseover="this.style.borderColor='var(--racing-green)'" onmouseout="this.style.borderColor='var(--light-gray)'">
+                            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                                <div onclick="applySavedSearch(${s.id})" style="flex:1;cursor:pointer;">
+                                    <div style="font-weight:600;color:var(--charcoal);margin-bottom:4px;">${s.name}</div>
+                                    <div style="font-size:12px;color:var(--warm-gray);">${new Date(s.savedAt).toLocaleDateString('tr-TR')}</div>
+                                </div>
+                                <button onclick="event.stopPropagation();deleteSavedSearch(${s.id})" style="background:none;border:none;cursor:pointer;color:var(--warm-gray);padding:4px;" title="Sil">
+                                    <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                    `).join('')
+                }
+            `;
+
+            // Panel'i aç
+            requestAnimationFrame(() => { panel.style.transform = 'translateX(0)'; });
+        }
+
+        function closeSavedSearchesPanel() {
+            const panel = document.getElementById('savedSearchesPanel');
+            if (panel) {
+                panel.style.transform = 'translateX(100%)';
+                setTimeout(() => panel.remove(), 300);
+            }
+        }
+
         // Event listeners
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Filtre uygula butonu
             document.getElementById('btn-apply-filters')?.addEventListener('click', applyFilters);
 
@@ -1511,8 +1688,11 @@
                 clearFilters();
             });
 
+            // Aramayı kaydet butonu
+            document.querySelector('.save-search-btn')?.addEventListener('click', renderSavedSearchesPanel);
+
             // Sıralama
-            document.querySelector('.sort-select')?.addEventListener('change', function() {
+            document.querySelector('.sort-select')?.addEventListener('change', function () {
                 const filters = getFilterValues();
                 const sortMap = {
                     'En Yeni': 'newest',
@@ -1535,7 +1715,7 @@
         async function loadHorses(filters = {}) {
             const resultsGrid = document.getElementById('resultsGrid');
             const resultsCount = document.getElementById('results-count');
-            
+
             // Yükleniyor göster
             resultsGrid.innerHTML = `
                 <div style="grid-column: 1/-1; text-align: center; padding: 60px;">
@@ -1546,25 +1726,25 @@
             try {
                 if (typeof HorseService !== 'undefined') {
                     const result = await HorseService.getHorses(filters);
-                    
+
                     if (result.success && result.data && result.data.length > 0) {
                         allHorses = result.data;
-                        
+
                         // Filtre sayılarını güncelle
                         updateFilterCounts(allHorses);
-                        
+
                         // Toplam sayı
                         resultsCount.textContent = allHorses.length;
-                        
+
                         // Pagination hesapla
                         totalPages = Math.ceil(allHorses.length / ITEMS_PER_PAGE);
-                        
+
                         // Mevcut sayfa ilanlarını göster
                         displayCurrentPage();
-                        
+
                         // Pagination'ı oluştur
                         renderPagination();
-                        
+
                     } else if (result.success && (!result.data || result.data.length === 0)) {
                         allHorses = [];
                         resultsCount.textContent = '0';
@@ -1606,7 +1786,7 @@
             const start = (currentPage - 1) * ITEMS_PER_PAGE;
             const end = start + ITEMS_PER_PAGE;
             const pageHorses = allHorses.slice(start, end);
-            
+
             resultsGrid.innerHTML = pageHorses.map(horse => createHorseCardHTML(horse)).join('');
         }
 
@@ -1619,7 +1799,7 @@
                     colorCounts[h.color]++;
                 }
             });
-            
+
             Object.keys(colorCounts).forEach(color => {
                 const el = document.querySelector(`[data-color="${color}"]`);
                 if (el) el.textContent = colorCounts[color];
@@ -1628,7 +1808,7 @@
             // Özellik sayıları (örnek - backend'den gelmeli)
             const raceExpCount = horses.filter(h => h.raceExperience).length;
             const verifiedCount = horses.filter(h => h.seller?.sellerInfo?.isVerifiedSeller).length;
-            
+
             const raceEl = document.querySelector('[data-feature="raceExperience"]');
             const verifiedEl = document.querySelector('[data-feature="verifiedSeller"]');
             if (raceEl) raceEl.textContent = raceExpCount;
@@ -1657,7 +1837,7 @@
             const maxVisible = 5;
             let startPage = Math.max(1, currentPage - 2);
             let endPage = Math.min(totalPages, startPage + maxVisible - 1);
-            
+
             if (endPage - startPage < maxVisible - 1) {
                 startPage = Math.max(1, endPage - maxVisible + 1);
             }
@@ -1693,7 +1873,7 @@
             currentPage = page;
             displayCurrentPage();
             renderPagination();
-            
+
             // Sayfayı yukarı scroll
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -1719,10 +1899,10 @@
             return `
                 <a href="${cardLink}" class="horse-card" style="text-decoration: none; color: inherit;">
                     <div class="horse-card-image">
-                        ${horse.images && horse.images[0] ? 
-                            `<img src="${horse.images[0].url || horse.images[0]}" style="width:100%;height:100%;object-fit:cover;">` :
-                            `<svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>`
-                        }
+                        ${horse.images && horse.images[0] ?
+                    `<img src="${horse.images[0].url || horse.images[0]}" style="width:100%;height:100%;object-fit:cover;">` :
+                    `<svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>`
+                }
                         <div class="horse-card-badges">
                             ${horse.isFeatured ? '<span class="card-badge badge-featured">Öne Çıkan</span>' : ''}
                             ${horse.seller?.sellerInfo?.isVerifiedSeller ? `
@@ -1787,29 +1967,31 @@
                 return;
             }
 
-            const favorites = getFavorites();
-            const isCurrentlyFavorite = favorites.includes(horseId);
-
             try {
-                // API'ye istek (backend'de endpoint varsa)
-                // await api.post('/users/favorites/' + horseId);
+                // Backend API çağrısı
+                const result = await api.post('/horses/' + horseId + '/favorite');
 
-                // localStorage'ı güncelle
-                const userData = JSON.parse(localStorage.getItem('equimarket_user'));
-                
-                if (isCurrentlyFavorite) {
-                    // Favorilerden çıkar
-                    userData.favorites = favorites.filter(id => id !== horseId);
-                    button.classList.remove('active');
-                    showToast('Favorilerden çıkarıldı');
+                if (result.success) {
+                    // localStorage'ı backend response'una göre güncelle
+                    const userData = JSON.parse(localStorage.getItem('equimarket_user'));
+
+                    if (result.isFavorited) {
+                        if (!userData.favorites) userData.favorites = [];
+                        if (!userData.favorites.includes(horseId)) {
+                            userData.favorites.push(horseId);
+                        }
+                        button.classList.add('active');
+                        showToast('Favorilere eklendi');
+                    } else {
+                        userData.favorites = (userData.favorites || []).filter(id => id !== horseId);
+                        button.classList.remove('active');
+                        showToast('Favorilerden çıkarıldı');
+                    }
+
+                    localStorage.setItem('equimarket_user', JSON.stringify(userData));
                 } else {
-                    // Favorilere ekle
-                    userData.favorites = [...favorites, horseId];
-                    button.classList.add('active');
-                    showToast('Favorilere eklendi');
+                    showToast(result.message || 'Bir hata oluştu', 'error');
                 }
-
-                localStorage.setItem('equimarket_user', JSON.stringify(userData));
 
             } catch (error) {
                 console.error('Toggle Favorite Error:', error);
@@ -1844,8 +2026,15 @@
     </script>
     <style>
         @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
     </style>
     <!-- PWA Support -->
@@ -1853,4 +2042,5 @@
     <!-- Cookie Consent -->
     <script src="js/cookie-consent.js"></script>
 </body>
+
 </html>

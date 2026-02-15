@@ -18,7 +18,7 @@ exports.getDashboardStats = async (req, res) => {
 
         const last7Days = [];
         for (let i = 6; i >= 0; i--) {
-            const date = new Date(); date.setDate(date.getDate() - i); date.setHours(0,0,0,0);
+            const date = new Date(); date.setDate(date.getDate() - i); date.setHours(0, 0, 0, 0);
             const nextDate = new Date(date); nextDate.setDate(nextDate.getDate() + 1);
             const users = await User.countDocuments({ createdAt: { $gte: date, $lt: nextDate } });
             const listings = await Horse.countDocuments({ createdAt: { $gte: date, $lt: nextDate } });
@@ -97,12 +97,28 @@ exports.getListings = async (req, res) => {
 // Update listing
 exports.updateListing = async (req, res) => {
     try {
-        const { status, rejectionReason, isFeatured } = req.body;
+        const { status, rejectionReason, isFeatured, listingDuration } = req.body;
         const listing = await Horse.findById(req.params.id);
         if (!listing) return res.status(404).json({ success: false, message: 'İlan bulunamadı' });
         if (status !== undefined) listing.status = status;
         if (rejectionReason !== undefined) listing.rejectionReason = rejectionReason;
         if (isFeatured !== undefined) listing.isFeatured = isFeatured;
+        if (listingDuration !== undefined) {
+            listing.listingDuration = listingDuration;
+            if (listingDuration === 0) {
+                listing.expiresAt = null;
+            } else {
+                // Süreyi ilan oluşturulma tarihinden itibaren yeniden hesapla
+                const baseDate = listing.createdAt || new Date();
+                const expiresAt = new Date(baseDate);
+                expiresAt.setDate(expiresAt.getDate() + listingDuration);
+                listing.expiresAt = expiresAt;
+                // Eğer yeni süre hâlâ geçmişte ise expired olarak kalsın, değilse aktifleştir
+                if (listing.status === 'expired' && expiresAt > new Date()) {
+                    listing.status = 'active';
+                }
+            }
+        }
         await listing.save({ validateBeforeSave: false });
         res.json({ success: true, message: 'İlan güncellendi', data: listing });
     } catch (error) { res.status(500).json({ success: false, message: 'Sunucu hatası' }); }

@@ -121,11 +121,13 @@ class HorseService {
      * Yeni ilan için varsayılan değerleri ayarla
      */
     static setCreateDefaults(data, userId) {
+        const duration = data.listingDuration || 30;
         return {
             ...data,
             seller: userId,
             status: 'pending',
-            expiresAt: data.expiresAt || this.calculateExpiryDate(30)
+            listingDuration: duration,
+            expiresAt: duration === 0 ? null : (data.expiresAt || this.calculateExpiryDate(duration))
         };
     }
 
@@ -211,7 +213,8 @@ class HorseService {
             throw error;
         }
 
-        horse.expiresAt = this.calculateExpiryDate(30);
+        const duration = horse.listingDuration || 30;
+        horse.expiresAt = duration === 0 ? null : this.calculateExpiryDate(duration);
         horse.status = 'active';
         await horse.save({ validateBeforeSave: false });
 

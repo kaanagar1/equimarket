@@ -12,13 +12,13 @@ const checkExpiringListings = async () => {
         // Find listings expiring in 7 days (send first warning)
         const expiringSoon7Days = await Horse.find({
             status: 'active',
-            expiresAt: { $gte: now, $lte: sevenDaysFromNow }
+            expiresAt: { $gte: now, $lte: sevenDaysFromNow, $ne: null }
         }).populate('seller', 'name email');
 
         // Find listings expiring in 3 days (send urgent warning)
         const expiringSoon3Days = await Horse.find({
             status: 'active',
-            expiresAt: { $gte: now, $lte: threeDaysFromNow }
+            expiresAt: { $gte: now, $lte: threeDaysFromNow, $ne: null }
         }).populate('seller', 'name email');
 
         // Send 7-day warning notifications
@@ -93,7 +93,7 @@ const expireOldListings = async () => {
         const result = await Horse.updateMany(
             {
                 status: 'active',
-                expiresAt: { $lt: now }
+                expiresAt: { $lt: now, $ne: null }
             },
             {
                 $set: { status: 'expired' }

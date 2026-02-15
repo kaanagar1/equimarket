@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +19,9 @@
     <title>Yeni İlan Ekle - EquiMarket</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --racing-green: #1a3d2e;
@@ -38,7 +41,11 @@
             --shadow-medium: 0 8px 40px rgba(26, 61, 46, 0.12);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'DM Sans', sans-serif;
@@ -48,7 +55,10 @@
             min-height: 100vh;
         }
 
-        h1, h2, h3, h4 {
+        h1,
+        h2,
+        h3,
+        h4 {
             font-family: 'Playfair Display', serif;
             font-weight: 600;
             line-height: 1.2;
@@ -131,7 +141,9 @@
             color: var(--racing-green);
         }
 
-        .logo-text span { color: var(--gold); }
+        .logo-text span {
+            color: var(--gold);
+        }
 
         .header-right {
             display: flex;
@@ -301,6 +313,7 @@
         .step {
             cursor: pointer;
         }
+
         .step:hover .step-label {
             color: var(--racing-green);
         }
@@ -311,6 +324,7 @@
             -webkit-appearance: none;
             margin: 0;
         }
+
         input[type=number] {
             -moz-appearance: textfield;
         }
@@ -527,7 +541,7 @@
         .photo-item svg {
             width: 32px;
             height: 32px;
-            fill: rgba(0,0,0,0.1);
+            fill: rgba(0, 0, 0, 0.1);
         }
 
         .photo-item .main-badge {
@@ -548,7 +562,7 @@
             right: 8px;
             width: 28px;
             height: 28px;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -686,7 +700,7 @@
         .preview-image svg {
             width: 48px;
             height: 48px;
-            fill: rgba(0,0,0,0.1);
+            fill: rgba(0, 0, 0, 0.1);
         }
 
         .preview-content {
@@ -899,19 +913,23 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header>
         <div class="header-inner">
             <div class="header-left">
                 <a href="dashboard.html" class="back-btn">
-                    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
                     Geri
                 </a>
                 <a href="homepage_v2.html" class="logo">
                     <div class="logo-icon">
                         <svg viewBox="0 0 24 24">
-                            <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7"/>
+                            <path
+                                d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7" />
                         </svg>
                     </div>
                     <div class="logo-text">Equi<span>Market</span></div>
@@ -919,7 +937,9 @@
             </div>
             <div class="header-right">
                 <span class="draft-status">
-                    <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 6L9 17l-5-5" />
+                    </svg>
                     Taslak kaydedildi
                 </span>
                 <button class="btn btn-outline" onclick="showPreviewModal()">Önizleme</button>
@@ -964,11 +984,13 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">At Adı <span class="required">*</span></label>
-                        <input type="text" class="form-input" id="horse-name" placeholder="Örn: Thunder Bay" required oninput="updatePreview()">
+                        <input type="text" class="form-input" id="horse-name" placeholder="Örn: Thunder Bay" required
+                            oninput="updatePreview()">
                     </div>
                     <div class="form-group">
                         <label class="form-label">TJK Bağlantısı <span class="optional">(Opsiyonel)</span></label>
-                        <input type="text" class="form-input" id="horse-tjk" placeholder="Atın TJK profil bağlantısını girin">
+                        <input type="text" class="form-input" id="horse-tjk"
+                            placeholder="Atın TJK profil bağlantısını girin">
                         <span class="form-hint">TJK profil linki eklemek alıcıların güvenini artırır</span>
                     </div>
                 </div>
@@ -1033,18 +1055,24 @@
                 <div class="pedigree-grid">
                     <div class="pedigree-column">
                         <span class="pedigree-column-title">Ebeveynler</span>
-                        <input type="text" class="pedigree-input sire" id="pedigree-sire" placeholder="(Baba)" oninput="this.value = this.value.replace(/[0-9]/g, '')">
-                        <input type="text" class="pedigree-input dam" id="pedigree-dam" placeholder="(Anne)" oninput="this.value = this.value.replace(/[0-9]/g, '')">
+                        <input type="text" class="pedigree-input sire" id="pedigree-sire" placeholder="(Baba)"
+                            oninput="this.value = this.value.replace(/[0-9]/g, '')">
+                        <input type="text" class="pedigree-input dam" id="pedigree-dam" placeholder="(Anne)"
+                            oninput="this.value = this.value.replace(/[0-9]/g, '')">
                     </div>
                     <div class="pedigree-column">
                         <span class="pedigree-column-title">Büyük Ebeveynler (Baba)</span>
-                        <input type="text" class="pedigree-input sire" id="pedigree-sire-sire" placeholder="(Babanın Babası)" oninput="this.value = this.value.replace(/[0-9]/g, '')">
-                        <input type="text" class="pedigree-input dam" id="pedigree-sire-dam" placeholder="(Babanın Annesi)" oninput="this.value = this.value.replace(/[0-9]/g, '')">
+                        <input type="text" class="pedigree-input sire" id="pedigree-sire-sire"
+                            placeholder="(Babanın Babası)" oninput="this.value = this.value.replace(/[0-9]/g, '')">
+                        <input type="text" class="pedigree-input dam" id="pedigree-sire-dam"
+                            placeholder="(Babanın Annesi)" oninput="this.value = this.value.replace(/[0-9]/g, '')">
                     </div>
                     <div class="pedigree-column">
                         <span class="pedigree-column-title">Büyük Ebeveynler (Anne)</span>
-                        <input type="text" class="pedigree-input sire" id="pedigree-dam-sire" placeholder="(Annenin Babası)" oninput="this.value = this.value.replace(/[0-9]/g, '')">
-                        <input type="text" class="pedigree-input dam" id="pedigree-dam-dam" placeholder="(Annenin Annesi)" oninput="this.value = this.value.replace(/[0-9]/g, '')">
+                        <input type="text" class="pedigree-input sire" id="pedigree-dam-sire"
+                            placeholder="(Annenin Babası)" oninput="this.value = this.value.replace(/[0-9]/g, '')">
+                        <input type="text" class="pedigree-input dam" id="pedigree-dam-dam"
+                            placeholder="(Annenin Annesi)" oninput="this.value = this.value.replace(/[0-9]/g, '')">
                     </div>
                 </div>
             </div>
@@ -1057,9 +1085,12 @@
                 </div>
 
                 <div class="photo-upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
-                    <input type="file" id="fileInput" multiple accept="image/jpeg,image/png,image/webp,image/gif" style="display:none">
+                    <input type="file" id="fileInput" multiple accept="image/jpeg,image/png,image/webp,image/gif"
+                        style="display:none">
                     <div class="upload-icon">
-                        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+                        </svg>
                     </div>
                     <p class="upload-title">Fotoğrafları sürükleyin veya <span>dosya seçin</span></p>
                     <p class="upload-hint">PNG, JPG, WEBP • Maks. 5MB • En fazla 10 fotoğraf</p>
@@ -1071,14 +1102,16 @@
             <!-- Description & Price Card -->
             <div class="form-card" id="price-card">
                 <div class="form-card-header">
-                    <h2 class="form-card-title">Açıklama & Fiyat</h2>
+                    <h2 class="form-card-title">Açıklama ve Fiyat</h2>
                     <p class="form-card-desc">Detaylı açıklama ve fiyat bilgisi</p>
                 </div>
 
                 <div class="form-row single">
                     <div class="form-group">
                         <label class="form-label">İlan Açıklaması <span class="required">*</span></label>
-                        <textarea class="form-textarea" id="horse-description" placeholder="Atınızı detaylı bir şekilde tanıtın. Yarış geçmişi, eğitim durumu, sağlık bilgileri ve diğer önemli detayları ekleyin..." required></textarea>
+                        <textarea class="form-textarea" id="horse-description"
+                            placeholder="Atınızı detaylı bir şekilde tanıtın. Yarış geçmişi, eğitim durumu, sağlık bilgileri ve diğer önemli detayları ekleyin..."
+                            required></textarea>
                         <span class="form-hint">En az 100 karakter yazmanız önerilir</span>
                     </div>
                 </div>
@@ -1088,7 +1121,8 @@
                         <label class="form-label">Fiyat <span class="required">*</span></label>
                         <div class="price-input-wrapper">
                             <span class="currency">₺</span>
-                            <input type="text" class="form-input" id="horse-price" placeholder="0" required oninput="formatPrice(this); updatePreview();">
+                            <input type="text" class="form-input" id="horse-price" placeholder="0" required
+                                oninput="formatPrice(this); updatePreview();">
                         </div>
                     </div>
                     <div class="form-group">
@@ -1183,18 +1217,27 @@
                 <div class="form-actions">
                     <div class="form-actions-left">
                         <button type="button" class="btn btn-outline" id="btn-draft">
-                            <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
                             Taslak Kaydet
                         </button>
                     </div>
                     <div class="form-actions-right">
                         <button type="button" class="btn btn-outline" id="btn-preview" onclick="showPreviewModal()">
-                            <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
                             Önizleme
                         </button>
                         <button type="submit" class="btn btn-gold" id="btn-publish">
                             İlanı Yayınla
-                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
                         </button>
                     </div>
                 </div>
@@ -1206,12 +1249,18 @@
             <!-- Preview Card -->
             <div class="sidebar-card">
                 <h3 class="sidebar-title">
-                    <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
                     İlan Önizlemesi
                 </h3>
                 <div class="preview-card">
                     <div class="preview-image">
-                        <svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z" />
+                        </svg>
                     </div>
                     <div class="preview-content">
                         <h4 class="preview-name">At Adı</h4>
@@ -1224,7 +1273,10 @@
             <!-- Credits Section -->
             <div class="sidebar-card">
                 <h3 class="sidebar-title">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 6v6l4 2" />
+                    </svg>
                     Kredilerim
                 </h3>
                 <div class="credits-info">
@@ -1234,11 +1286,14 @@
                     </div>
                     <p class="credits-note">İlan yayınlamak için krediniz bulunmuyor.</p>
                     <a href="#" class="btn btn-gold" style="width: 100%; text-align: center; margin-top: 12px;">
-                        <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; margin-right: 8px;"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                        <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; margin-right: 8px;">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
+                        </svg>
                         Kredi Satın Al
                     </a>
                 </div>
-                <div class="package-info" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--light-gray);">
+                <div class="package-info"
+                    style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--light-gray);">
                     <p style="font-size: 13px; color: var(--warm-gray); margin-bottom: 8px;">Kredi Paketleri:</p>
                     <div style="font-size: 12px; color: var(--charcoal);">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
@@ -1260,20 +1315,29 @@
             <!-- Tips Card -->
             <div class="sidebar-card">
                 <h3 class="sidebar-title">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 16v-4M12 8h.01" />
+                    </svg>
                     İpuçları
                 </h3>
                 <div class="tips-list">
                     <div class="tip-item">
-                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
                         <span>Kaliteli ve net fotoğraflar ilanınızın görüntülenme oranını %70 artırır</span>
                     </div>
                     <div class="tip-item">
-                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
                         <span>Detaylı açıklama yazan satıcılar %50 daha fazla mesaj alır</span>
                     </div>
                     <div class="tip-item">
-                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
                         <span>Soy ağacı bilgilerini eksiksiz doldurun</span>
                     </div>
                 </div>
@@ -1373,9 +1437,9 @@
                     <div style="position: relative;">
                         <div style="height: 250px; background: linear-gradient(135deg, #e8e6e1 0%, #d4d2cd 100%); display: flex; align-items: center; justify-content: center; border-radius: 20px 20px 0 0;">
                             ${uploadedImages.length > 0
-                                ? `<img src="${api.baseUrl.replace('/api', '')}${uploadedImages[0].url}" style="width:100%;height:100%;object-fit:cover;border-radius:20px 20px 0 0;">`
-                                : `<svg viewBox="0 0 24 24" style="width:64px;height:64px;fill:rgba(0,0,0,0.1);"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>`
-                            }
+                    ? `<img src="${api.baseUrl.replace('/api', '')}${uploadedImages[0].url}" style="width:100%;height:100%;object-fit:cover;border-radius:20px 20px 0 0;">`
+                    : `<svg viewBox="0 0 24 24" style="width:64px;height:64px;fill:rgba(0,0,0,0.1);"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>`
+                }
                         </div>
                         <button onclick="document.getElementById('previewModal').remove()" style="position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,0.5);border:none;cursor:pointer;color:white;font-size:20px;">&times;</button>
                     </div>
@@ -1404,7 +1468,7 @@
         // Drag and drop upload
         const uploadArea = document.getElementById('uploadArea');
         const fileInput = document.getElementById('fileInput');
-        
+
         uploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadArea.classList.add('dragover');
@@ -1521,10 +1585,10 @@
     <script src="js/api.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/horses.js"></script>
-    
+
     <script>
         // Sayfa yüklendiğinde giriş kontrolü
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Giriş yapılmamışsa login sayfasına yönlendir
             if (typeof api !== 'undefined' && !api.isLoggedIn()) {
                 showToast('İlan vermek için giriş yapmalısınız', 'error');
@@ -1536,7 +1600,104 @@
 
             // Header auth güncelle
             updateHeaderAuth();
+
+            // Taslak yükle
+            loadDraft();
+
+            // Taslak kaydet butonu
+            const draftBtn = document.getElementById('btn-draft');
+            if (draftBtn) draftBtn.addEventListener('click', saveDraft);
+
+            // Otomatik taslak kaydetme (30 saniyede bir)
+            setInterval(autoSaveDraft, 30000);
         });
+
+        // ----- TASLAK FONKSİYONLARI -----
+        const DRAFT_KEY = 'equimarket_draft_listing';
+
+        function collectFormData() {
+            return {
+                name: document.getElementById('horse-name')?.value || '',
+                tjk: document.getElementById('horse-tjk')?.value || '',
+                breed: document.getElementById('horse-breed')?.value || '',
+                birthDate: document.getElementById('horse-birthdate')?.value || '',
+                gender: document.getElementById('horse-gender')?.value || '',
+                color: document.getElementById('horse-color')?.value || '',
+                height: document.getElementById('horse-height')?.value || '',
+                weight: document.getElementById('horse-weight')?.value || '',
+                description: document.getElementById('horse-description')?.value || '',
+                price: document.getElementById('horse-price')?.value || '',
+                city: document.getElementById('horse-city')?.value || '',
+                pedigree: {
+                    sire: document.getElementById('pedigree-sire')?.value || '',
+                    dam: document.getElementById('pedigree-dam')?.value || '',
+                    sireOfSire: document.getElementById('pedigree-sire-sire')?.value || '',
+                    damOfSire: document.getElementById('pedigree-sire-dam')?.value || '',
+                    sireOfDam: document.getElementById('pedigree-dam-sire')?.value || '',
+                    damOfDam: document.getElementById('pedigree-dam-dam')?.value || '',
+                },
+                savedAt: new Date().toISOString()
+            };
+        }
+
+        function saveDraft() {
+            const data = collectFormData();
+            localStorage.setItem(DRAFT_KEY, JSON.stringify(data));
+            showDraftStatus();
+            showToast('Taslak kaydedildi');
+        }
+
+        function autoSaveDraft() {
+            const data = collectFormData();
+            // Sadece en az bir alan dolduysa otomatik kaydet
+            if (data.name || data.breed || data.description) {
+                localStorage.setItem(DRAFT_KEY, JSON.stringify(data));
+                showDraftStatus();
+            }
+        }
+
+        function showDraftStatus() {
+            const status = document.querySelector('.draft-status');
+            if (status) {
+                status.style.opacity = '1';
+                setTimeout(() => { status.style.opacity = '0.6'; }, 2000);
+            }
+        }
+
+        function loadDraft() {
+            const raw = localStorage.getItem(DRAFT_KEY);
+            if (!raw) return;
+            try {
+                const d = JSON.parse(raw);
+                if (d.name) document.getElementById('horse-name').value = d.name;
+                if (d.tjk) document.getElementById('horse-tjk').value = d.tjk;
+                if (d.breed) document.getElementById('horse-breed').value = d.breed;
+                if (d.birthDate) document.getElementById('horse-birthdate').value = d.birthDate;
+                if (d.gender) document.getElementById('horse-gender').value = d.gender;
+                if (d.color) document.getElementById('horse-color').value = d.color;
+                if (d.height) document.getElementById('horse-height').value = d.height;
+                if (d.weight) document.getElementById('horse-weight').value = d.weight;
+                if (d.description) document.getElementById('horse-description').value = d.description;
+                if (d.price) document.getElementById('horse-price').value = d.price;
+                if (d.city) document.getElementById('horse-city').value = d.city;
+                if (d.pedigree) {
+                    if (d.pedigree.sire) document.getElementById('pedigree-sire').value = d.pedigree.sire;
+                    if (d.pedigree.dam) document.getElementById('pedigree-dam').value = d.pedigree.dam;
+                    if (d.pedigree.sireOfSire) document.getElementById('pedigree-sire-sire').value = d.pedigree.sireOfSire;
+                    if (d.pedigree.damOfSire) document.getElementById('pedigree-sire-dam').value = d.pedigree.damOfSire;
+                    if (d.pedigree.sireOfDam) document.getElementById('pedigree-dam-sire').value = d.pedigree.sireOfDam;
+                    if (d.pedigree.damOfDam) document.getElementById('pedigree-dam-dam').value = d.pedigree.damOfDam;
+                }
+                updatePreview();
+                showToast('Kaydedilmiş taslak yüklendi', 'success');
+            } catch (e) {
+                console.error('Draft load error:', e);
+            }
+        }
+
+        function clearDraft() {
+            localStorage.removeItem(DRAFT_KEY);
+        }
 
         // Header'daki auth butonlarını güncelle
         function updateHeaderAuth() {
@@ -1571,7 +1732,7 @@
         }
 
         // İlan Yayınla butonu
-        document.getElementById('btn-publish').addEventListener('click', async function() {
+        document.getElementById('btn-publish').addEventListener('click', async function () {
             const btn = this;
             const originalHTML = btn.innerHTML;
 
@@ -1640,6 +1801,7 @@
                     const result = await HorseService.createHorse(horseData);
 
                     if (result.success) {
+                        clearDraft();
                         showToast('İlan başarıyla yayınlandı!');
                         setTimeout(() => {
                             window.location.href = 'dashboard.html';
@@ -1706,4 +1868,5 @@
         document.head.appendChild(style);
     </script>
 </body>
+
 </html>

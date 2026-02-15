@@ -1700,7 +1700,7 @@
     <script src="js/messages.js"></script>
     <script>
         // === DEBUG: Script başladı ===
-                                        
+
         // Global değişkenler
         let horseId = null;
         let currentHorse = null;
@@ -1711,7 +1711,7 @@
                 if (window.StorageHelper) return window.StorageHelper.getItem(key);
                 return localStorage.getItem(key);
             } catch (e) {
-                                return null;
+                return null;
             }
         }
 
@@ -1720,7 +1720,7 @@
                 if (window.StorageHelper) return window.StorageHelper.setItem(key, value);
                 localStorage.setItem(key, value);
             } catch (e) {
-                            }
+            }
         }
 
         function safeRemoveItem(key) {
@@ -1728,21 +1728,21 @@
                 if (window.StorageHelper) return window.StorageHelper.removeItem(key);
                 localStorage.removeItem(key);
             } catch (e) {
-                            }
+            }
         }
 
         // URL'den ilan ID'sini al
         function getHorseId() {
             console.log('🔍 getHorseId() çağrıldı');
-                                                
+
             // Query string'den
             const urlParams = new URLSearchParams(window.location.search);
             let id = urlParams.get('id');
-            
+
             // Hash'ten
             if (!id && window.location.hash) {
                 const hash = window.location.hash.substring(1);
-                                if (hash.startsWith('id=')) {
+                if (hash.startsWith('id=')) {
                     id = hash.substring(3);
                 } else if (/^[a-f0-9]{24}$/i.test(hash)) {
                     id = hash;
@@ -1752,33 +1752,33 @@
             // Path'ten (örn: /horse_detail/123 veya /horse_detail.html/123)
             if (!id) {
                 const pathMatch = window.location.pathname.match(/horse_detail(?:\.html)?[\/]?([a-f0-9]{24})?/i);
-                                if (pathMatch && pathMatch[1]) {
+                if (pathMatch && pathMatch[1]) {
                     id = pathMatch[1];
                 }
             }
 
-                        return id;
+            return id;
         }
 
         // Sayfa yüklenirken
         document.addEventListener('DOMContentLoaded', async function () {
-            
+
             let isCompleted = false; // Race condition önleme flag'i
 
             // Maksimum loading süresi - 35 saniye (API timeout 30s'den büyük olmalı)
             const loadingTimeout = setTimeout(() => {
                 if (!isCompleted) {
-                                        hideLoading();
+                    hideLoading();
                     showError('Sayfa yüklenemedi. Lütfen sayfayı yenileyin.');
                 }
             }, 35000);
 
             try {
                 horseId = getHorseId();
-                
+
                 // ID kontrolü
                 if (!horseId) {
-                                        hideLoading();
+                    hideLoading();
                     showError('Geçersiz ilan bağlantısı. Lütfen geçerli bir ilan seçin.');
                     return;
                 }
@@ -1790,8 +1790,8 @@
                 console.log('📡 loadHorseDetail() çağrılıyor...');
                 await loadHorseDetail();
 
-                            } catch (error) {
-                                showError('Sayfa yüklenirken bir hata oluştu');
+            } catch (error) {
+                showError('Sayfa yüklenirken bir hata oluştu');
             } finally {
                 isCompleted = true;
                 clearTimeout(loadingTimeout);
@@ -1804,8 +1804,8 @@
             const loadingOverlay = document.getElementById('pageLoading');
             if (loadingOverlay) {
                 loadingOverlay.style.display = 'none';
-                            } else {
-                            }
+            } else {
+            }
             const container = document.querySelector('.container');
             if (container) {
                 container.style.opacity = '1';
@@ -1836,7 +1836,7 @@
                         <a href="javascript:void(0)" onclick="logout(); return false;" class="btn btn-outline">Çıkış</a>
                     `;
                 } catch (e) {
-                                    }
+                }
             }
         }
 
@@ -1849,10 +1849,10 @@
         // İlan detayını yükle
         async function loadHorseDetail() {
             try {
-                
+
                 // HorseService kullan
                 const result = await HorseService.getHorse(horseId);
-                
+
                 if (result && result.success && result.data) {
                     currentHorse = result.data;
                     updatePageWithHorseData(currentHorse);
@@ -1861,7 +1861,7 @@
                     showError(errorMsg);
                 }
             } catch (error) {
-                                showError('İlan yüklenirken bir hata oluştu');
+                showError('İlan yüklenirken bir hata oluştu');
             } finally {
                 // Loader her durumda kapatılmalı
                 hideLoading();
@@ -1886,7 +1886,7 @@
 
         // Sayfa içeriğini güncelle
         function updatePageWithHorseData(horse) {
-            
+
             // Sayfa başlığı
             document.title = `${horse.name} - EquiMarket`;
 
@@ -1974,6 +1974,41 @@
 
             // Benzer ilanları yükle
             loadSimilarHorses(horse);
+
+            // Sahiplik kontrolü - İlanı Düzenle butonu ekle
+            try {
+                const userData = safeGetItem('equimarket_user');
+                const token = safeGetItem('equimarket_token');
+                if (userData && token) {
+                    const currentUser = JSON.parse(userData);
+                    const sellerId = String(horse.seller?._id || horse.seller || '');
+                    const userId = String(currentUser._id || currentUser.id || '');
+                    const isOwner = sellerId === userId;
+                    const isAdmin = currentUser.role === 'admin';
+
+                    if (isOwner || isAdmin) {
+                        const priceCta = document.querySelector('.price-cta');
+                        if (priceCta) {
+                            // Düzenle butonunu ekle
+                            const editBtn = document.createElement('a');
+                            editBtn.href = 'edit_listing.html#id=' + (horse._id || horse.id || horseId);
+                            editBtn.className = 'btn btn-outline';
+                            editBtn.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:8px;width:100%;';
+                            editBtn.innerHTML = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> İlanı Düzenle';
+                            priceCta.insertBefore(editBtn, priceCta.firstChild);
+                        }
+                        if (isOwner) {
+                            // Kendi ilanına mesaj/teklif gönderemez
+                            const msgBtn = document.getElementById('btn-message');
+                            const offerBtn = document.getElementById('btn-offer');
+                            if (msgBtn) msgBtn.style.display = 'none';
+                            if (offerBtn) offerBtn.style.display = 'none';
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error('Owner check error:', e);
+            }
         }
 
         // Fotoğraf galerisini güncelle
@@ -2265,7 +2300,7 @@
                         <a href="horse_detail.html#id=${hId}" class="similar-card" style="text-decoration:none;color:inherit;">
                             <div class="similar-card-image" style="${img ? '' : ''}">
                                 ${img ? `<img src="${img}" alt="${h.name}" style="width:100%;height:100%;object-fit:cover;">` :
-                                `<svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>`}
+                            `<svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>`}
                             </div>
                             <div class="similar-card-content">
                                 <h3 class="similar-card-name">${h.name}</h3>
@@ -2283,7 +2318,7 @@
                     `;
                 }).join('');
             } catch (e) {
-                            }
+            }
         }
 
         // Satıcı bilgilerini güncelle
@@ -2383,7 +2418,7 @@
                     if (sellerListingsEl) sellerListingsEl.textContent = result.total || result.count || 0;
                 }
             } catch (e) {
-                            }
+            }
         }
 
         // Satıcıya mesaj gönder
@@ -2501,7 +2536,7 @@
                     showToast('Backend bağlantısı kurulamadı', 'error');
                 }
             } catch (error) {
-                                showToast('Teklif gönderilemedi', 'error');
+                showToast('Teklif gönderilemedi', 'error');
             } finally {
                 // Butonu eski haline getir
                 if (offerBtn) {

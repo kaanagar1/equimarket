@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Türkiye'nin en güvenilir at alım satım platformu. Safkan yarış atları, doğrulanmış satıcılar.">
+    <meta name="description"
+        content="Türkiye'nin en güvenilir at alım satım platformu. Safkan yarış atları, doğrulanmış satıcılar.">
     <meta name="keywords" content="at satışı, yarış atı, safkan at, at ilanları, equimarket, türkiye at pazarı">
     <meta name="robots" content="index, follow">
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="EquiMarket - Türkiye'nin Yarış Atı Pazaryeri">
-    <meta property="og:description" content="Türkiye'nin en güvenilir at alım satım platformu. Safkan yarış atları, doğrulanmış satıcılar.">
+    <meta property="og:description"
+        content="Türkiye'nin en güvenilir at alım satım platformu. Safkan yarış atları, doğrulanmış satıcılar.">
     <meta property="og:url" content="https://equimarket.com.tr/">
     <meta property="og:site_name" content="EquiMarket">
     <meta property="og:locale" content="tr_TR">
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="EquiMarket - Türkiye'nin Yarış Atı Pazaryeri">
-    <meta name="twitter:description" content="Türkiye'nin en güvenilir at alım satım platformu. Safkan yarış atları, doğrulanmış satıcılar.">
+    <meta name="twitter:description"
+        content="Türkiye'nin en güvenilir at alım satım platformu. Safkan yarış atları, doğrulanmış satıcılar.">
     <link rel="canonical" href="https://equimarket.com.tr/">
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json">
@@ -29,7 +33,9 @@
     <title>EquiMarket - Türkiye'nin Yarış Atı Pazaryeri</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --racing-green: #1a3d2e;
@@ -65,7 +71,10 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4 {
+        h1,
+        h2,
+        h3,
+        h4 {
             font-family: 'Playfair Display', serif;
             font-weight: 600;
             line-height: 1.2;
@@ -77,7 +86,7 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .icon svg {
             width: 1em;
             height: 1em;
@@ -86,28 +95,66 @@
 
         /* Animations */
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
         }
 
         .animate-fade-in-up {
             animation: fadeInUp 0.8s ease-out forwards;
         }
 
-        .animate-delay-1 { animation-delay: 0.1s; opacity: 0; }
-        .animate-delay-2 { animation-delay: 0.2s; opacity: 0; }
-        .animate-delay-3 { animation-delay: 0.3s; opacity: 0; }
-        .animate-delay-4 { animation-delay: 0.4s; opacity: 0; }
+        .animate-delay-1 {
+            animation-delay: 0.1s;
+            opacity: 0;
+        }
+
+        .animate-delay-2 {
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        .animate-delay-3 {
+            animation-delay: 0.3s;
+            opacity: 0;
+        }
+
+        .animate-delay-4 {
+            animation-delay: 0.4s;
+            opacity: 0;
+        }
 
         /* Header */
         header {
@@ -168,7 +215,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: 0.5s;
         }
 
@@ -863,7 +910,7 @@
             left: 0;
             right: 0;
             height: 60px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.1));
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.1));
         }
 
         .horse-card-badges {
@@ -1074,7 +1121,7 @@
         .how-it-works .section-title {
             color: var(--white);
             font-size: 42px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .how-it-works .section-description {
@@ -1164,13 +1211,18 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
             animation: rotate 30s linear infinite;
         }
 
         @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .cta-content {
@@ -1362,9 +1414,10 @@
             grid-template-columns: 1fr 1fr;
             gap: 16px;
         }
+
         .hero-mini-card {
-            background: rgba(255,255,255,0.10);
-            border: 1px solid rgba(255,255,255,0.18);
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             border-radius: 14px;
             padding: 0;
             overflow: hidden;
@@ -1375,25 +1428,32 @@
             display: block;
             aspect-ratio: 1;
         }
+
         .hero-mini-card:hover {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             transform: translateY(-6px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
         }
+
         .hero-mini-card-img {
             height: 65%;
-            background: rgba(255,255,255,0.06);
+            background: rgba(255, 255, 255, 0.06);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
         }
+
         .hero-mini-card-img img {
-            width: 100%; height: 100%; object-fit: cover;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
+
         .hero-mini-card-body {
             padding: 10px 12px;
         }
+
         .hero-mini-card-name {
             font-family: 'Playfair Display', serif;
             font-size: 14px;
@@ -1403,6 +1463,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
         .hero-mini-card-price {
             font-size: 13px;
             color: var(--gold-light);
@@ -1411,35 +1472,113 @@
 
         /* Responsive */
         @media (max-width: 1200px) {
-            .hero-content { grid-template-columns: 1fr; text-align: center; }
-            .hero-description { margin: 0 auto 32px; }
-            .hero-cta { justify-content: center; }
-            .hero-featured-cards { max-width: 400px; margin: 0 auto; }
-            .horse-grid { grid-template-columns: repeat(2, 1fr); }
-            .steps-grid { grid-template-columns: repeat(2, 1fr); }
-            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-description {
+                margin: 0 auto 32px;
+            }
+
+            .hero-cta {
+                justify-content: center;
+            }
+
+            .hero-featured-cards {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .horse-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
-            .header-inner { padding: 15px 20px; }
-            nav { display: none; }
-            .hero { padding-top: 70px; }
-            .hero h1 { font-size: 32px; }
-            .hero-cta { flex-direction: column; align-items: center; }
-            .hero-featured-cards { grid-template-columns: 1fr 1fr; max-width: 320px; }
-            .search-box { flex-direction: column; border-radius: 12px; }
-            .search-divider { width: 100%; height: 1px; }
-            .search-btn { width: 100%; justify-content: center; }
-            .trust-container { grid-template-columns: repeat(2, 1fr); }
-            .section { padding: 60px 20px; }
-            .section-title { font-size: 32px; }
-            .horse-grid { grid-template-columns: 1fr; }
-            .steps-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
-            .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+            .header-inner {
+                padding: 15px 20px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 70px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-featured-cards {
+                grid-template-columns: 1fr 1fr;
+                max-width: 320px;
+            }
+
+            .search-box {
+                flex-direction: column;
+                border-radius: 12px;
+            }
+
+            .search-divider {
+                width: 100%;
+                height: 1px;
+            }
+
+            .search-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .trust-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .horse-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header id="header">
@@ -1447,7 +1586,8 @@
             <a href="homepage_v2.html" class="logo">
                 <div class="logo-icon">
                     <svg viewBox="0 0 24 24">
-                        <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7"/>
+                        <path
+                            d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7" />
                     </svg>
                 </div>
                 <div class="logo-text">Equi<span>Market</span></div>
@@ -1483,11 +1623,14 @@
                     Şampiyonunuzu<br><span class="highlight">Keşfedin</span>
                 </h1>
                 <p class="hero-description animate-fade-in-up animate-delay-2">
-                    Türkiye'nin en prestijli ekürilerinden, en başarılı yetiştiricilerinden safkan yarış atlarına ulaşın.
+                    Türkiye'nin en prestijli ekürilerinden, en başarılı yetiştiricilerinden safkan yarış atlarına
+                    ulaşın.
                 </p>
                 <div class="hero-cta animate-fade-in-up animate-delay-3">
                     <a href="ilanlar.html" class="btn btn-gold">Atları İncele</a>
-                    <a href="about.html" class="btn btn-secondary" style="border-color: rgba(255,255,255,0.5); color: #ffffff; background: transparent;">Nasıl Çalışır</a>
+                    <a href="about.html" class="btn btn-secondary"
+                        style="border-color: rgba(255,255,255,0.5); color: #ffffff; background: transparent;">Nasıl
+                        Çalışır</a>
                 </div>
             </div>
             <!-- Sağ: 2x2 Öne çıkan at kartları -->
@@ -1525,11 +1668,13 @@
                     cursor: pointer;
                     transition: all 0.3s ease;
                 }
+
                 .category-filter:hover {
                     background: var(--white);
                     border-color: var(--racing-green);
                     color: var(--racing-green);
                 }
+
                 .category-filter.active {
                     background: var(--racing-green);
                     color: var(--white);
@@ -1549,7 +1694,8 @@
     <section class="cta-section">
         <div class="cta-content" id="ctaContent">
             <h2 class="cta-title">Atınızı Satmak İster misiniz?</h2>
-            <p class="cta-description">Türkiye'nin en büyük yarış atı topluluğuna katılın. Binlerce potansiyel alıcıya ulaşın, güvenli ve kolay satış yapın.</p>
+            <p class="cta-description">Türkiye'nin en büyük yarış atı topluluğuna katılın. Binlerce potansiyel alıcıya
+                ulaşın, güvenli ve kolay satış yapın.</p>
             <div class="cta-buttons">
                 <a href="login_register.html" class="btn btn-primary">Satıcı Olarak Kayıt Ol</a>
                 <a href="pricing.html" class="btn btn-secondary">Fiyatları Gör</a>
@@ -1565,24 +1711,40 @@
                     <div class="footer-logo">
                         <div class="footer-logo-icon">
                             <svg viewBox="0 0 24 24">
-                                <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7"/>
+                                <path
+                                    d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7" />
                             </svg>
                         </div>
                         <div class="footer-logo-text">Equi<span>Market</span></div>
                     </div>
-                    <p class="footer-description">Türkiye'nin en yenilikçi yarış atı pazaryeri. Güvenilir altyapı, geniş ağ ve profesyonel hizmet garantisi.</p>
+                    <p class="footer-description">Türkiye'nin en yenilikçi yarış atı pazaryeri. Güvenilir altyapı, geniş
+                        ağ ve profesyonel hizmet garantisi.</p>
                     <div class="footer-social">
                         <a href="#" class="social-link">
-                            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg>
                         </a>
                         <a href="#" class="social-link">
-                            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
+                                <circle cx="4" cy="4" r="2" />
+                            </svg>
                         </a>
                         <a href="#" class="social-link">
-                            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/></svg>
+                            <svg viewBox="0 0 24 24">
+                                <rect x="2" y="2" width="20" height="20" rx="5" />
+                                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01" />
+                            </svg>
                         </a>
                         <a href="#" class="social-link">
-                            <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.33z"/><path d="M9.75 15.02l5.75-3.27-5.75-3.27v6.54z"/></svg>
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.33z" />
+                                <path d="M9.75 15.02l5.75-3.27-5.75-3.27v6.54z" />
+                            </svg>
                         </a>
                     </div>
                 </div>
@@ -1661,13 +1823,13 @@
             observer.observe(el);
         });
     </script>
-    
+
     <!-- API Scripts -->
     <script src="js/api.js"></script>
     <script src="js/horses.js"></script>
     <script>
         // Sayfa yüklendiğinde
-        document.addEventListener('DOMContentLoaded', async function() {
+        document.addEventListener('DOMContentLoaded', async function () {
             // Auth kontrolü
             updateHeaderAuth();
             updateCtaSection();
@@ -1725,7 +1887,7 @@
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
                         Yeni İlan Oluştur
                     </a>
-                    <a href="dashboard.html" class="btn btn-secondary">Panelime Git</a>
+                    <a href="dashboard.html" class="btn btn-secondary">Profile Git</a>
                 </div>
             `;
         }
@@ -1781,19 +1943,27 @@
             const container = document.getElementById('heroFeaturedCards');
             if (!container || !horses.length) return;
 
+            const loggedIn = isLoggedIn();
+            const genderNames = { erkek: 'Erkek', disi: 'Dişi', igdis: 'İğdiş' };
+
             container.innerHTML = horses.slice(0, 4).map(horse => {
                 const horseId = horse._id || horse.id;
                 const img = horse.images?.[0]?.url || horse.images?.[0] || '';
                 const price = new Intl.NumberFormat('tr-TR').format(horse.price || 0);
+                const age = horse.age || (horse.birthDate ? new Date().getFullYear() - new Date(horse.birthDate).getFullYear() : null);
+                const gender = genderNames[horse.gender] || horse.gender || '';
+                const metaParts = [age ? age + ' Yaş' : null, gender].filter(Boolean);
+
                 return `
                     <a href="horse_detail.html#id=${horseId}" class="hero-mini-card">
                         <div class="hero-mini-card-img">
                             ${img ? `<img src="${img}" alt="${horse.name}">` :
-                            `<svg viewBox="0 0 24 24" style="width:36px;height:36px;fill:rgba(255,255,255,0.2);"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>`}
+                        `<svg viewBox="0 0 24 24" style="width:36px;height:36px;fill:rgba(255,255,255,0.2);"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/></svg>`}
                         </div>
                         <div class="hero-mini-card-body">
                             <div class="hero-mini-card-name">${horse.name || 'İlan'}</div>
-                            <div class="hero-mini-card-price">₺${price}</div>
+                            ${loggedIn && metaParts.length ? `<div class="hero-mini-card-meta" style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px;">${metaParts.join(' · ')}</div>` : ''}
+                            <div class="hero-mini-card-price">${loggedIn ? '₺' + price : '<span style="font-size:11px;opacity:0.7;">Detay için giriş yapın</span>'}</div>
                         </div>
                     </a>
                 `;
@@ -1845,9 +2015,9 @@
         }
 
         // Kategori filtreleri
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.category-filter').forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function () {
                     // Aktif durumu değiştir
                     document.querySelectorAll('.category-filter').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
@@ -1867,7 +2037,7 @@
             const colorName = { doru: 'Doru', kir: 'Kır', yagiz: 'Yağız', al: 'Al', diger: 'Diğer' }[horse.color] || horse.color;
             const breedName = { ingiliz: 'İngiliz', arap: 'Arap' }[horse.breed] || horse.breed;
             const price = new Intl.NumberFormat('tr-TR').format(horse.price);
-            
+
             // İlan detayları herkese açık
             const horseId = horse._id || horse.id;
             const cardLink = horseId ? `horse_detail.html#id=${horseId}` : '#';
@@ -1875,10 +2045,10 @@
             return `
                 <a href="${cardLink}" class="horse-card" style="text-decoration: none; color: inherit; display: block;">
                     <div class="horse-card-image">
-                        ${horse.images && horse.images[0] ? 
-                            `<img src="${horse.images[0].url || horse.images[0]}" style="width:100%;height:100%;object-fit:cover;">` :
-                            `<div class="placeholder-icon"><svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7"/></svg></div>`
-                        }
+                        ${horse.images && horse.images[0] ?
+                    `<img src="${horse.images[0].url || horse.images[0]}" style="width:100%;height:100%;object-fit:cover;">` :
+                    `<div class="placeholder-icon"><svg viewBox="0 0 24 24"><path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7"/></svg></div>`
+                }
                         <div class="horse-card-badges">
                             ${horse.seller?.sellerInfo?.isVerifiedSeller ? `
                                 <span class="badge badge-verified">
@@ -1901,11 +2071,13 @@
                                 <span class="horse-card-breed">${breedName || ''}</span>
                             </div>
                         </div>
+                        ${loggedIn ? `
                         <div class="horse-card-meta">
                             <span class="horse-meta-item">${age} Yaş</span>
                             <span class="horse-meta-item">${genderName || '-'}</span>
                             <span class="horse-meta-item">${colorName || '-'}</span>
                         </div>
+                        ` : ''}
                         <div class="horse-card-footer">
                             <span class="horse-card-price ${loggedIn ? '' : 'login-required'}">
                                 ${loggedIn ? '₺' + price : 'Detaylar için giriş yapın →'}
@@ -1989,11 +2161,12 @@
             setTimeout(() => toast.remove(), 3000);
         }
     </script>
-    
+
 
     <!-- PWA Support -->
     <script src="js/pwa.js"></script>
     <!-- Cookie Consent -->
     <script src="js/cookie-consent.js"></script>
 </body>
+
 </html>

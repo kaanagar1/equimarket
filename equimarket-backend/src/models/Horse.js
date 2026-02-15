@@ -147,6 +147,11 @@ const HorseSchema = new mongoose.Schema({
     expiresAt: {
         type: Date
     },
+    listingDuration: {
+        type: Number,
+        default: 30,
+        enum: [30, 60, 90, 0] // 0 = sınırsız
+    },
 
     // İstatistikler
     stats: {
