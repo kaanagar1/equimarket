@@ -12,7 +12,7 @@ class HorseService {
      * Filter objesi oluştur (query params'dan)
      */
     static buildFilters(query) {
-        const { breed, gender, color, city, minPrice, maxPrice, minAge, maxAge, search, featured, seller, status } = query;
+        const { breed, gender, color, city, minPrice, maxPrice, minAge, maxAge, age, search, featured, seller, status } = query;
 
         let filter = {};
 
@@ -36,16 +36,29 @@ class HorseService {
             if (maxPrice) filter.price.$lte = Number(maxPrice);
         }
 
-        // Yaş aralığı
-        if (minAge || maxAge) {
+        // Yaş filtresi
+        if (age !== undefined && age !== '') {
+            const ageNum = Number(age);
+            if (ageNum >= 6) {
+                filter.age = { $gte: 6 };
+            } else {
+                filter.age = ageNum;
+            }
+        } else if (minAge || maxAge) {
             filter.age = {};
             if (minAge) filter.age.$gte = Number(minAge);
             if (maxAge) filter.age.$lte = Number(maxAge);
         }
 
-        // Metin araması
+        // Metin araması (regex ile - Türkçe karakter ve kısa kelimelerde daha güvenilir)
         if (search) {
-            filter.$text = { $search: search };
+            const escapedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            filter.$or = [
+                { name: { $regex: escapedSearch, $options: 'i' } },
+                { description: { $regex: escapedSearch, $options: 'i' } },
+                { breed: { $regex: escapedSearch, $options: 'i' } },
+                { 'location.city': { $regex: escapedSearch, $options: 'i' } }
+            ];
         }
 
         // Öne çıkan
