@@ -959,6 +959,14 @@
                                 <span>Teklifler</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="saved_searches.html" class="nav-link">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z" />
+                                </svg>
+                                <span>Kayıtlı Aramalar</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
@@ -1115,6 +1123,21 @@
                         </div>
                     </div>
 
+                    <!-- Saved Searches -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Kayıtlı Aramalar</h3>
+                            <a href="saved_searches.html" class="card-link">Tümünü Gör →</a>
+                        </div>
+                        <div id="buyerSavedSearches">
+                            <div class="empty-state">
+                                <h4>Henüz kayıtlı arama yok</h4>
+                                <p>İlanlar sayfasında filtreleri uygulayıp aramanızı kaydedin</p>
+                                <a href="ilanlar.html" class="btn btn-primary">Atları Keşfet</a>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Recommended -->
                     <div class="card">
                         <div class="card-header">
@@ -1230,6 +1253,7 @@
             loadUnreadMessages();
             loadDashboardStats();
             loadNotifications();
+            loadSavedSearches();
 
             // Panel dışına tıklanınca kapat
             document.addEventListener('click', function (e) {
@@ -1542,6 +1566,81 @@
                     ` : ''}
                 </div>
             `;
+        }
+
+        // Kayıtlı aramaları yükle
+        function loadSavedSearches() {
+            const SAVED_SEARCHES_KEY = 'equimarket_saved_searches';
+            let searches = [];
+            try {
+                searches = JSON.parse(localStorage.getItem(SAVED_SEARCHES_KEY)) || [];
+            } catch (e) { searches = []; }
+
+            // Stat kartını güncelle
+            const statCards = document.querySelectorAll('#buyerContent .stat-card');
+            if (statCards[3]) {
+                statCards[3].querySelector('.stat-value').textContent = searches.length;
+            }
+
+            // Kayıtlı aramalar listesini güncelle
+            const container = document.getElementById('buyerSavedSearches');
+            if (!container) return;
+
+            if (searches.length === 0) return; // Empty state zaten HTML'de var
+
+            const filterLabels = {
+                breed: { ingiliz: 'İngiliz', arap: 'Arap', turk: 'Türk Atı' },
+                gender: { erkek: 'Erkek', disi: 'Dişi', igdis: 'İğdiş' },
+                color: { doru: 'Doru', kir: 'Kır', yagiz: 'Yağız', al: 'Al' }
+            };
+
+            container.innerHTML = searches.slice(0, 5).map(s => {
+                // Filtre özetini oluştur
+                const parts = [];
+                if (s.filters.breed) parts.push(filterLabels.breed[s.filters.breed] || s.filters.breed);
+                if (s.filters.gender) parts.push(s.filters.gender.split(',').map(g => filterLabels.gender[g] || g).join(', '));
+                if (s.filters.city) parts.push(s.filters.city);
+                if (s.filters.minPrice || s.filters.maxPrice) parts.push('₺' + (s.filters.minPrice || '0') + ' - ₺' + (s.filters.maxPrice || '∞'));
+                if (s.filters.search) parts.push('"' + s.filters.search + '"');
+                const summary = parts.join(' · ') || 'Genel arama';
+                const savedDate = new Date(s.savedAt).toLocaleDateString('tr-TR');
+
+                return `
+                    <div class="horse-list-item-wrapper" style="display:flex;align-items:center;gap:8px;">
+                        <a href="ilanlar.html?${buildSearchQueryString(s.filters)}" class="horse-list-item" style="flex:1;">
+                            <div class="horse-list-image" style="background:var(--racing-green-light);">
+                                <svg viewBox="0 0 24 24" style="width:20px;height:20px;"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+                            </div>
+                            <div class="horse-list-info">
+                                <div class="horse-list-name">${s.name}</div>
+                                <div class="horse-list-meta">${summary}</div>
+                            </div>
+                            <span class="horse-list-price" style="font-size:12px;color:var(--warm-gray);">${savedDate}</span>
+                        </a>
+                        <button onclick="deleteSavedSearchFromDashboard(${s.id})" class="edit-btn" title="Sil" style="width:36px;height:36px;border-radius:8px;background:var(--light-gray);display:flex;align-items:center;justify-content:center;color:var(--warm-gray);border:none;cursor:pointer;transition:all 0.2s;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function buildSearchQueryString(filters) {
+            const params = new URLSearchParams();
+            Object.entries(filters).forEach(([key, value]) => {
+                if (value) params.set(key, value);
+            });
+            return params.toString();
+        }
+
+        function deleteSavedSearchFromDashboard(searchId) {
+            const SAVED_SEARCHES_KEY = 'equimarket_saved_searches';
+            try {
+                let searches = JSON.parse(localStorage.getItem(SAVED_SEARCHES_KEY)) || [];
+                searches = searches.filter(s => s.id !== searchId);
+                localStorage.setItem(SAVED_SEARCHES_KEY, JSON.stringify(searches));
+                loadSavedSearches();
+            } catch (e) {}
         }
 
         function logout() {

@@ -1464,8 +1464,53 @@
             // Auth kontrolü
             updateHeaderAuth();
 
-            // İlanları yükle
-            await loadHorses();
+            // URL'den filtre parametrelerini oku ve uygula
+            const urlParams = new URLSearchParams(window.location.search);
+            let hasUrlFilters = false;
+
+            const paramMap = {
+                search: 'filter-search',
+                breed: 'filter-breed',
+                age: 'filter-age',
+                city: 'filter-city',
+                minPrice: 'filter-price-min',
+                maxPrice: 'filter-price-max'
+            };
+
+            for (const [param, elementId] of Object.entries(paramMap)) {
+                const value = urlParams.get(param);
+                if (value) {
+                    const el = document.getElementById(elementId);
+                    if (el) { el.value = value; hasUrlFilters = true; }
+                    if (param === 'search') {
+                        const mainSearch = document.getElementById('main-search');
+                        if (mainSearch) mainSearch.value = value;
+                    }
+                }
+            }
+
+            // Checkbox filtreler (gender, color)
+            const gender = urlParams.get('gender');
+            if (gender) {
+                gender.split(',').forEach(g => {
+                    const cb = document.querySelector('#filter-gender input[value="' + g + '"]');
+                    if (cb) { cb.checked = true; hasUrlFilters = true; }
+                });
+            }
+            const color = urlParams.get('color');
+            if (color) {
+                color.split(',').forEach(c => {
+                    const cb = document.querySelector('#filter-color input[value="' + c + '"]');
+                    if (cb) { cb.checked = true; hasUrlFilters = true; }
+                });
+            }
+
+            // İlanları yükle (filtreli veya filtresiz)
+            if (hasUrlFilters) {
+                applyFilters();
+            } else {
+                await loadHorses();
+            }
         });
 
         // Header auth güncelle
