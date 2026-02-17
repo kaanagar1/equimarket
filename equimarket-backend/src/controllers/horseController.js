@@ -128,13 +128,26 @@ exports.updateHorse = async (req, res) => {
         // Sahiplik kontrolü ile ilanı getir
         let horse = await HorseService.getHorseWithOwnershipCheck(req.params.id, req.user);
 
+        // Güvenli alanlar - sadece bunlar güncellenebilir
+        const allowedFields = [
+            'name', 'breed', 'gender', 'color', 'birthDate', 'height', 'weight',
+            'pedigree', 'price', 'priceNegotiable', 'location', 'description',
+            'images', 'videos', 'racingHistory', 'health', 'tags', 'tjkRegistrationNo'
+        ];
+        const updateData = {};
+        allowedFields.forEach(field => {
+            if (req.body[field] !== undefined) {
+                updateData[field] = req.body[field];
+            }
+        });
+
         // Hassas alan değişikliği kontrolü
-        const needsReview = HorseService.hasSensitiveChanges(req.body);
+        const needsReview = HorseService.hasSensitiveChanges(updateData);
         if (needsReview && horse.status === 'active') {
-            req.body.status = 'pending';
+            updateData.status = 'pending';
         }
 
-        horse = await Horse.findByIdAndUpdate(req.params.id, req.body, {
+        horse = await Horse.findByIdAndUpdate(req.params.id, updateData, {
             new: true,
             runValidators: true
         });

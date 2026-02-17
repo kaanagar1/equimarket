@@ -67,10 +67,19 @@ const initSocket = (server) => {
         // Broadcast user online status
         io.emit('user:online', { userId, name: socket.user.name });
 
-        // Join conversation room
-        socket.on('conversation:join', (conversationId) => {
-            socket.join(`conversation:${conversationId}`);
-            console.log(`[Socket] ${socket.user.name} joined conversation: ${conversationId}`);
+        // Join conversation room (with participant check)
+        socket.on('conversation:join', async (conversationId) => {
+            try {
+                const { Conversation } = require('../models/Message');
+                const conv = await Conversation.findById(conversationId);
+                if (conv && conv.participants.some(p => p.toString() === userId)) {
+                    socket.join(`conversation:${conversationId}`);
+                } else {
+                    socket.emit('error', { message: 'Bu konuşmaya erişim yetkiniz yok' });
+                }
+            } catch (error) {
+                socket.emit('error', { message: 'Konuşma doğrulanamadı' });
+            }
         });
 
         // Leave conversation room

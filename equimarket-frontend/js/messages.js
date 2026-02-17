@@ -128,7 +128,7 @@ const MessageService = {
         if (message.type === 'system') {
             return `
                 <div class="message-system">
-                    <span>${message.content}</span>
+                    <span>${escapeHtml(message.content)}</span>
                 </div>
             `;
         }
@@ -136,7 +136,7 @@ const MessageService = {
         return `
             <div class="message ${isOwn ? 'sent' : 'received'}">
                 <div class="message-content">
-                    <p>${message.content}</p>
+                    <p>${escapeHtml(message.content)}</p>
                     <span class="message-time">
                         ${time}
                         ${isOwn && message.isRead ? '<svg class="read-icon" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5M20 12L9 23l-5-5"/></svg>' : ''}
@@ -202,20 +202,20 @@ const MessageService = {
                  data-id="${conversation._id}"
                  onclick="selectConversation('${conversation._id}')">
                 <div class="conv-avatar">
-                    ${otherUser?.avatar ? 
-                        `<img src="${otherUser.avatar}" alt="${otherUser.name}">` :
-                        `<span>${otherUser?.name?.substring(0, 2).toUpperCase() || '??'}</span>`
+                    ${otherUser?.avatar ?
+                        `<img src="${escapeHtml(otherUser.avatar)}" alt="${escapeHtml(otherUser.name)}">` :
+                        `<span>${escapeHtml(otherUser?.name?.substring(0, 2).toUpperCase() || '??')}</span>`
                     }
                     <span class="online-indicator"></span>
                 </div>
                 <div class="conv-info">
                     <div class="conv-header">
-                        <span class="conv-name">${otherUser?.name || 'Bilinmeyen'}</span>
+                        <span class="conv-name">${escapeHtml(otherUser?.name || 'Bilinmeyen')}</span>
                         <span class="conv-time">${time}</span>
                     </div>
-                    <p class="conv-preview">${conversation.lastMessage?.content || 'Henüz mesaj yok'}</p>
+                    <p class="conv-preview">${escapeHtml(conversation.lastMessage?.content || 'Henüz mesaj yok')}</p>
                     ${conversation.horse ? `
-                        <span class="conv-horse">${conversation.horse.name}</span>
+                        <span class="conv-horse">${escapeHtml(conversation.horse.name)}</span>
                     ` : ''}
                 </div>
                 ${unread > 0 ? `<span class="unread-badge">${unread}</span>` : ''}

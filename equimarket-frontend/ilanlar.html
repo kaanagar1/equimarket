@@ -1507,7 +1507,36 @@
 
             // İlanları yükle (filtreli veya filtresiz)
             if (hasUrlFilters) {
-                applyFilters();
+                // URL'den gelen filtreleri doğrudan kullan (form elemanlarına ek olarak)
+                const urlFilters = {};
+                for (const [param] of Object.entries(paramMap)) {
+                    const v = urlParams.get(param);
+                    if (v) urlFilters[param] = v;
+                }
+                if (gender) urlFilters.gender = gender;
+                if (color) urlFilters.color = color;
+
+                // Form değerlerini de oku (set edilmiş olmalı)
+                const formFilters = getFilterValues();
+
+                // URL filtrelerini öncelikli kullan, form filtrelerini fallback olarak
+                const mergedFilters = { ...formFilters, ...urlFilters };
+                currentPage = 1;
+                await loadHorses(mergedFilters);
+
+                // Başlık ve aktif filtreleri güncelle
+                const title = document.getElementById('results-title');
+                if (title) {
+                    if (mergedFilters.search) {
+                        title.textContent = '"' + mergedFilters.search + '" için sonuçlar';
+                    } else if (mergedFilters.breed) {
+                        const breedNames = { ingiliz: 'İngiliz', arap: 'Arap' };
+                        title.textContent = (breedNames[mergedFilters.breed] || mergedFilters.breed) + ' Yarış Atları';
+                    } else {
+                        title.textContent = 'Filtrelenmiş İlanlar';
+                    }
+                }
+                renderActiveFilters(mergedFilters);
             } else {
                 await loadHorses();
             }

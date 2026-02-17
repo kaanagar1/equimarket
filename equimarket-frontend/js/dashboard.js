@@ -3,16 +3,48 @@
  * Satıcı ve Alıcı dashboard'ları için
  */
 
+// Dashboard helper fonksiyonları
+const Helpers = {
+    formatPrice(price) {
+        if (!price && price !== 0) return '';
+        return new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY', minimumFractionDigits: 0 }).format(price);
+    },
+    timeAgo(date) {
+        if (!date) return '';
+        const now = new Date();
+        const d = new Date(date);
+        const diff = Math.floor((now - d) / 1000);
+        if (diff < 60) return 'Az önce';
+        if (diff < 3600) return Math.floor(diff / 60) + ' dk önce';
+        if (diff < 86400) return Math.floor(diff / 3600) + ' saat önce';
+        if (diff < 604800) return Math.floor(diff / 86400) + ' gün önce';
+        return d.toLocaleDateString('tr-TR');
+    },
+    showToast(message, type = 'info') {
+        if (typeof showToast === 'function') { showToast(message, type); return; }
+        const t = document.createElement('div');
+        t.textContent = message;
+        t.style.cssText = 'position:fixed;bottom:24px;right:24px;padding:14px 24px;background:#1a3d2e;color:#fff;border-radius:10px;z-index:9999;font-size:14px;';
+        if (type === 'error') t.style.background = '#dc2626';
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 3000);
+    }
+};
+
 document.addEventListener('DOMContentLoaded', async function() {
-    const { Auth, Horses, Users, Messages, Helpers } = window.EquiMarket;
-    
+    // Servisler doğrudan kullanılıyor
+    const Auth = AuthService;
+    const Horses = HorseService;
+    const Users = UserService;
+    const Messages = MessageService;
+
     // Giriş kontrolü
     if (!Auth.isLoggedIn()) {
         window.location.href = 'login_register.html';
         return;
     }
-    
-    const user = Auth.getCurrentUser();
+
+    const user = api.getUser();
     
     // Kullanıcı bilgilerini güncelle
     updateUserInfo(user);
@@ -206,7 +238,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             container.innerHTML = `
                 <div class="empty-state">
                     <p>Henüz favori ilanınız yok</p>
-                    <a href="search_results.html" class="btn btn-primary">İlanları Keşfet</a>
+                    <a href="ilanlar.html" class="btn btn-primary">İlanları Keşfet</a>
                 </div>
             `;
             return;

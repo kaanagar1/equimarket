@@ -218,7 +218,7 @@ function requireAuth(redirectUrl = 'login_register.html') {
 /**
  * Satıcı sayfası kontrolü
  */
-function requireSeller(redirectUrl = 'dashboard_buyer.html') {
+function requireSeller(redirectUrl = 'dashboard.html') {
     if (!requireAuth()) return false;
     
     const user = api.getUser();
