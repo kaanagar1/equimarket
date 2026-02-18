@@ -1096,12 +1096,7 @@
     <header>
         <div class="header-inner">
             <a href="homepage_v2.html" class="logo">
-                <div class="logo-icon">
-                    <svg viewBox="0 0 24 24">
-                        <path
-                            d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6zM15 5.5a1 1 0 110 2 1 1 0 010-2zM7 15v5M11 13v7" />
-                    </svg>
-                </div>
+                <img src="images/logo.jpg" alt="EquiMarket" class="logo-img">
                 <div class="logo-text">Equi<span>Market</span></div>
             </a>
 
@@ -1507,7 +1502,36 @@
 
             // İlanları yükle (filtreli veya filtresiz)
             if (hasUrlFilters) {
-                applyFilters();
+                // URL'den gelen filtreleri doğrudan kullan (form elemanlarına ek olarak)
+                const urlFilters = {};
+                for (const [param] of Object.entries(paramMap)) {
+                    const v = urlParams.get(param);
+                    if (v) urlFilters[param] = v;
+                }
+                if (gender) urlFilters.gender = gender;
+                if (color) urlFilters.color = color;
+
+                // Form değerlerini de oku (set edilmiş olmalı)
+                const formFilters = getFilterValues();
+
+                // URL filtrelerini öncelikli kullan, form filtrelerini fallback olarak
+                const mergedFilters = { ...formFilters, ...urlFilters };
+                currentPage = 1;
+                await loadHorses(mergedFilters);
+
+                // Başlık ve aktif filtreleri güncelle
+                const title = document.getElementById('results-title');
+                if (title) {
+                    if (mergedFilters.search) {
+                        title.textContent = '"' + mergedFilters.search + '" için sonuçlar';
+                    } else if (mergedFilters.breed) {
+                        const breedNames = { ingiliz: 'İngiliz', arap: 'Arap' };
+                        title.textContent = (breedNames[mergedFilters.breed] || mergedFilters.breed) + ' Yarış Atları';
+                    } else {
+                        title.textContent = 'Filtrelenmiş İlanlar';
+                    }
+                }
+                renderActiveFilters(mergedFilters);
             } else {
                 await loadHorses();
             }
@@ -2250,6 +2274,15 @@
                 transform: translateX(0);
                 opacity: 1;
             }
+        }
+    
+        .logo-img {
+            height: 48px;
+            width: auto;
+            border-radius: 10px;
+            object-fit: contain;
+            background: #faf8f3;
+            padding: 4px;
         }
     </style>
     <!-- PWA Support -->

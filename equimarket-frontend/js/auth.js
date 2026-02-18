@@ -119,16 +119,15 @@ function updateAuthUI() {
 
     if (user) {
         // Giriş yapılmış - kullanıcı menüsü göster
-        const isSeller = user.role === 'seller' || user.role === 'admin';
-        const dashboardUrl = isSeller ? 'dashboard_seller.html' : 'dashboard_buyer.html';
+        const dashboardUrl = 'dashboard.html';
         
         authButtons.innerHTML = `
             <a href="${dashboardUrl}" class="btn btn-ghost">
                 <span style="display:flex;align-items:center;gap:8px;">
                     <span style="width:32px;height:32px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:var(--charcoal);">
-                        ${user.name.substring(0, 2).toUpperCase()}
+                        ${escapeHtml(user.name.substring(0, 2).toUpperCase())}
                     </span>
-                    ${user.name.split(' ')[0]}
+                    ${escapeHtml(user.name.split(' ')[0])}
                 </span>
             </a>
             <a href="#" onclick="AuthService.logout(); return false;" class="btn btn-outline" style="padding:12px 16px;">

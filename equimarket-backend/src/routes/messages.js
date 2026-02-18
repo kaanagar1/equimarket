@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { protect } = require('../middlewares/auth');
+const { messageLimiter } = require('../middlewares/rateLimit');
 
 const {
     getConversations,
@@ -15,7 +16,7 @@ router.use(protect);
 
 router.get('/conversations', getConversations);
 router.get('/conversations/:conversationId', getMessages);
-router.post('/send', sendMessage);
+router.post('/send', messageLimiter, sendMessage);
 router.put('/:messageId/offer-response', respondToOffer);
 router.get('/unread-count', getUnreadCount);
 

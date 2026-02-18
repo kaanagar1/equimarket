@@ -179,7 +179,7 @@ const HorseService = {
         return `
             <a href="${horseId ? `horse_detail.html#id=${horseId}` : '#'}" class="horse-card">
                 <div class="horse-image">
-                    ${mainImage ? `<img src="${mainImage}" alt="${horse.name}">` : `
+                    ${mainImage ? `<img src="${escapeHtml(mainImage)}" alt="${escapeHtml(horse.name)}">` : `
                         <div style="width:100%;height:100%;background:#e8e6e1;display:flex;align-items:center;justify-content:center;">
                             <svg width="48" height="48" fill="rgba(0,0,0,0.1)" viewBox="0 0 24 24">
                                 <path d="M20.5 6c-.2-1.5-1-2.5-2-3-.5-1.3-1.5-2-3-2-1 0-2 .5-2.5 1.3L11.5 4 9 3 5 5 3 8v5l2.5 2.5H9l4-2.5 3 1c2.2 0 3.5-1.5 3.5-4V6z"/>
@@ -195,8 +195,8 @@ const HorseService = {
                     ` : ''}
                 </div>
                 <div class="horse-info">
-                    <h3>${horse.name}</h3>
-                    <p class="horse-breed">${this.getBreedName(horse.breed)}</p>
+                    <h3>${escapeHtml(horse.name)}</h3>
+                    <p class="horse-breed">${escapeHtml(this.getBreedName(horse.breed))}</p>
                     <p class="horse-price">${this.formatPrice(horse.price)}</p>
                     <div class="horse-meta">
                         <span>${horse.age || this.calculateAge(horse.birthDate)} Yaş</span>
@@ -204,11 +204,11 @@ const HorseService = {
                         <span>${this.getColorName(horse.color)}</span>
                     </div>
                     <div class="horse-footer">
-                        <span class="location">${horse.location?.city || ''}</span>
+                        <span class="location">${escapeHtml(horse.location?.city || '')}</span>
                         ${horse.seller ? `
                             <span class="seller">
-                                <span class="seller-avatar">${horse.seller.name?.substring(0, 2).toUpperCase()}</span>
-                                ${horse.seller.name?.split(' ')[0]}
+                                <span class="seller-avatar">${escapeHtml(horse.seller.name?.substring(0, 2).toUpperCase())}</span>
+                                ${escapeHtml(horse.seller.name?.split(' ')[0])}
                             </span>
                         ` : ''}
                     </div>
@@ -252,7 +252,7 @@ function showToast(message, type = 'success') {
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
     toast.innerHTML = `
-        <span>${message}</span>
+        <span>${escapeHtml(message)}</span>
     `;
     toast.style.cssText = `
         position: fixed;

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { body } = require('express-validator');
 const { protect, isSeller } = require('../middlewares/auth');
+const { createListingLimiter } = require('../middlewares/rateLimit');
 
 const {
     getHorses,
@@ -15,7 +16,18 @@ const {
     markAsSold
 } = require('../controllers/horseController');
 
-// Validation kuralları
+// Güncelleme validasyon kuralları (opsiyonel alanlar)
+const horseUpdateValidation = [
+    body('name').optional().trim().isLength({ max: 100 }).withMessage('At adı 100 karakterden uzun olamaz'),
+    body('breed').optional().isIn(['ingiliz', 'arap', 'turk', 'diger']).withMessage('Geçersiz ırk'),
+    body('gender').optional().isIn(['erkek', 'disi', 'igdis']).withMessage('Geçersiz cinsiyet'),
+    body('color').optional().isIn(['doru', 'kir', 'yagiz', 'al', 'diger']).withMessage('Geçersiz renk'),
+    body('birthDate').optional().isISO8601().withMessage('Geçerli bir tarih girin'),
+    body('price').optional().isNumeric().withMessage('Fiyat sayısal olmalıdır'),
+    body('description').optional().trim().isLength({ min: 50, max: 5000 }).withMessage('Açıklama 50-5000 karakter arası olmalıdır')
+];
+
+// Oluşturma validasyon kuralları
 const horseValidation = [
     body('name')
         .trim()
@@ -57,8 +69,8 @@ router.get('/user/my-listings', getMyListings);
 router.post('/:id/favorite', toggleFavorite);
 
 // User routes (herkes ilan verebilir)
-router.post('/', horseValidation, createHorse);
-router.put('/:id', updateHorse);
+router.post('/', createListingLimiter, horseValidation, createHorse);
+router.put('/:id', horseUpdateValidation, updateHorse);
 router.delete('/:id', deleteHorse);
 router.put('/:id/renew', renewListing);
 router.put('/:id/mark-sold', markAsSold);
