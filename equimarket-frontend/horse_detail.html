@@ -213,33 +213,68 @@
             stroke-width: 2;
         }
 
-        /* Breadcrumb */
+        /* Breadcrumb Banner */
+        .breadcrumb-banner {
+            background: linear-gradient(135deg, var(--racing-green) 0%, var(--racing-green-light) 100%);
+            margin-top: 80px;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .breadcrumb-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(201,165,92,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
         .breadcrumb {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 100px 40px 20px;
+            padding: 20px 40px;
             font-size: 14px;
-            color: var(--warm-gray);
+            color: rgba(255,255,255,0.6);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            position: relative;
+        }
+
+        .breadcrumb .bc-home-icon {
+            width: 16px;
+            height: 16px;
+            stroke: var(--gold);
+            fill: none;
+            flex-shrink: 0;
         }
 
         .breadcrumb a {
-            color: var(--racing-green);
+            color: rgba(255,255,255,0.8);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
 
         .breadcrumb a:hover {
             color: var(--gold);
         }
 
-        .breadcrumb svg {
+        .breadcrumb svg.bc-chevron {
             width: 14px;
             height: 14px;
-            stroke: var(--warm-gray);
+            stroke: rgba(255,255,255,0.4);
             fill: none;
+            flex-shrink: 0;
+        }
+
+        .breadcrumb span {
+            color: var(--gold);
+            font-weight: 600;
         }
 
         /* Main Layout */
@@ -281,6 +316,21 @@
             border-radius: 20px;
             padding: 32px;
             box-shadow: var(--shadow-soft);
+            border-top: 4px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .horse-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(201,165,92,0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
         }
 
         .horse-title-row {
@@ -387,13 +437,17 @@
         .info-icon {
             width: 44px;
             height: 44px;
-            background: var(--light-gray);
+            min-width: 44px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--racing-green);
         }
+
+        .info-icon.icon-age { background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #2563eb; }
+        .info-icon.icon-gender { background: linear-gradient(135deg, #fce7f3, #fbcfe8); color: #db2777; }
+        .info-icon.icon-color { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #d97706; }
+        .info-icon.icon-location { background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #059669; }
 
         .info-icon svg {
             width: 20px;
@@ -563,16 +617,48 @@
             padding: 32px;
             box-shadow: var(--shadow-soft);
             overflow: hidden;
+            border-left: 4px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .content-section:hover {
+            border-left-color: var(--gold);
         }
 
         .section-title {
-            font-size: 24px;
+            font-size: 22px;
             color: var(--charcoal);
             margin-bottom: 24px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--light-gray);
         }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .section-icon.icon-pedigree { background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #2563eb; }
+        .section-icon.icon-racing { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #d97706; }
+        .section-icon.icon-health { background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #059669; }
+        .section-icon.icon-detail { background: linear-gradient(135deg, #ede9fe, #ddd6fe); color: #7c3aed; }
+        .section-icon.icon-desc { background: linear-gradient(135deg, #fce7f3, #fbcfe8); color: #db2777; }
 
         .section-title svg {
             width: 28px;
@@ -679,6 +765,71 @@
         }
 
         /* Racing History */
+        .racing-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+        }
+
+        .racing-stat-card {
+            border-radius: 14px;
+            padding: 24px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .racing-stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .racing-stat-card:nth-child(1) { background: linear-gradient(135deg, #ecfdf5, #d1fae5); }
+        .racing-stat-card:nth-child(2) { background: linear-gradient(135deg, #fffbeb, #fef3c7); }
+        .racing-stat-card:nth-child(3) { background: linear-gradient(135deg, #eff6ff, #dbeafe); }
+        .racing-stat-card:nth-child(4) { background: linear-gradient(135deg, #fdf2f8, #fce7f3); }
+
+        .racing-stat-card .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .racing-stat-card:nth-child(1) .stat-value { color: var(--racing-green); }
+        .racing-stat-card:nth-child(2) .stat-value { color: #d97706; }
+        .racing-stat-card:nth-child(3) .stat-value { color: #2563eb; }
+        .racing-stat-card:nth-child(4) .stat-value { color: #db2777; }
+
+        .racing-stat-card .stat-label {
+            font-size: 13px;
+            color: var(--warm-gray);
+            margin-top: 8px;
+        }
+
+        .racing-details {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .racing-detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .racing-detail-item .rd-label {
+            color: var(--warm-gray);
+            font-size: 14px;
+        }
+
+        .racing-detail-item .rd-value {
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
         .race-table-wrapper {
             overflow-x: auto;
         }
@@ -762,17 +913,93 @@
             padding: 16px 20px;
             background: var(--light-gray);
             border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .attribute-item:hover {
+            background: #eee;
+            transform: translateX(4px);
         }
 
         .attribute-label {
             color: var(--warm-gray);
             font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .attribute-label .attr-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+            flex-shrink: 0;
         }
 
         .attribute-value {
             font-weight: 600;
             color: var(--charcoal);
         }
+
+        /* Health Section */
+        .health-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .health-card {
+            background: var(--light-gray);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .health-card:hover {
+            background: #eee;
+            transform: translateY(-2px);
+        }
+
+        .health-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .health-card-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .health-card-icon.vacc { background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #059669; }
+        .health-card-icon.vet { background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #2563eb; }
+        .health-card-icon.note { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #d97706; }
+
+        .health-card-label {
+            font-size: 12px;
+            color: var(--warm-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .health-card-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .health-card-value.status-good { color: #059669; }
+        .health-card-value.status-bad { color: #dc2626; }
 
         /* Description */
         .description-text {
@@ -803,11 +1030,24 @@
 
         /* Price Card */
         .price-card {
-            background: var(--white);
+            background: linear-gradient(135deg, var(--white) 0%, #fdf8ef 100%);
             border-radius: 20px;
             padding: 32px;
-            box-shadow: var(--shadow-medium);
+            box-shadow: 0 8px 32px rgba(201,165,92,0.15);
             border: 2px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-card::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(201,165,92,0.1) 0%, transparent 70%);
+            border-radius: 50%;
         }
 
         .price-label {
@@ -1319,17 +1559,23 @@
         </div>
     </header>
 
-    <!-- Breadcrumb -->
-    <div class="breadcrumb">
-        <a href="homepage_v2.html">Ana Sayfa</a>
-        <svg viewBox="0 0 24 24">
-            <path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-        <a href="ilanlar.html">İlanlar</a>
-        <svg viewBox="0 0 24 24">
-            <path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-        <span id="breadcrumbHorseName">Yükleniyor...</span>
+    <!-- Breadcrumb Banner -->
+    <div class="breadcrumb-banner">
+        <div class="breadcrumb">
+            <svg class="bc-home-icon" viewBox="0 0 24 24">
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="9 22 9 12 15 12 15 22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <a href="homepage_v2.html">Ana Sayfa</a>
+            <svg class="bc-chevron" viewBox="0 0 24 24">
+                <path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <a href="ilanlar.html">İlanlar</a>
+            <svg class="bc-chevron" viewBox="0 0 24 24">
+                <path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span id="breadcrumbHorseName">Yükleniyor...</span>
+        </div>
     </div>
 
     <!-- Main Content -->
@@ -1372,24 +1618,36 @@
                     </div>
                     <div class="quick-info">
                         <div class="info-item">
+                            <div class="info-icon icon-age">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            </div>
                             <div class="info-text">
                                 <span class="info-label">Yaş</span>
                                 <span class="info-value">---</span>
                             </div>
                         </div>
                         <div class="info-item">
+                            <div class="info-icon icon-gender">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/></svg>
+                            </div>
                             <div class="info-text">
                                 <span class="info-label">Cinsiyet</span>
                                 <span class="info-value">---</span>
                             </div>
                         </div>
                         <div class="info-item">
+                            <div class="info-icon icon-color">
+                                <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
+                            </div>
                             <div class="info-text">
                                 <span class="info-label">Renk</span>
                                 <span class="info-value">---</span>
                             </div>
                         </div>
                         <div class="info-item">
+                            <div class="info-icon icon-location">
+                                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </div>
                             <div class="info-text">
                                 <span class="info-label">Konum</span>
                                 <span class="info-value">---</span>
@@ -1468,23 +1726,51 @@
 
                 <!-- Pedigree Section -->
                 <div class="content-section" id="pedigreeSection" style="display:none;">
-                    <h2 class="section-title">Soy Ağacı</h2>
+                    <h2 class="section-title">
+                        <div class="section-icon icon-pedigree">
+                            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                        </div>
+                        Soy Ağacı
+                    </h2>
                     <div class="pedigree-tree" id="pedigreeTree">
                         <!-- Soy ağacı verisi API'den yüklenecek -->
                     </div>
                 </div>
 
-                <!-- Racing History - Yarış geçmişi varsa gösterilecek -->
+                <!-- Racing History -->
                 <div class="content-section" id="racingHistorySection" style="display:none;">
-                    <h2 class="section-title">Yarış Geçmişi</h2>
+                    <h2 class="section-title">
+                        <div class="section-icon icon-racing">
+                            <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                        </div>
+                        Yarış Geçmişi
+                    </h2>
                     <div class="race-table-wrapper" id="raceTableWrapper">
                         <!-- Yarış geçmişi API'den yüklenecek -->
                     </div>
                 </div>
 
+                <!-- Health Section -->
+                <div class="content-section" id="healthSection" style="display:none;">
+                    <h2 class="section-title">
+                        <div class="section-icon icon-health">
+                            <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        </div>
+                        Sağlık & Veteriner
+                    </h2>
+                    <div class="health-grid" id="healthGrid">
+                        <!-- JS tarafından dinamik doldurulacak -->
+                    </div>
+                </div>
+
                 <!-- Detailed Attributes -->
                 <div class="content-section" id="attributesSection">
-                    <h2 class="section-title">Detaylı Bilgiler</h2>
+                    <h2 class="section-title">
+                        <div class="section-icon icon-detail">
+                            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        </div>
+                        Detaylı Bilgiler
+                    </h2>
                     <div class="attributes-grid" id="attributesGrid">
                         <!-- JS tarafından dinamik doldurulacak -->
                     </div>
@@ -1492,7 +1778,12 @@
 
                 <!-- Description -->
                 <div class="content-section" id="descriptionSection">
-                    <h2 class="section-title">Satıcı Açıklaması</h2>
+                    <h2 class="section-title">
+                        <div class="section-icon icon-desc">
+                            <svg viewBox="0 0 24 24"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
+                        </div>
+                        Satıcı Açıklaması
+                    </h2>
                     <div class="description-text" id="horseDescription">
                         <p style="color: var(--warm-gray);">Açıklama yükleniyor...</p>
                     </div>
@@ -1968,6 +2259,9 @@
             // Detaylı bilgiler
             updateDetailedInfo(horse);
 
+            // Sağlık bilgileri
+            updateHealthInfo(horse.health);
+
             // Soy ağacı (Pedigree)
             updatePedigree(horse.pedigree);
 
@@ -2110,10 +2404,62 @@
 
             grid.innerHTML = attrs.map(a => `
                 <div class="attribute-item">
-                    <span class="attribute-label">${a.label}</span>
+                    <span class="attribute-label"><span class="attr-dot"></span>${a.label}</span>
                     <span class="attribute-value">${a.value}</span>
                 </div>
             `).join('');
+        }
+
+        // Sağlık bilgilerini güncelle
+        function updateHealthInfo(health) {
+            const section = document.getElementById('healthSection');
+            const grid = document.getElementById('healthGrid');
+            if (!section || !grid) return;
+
+            if (!health || (!health.vaccinated && health.vaccinated !== false && !health.lastVetCheck && !health.healthNotes)) {
+                section.style.display = 'none';
+                return;
+            }
+
+            section.style.display = 'block';
+            const lastVet = health.lastVetCheck ? new Date(health.lastVetCheck).toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' }) : null;
+
+            let cards = '';
+
+            if (health.vaccinated === true || health.vaccinated === false) {
+                cards += `
+                    <div class="health-card">
+                        <div class="health-card-icon vacc">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
+                        <div class="health-card-label">Aşı Durumu</div>
+                        <div class="health-card-value ${health.vaccinated ? 'status-good' : 'status-bad'}">${health.vaccinated ? 'Aşıları Tam' : 'Aşısız'}</div>
+                    </div>`;
+            }
+
+            if (lastVet) {
+                cards += `
+                    <div class="health-card">
+                        <div class="health-card-icon vet">
+                            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        </div>
+                        <div class="health-card-label">Son Veteriner Kontrolü</div>
+                        <div class="health-card-value">${lastVet}</div>
+                    </div>`;
+            }
+
+            if (health.healthNotes) {
+                cards += `
+                    <div class="health-card">
+                        <div class="health-card-icon note">
+                            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                        </div>
+                        <div class="health-card-label">Sağlık Notu</div>
+                        <div class="health-card-value">${health.healthNotes}</div>
+                    </div>`;
+            }
+
+            grid.innerHTML = cards;
         }
 
         // Soy ağacını güncelle (1 → 2 → 4 simetrik yapı)
@@ -2199,38 +2545,38 @@
             const winRate = racing.totalRaces > 0 ? Math.round((racing.wins / racing.totalRaces) * 100) : 0;
 
             wrapper.innerHTML = `
-                <div class="racing-stats-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;">
-                    <div class="racing-stat-card" style="background:var(--light-gray);border-radius:12px;padding:20px;text-align:center;">
-                        <div class="stat-value" style="font-size:28px;font-weight:700;color:var(--racing-green);">${racing.totalRaces || 0}</div>
-                        <div class="stat-label" style="font-size:13px;color:var(--warm-gray);margin-top:4px;">Toplam Yarış</div>
+                <div class="racing-stats-grid">
+                    <div class="racing-stat-card">
+                        <div class="stat-value">${racing.totalRaces || 0}</div>
+                        <div class="stat-label">Toplam Yarış</div>
                     </div>
-                    <div class="racing-stat-card" style="background:var(--light-gray);border-radius:12px;padding:20px;text-align:center;">
-                        <div class="stat-value" style="font-size:28px;font-weight:700;color:var(--gold);">${racing.wins || 0}</div>
-                        <div class="stat-label" style="font-size:13px;color:var(--warm-gray);margin-top:4px;">Birincilik</div>
+                    <div class="racing-stat-card">
+                        <div class="stat-value">${racing.wins || 0}</div>
+                        <div class="stat-label">Birincilik</div>
                     </div>
-                    <div class="racing-stat-card" style="background:var(--light-gray);border-radius:12px;padding:20px;text-align:center;">
-                        <div class="stat-value" style="font-size:28px;font-weight:700;color:var(--info);">${racing.places || 0}</div>
-                        <div class="stat-label" style="font-size:13px;color:var(--warm-gray);margin-top:4px;">2. ve 3.lük</div>
+                    <div class="racing-stat-card">
+                        <div class="stat-value">${racing.places || 0}</div>
+                        <div class="stat-label">2. ve 3.lük</div>
                     </div>
-                    <div class="racing-stat-card" style="background:var(--light-gray);border-radius:12px;padding:20px;text-align:center;">
-                        <div class="stat-value" style="font-size:28px;font-weight:700;color:var(--success);">%${winRate}</div>
-                        <div class="stat-label" style="font-size:13px;color:var(--warm-gray);margin-top:4px;">Kazanma Oranı</div>
+                    <div class="racing-stat-card">
+                        <div class="stat-value">%${winRate}</div>
+                        <div class="stat-label">Kazanma Oranı</div>
                     </div>
                 </div>
 
-                <div class="racing-details" style="margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
-                    <div class="detail-item" style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--light-gray);">
-                        <span style="color:var(--warm-gray);font-size:14px;">Toplam Kazanç</span>
-                        <span style="font-weight:600;color:var(--charcoal);">₺${earnings}</span>
+                <div class="racing-details">
+                    <div class="racing-detail-item">
+                        <span class="rd-label">Toplam Kazanç</span>
+                        <span class="rd-value">₺${earnings}</span>
                     </div>
-                    <div class="detail-item" style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--light-gray);">
-                        <span style="color:var(--warm-gray);font-size:14px;">Son Yarış</span>
-                        <span style="font-weight:600;color:var(--charcoal);">${lastRace}</span>
+                    <div class="racing-detail-item">
+                        <span class="rd-label">Son Yarış</span>
+                        <span class="rd-value">${lastRace}</span>
                     </div>
                     ${racing.bestTime ? `
-                    <div class="detail-item" style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--light-gray);">
-                        <span style="color:var(--warm-gray);font-size:14px;">En İyi Derece</span>
-                        <span style="font-weight:600;color:var(--charcoal);">${racing.bestTime}</span>
+                    <div class="racing-detail-item">
+                        <span class="rd-label">En İyi Derece</span>
+                        <span class="rd-value">${racing.bestTime}</span>
                     </div>
                     ` : ''}
                 </div>

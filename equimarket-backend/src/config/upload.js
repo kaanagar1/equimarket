@@ -15,18 +15,22 @@ uploadDirs.forEach(dir => {
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // Yükleme türüne göre klasör belirle
-        let uploadPath = 'public/uploads';
-        
+        let folder = 'uploads';
+
         if (req.baseUrl.includes('/horses') || req.path.includes('horse')) {
-            uploadPath = 'public/uploads/horses';
+            folder = 'uploads/horses';
         } else if (req.path.includes('avatar')) {
-            uploadPath = 'public/uploads/avatars';
+            folder = 'uploads/avatars';
         } else if (req.path.includes('cover')) {
-            uploadPath = 'public/uploads/covers';
+            folder = 'uploads/covers';
         } else if (req.baseUrl.includes('/blog')) {
-            uploadPath = 'public/uploads/blog';
+            folder = 'uploads/blog';
         }
-        
+
+        const uploadPath = path.join(__dirname, '../../public', folder);
+        if (!fs.existsSync(uploadPath)) {
+            fs.mkdirSync(uploadPath, { recursive: true });
+        }
         cb(null, uploadPath);
     },
     filename: function (req, file, cb) {
