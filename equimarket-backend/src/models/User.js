@@ -119,6 +119,14 @@ const UserSchema = new mongoose.Schema({
         sms: { type: Boolean, default: true }
     },
 
+    // Email Doğrulama
+    isEmailVerified: {
+        type: Boolean,
+        default: false
+    },
+    emailVerificationToken: String,
+    emailVerificationExpire: Date,
+
     // Şifre Sıfırlama
     resetPasswordToken: String,
     resetPasswordExpire: Date,

@@ -38,8 +38,24 @@ exports.register = async (req, res) => {
             sellerInfo: { memberSince: new Date() } // Tüm kullanıcılar için sellerInfo başlat
         });
 
+        // Email doğrulama token'ı oluştur
+        const verificationToken = crypto.randomBytes(32).toString('hex');
+        user.emailVerificationToken = crypto
+            .createHash('sha256')
+            .update(verificationToken)
+            .digest('hex');
+        user.emailVerificationExpire = Date.now() + 24 * 60 * 60 * 1000; // 24 saat
+        await user.save({ validateBeforeSave: false });
+
+        // Doğrulama emaili gönder
+        const verifyUrl = `${process.env.CLIENT_URL || 'http://localhost:3000'}/verification.html?token=${verificationToken}`;
+        await sendTemplateEmail(user.email, 'emailVerification', {
+            verifyUrl,
+            userName: user.name
+        });
+
         // Token oluştur ve gönder
-        sendTokenResponse(user, 201, res, 'Kayıt başarılı');
+        sendTokenResponse(user, 201, res, 'Kayıt başarılı. Lütfen e-posta adresinizi doğrulayın.');
 
     } catch (error) {
         console.error('Register Error:', error);
@@ -140,6 +156,92 @@ exports.logout = async (req, res) => {
         message: 'Çıkış başarılı',
         data: {}
     });
+};
+
+// @desc    Email doğrula
+// @route   GET /api/auth/verify-email/:token
+// @access  Public
+exports.verifyEmail = async (req, res) => {
+    try {
+        const { token } = req.params;
+
+        const emailVerificationToken = crypto
+            .createHash('sha256')
+            .update(token)
+            .digest('hex');
+
+        const user = await User.findOne({
+            emailVerificationToken,
+            emailVerificationExpire: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                message: 'Geçersiz veya süresi dolmuş doğrulama linki'
+            });
+        }
+
+        user.isEmailVerified = true;
+        user.emailVerificationToken = undefined;
+        user.emailVerificationExpire = undefined;
+        await user.save({ validateBeforeSave: false });
+
+        // Hoş geldin emaili gönder
+        await sendTemplateEmail(user.email, 'welcome', { userName: user.name });
+
+        res.status(200).json({
+            success: true,
+            message: 'E-posta adresiniz başarıyla doğrulandı'
+        });
+    } catch (error) {
+        console.error('VerifyEmail Error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Sunucu hatası'
+        });
+    }
+};
+
+// @desc    Doğrulama emailini tekrar gönder
+// @route   POST /api/auth/resend-verification
+// @access  Private
+exports.resendVerification = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+
+        if (user.isEmailVerified) {
+            return res.status(400).json({
+                success: false,
+                message: 'E-posta zaten doğrulanmış'
+            });
+        }
+
+        const verificationToken = crypto.randomBytes(32).toString('hex');
+        user.emailVerificationToken = crypto
+            .createHash('sha256')
+            .update(verificationToken)
+            .digest('hex');
+        user.emailVerificationExpire = Date.now() + 24 * 60 * 60 * 1000;
+        await user.save({ validateBeforeSave: false });
+
+        const verifyUrl = `${process.env.CLIENT_URL || 'http://localhost:3000'}/verification.html?token=${verificationToken}`;
+        await sendTemplateEmail(user.email, 'emailVerification', {
+            verifyUrl,
+            userName: user.name
+        });
+
+        res.status(200).json({
+            success: true,
+            message: 'Doğrulama emaili tekrar gönderildi'
+        });
+    } catch (error) {
+        console.error('ResendVerification Error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Sunucu hatası'
+        });
+    }
 };
 
 // @desc    Şifre güncelle

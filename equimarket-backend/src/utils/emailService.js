@@ -77,6 +77,32 @@ const emailTemplates = {
         `
     }),
 
+    // Email doğrulama
+    emailVerification: (verifyUrl, userName) => ({
+        subject: 'EquiMarket - E-posta Doğrulama',
+        text: `Merhaba ${userName},\n\nE-posta adresinizi doğrulamak için aşağıdaki linke tıklayın:\n${verifyUrl}\n\nBu link 24 saat geçerlidir.\n\nEquiMarket Ekibi`,
+        html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                <div style="background: #1a3d2e; padding: 20px; text-align: center;">
+                    <h1 style="color: #c9a55c; margin: 0;">EquiMarket</h1>
+                </div>
+                <div style="padding: 30px; background: #faf8f3;">
+                    <h2 style="color: #2a2a2a;">E-posta Doğrulama</h2>
+                    <p>Merhaba ${userName},</p>
+                    <p>EquiMarket hesabınızı aktifleştirmek için e-posta adresinizi doğrulamanız gerekmektedir.</p>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="${verifyUrl}" style="background: #c9a55c; color: #1a3d2e; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">E-postamı Doğrula</a>
+                    </div>
+                    <p style="color: #6b6b6b; font-size: 14px;">Bu link 24 saat geçerlidir.</p>
+                    <p style="color: #6b6b6b; font-size: 14px;">Eğer bu hesabı siz oluşturmadıysanız, bu emaili görmezden gelebilirsiniz.</p>
+                </div>
+                <div style="background: #2a2a2a; padding: 15px; text-align: center;">
+                    <p style="color: #6b6b6b; margin: 0; font-size: 12px;">&copy; ${new Date().getFullYear()} EquiMarket. Tüm hakları saklıdır.</p>
+                </div>
+            </div>
+        `
+    }),
+
     // Hoş geldin emaili
     welcome: (userName) => ({
         subject: 'EquiMarket\'e Hoş Geldiniz!',

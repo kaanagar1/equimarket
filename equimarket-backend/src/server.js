@@ -9,6 +9,7 @@ const connectDB = require('./config/db');
 const { generalLimiter } = require('./middlewares/rateLimit');
 const { initScheduledJobs } = require('./jobs/scheduledJobs');
 const { initSocket } = require('./config/socket');
+const { logger, requestLogger } = require('./config/logger');
 
 // Express app
 const app = express();
@@ -30,6 +31,9 @@ app.use(cors({
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
+
+// Request logging
+app.use(requestLogger);
 
 // Genel rate limiting (tüm API'ler için)
 app.use('/api', generalLimiter);
@@ -133,7 +137,11 @@ app.use((req, res) => {
 
 // Error Handler
 app.use((err, req, res, next) => {
-    console.error('Server Error:', err);
+    logger.error(`${err.message}`, {
+        stack: err.stack,
+        url: req.originalUrl,
+        method: req.method
+    });
     res.status(500).json({
         success: false,
         message: 'Sunucu hatası',
@@ -149,18 +157,7 @@ const server = http.createServer(app);
 initSocket(server);
 
 server.listen(PORT, () => {
-    console.log(`
-╔════════════════════════════════════════════╗
-║                                            ║
-║   🐎 EquiMarket API Server                 ║
-║                                            ║
-║   Port: ${PORT}                              ║
-║   Mode: ${process.env.NODE_ENV || 'development'}                     ║
-║   URL:  http://localhost:${PORT}              ║
-║   Socket.io: Enabled                       ║
-║                                            ║
-╚════════════════════════════════════════════╝
-    `);
+    logger.info(`EquiMarket API Server started on port ${PORT} [${process.env.NODE_ENV || 'development'}]`);
 });
 
 module.exports = { app, server };
