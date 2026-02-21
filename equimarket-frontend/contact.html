@@ -1028,6 +1028,7 @@
     </footer>
 
     <!-- API Scripts -->
+    <script src="js/captcha.js"></script>
     <script src="js/api.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -1057,9 +1058,27 @@
                 }
             }
 
+            // CAPTCHA entegrasyonu
+            let _contactProtection = null;
+            if (window.EquiMarketCaptcha) {
+                const cForm = document.getElementById('contactForm');
+                if (cForm) _contactProtection = EquiMarketCaptcha.protectForm(cForm, { captcha: true });
+            }
+
             // Contact form submit
             document.getElementById('contactForm').addEventListener('submit', async function (e) {
                 e.preventDefault();
+
+                // CAPTCHA doğrulama
+                if (_contactProtection) {
+                    const check = _contactProtection.validate();
+                    if (!check.valid) {
+                        if (check.errors.includes('captcha_invalid')) showToast('Lütfen doğrulama sorusunu doğru cevaplayın', 'error');
+                        else if (check.errors.includes('too_fast')) showToast('Lütfen formu dikkatlice doldurun', 'error');
+                        else showToast('Doğrulama başarısız', 'error');
+                        return;
+                    }
+                }
 
                 const submitBtn = document.getElementById('submitBtn');
                 const originalHTML = submitBtn.innerHTML;

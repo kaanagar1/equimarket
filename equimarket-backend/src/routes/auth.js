@@ -12,7 +12,9 @@ const {
     logout,
     updatePassword,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    verifyEmail,
+    resendVerification
 } = require('../controllers/authController');
 
 // Validation kuralları
@@ -53,6 +55,10 @@ router.post('/login', authLimiter, botProtection(), loginValidation, login);
 router.get('/me', protect, getMe);
 router.post('/logout', protect, logout);
 router.put('/password', protect, updatePassword);
+
+// Email doğrulama
+router.get('/verify-email/:token', verifyEmail);
+router.post('/resend-verification', protect, resendVerification);
 
 // Şifre sıfırlama (Public - rate limiting ile)
 router.post('/forgot-password', passwordResetLimiter, forgotPassword);

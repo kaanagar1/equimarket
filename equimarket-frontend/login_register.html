@@ -1137,6 +1137,22 @@
         // Register Form Submit
         document.getElementById('register-form').addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            // CAPTCHA doğrulama
+            if (window._registerProtection) {
+                const check = window._registerProtection.validate();
+                if (!check.valid) {
+                    if (check.errors.includes('captcha_invalid')) {
+                        showToast('Lütfen doğrulama sorusunu doğru cevaplayın', 'error');
+                    } else if (check.errors.includes('too_fast')) {
+                        showToast('Lütfen formu dikkatlice doldurun', 'error');
+                    } else {
+                        showToast('Doğrulama başarısız', 'error');
+                    }
+                    return;
+                }
+            }
+
             const btn = e.target.querySelector('button[type="submit"]');
             const originalHTML = btn.innerHTML;
             btn.innerHTML = '<span>Kayıt yapılıyor...</span>';
@@ -1180,5 +1196,16 @@
     <script src="js/cookie-consent.js"></script>
     <!-- Bot Protection -->
     <script src="js/captcha.js"></script>
+    <script>
+        // CAPTCHA'yı kayıt formuna entegre et
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.EquiMarketCaptcha) {
+                const registerForm = document.getElementById('register-form');
+                if (registerForm) {
+                    window._registerProtection = EquiMarketCaptcha.protectForm(registerForm, { captcha: true });
+                }
+            }
+        });
+    </script>
 </body>
 </html>

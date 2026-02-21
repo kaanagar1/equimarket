@@ -308,23 +308,57 @@
 
     <script src="js/api.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Auth UI
             const authButtons = document.querySelector('.header-actions');
-            if (!authButtons) return;
-            const token = localStorage.getItem('equimarket_token');
-            const userData = localStorage.getItem('equimarket_user');
-            if (token && userData) {
-                const user = JSON.parse(userData);
-                const dashboardUrl = user.role === 'seller' ? 'dashboard.html' : 'dashboard.html';
-                const initials = user.name ? user.name.substring(0, 2).toUpperCase() : 'KA';
-                const firstName = user.name ? user.name.split(' ')[0] : 'Kullanıcı';
-                authButtons.innerHTML = `
-                    <a href="${dashboardUrl}" class="btn btn-ghost" style="display:flex;align-items:center;gap:10px;">
-                        <span style="width:36px;height:36px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--charcoal);">${initials}</span>
-                        ${firstName}
-                    </a>
-                    <a href="#" onclick="logout(); return false;" class="btn btn-primary">Çıkış</a>
-                `;
+            if (authButtons) {
+                const token = localStorage.getItem('equimarket_token');
+                const userData = localStorage.getItem('equimarket_user');
+                if (token && userData) {
+                    const user = JSON.parse(userData);
+                    const dashboardUrl = 'dashboard.html';
+                    const initials = user.name ? user.name.substring(0, 2).toUpperCase() : 'KA';
+                    const firstName = user.name ? user.name.split(' ')[0] : 'Kullanıcı';
+                    authButtons.innerHTML = `
+                        <a href="${dashboardUrl}" class="btn btn-ghost" style="display:flex;align-items:center;gap:10px;">
+                            <span style="width:36px;height:36px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--charcoal);">${initials}</span>
+                            ${firstName}
+                        </a>
+                        <a href="#" onclick="logout(); return false;" class="btn btn-primary">Çıkış</a>
+                    `;
+                }
+            }
+
+            // Email doğrulama token kontrolü
+            const urlParams = new URLSearchParams(window.location.search);
+            const verifyToken = urlParams.get('token');
+            if (verifyToken) {
+                const heroBadge = document.querySelector('.hero-badge');
+                const heroTitle = document.querySelector('.hero h1');
+                const heroDesc = document.querySelector('.hero p');
+
+                if (heroBadge) heroBadge.textContent = 'Doğrulanıyor...';
+                if (heroTitle) heroTitle.textContent = 'E-posta Doğrulanıyor';
+                if (heroDesc) heroDesc.textContent = 'Lütfen bekleyin...';
+
+                try {
+                    const response = await fetch(ApiService.BASE_URL + '/auth/verify-email/' + verifyToken);
+                    const data = await response.json();
+
+                    if (data.success) {
+                        if (heroBadge) { heroBadge.textContent = 'Doğrulandı'; heroBadge.style.background = 'var(--success)'; }
+                        if (heroTitle) heroTitle.textContent = 'E-posta Doğrulandı!';
+                        if (heroDesc) heroDesc.innerHTML = 'Hesabınız aktifleştirildi. <a href="login_register.html" style="color:var(--gold);font-weight:600;">Giriş yapın</a> ve alım-satıma başlayın.';
+                    } else {
+                        if (heroBadge) { heroBadge.textContent = 'Hata'; heroBadge.style.background = '#dc2626'; }
+                        if (heroTitle) heroTitle.textContent = 'Doğrulama Başarısız';
+                        if (heroDesc) heroDesc.textContent = data.message || 'Geçersiz veya süresi dolmuş doğrulama linki.';
+                    }
+                } catch (err) {
+                    if (heroBadge) { heroBadge.textContent = 'Hata'; heroBadge.style.background = '#dc2626'; }
+                    if (heroTitle) heroTitle.textContent = 'Bağlantı Hatası';
+                    if (heroDesc) heroDesc.textContent = 'Sunucuya bağlanılamadı. Lütfen tekrar deneyin.';
+                }
             }
         });
         function logout() { localStorage.removeItem('equimarket_token'); localStorage.removeItem('equimarket_user'); window.location.reload(); }
