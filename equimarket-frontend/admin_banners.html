@@ -10,6 +10,7 @@
         *{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;background:var(--charcoal);color:var(--white)}h1,h2,h3{font-family:'Playfair Display',serif}
         .layout{display:flex;min-height:100vh}.sidebar{background:#1a1a1a;width:260px;padding:24px 16px;position:fixed;top:0;bottom:0;left:0;border-right:1px solid rgba(255,255,255,.1)}
         .sidebar-logo{display:flex;align-items:center;gap:12px;margin-bottom:32px;text-decoration:none;color:var(--white);font-size:20px;font-weight:700}
+        .sidebar-logo-img{height:38px;width:auto;object-fit:contain}
         .logo-badge{background:var(--error);font-size:10px;padding:2px 6px;border-radius:4px;margin-left:8px}
         .nav-section-title{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.4);padding:0 12px;margin:16px 0 8px}
         .nav-link{display:flex;align-items:center;gap:12px;padding:12px;color:rgba(255,255,255,.6);text-decoration:none;border-radius:8px;margin-bottom:4px;font-size:14px}
@@ -84,7 +85,10 @@
     </div>
     <div class="layout">
         <aside class="sidebar">
-            <a href="admin.html" class="sidebar-logo">EquiMarket<span class="logo-badge">ADMIN</span></a>
+            <a href="admin.html" class="sidebar-logo">
+                <img src="images/logo-horizontal.png" alt="EquiMarket" class="sidebar-logo-img">
+                <span class="logo-badge">ADMIN</span>
+            </a>
             <div class="nav-section-title">Genel</div>
             <a href="admin.html" class="nav-link"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
             <div class="nav-section-title">Yönetim</div>

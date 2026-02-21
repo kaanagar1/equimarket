@@ -68,6 +68,12 @@
             font-weight: 700
         }
 
+        .sidebar-logo-img {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
+        }
+
         .logo-badge {
             background: var(--error);
             font-size: 10px;
@@ -432,7 +438,10 @@
     </div>
     <div class="layout">
         <aside class="sidebar">
-            <a href="admin.html" class="sidebar-logo">EquiMarket<span class="logo-badge">ADMIN</span></a>
+            <a href="admin.html" class="sidebar-logo">
+                <img src="images/logo-horizontal.png" alt="EquiMarket" class="sidebar-logo-img">
+                <span class="logo-badge">ADMIN</span>
+            </a>
             <div class="nav-section-title">Genel</div>
             <a href="admin.html" class="nav-link"><svg viewBox="0 0 24 24">
                     <rect x="3" y="3" width="7" height="9" />

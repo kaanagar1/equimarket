@@ -11,7 +11,8 @@
         *{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;background:var(--light-gray);color:var(--charcoal)}h1,h2,h3{font-family:'Playfair Display',serif}
         .layout{display:flex;min-height:100vh}.sidebar{background:var(--racing-green);width:260px;padding:24px 16px;position:fixed;top:0;bottom:0;left:0}
         .sidebar-logo{display:flex;align-items:center;gap:12px;margin-bottom:32px;text-decoration:none;color:var(--white);font-size:20px;font-weight:700}
-        .sidebar-logo span{color:var(--gold)}.nav-link{display:flex;align-items:center;gap:12px;padding:12px;color:rgba(255,255,255,.7);text-decoration:none;border-radius:8px;margin-bottom:4px}
+        .sidebar-logo-img{height:38px;width:auto;object-fit:contain}
+        .nav-link{display:flex;align-items:center;gap:12px;padding:12px;color:rgba(255,255,255,.7);text-decoration:none;border-radius:8px;margin-bottom:4px}
         .nav-link:hover,.nav-link.active{background:rgba(255,255,255,.1);color:var(--white)}.nav-link svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
         .nav-badge{margin-left:auto;background:var(--gold);color:var(--charcoal);font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;display:none}
         .nav-link.has-unread>span:first-of-type{font-weight:700}.nav-link.has-unread .nav-badge{display:inline}
@@ -38,7 +39,9 @@
 <body>
     <div class="layout">
         <aside class="sidebar">
-            <a href="homepage_v2.html" class="sidebar-logo">Equi<span>Market</span></a>
+            <a href="homepage_v2.html" class="sidebar-logo">
+                <img src="images/logo-horizontal.png" alt="EquiMarket" class="sidebar-logo-img">
+            </a>
             <nav>
                 <a href="dashboard.html" class="nav-link"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Genel Bakış</a>
                 <a href="ilanlar.html" class="nav-link"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>İlanları Keşfet</a>
